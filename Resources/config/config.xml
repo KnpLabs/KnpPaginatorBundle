@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="doctrine_paginator.paginator.class">Bundle\DoctrinePaginatorBundle\Paginator</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="doctrine_paginator.paginator" class="%doctrine_paginator.paginator.class%" shared="false">
+        </service>
+
+    </services>
+
+</container>
