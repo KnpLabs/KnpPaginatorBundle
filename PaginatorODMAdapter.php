@@ -10,7 +10,7 @@ use Doctrine\ODM\MongoDB\Query;
  *
  * Allows pagination of Doctrine\ODM\MongoDB\Query objects and DQL strings
  */
-class PaginatorAdapter implements Adapter
+class PaginatorODMAdapter implements Adapter
 {
     /**
      * The query to paginate

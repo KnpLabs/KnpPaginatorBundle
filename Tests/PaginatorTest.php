@@ -3,7 +3,8 @@
 namespace Bundle\DoctrinePaginatorBundle\Tests;
 
 use Bundle\DoctrinePaginatorBundle\Entity\Test;
-use Bundle\DoctrinePaginatorBundle\Paginator;
+use Bundle\DoctrinePaginatorBundle\PaginatorODMAdapter;
+use Zend\Paginator\Paginator;
 
 class PaginatorTest extends BaseDatabaseTest
 {
@@ -18,14 +19,14 @@ class PaginatorTest extends BaseDatabaseTest
     public function testCreatePaginator()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $this->assertTrue($paginator instanceof Paginator);
     }
 
     public function testCurrentPageNumber()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $this->assertEquals(1, $paginator->getCurrentPageNumber());
 
         $paginator->setCurrentPageNumber(5);
@@ -35,7 +36,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testCountPages()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $this->assertEquals(5, $paginator->count());
 
         $paginator->setItemCountPerPage(20);
@@ -45,14 +46,14 @@ class PaginatorTest extends BaseDatabaseTest
     public function testCountItems()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $this->assertEquals($this->dataCount, $paginator->getTotalItemCount());
     }
 
     public function testCurrentItems()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $items = $paginator->getCurrentItems();
         $this->assertEquals(10, count($items));
         $this->assertEquals('test 11', reset($items)->title);
@@ -62,7 +63,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testCurrentItemsOnLastPage()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $paginator->setCurrentPageNumber(5);
         $items = $paginator->getCurrentItems();
         $this->assertEquals(5, count($items));
@@ -73,7 +74,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testGetCurrentItemCount()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $this->assertEquals(10, $paginator->getCurrentItemCount());
 
         $paginator->setItemCountPerPage(20);
@@ -83,7 +84,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testGetPages()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $pages = $paginator->getPages();
         $this->assertTrue(is_object($pages));
         $this->assertEquals(1, $pages->first);
@@ -95,7 +96,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testRenderPaginationControlPage1()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $rendered = '<div class="paginationControl">1 - 10 of 45 <span class="disabled">First</span> | <span class="disabled">&lt; Previous</span> | <a href="2">  Next &gt; </a> | <a href="5">  Last </a></div>';
         $this->assertEquals($rendered, $this->renderPaginationControl($paginator));
     }
@@ -103,7 +104,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testRenderPaginationControlPage6()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $paginator->setPageRange(3);
         $paginator->setCurrentPageNumber(6);
         $paginator->setItemCountPerPage(3);
@@ -156,7 +157,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testRealCasePage1()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $paginator->setPageRange(3);
         $paginator->setCurrentPageNumber(1);
         $paginator->setItemCountPerPage(3);
@@ -175,7 +176,7 @@ class PaginatorTest extends BaseDatabaseTest
     public function testRealCasePage3()
     {
         $query = $this->createQuery();
-        $paginator = new Paginator($query);
+        $paginator = new Paginator(new PaginatorODMAdapter($query));
         $paginator->setPageRange(3);
         $paginator->setCurrentPageNumber(3);
         $paginator->setItemCountPerPage(3);
