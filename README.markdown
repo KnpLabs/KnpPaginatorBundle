@@ -10,7 +10,7 @@ It provides a PaginatorODMAdapter.
 
     git submodule add git://github.com/knplabs/DoctrinePaginatorBundle.git src/Bundle/DoctrinePaginatorBundle
 
-### Add DoctrineUserBundle to your application kernel
+### Add DoctrinePaginatorBundle to your application kernel
 
     // app/AppKernel.php
     public function registerBundles()
