@@ -10,6 +10,18 @@ class PaginatorTest extends BaseDatabaseTest
 {
     protected $dataCount = 45;
     protected static $kernel;
+    protected $isOdmAvailable;
+
+    public function setUp()
+    {
+        if(null === $this->isOdmAvailable) {
+            $this->isOdmAvailable = self::$kernel->getContainer()->has('doctrine.odm.mongodb.document_manager');
+        }
+
+        if (!$this->isOdmAvailable) {
+            $this->markTestSkipped('Doctrine MongoDB ODM is not available.');
+        }
+    }
 
     public function testDataSet()
     {
