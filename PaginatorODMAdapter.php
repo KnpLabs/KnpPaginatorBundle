@@ -2,7 +2,6 @@
 
 namespace Bundle\DoctrinePaginatorBundle;
 
-use Zend\Paginator\Adapter;
 use Doctrine\ODM\MongoDB\Query;
 
 /**
@@ -10,7 +9,7 @@ use Doctrine\ODM\MongoDB\Query;
  *
  * Allows pagination of Doctrine\ODM\MongoDB\Query objects and DQL strings
  */
-class PaginatorODMAdapter implements Adapter
+class PaginatorODMAdapter implements PaginatorAdapterInterface
 {
     /**
      * The query to paginate
@@ -27,22 +26,15 @@ class PaginatorODMAdapter implements Adapter
     protected $rowCount = null;
 
     /**
-     * Constructor
-     *
-     * @param Query $query
+     * @ses PaginatorAdapterInterface::__construct
      */
-    public function __construct(Query $query)
+    public function __construct($query)
     {
         $this->query = $query;
     }
 
     /**
-     * Sets the total row count for this paginator
-     *
-     * Can be either an integer, or a Query object which returns the count
-     *
-     * @param Query|integer $rowCount
-     * @return void
+     * @see PaginatorAdapterInterface::setRowCount
      */
     public function setRowCount($rowCount)
     {
@@ -56,11 +48,7 @@ class PaginatorODMAdapter implements Adapter
     }
 
     /**
-     * Returns an collection of items for a page.
-     *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
-     * @return array
+     * @see Zend\Paginator\Adapater::getItems
      */
     public function getItems($offset, $itemCountPerPage)
     {
@@ -70,8 +58,7 @@ class PaginatorODMAdapter implements Adapter
     }
 
     /**
-     * @param Query $query
-     * @return int
+     * @see Zend\Paginator\Adapter::count
      */
     public function count()
     {
