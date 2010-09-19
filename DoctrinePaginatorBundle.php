@@ -9,7 +9,7 @@
 
 namespace Bundle\DoctrinePaginatorBundle;
 
-use Symfony\Framework\Bundle\Bundle as BaseBundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle as BaseBundle;
 
 class DoctrinePaginatorBundle extends BaseBundle
 {
