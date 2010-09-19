@@ -54,7 +54,9 @@ class PaginatorODMAdapter implements PaginatorAdapterInterface
     {
         $query = clone $this->query;
 
-        return $query->skip($offset)->limit($itemCountPerPage)->execute()->getResults();
+        $results = $query->skip($offset)->limit($itemCountPerPage)->execute();
+
+        return $results;
     }
 
     /**
