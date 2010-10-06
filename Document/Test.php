@@ -3,17 +3,17 @@
 namespace Bundle\DoctrinePaginatorBundle\Document;
 
 /**
- * @Document(collection="doctrine_paginator_test")
+ * @mongodb:Document(collection="doctrine_paginator_test")
  */
 class Test
 {
     /**
-     * @Id
+     * @mongodb:Id
      */
     public $id;
 
     /**
-     * @Field(type="string")
+     * @mongodb:Field(type="string")
      */
     public $title;
 }
