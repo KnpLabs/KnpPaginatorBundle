@@ -56,6 +56,10 @@ class PaginatorODMAdapter implements PaginatorAdapterInterface
 
         $results = $query->skip($offset)->limit($itemCountPerPage)->execute();
 
+        if(!is_array($results)) {
+            $results = $results->getResults();
+        }
+
         return $results;
     }
 
