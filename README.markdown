@@ -1,3 +1,6 @@
+# DEPRECATED - Use [ZendPaginatorAdapter](http://github.com/ornicar/ZendPaginatorAdapter) instead
+ZendPaginatorAdapter is not tied to Symfony2 and is more up to date.
+
 Provides pagination for your Doctrine ODM + Symfony2 Project.
 
 As for now, it only works for ODM; but ORM may be also supported later.
