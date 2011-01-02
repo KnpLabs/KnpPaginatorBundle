@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="templating.helper.pagination.class">Bundle\DoctrinePaginatorBundle\Templating\Helper\PaginationHelper</parameter>
+        <parameter key="paginator.templating.template">DoctrinePaginatorBundle::pagination.twig</parameter>
+        <parameter key="paginator.templating.style">Sliding</parameter>
+    </parameters>
+    
+    <services>
+        <service id="templating.helper.pagination" class="%templating.helper.pagination.class%">
+            <tag name="templating.helper" alias="pagination" />
+            <argument type="service" id="templating.engine" />
+            <argument type="service" id="templating.helper.router" />
+            <argument type="service" id="request" />
+            <argument type="collection">
+                <argument key="template">%paginator.templating.template%</argument>
+                <argument key="style">%paginator.templating.style%</argument>
+            </argument>
+        </service>
+    </services>
+</container>

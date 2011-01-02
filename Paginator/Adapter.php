@@ -1,16 +1,16 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle;
+namespace Bundle\DoctrinePaginatorBundle\Paginator;
 
-use Zend\Paginator\Adapter;
+use Zend\Paginator\Adapter as ZendPaginatorAdapter;
 
-interface PaginatorAdapterInterface extends Adapter
+interface Adapter extends ZendPaginatorAdapter
 {
     /**
      * @param Query The query to paginate
      */
-    public function __construct($query);
-
+    public function setQuery($query);
+    
     /**
      * Sets the total row count for this paginator
      *

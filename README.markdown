@@ -3,52 +3,43 @@ ZendPaginatorAdapter is not tied to Symfony2 and is more up to date.
 
 Provides pagination for your Doctrine ODM + Symfony2 Project.
 
-As for now, it only works for ODM; but ORM may be also supported later.
+This branch is still experimental. Intension is to extend and simplify the
+usage of paginator tool for Symfony2.
 
-It provides a PaginatorODMAdapter.
+Intended feature list:
 
-## Installation
+- Single adapter for Zend paginator, which could be used as ORM or ODM query paginator, using DIC
+- Possibility to add custom filtering, sorting functionality depending on request parameters.
+- Extensions based on events for ODM and ORM query customizations.
+- View helper for simplified pagination templates and other custom operations like sorting.
 
-### Add DoctrinePaginatorBundle to your src/Bundle dir
+Some code snippets on future usage:
 
-    git submodule add git://github.com/knplabs/DoctrinePaginatorBundle.git src/Bundle/DoctrinePaginatorBundle
+    $em = $this->get('doctrine.orm.entity_manager');
+    $dql = "SELECT a FROM BlogBundle:Article a";
+    $query = $em->createQuery($dql);
+        
+    $adapter = $this->get('doctrine_paginator.adapter');
+    $adapter->setQuery($query);
+    $paginator = new Paginator($adapter);
+    $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
+    $paginator->setItemCountPerPage(2);
+    $paginator->setPageRange(5);
+    
+    // if second paginator is required on same view:
+    $adapterODM = clone $adapter;
+    $adapterODM->setStrategy('odm');
+    $adapterODM->setQuery($someODMquery);
+    $paginator2 = new Paginator($adapterODM);
 
-### Add DoctrinePaginatorBundle to your application kernel
+Some code snippets on view:
 
-    // app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Bundle\DoctrinePaginatorBundle\DoctrinePaginatorBundle(),
-            // ...
-        );
-    }
+    {# sorting of properties based on query components #}
+    <th>{{ _view.pagination.sort('Title', 'a.title')|raw }}</th>
 
-### Add Zend Framework to the include path
+    {# display navigation #}
+    <div id="navigation">
+        {{ _view.pagination.render(paginator)|raw }}
+    </div>
 
-ZF2 fails to load some classes properly. We need to add ZF2 path to PHP include path:
-
-    // src/autoload.php
-    set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__.'/vendor/zend/library');
-
-## Usage
-
-### Inside controller:
-
-    use Zend\Paginator\Paginator;
-    use Bundle\DoctrinePaginatorBundle\PaginatorODMAdapter;
-
-    $query = $documentRepository->createQuery(); // create a Doctrine ODM query
-    $paginator = new Paginator(new PaginatorODMAdapter($query)); // create a paginator with the query
-    $paginator->setCurrentPageNumber($this['request']->query->get('page', 1)); // set the current page number based on request parameter
-    $paginator->setItemCountPerPage(10); // set max items per page
-    $paginator->setPageRange(5); // set number of page links to show
-
-    return $this->render($template, array('paginator' => $paginator));
-
-See more exemples on [Zend Framework Paginator documentation](http://framework.zend.com/manual/en/zend.paginator.usage.html).
-
-### Inside template:
-
-See pagination exemples on [Zend Framework Paginator documentation](http://framework.zend.com/manual/en/zend.paginator.usage.html).
+As for now this is being implemented, currently it is not yet working.
