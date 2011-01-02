@@ -11,10 +11,10 @@ abstract class PaginatorListener
     
     abstract protected function getEvents();
     
-    public function subscribe(EventDispatcher $dispacher)
+    public function subscribe(EventDispatcher $dispacher, $priority = 0)
     {
         foreach ($this->getEvents() as $event => $callback) {
-            $dispacher->connect($event, array($this, $callback));
+            $dispacher->connect($event, array($this, $callback), $priority);
         }
     }
 }

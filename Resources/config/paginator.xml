@@ -21,13 +21,13 @@
         </service>
         
         <service id="doctrine_paginator.event.listener.orm.sortable" class="%doctrine_paginator.event.listener.orm.sortable.class%">
-            <tag name="doctrine_paginator.listener.orm" />
+            <tag name="doctrine_paginator.listener.orm" priority="10" />
         </service>
         <service id="doctrine_paginator.event.listener.orm.countable" class="%doctrine_paginator.event.listener.orm.countable.class%">
-            <tag name="doctrine_paginator.listener.orm" />
+            <tag name="doctrine_paginator.listener.orm" priority="128" />
         </service>
         <service id="doctrine_paginator.event.listener.orm.result" class="%doctrine_paginator.event.listener.orm.result.class%">
-            <tag name="doctrine_paginator.listener.orm" />
+            <tag name="doctrine_paginator.listener.orm" priority="128" />
         </service>
     </services>
 </container>

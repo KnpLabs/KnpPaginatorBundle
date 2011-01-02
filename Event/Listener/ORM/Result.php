@@ -41,8 +41,7 @@ class Result extends PaginatorListener
                     ->setMaxResults(null);
 
                 foreach ($ids as $i => $id) {
-                    $i = $i + 1;
-                    $query->setParameter(WhereInWalker::HINT_PAGINATOR_ID_ALIAS . '_' . $i, $id);
+                    $query->setParameter(WhereInWalker::HINT_PAGINATOR_ID_ALIAS . '_' . ++$i, $id);
                 }
             } else {
                 $query->setFirstResult($event->get('offset'))
