@@ -27,7 +27,7 @@ class Countable extends PaginatorListener
                 array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\CountWalker')
             );
             $countQuery->setHint(
-                CountWalker::HINT_COUNT_DISTINCT,
+                CountWalker::HINT_PAGINATOR_COUNT_DISTINCT,
                 $event->get('distinct')
             );
             $countQuery->setFirstResult(null)

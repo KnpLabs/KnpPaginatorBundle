@@ -4,7 +4,8 @@ namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
 
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Symfony\Component\EventDispatcher\Event,
-    Doctrine\ORM\Query;
+    Doctrine\ORM\Query,
+    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\WhereInWalker;
 
 class Result extends PaginatorListener
 {
@@ -25,13 +26,29 @@ class Result extends PaginatorListener
                 $limitSubQuery->setParameters($query->getParameters());
                 $limitSubQuery->setHint(
                     Query::HINT_CUSTOM_TREE_WALKERS, 
-                    array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\CountWalker')
+                    array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\LimitSubqueryWalker')
                 );
-                $countQuery->setHint(
-                    CountWalker::HINT_COUNT_DISTINCT,
-                    $event->get('distinct')
+                $limitSubQuery->setFirstResult($event->get('offset'))
+                    ->setMaxResults($event->get('count'));
+                $ids = array_map('current', $limitSubQuery->getScalarResult());
+                // create where-in query
+                $query->setHint(
+                    Query::HINT_CUSTOM_TREE_WALKERS, 
+                    array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\WhereInWalker')
                 );
+                $query->setHint(WhereInWalker::HINT_PAGINATOR_ID_COUNT, count($ids))
+                    ->setFirstResult(null)
+                    ->setMaxResults(null);
+
+                foreach ($ids as $i => $id) {
+                    $i = $i + 1;
+                    $query->setParameter(WhereInWalker::HINT_PAGINATOR_ID_ALIAS . '_' . $i, $id);
+                }
+            } else {
+                $query->setFirstResult($event->get('offset'))
+                    ->setMaxResults($event->get('count'));
             }
+            $event->setReturnValue($query->getResult());
         } else {
             throw new \RuntimeException('not orm query');
         }

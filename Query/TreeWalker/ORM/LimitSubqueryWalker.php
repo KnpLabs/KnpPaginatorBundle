@@ -5,26 +5,29 @@
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to kontakt@beberlei.de so I can send you a copy immediately.
+ * with this package in the file LICENSE. This license can also be viewed
+ * at http://hobodave.com/license.txt
+ *
+ * @category    DoctrineExtensions
+ * @package     DoctrineExtensions\Paginate
+ * @author      David Abdemoulaie <dave@hobodave.com>
+ * @copyright   Copyright (c) 2010 David Abdemoulaie (http://hobodave.com/)
+ * @license     http://hobodave.com/license.txt New BSD License
  */
 
 namespace Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\SelectStatement,
-    Doctrine\ORM\Query\AST\SelectExpression,
+    Doctrine\ORM\Query\AST\SimpleSelectExpression,
     Doctrine\ORM\Query\AST\PathExpression,
     Doctrine\ORM\Query\AST\AggregateExpression;
 
-class CountWalker extends TreeWalkerAdapter
+class LimitSubqueryWalker extends TreeWalkerAdapter
 {
-    const HINT_PAGINATOR_COUNT_DISTINCT = 'bundle.doctrine_paginator.distinct';
-    
     /**
-     * Walks down a SelectStatement AST node, modifying it to retrieve a COUNT
+     * Walks down a SelectStatement AST node, modifying it to retrieve DISTINCT ids
+     * of the root Entity
      *
      * @param SelectStatement $AST
      * @return void
@@ -46,15 +49,11 @@ class CountWalker extends TreeWalkerAdapter
             $parent['metadata']->getSingleIdentifierFieldName()
         );
         $pathExpression->type = PathExpression::TYPE_STATE_FIELD;
-        
-        $distinct = $this->_getQuery()->getHint(self::HINT_PAGINATOR_COUNT_DISTINCT);
-        $AST->selectClause->selectExpressions = array(
-            new SelectExpression(
-                new AggregateExpression('count', $pathExpression, $distinct), null
-            )
-        );
 
-        // ORDER BY is not needed, only increases query execution through unnecessary sorting.
+        $AST->selectClause->isDistinct = true;
+        $AST->selectClause->selectExpressions = array(
+            new SimpleSelectExpression($pathExpression)
+        );
         $AST->orderByClause = null;
     }
 }

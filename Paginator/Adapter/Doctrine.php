@@ -17,6 +17,13 @@ class Doctrine implements Adapter
     protected $eventDispatcher = null;
     protected $distinct = true;
     
+    /**
+     * Total item count
+     *
+     * @var integer
+     */
+    protected $rowCount = null;
+    
     private $container = null;
     
 	/**
@@ -58,22 +65,25 @@ class Doctrine implements Adapter
     
     public function setRowCount($numRows)
     {
-        //$this->strategy->setRowCount($numRows);
+        $this->rowCount = $numRows;
     }
     
     public function count()
     {
-        $eventParams = array(
-            'query' => $this->query,
-            'distinct' => $this->distinct
-        );
-        $event = new Event($this, PaginatorListener::EVENT_COUNT, $eventParams);
-        $this->eventDispatcher->notifyUntil($event);
-        if (!$event->isProcessed()) {
-             throw new \RuntimeException('failure');
+        if (is_null($this->rowCount)) {
+            $eventParams = array(
+                'query' => $this->query,
+                'distinct' => $this->distinct
+            );
+            $event = new Event($this, PaginatorListener::EVENT_COUNT, $eventParams);
+            $this->eventDispatcher->notifyUntil($event);
+            if (!$event->isProcessed()) {
+                 throw new \RuntimeException('failure');
+            }
+            $this->rowCount = $event->getReturnValue();
+            //var_dump($this->rowCount);
         }
-        var_dump($event->getReturnValue());
-        die('i');
+        return $this->rowCount;
     }
     
 	/**

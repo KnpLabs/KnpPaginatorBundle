@@ -10,6 +10,7 @@
         
         <parameter key="doctrine_paginator.event.listener.orm.sortable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Sortable</parameter>
         <parameter key="doctrine_paginator.event.listener.orm.countable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Countable</parameter>
+        <parameter key="doctrine_paginator.event.listener.orm.result.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Result</parameter>
     </parameters>
 
     <services>
@@ -23,6 +24,9 @@
             <tag name="doctrine_paginator.listener.orm" />
         </service>
         <service id="doctrine_paginator.event.listener.orm.countable" class="%doctrine_paginator.event.listener.orm.countable.class%">
+            <tag name="doctrine_paginator.listener.orm" />
+        </service>
+        <service id="doctrine_paginator.event.listener.orm.result" class="%doctrine_paginator.event.listener.orm.result.class%">
             <tag name="doctrine_paginator.listener.orm" />
         </service>
     </services>
