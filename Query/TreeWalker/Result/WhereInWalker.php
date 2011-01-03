@@ -15,7 +15,7 @@
  * @license     http://hobodave.com/license.txt New BSD License
  */
 
-namespace Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM;
+namespace Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Result;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\SelectStatement,

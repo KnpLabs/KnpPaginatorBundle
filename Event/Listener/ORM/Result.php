@@ -3,12 +3,16 @@
 namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
 
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Symfony\Component\EventDispatcher\Event,
+    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
+    Bundle\DoctrinePaginatorBundle\Query\Helper,
     Doctrine\ORM\Query,
-    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\WhereInWalker;
+    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Result\WhereInWalker;
 
 class Result extends PaginatorListener
 {
+    const TREE_WALKER_LIMIT_SUBQUERY = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Result\LimitSubqueryWalker';
+    const TREE_WALKER_WHERE_IN = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Result\WhereInWalker';
+    
     protected function getEvents()
     {
         return array(
@@ -16,38 +20,37 @@ class Result extends PaginatorListener
         );
     }
     
-    public function generateQueryResult(Event $event)
+    public function generateQueryResult(PaginatorEvent $event)
     {
         $query = $event->get('query');
         if ($query instanceof Query) {
             $distinct = $event->get('distinct');
+            $result = null;
             if ($distinct) {
-                $limitSubQuery = clone $query;
+                $limitSubQuery = Helper::cloneQuery($query, $event->getUsedHints());
                 $limitSubQuery->setParameters($query->getParameters());
-                $limitSubQuery->setHint(
-                    Query::HINT_CUSTOM_TREE_WALKERS, 
-                    array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\LimitSubqueryWalker')
-                );
+                Helper::addCustomTreeWalker($limitSubQuery, self::TREE_WALKER_LIMIT_SUBQUERY);
+
                 $limitSubQuery->setFirstResult($event->get('offset'))
                     ->setMaxResults($event->get('count'));
                 $ids = array_map('current', $limitSubQuery->getScalarResult());
                 // create where-in query
-                $query->setHint(
-                    Query::HINT_CUSTOM_TREE_WALKERS, 
-                    array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\WhereInWalker')
-                );
-                $query->setHint(WhereInWalker::HINT_PAGINATOR_ID_COUNT, count($ids))
+                $whereInQuery = Helper::cloneQuery($query, $event->getUsedHints());
+                Helper::addCustomTreeWalker($whereInQuery, self::TREE_WALKER_WHERE_IN);
+                $whereInQuery->setHint(WhereInWalker::HINT_PAGINATOR_ID_COUNT, count($ids))
                     ->setFirstResult(null)
                     ->setMaxResults(null);
 
                 foreach ($ids as $i => $id) {
-                    $query->setParameter(WhereInWalker::HINT_PAGINATOR_ID_ALIAS . '_' . ++$i, $id);
+                    $whereInQuery->setParameter(WhereInWalker::HINT_PAGINATOR_ID_ALIAS . '_' . ++$i, $id);
                 }
+                $result = $whereInQuery->getResult();
             } else {
                 $query->setFirstResult($event->get('offset'))
                     ->setMaxResults($event->get('count'));
+                $result = $query->getResult();
             }
-            $event->setReturnValue($query->getResult());
+            $event->setReturnValue($result);
         } else {
             throw new \RuntimeException('not orm query');
         }

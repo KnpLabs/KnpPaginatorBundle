@@ -11,13 +11,13 @@
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
 
-namespace Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM;
+namespace Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\SelectStatement,
-    Doctrine\ORM\Query\AST\SelectExpression,
     Doctrine\ORM\Query\AST\PathExpression,
-    Doctrine\ORM\Query\AST\AggregateExpression;
+    Doctrine\ORM\Query\AST\OrderByItem,
+    Doctrine\ORM\Query\AST\OrderByClause;
 
 class OrderByWalker extends TreeWalkerAdapter
 {
@@ -42,25 +42,21 @@ class OrderByWalker extends TreeWalkerAdapter
             throw new \RuntimeException('invalid sort key alias');
         }
         $meta = $components[$alias];
-        if (!$meta->hasField($field)) {
+        if (!$meta['metadata']->hasField($field)) {
             throw new \RuntimeException('invalid sort key field');
         }
 
         $direction = $query->getHint(self::HINT_PAGINATOR_SORT_DIRECTION);
-        /*$pathExpression = new PathExpression(
-            PathExpression::TYPE_STATE_FIELD | PathExpression::TYPE_SINGLE_VALUED_ASSOCIATION, $parentName,
-            $parent['metadata']->getSingleIdentifierFieldName()
-        );
+        $pathExpression = new PathExpression(PathExpression::TYPE_STATE_FIELD, $alias, $field);
         $pathExpression->type = PathExpression::TYPE_STATE_FIELD;
         
-        $distinct = $this->_getQuery()->getHint(self::HINT_PAGINATOR_COUNT_DISTINCT);
-        $AST->selectClause->selectExpressions = array(
-            new SelectExpression(
-                new AggregateExpression('count', $pathExpression, $distinct), null
-            )
-        );*/
-
-        // ORDER BY is not needed, only increases query execution through unnecessary sorting.
-        $AST->orderByClause = null;
+        $orderByItem = new OrderByItem($pathExpression);
+        $orderByItem->type = $direction;
+        
+        if ($AST->orderByClause) {
+            array_unshift($AST->orderByClause->orderByItems, $orderByItem);
+        } else {
+            $AST->orderByClause = new OrderByClause(array($orderByItem));
+        }
     }
 }

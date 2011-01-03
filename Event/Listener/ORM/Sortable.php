@@ -3,12 +3,15 @@
 namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
 
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Symfony\Component\EventDispatcher\Event,
-    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\OrderByWalker,
+    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
+    Bundle\DoctrinePaginatorBundle\Query\Helper,
+    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
     Doctrine\ORM\Query;
 
 class Sortable extends PaginatorListener
 {
+    const TREE_WALKER_ORDER_BY = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker';
+    
     protected function getEvents()
     {
         return array(
@@ -16,9 +19,8 @@ class Sortable extends PaginatorListener
         );
     }
     
-    public function sort(Event $event)
+    public function sort(PaginatorEvent $event)
     {
-        //echo 'here';
         $request = $event->get('request');
         $params = $request->query->all();
         //die(print_r($params));
@@ -29,14 +31,15 @@ class Sortable extends PaginatorListener
                 if (count($parts) != 2) {
                     throw new \RuntimeException('invalid sort key');
                 }
+                $event->addUsedHint(OrderByWalker::HINT_PAGINATOR_SORT_ALIAS)
+                    ->addUsedHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION)
+                    ->addUsedHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD)
+                    ->addUsedHint(Query::HINT_CUSTOM_TREE_WALKERS);
+                
                 $query->setHint(OrderByWalker::HINT_PAGINATOR_SORT_ALIAS, current($parts))
                     ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION, $params['direction'])
-                    ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD, end($parts))
-                    ->setHint(
-                        Query::HINT_CUSTOM_TREE_WALKERS, 
-                        array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\OrderByWalker')
-                    );
-                //
+                    ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD, end($parts));
+                Helper::addCustomTreeWalker($query, self::TREE_WALKER_ORDER_BY);
             } else {
                 throw new \RuntimeException('not orm query');
             }

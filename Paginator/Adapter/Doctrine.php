@@ -6,7 +6,7 @@ use Bundle\DoctrinePaginatorBundle\Paginator\Adapter,
     Symfony\Component\HttpFoundation\Request,
     Symfony\Component\DependencyInjection\ContainerInterface,
     Symfony\Component\EventDispatcher\EventDispatcher,
-    Symfony\Component\EventDispatcher\Event,
+    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
     Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener;
 
 class Doctrine implements Adapter
@@ -75,7 +75,7 @@ class Doctrine implements Adapter
                 'query' => $this->query,
                 'distinct' => $this->distinct
             );
-            $event = new Event($this, PaginatorListener::EVENT_COUNT, $eventParams);
+            $event = new PaginatorEvent($this, PaginatorListener::EVENT_COUNT, $eventParams);
             $this->eventDispatcher->notifyUntil($event);
             if (!$event->isProcessed()) {
                  throw new \RuntimeException('failure');
@@ -98,7 +98,7 @@ class Doctrine implements Adapter
             'offset' => $offset,
             'count' => $itemCountPerPage
         );
-        $event = new Event($this, PaginatorListener::EVENT_ITEMS, $eventParams);
+        $event = new PaginatorEvent($this, PaginatorListener::EVENT_ITEMS, $eventParams);
         $this->eventDispatcher->notifyUntil($event);
         if (!$event->isProcessed()) {
              throw new \RuntimeException('failure');

@@ -3,12 +3,15 @@
 namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
 
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Symfony\Component\EventDispatcher\Event,
+    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
     Doctrine\ORM\Query,
-    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\CountWalker;
+    Bundle\DoctrinePaginatorBundle\Query\Helper,
+    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Countable\CountWalker;
 
 class Countable extends PaginatorListener
 {
+    const TREE_WALKER_COUNT = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Countable\CountWalker';
+    
     protected function getEvents()
     {
         return array(
@@ -16,16 +19,13 @@ class Countable extends PaginatorListener
         );
     }
     
-    public function countableQuery(Event $event)
+    public function countableQuery(PaginatorEvent $event)
     {
         $query = $event->get('query');
         if ($query instanceof Query) {
-            $countQuery = clone $query;
+            $countQuery = Helper::cloneQuery($query, $event->getUsedHints());
             $countQuery->setParameters($query->getParameters());
-            $countQuery->setHint(
-                Query::HINT_CUSTOM_TREE_WALKERS, 
-                array('Bundle\DoctrinePaginatorBundle\Query\TreeWalker\ORM\CountWalker')
-            );
+            Helper::addCustomTreeWalker($countQuery, self::TREE_WALKER_COUNT);
             $countQuery->setHint(
                 CountWalker::HINT_PAGINATOR_COUNT_DISTINCT,
                 $event->get('distinct')
