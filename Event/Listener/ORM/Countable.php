@@ -5,13 +5,24 @@ namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
     Doctrine\ORM\Query,
-    Bundle\DoctrinePaginatorBundle\Query\Helper,
-    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Countable\CountWalker;
+    Bundle\DoctrinePaginatorBundle\Query\Helper as QueryHelper,
+    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Countable\CountWalker,
+    Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException;
 
+/**
+ * ORM Countable listener is responsible
+ * for counting the query resultset
+ */
 class Countable extends PaginatorListener
 {
+    /**
+     * AST Tree Walker for count operation
+     */
     const TREE_WALKER_COUNT = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Countable\CountWalker';
     
+    /**
+     * {@inheritDoc}
+     */
     protected function getEvents()
     {
         return array(
@@ -19,13 +30,21 @@ class Countable extends PaginatorListener
         );
     }
     
+    /**
+     * Executes the count on Query used for
+     * pagination.
+     * 
+     * @param PaginatorEvent $event
+     * @throws ListenerException - if query supplied is invalid
+     * @return true - defining the final count event
+     */
     public function countableQuery(PaginatorEvent $event)
     {
         $query = $event->get('query');
         if ($query instanceof Query) {
-            $countQuery = Helper::cloneQuery($query, $event->getUsedHints());
+            $countQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
             $countQuery->setParameters($query->getParameters());
-            Helper::addCustomTreeWalker($countQuery, self::TREE_WALKER_COUNT);
+            QueryHelper::addCustomTreeWalker($countQuery, self::TREE_WALKER_COUNT);
             $countQuery->setHint(
                 CountWalker::HINT_PAGINATOR_COUNT_DISTINCT,
                 $event->get('distinct')
@@ -34,7 +53,7 @@ class Countable extends PaginatorListener
                 ->setMaxResults(null);
             $event->setReturnValue($countQuery->getSingleScalarResult());
         } else {
-            throw new \RuntimeException('not orm query');
+            ListenerException::queryTypeIsInvalidForManager('ORM');
         }
         return true;
     }
