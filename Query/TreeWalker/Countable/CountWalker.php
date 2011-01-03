@@ -19,8 +19,20 @@ use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\PathExpression,
     Doctrine\ORM\Query\AST\AggregateExpression;
 
+/**
+ * Replaces the selectClause of the AST with a COUNT statement
+ *
+ * @category    DoctrineExtensions
+ * @package     DoctrineExtensions\Paginate
+ * @author      David Abdemoulaie <dave@hobodave.com>
+ * @copyright   Copyright (c) 2010 David Abdemoulaie (http://hobodave.com/)
+ * @license     http://hobodave.com/license.txt New BSD License
+ */
 class CountWalker extends TreeWalkerAdapter
 {
+    /**
+     * Distinct mode hint name
+     */
     const HINT_PAGINATOR_COUNT_DISTINCT = 'bundle.doctrine_paginator.distinct';
     
     /**

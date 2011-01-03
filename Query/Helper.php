@@ -4,8 +4,20 @@ namespace Bundle\DoctrinePaginatorBundle\Query;
 
 use Doctrine\ORM\Query;
 
+/**
+ * ORM Query helper for cloning
+ * and hint processing
+ */
 class Helper
 {
+    /**
+     * Clones the given $query and copies all used
+     * parameters together with specified $usedHints
+     * 
+     * @param Query $query
+     * @param array $usedHints
+     * @return Query
+     */
     public static function cloneQuery(Query $query, array $usedHints = array())
     {
         $clonedQuery = clone $query;
@@ -19,6 +31,15 @@ class Helper
         return $clonedQuery;
     }
     
+    /**
+     * Add a custom TreeWalker $walker class name to
+     * be included in the CustomTreeWalker hint list
+     * of the given $query
+     * 
+     * @param Query $query
+     * @param string $walker
+     * @return void
+     */
     public static function addCustomTreeWalker(Query $query, $walker)
     {
         $customTreeWalkers = $query->getHint(Query::HINT_CUSTOM_TREE_WALKERS);

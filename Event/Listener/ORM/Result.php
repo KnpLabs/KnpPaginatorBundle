@@ -64,7 +64,7 @@ class Result extends PaginatorListener
                     ->setMaxResults(null);
 
                 foreach ($ids as $i => $id) {
-                    $whereInQuery->setParameter(WhereInWalker::HINT_PAGINATOR_ID_ALIAS . '_' . ++$i, $id);
+                    $whereInQuery->setParameter(WhereInWalker::PAGINATOR_ID_ALIAS . '_' . ++$i, $id);
                 }
                 $result = $whereInQuery->getResult();
             } else {

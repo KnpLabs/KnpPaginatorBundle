@@ -29,17 +29,37 @@ use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\ConditionalFactor,
     Doctrine\ORM\Query\AST\WhereClause;
 
+/**
+ * Replaces the whereClause of the AST with a WHERE id IN (:foo_1, :foo_2) equivalent
+ *
+ * @category    DoctrineExtensions
+ * @package     DoctrineExtensions\Paginate
+ * @author      David Abdemoulaie <dave@hobodave.com>
+ * @copyright   Copyright (c) 2010 David Abdemoulaie (http://hobodave.com/)
+ * @license     http://hobodave.com/license.txt New BSD License
+ */
 class WhereInWalker extends TreeWalkerAdapter
 {
+    /**
+     * ID Count hint name
+     */
     const HINT_PAGINATOR_ID_COUNT = 'bundle.doctrine_paginator.id.count';
-    const HINT_PAGINATOR_ID_ALIAS = 'dpid';
+    
+    /**
+     * Primary key alias for query
+     */
+    const PAGINATOR_ID_ALIAS = 'dpid';
+    
     /**
      * Replaces the whereClause in the AST
      *
-     * Generates a clause equivalent to WHERE IN (:pgid_1, :pgid_2, ...)
+     * Generates a clause equivalent to WHERE IN (:dpid_1, :dpid_2, ...)
      *
-     * The parameter namespace (pgid) is retrieved from the pg.ns query hint
-     * The total number of parameters is retrieved from the id.count query hint
+     * The parameter namespace (dpid) is defined by 
+     * the PAGINATOR_ID_ALIAS
+     * 
+     * The total number of parameters is retrieved from 
+     * the HINT_PAGINATOR_ID_COUNT query hint
      *
      * @param  SelectStatement $AST
      * @return void
@@ -65,7 +85,7 @@ class WhereInWalker extends TreeWalkerAdapter
 
         if ($count > 0) {
             $expression = new InExpression($pathExpression);
-            $ns = self::HINT_PAGINATOR_ID_ALIAS;
+            $ns = self::PAGINATOR_ID_ALIAS;
 
             for ($i = 1; $i <= $count; $i++) {
                 $expression->literals[] = new InputParameter(":{$ns}_$i");

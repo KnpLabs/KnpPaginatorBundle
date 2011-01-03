@@ -42,4 +42,4 @@ Some code snippets on view:
         {{ _view.pagination.render(paginator)|raw }}
     </div>
 
-As for now this is being implemented, currently it is not yet working.
+As for now this is being implemented, currently it working only for ORM.

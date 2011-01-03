@@ -6,6 +6,7 @@ use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
     Bundle\DoctrinePaginatorBundle\Query\Helper as QueryHelper,
     Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
+    Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException,
     Doctrine\ORM\Query;
 
 /**
@@ -60,7 +61,7 @@ class Sortable extends PaginatorListener
                     ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD, end($parts));
                 QueryHelper::addCustomTreeWalker($query, self::TREE_WALKER_ORDER_BY);
             } else {
-                throw new \RuntimeException('not orm query');
+                ListenerException::queryTypeIsInvalidForManager('ORM');
             }
         }
     }
