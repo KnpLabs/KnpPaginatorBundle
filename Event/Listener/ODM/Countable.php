@@ -35,7 +35,7 @@ class Countable extends PaginatorListener
     {
         $query = $event->get('query');
         if ($query instanceof Query) {
-            // not implemmented yet
+            // not implemented
         } else {
             ListenerException::queryTypeIsInvalidForManager('ODM');
         }

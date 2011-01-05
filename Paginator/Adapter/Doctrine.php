@@ -15,24 +15,23 @@ use Bundle\DoctrinePaginatorBundle\Paginator\Adapter,
  * Customized for the event based extendability. 
  */
 class Doctrine implements Adapter
-{
+{    
     /**
-     * ORM strategy
+     * ORM query class
      */
-    const STRATEGY_ORM = 'orm';
+    const QUERY_CLASS_ORM = 'Doctrine\ORM\Query';
     
     /**
-     * ODM strategy
+     * ODM query class
      */
-    const STRATEGY_ODM = 'odm';
+    const QUERY_CLASS_ODM = 'Doctrine\ODM\MongoDB\Query';
     
     /**
-     * Strategy used for this paginator adapter.
-     * Can be orm or odm currently
+     * Currently used event service tag
      * 
      * @var string
      */
-    protected $strategy = null;
+    protected $usedEventServiceTag = null;
     
     /**
      * Request object, for customized paginator
@@ -72,7 +71,8 @@ class Doctrine implements Adapter
     protected $rowCount = null;
     
     /**
-     * Container used for strategy loading.
+     * Container used for tagged event loading.
+     * Strictly private usage.
      * 
      * @var Symfony\Component\DependencyInjection\ContainerInterface
      */
@@ -85,25 +85,10 @@ class Doctrine implements Adapter
 	 * @param Request $request - http request
 	 * @param string $strategy - initial strategy
 	 */
-    public function __construct(ContainerInterface $container, Request $request, $strategy)
+    public function __construct(ContainerInterface $container, Request $request)
     {
         $this->request = $request;
         $this->container = $container;
-        $this->strategy = $strategy;
-        $this->setStrategy($strategy);
-    }
-    
-    /**
-     * Switch the strategy
-     * 
-     * @param string $strategy
-     * @return Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine
-     */
-    public function setStrategy($strategy)
-    {
-        $this->strategy = $strategy;
-        $this->loadStrategy();
-        return $this;
     }
     
     /**
@@ -119,22 +104,39 @@ class Doctrine implements Adapter
     }
     
     /**
-     * {@inheritDoc}
+     * Set the query object for the adapter
+     * to be paginated.
+     * 
+     * @param Query $query - The query to paginate
+     * @param integer $numRows(optional) - number of rows
      * @return Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine
      */
-    public function setQuery($query)
+    public function setQuery($query, $numRows = null)
     {
+        $tagName = 'doctrine_paginator.listener.';
+        switch (get_class($query)) {
+            case self::QUERY_CLASS_ORM:
+                $tagName .= 'orm';
+                break;
+                
+            case self::QUERY_CLASS_ODM:
+                $tagName .= 'odm';
+                break;
+                
+            default:
+                AdapterException::invalidQuery(get_class($query));
+        }
+        
+        if ($this->usedEventServiceTag != $tagName) {
+            $this->eventDispatcher = new EventDispatcher();
+            foreach ($this->container->findTaggedServiceIds($tagName) as $id => $attributes) {
+                $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
+                $this->container->get($id)->subscribe($this->eventDispatcher, $priority);
+            }
+            $this->usedEventServiceTag = $tagName;
+        }
         $this->query = $query;
-        return $this;
-    }
-    
-    /**
-     * {@inheritDoc}
-     * @return Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine
-     */
-    public function setRowCount($numRows)
-    {
-        $this->rowCount = $numRows;
+        $this->rowCount = is_null($numRows) ? null : intval($numRows);
         return $this;
     }
     
@@ -193,20 +195,12 @@ class Doctrine implements Adapter
         return $event->getReturnValue();
     }
     
-	/**
-     * Loads the listeners depending on strategy used
-     * 
-     * @return void
+    /**
+     * Clone the adapter. Resets rowcount and query
      */
-    private function loadStrategy()
+    public function __clone()
     {
-        $this->eventDispatcher = new EventDispatcher();
-        $tagName = 'doctrine_paginator.listener.' . $this->strategy;
-        foreach ($this->container->findTaggedServiceIds($tagName) as $id => $attributes) {
-            $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-            $this->container->get($id)->subscribe($this->eventDispatcher, $priority);
-        }
-        $this->query = null;
         $this->rowCount = null;
+        $this->query = null;
     }
 }

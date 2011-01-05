@@ -13,16 +13,15 @@ interface Adapter extends ZendPaginatorAdapter
      * Set the query object for the adapter
      * to be paginated
      * 
-     * @param Query The query to paginate
+     * @param Query $query - The query to paginate
+     * @param integer $numRows(optional) - number of rows
      */
-    public function setQuery($query);
+    public function setQuery($query, $numRows = null);
     
-    /**
-     * Sets the total row count for this paginator
-     * Can be either an integer, or a Query object which returns the count
-     *
-     * @param Query|integer $rowCount
-     * @return void
+	/**
+     * Set the distinct mode
+     * 
+     * @param bool $distinct
      */
-    public function setRowCount($numRows);
+    public function setDistinct($distinct);
 }

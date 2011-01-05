@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="doctrine_paginator.adapter.class">Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine</parameter>
-        <parameter key="doctrine_paginator.strategy">orm</parameter>
         
         <parameter key="doctrine_paginator.event.listener.orm.sortable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Sortable</parameter>
         <parameter key="doctrine_paginator.event.listener.orm.countable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Countable</parameter>
@@ -21,7 +20,6 @@
         <service id="doctrine_paginator.adapter" class="%doctrine_paginator.adapter.class%" shared="true">
             <argument type="service" id="service_container" />
             <argument type="service" id="request" />
-            <argument>%doctrine_paginator.strategy%</argument>
         </service>
         
         <service id="doctrine_paginator.event.listener.orm.sortable" class="%doctrine_paginator.event.listener.orm.sortable.class%">
