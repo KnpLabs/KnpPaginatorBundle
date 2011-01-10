@@ -7,6 +7,7 @@ use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Query\Helper as QueryHelper,
     Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
     Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException,
+    Symfony\Component\HttpFoundation\Request,
     Doctrine\ORM\Query;
 
 /**
@@ -22,13 +23,20 @@ class Sortable extends PaginatorListener
     const TREE_WALKER_ORDER_BY = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker';
     
     /**
-     * {@inheritDoc}
+     * Current request
+     * 
+     * @var Request
      */
-    protected function getEvents()
+    protected $request = null;
+    
+    /**
+     * Initialize with requests
+     * 
+     * @param Request $request
+     */
+    public function __construct(Request $request)
     {
-        return array(
-            self::EVENT_ITEMS => 'sort'
-        );
+        $this->request = $request;
     }
     
     /**
@@ -41,8 +49,7 @@ class Sortable extends PaginatorListener
      */
     public function sort(PaginatorEvent $event)
     {
-        $request = $event->get('request');
-        $params = $request->query->all();
+        $params = $this->request->query->all();
 
         if (isset($params['sort'])) {
             $query = $event->get('query');
@@ -61,8 +68,18 @@ class Sortable extends PaginatorListener
                     ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD, end($parts));
                 QueryHelper::addCustomTreeWalker($query, self::TREE_WALKER_ORDER_BY);
             } else {
-                ListenerException::queryTypeIsInvalidForManager('ORM');
+                throw ListenerException::queryTypeIsInvalidForManager('ORM');
             }
         }
+    }
+    
+	/**
+     * {@inheritDoc}
+     */
+    protected function getEvents()
+    {
+        return array(
+            self::EVENT_ITEMS => 'sort'
+        );
     }
 }

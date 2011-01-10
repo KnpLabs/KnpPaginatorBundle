@@ -4,7 +4,7 @@ namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ODM;
 
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
-    Doctrine\ODM\MongoDB\Query,
+    Doctrine\ODM\MongoDB\Query\Query,
     Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException;
 
 /**
@@ -13,16 +13,6 @@ use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
  */
 class Countable extends PaginatorListener
 {
-    /**
-     * {@inheritDoc}
-     */
-    protected function getEvents()
-    {
-        return array(
-            self::EVENT_COUNT => 'countableQuery'
-        );
-    }
-    
     /**
      * Executes the count on Query used for
      * pagination.
@@ -35,10 +25,20 @@ class Countable extends PaginatorListener
     {
         $query = $event->get('query');
         if ($query instanceof Query) {
-            // not implemented
+            $event->setReturnValue($query->count());
         } else {
-            ListenerException::queryTypeIsInvalidForManager('ODM');
+            throw ListenerException::queryTypeIsInvalidForManager('ODM');
         }
         return true;
+    }
+    
+	/**
+     * {@inheritDoc}
+     */
+    protected function getEvents()
+    {
+        return array(
+            self::EVENT_COUNT => 'countableQuery'
+        );
     }
 }

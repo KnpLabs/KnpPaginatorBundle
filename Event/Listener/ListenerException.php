@@ -16,4 +16,9 @@ class ListenerException extends \Exception
     {
         return new self("Query type supplied is invalid for object manager: {$manager}");
     }
+    
+    static public function odmQueryTypeInvalid()
+    {
+        return new self("ODM query must be a FIND type query");
+    }
 }

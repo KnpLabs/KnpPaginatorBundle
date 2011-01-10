@@ -4,7 +4,7 @@ namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ODM;
 
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
-    Doctrine\ODM\MongoDB\Query,
+    Doctrine\ODM\MongoDB\Query\Query,
     Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException;
  
 /**
@@ -34,9 +34,17 @@ class Result extends PaginatorListener
     {
         $query = $event->get('query');
         if ($query instanceof Query) {
-            // not implemented
+            $type = $query->getType();
+            if ($type !== Query::TYPE_FIND) {
+                throw ListenerException::odmQueryTypeInvalid();
+            }
+            $resultQuery = clone $query;
+            $cursor = $resultQuery->execute();
+            $cursor->skip($event->get('offset'))
+                ->limit($event->get('numRows'));
+            $event->setReturnValue($cursor);
         } else {
-            ListenerException::queryTypeIsInvalidForManager('ODM');
+            throw ListenerException::queryTypeIsInvalidForManager('ODM');
         }
         return true;
     }

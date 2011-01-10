@@ -53,7 +53,7 @@ class Countable extends PaginatorListener
                 ->setMaxResults(null);
             $event->setReturnValue($countQuery->getSingleScalarResult());
         } else {
-            ListenerException::queryTypeIsInvalidForManager('ORM');
+            throw ListenerException::queryTypeIsInvalidForManager('ORM');
         }
         return true;
     }

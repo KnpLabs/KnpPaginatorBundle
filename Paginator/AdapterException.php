@@ -7,6 +7,11 @@ namespace Bundle\DoctrinePaginatorBundle\Paginator;
  */
 class AdapterException extends \Exception
 {
+    static public function eventIsNotProcessed($method)
+    {
+        return new self("Some listener must process an event during method [{$method}] call");
+    }
+    
     static public function invalidQuery($class)
     {
         return new self("The query supplied must be ORM or ODM Query object, [$class] given");

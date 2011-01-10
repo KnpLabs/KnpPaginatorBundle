@@ -19,11 +19,11 @@
     <services>
         <service id="doctrine_paginator.adapter" class="%doctrine_paginator.adapter.class%" shared="true">
             <argument type="service" id="service_container" />
-            <argument type="service" id="request" />
         </service>
         
         <service id="doctrine_paginator.event.listener.orm.sortable" class="%doctrine_paginator.event.listener.orm.sortable.class%">
             <tag name="doctrine_paginator.listener.orm" priority="10" />
+            <argument type="service" id="request" />
         </service>
         <service id="doctrine_paginator.event.listener.orm.countable" class="%doctrine_paginator.event.listener.orm.countable.class%">
             <tag name="doctrine_paginator.listener.orm" priority="128" />
@@ -34,6 +34,7 @@
         
         <service id="doctrine_paginator.event.listener.odm.sortable" class="%doctrine_paginator.event.listener.odm.sortable.class%">
             <tag name="doctrine_paginator.listener.odm" priority="10" />
+            <argument type="service" id="request" />
         </service>
         <service id="doctrine_paginator.event.listener.odm.countable" class="%doctrine_paginator.event.listener.odm.countable.class%">
             <tag name="doctrine_paginator.listener.odm" priority="128" />

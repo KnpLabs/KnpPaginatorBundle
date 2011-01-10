@@ -3,7 +3,6 @@
 namespace Bundle\DoctrinePaginatorBundle\Paginator\Adapter;
 
 use Bundle\DoctrinePaginatorBundle\Paginator\Adapter,
-    Symfony\Component\HttpFoundation\Request,
     Symfony\Component\DependencyInjection\ContainerInterface,
     Symfony\Component\EventDispatcher\EventDispatcher,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
@@ -24,7 +23,7 @@ class Doctrine implements Adapter
     /**
      * ODM query class
      */
-    const QUERY_CLASS_ODM = 'Doctrine\ODM\MongoDB\Query';
+    const QUERY_CLASS_ODM = 'Doctrine\ODM\MongoDB\Query\Query';
     
     /**
      * Currently used event service tag
@@ -32,14 +31,6 @@ class Doctrine implements Adapter
      * @var string
      */
     protected $usedEventServiceTag = null;
-    
-    /**
-     * Request object, for customized paginator
-     * parameters. Available for the Event
-     * 
-     * @var Symfony\Component\HttpFoundation\Request
-     */
-    protected $request = null;
     
     /**
      * Query object for pagination query
@@ -62,7 +53,6 @@ class Doctrine implements Adapter
      */
     protected $distinct = true;
     
-    
     /**
      * Total item count
      *
@@ -82,12 +72,9 @@ class Doctrine implements Adapter
 	 * Initialize the doctrine paginator adapter
 	 * 
 	 * @param ContainerInterface $container
-	 * @param Request $request - http request
-	 * @param string $strategy - initial strategy
 	 */
-    public function __construct(ContainerInterface $container, Request $request)
+    public function __construct(ContainerInterface $container)
     {
-        $this->request = $request;
         $this->container = $container;
     }
     
@@ -109,6 +96,7 @@ class Doctrine implements Adapter
      * 
      * @param Query $query - The query to paginate
      * @param integer $numRows(optional) - number of rows
+     * @throws AdapterException - if query type is not supported
      * @return Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine
      */
     public function setQuery($query, $numRows = null)
@@ -124,7 +112,7 @@ class Doctrine implements Adapter
                 break;
                 
             default:
-                AdapterException::invalidQuery(get_class($query));
+                throw AdapterException::invalidQuery(get_class($query));
         }
         
         if ($this->usedEventServiceTag != $tagName) {
@@ -143,14 +131,14 @@ class Doctrine implements Adapter
     /**
      * Executes count on supplied query
      * 
-     * @throws AdapterException - if event is not finally processed
+     * @throws AdapterException - if event is not finally processed or query not set
      * @return integer
      */
     public function count()
     {
         if (is_null($this->rowCount)) {
             if ($this->query === null) {
-                AdapterException::queryIsMissing();
+                throw AdapterException::queryIsMissing();
             }
             
             $eventParams = array(
@@ -160,7 +148,7 @@ class Doctrine implements Adapter
             $event = new PaginatorEvent($this, PaginatorListener::EVENT_COUNT, $eventParams);
             $this->eventDispatcher->notifyUntil($event);
             if (!$event->isProcessed()) {
-                 AdapterException::eventIsNotProcessed('count');
+                 throw AdapterException::eventIsNotProcessed('count');
             }
             $this->rowCount = $event->getReturnValue();
         }
@@ -172,25 +160,24 @@ class Doctrine implements Adapter
 	 * 
 	 * @param integer $offset
 	 * @param integer $itemCountPerPage
-	 * @throws AdapterException - if event is not finally processed
+	 * @throws AdapterException - if event is not finally processed or query not set
 	 * @return mixed - resultset
 	 */
     public function getItems($offset, $itemCountPerPage)
     {
         if ($this->query === null) {
-            AdapterException::queryIsMissing();
+            throw AdapterException::queryIsMissing();
         }
         $eventParams = array(
-            'request' => $this->request,
             'query' => $this->query,
             'distinct' => $this->distinct,
             'offset' => $offset,
-            'count' => $itemCountPerPage
+            'numRows' => $itemCountPerPage
         );
         $event = new PaginatorEvent($this, PaginatorListener::EVENT_ITEMS, $eventParams);
         $this->eventDispatcher->notifyUntil($event);
         if (!$event->isProcessed()) {
-             AdapterException::eventIsNotProcessed('getItems');
+             throw AdapterException::eventIsNotProcessed('getItems');
         }
         return $event->getReturnValue();
     }

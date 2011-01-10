@@ -5,7 +5,8 @@ namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ODM;
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
     Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException,
-    Doctrine\ODM\MongoDB\Query;
+    Doctrine\ODM\MongoDB\Query\Query,
+    Symfony\Component\HttpFoundation\Request;
 
 /**
  * ODM Sortable listener is responsible
@@ -15,13 +16,20 @@ use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
 class Sortable extends PaginatorListener
 {
     /**
-     * {@inheritDoc}
+     * Current request
+     * 
+     * @var Request
      */
-    protected function getEvents()
+    protected $request = null;
+    
+    /**
+     * Initialize with requests
+     * 
+     * @param Request $request
+     */
+    public function __construct(Request $request)
     {
-        return array(
-            self::EVENT_ITEMS => 'sort'
-        );
+        $this->request = $request;
     }
     
     /**
@@ -34,16 +42,25 @@ class Sortable extends PaginatorListener
      */
     public function sort(PaginatorEvent $event)
     {
-        $request = $event->get('request');
-        $params = $request->query->all();
+        $params = $this->request->query->all();
 
         if (isset($params['sort'])) {
             $query = $event->get('query');
             if ($query instanceof Query) {
                 // not implemmented yet
             } else {
-                ListenerException::queryTypeIsInvalidForManager('ODM');
+                throw ListenerException::queryTypeIsInvalidForManager('ODM');
             }
         }
+    }
+    
+	/**
+     * {@inheritDoc}
+     */
+    protected function getEvents()
+    {
+        return array(
+            self::EVENT_ITEMS => 'sort'
+        );
     }
 }

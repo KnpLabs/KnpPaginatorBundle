@@ -54,7 +54,7 @@ class Result extends PaginatorListener
                 QueryHelper::addCustomTreeWalker($limitSubQuery, self::TREE_WALKER_LIMIT_SUBQUERY);
 
                 $limitSubQuery->setFirstResult($event->get('offset'))
-                    ->setMaxResults($event->get('count'));
+                    ->setMaxResults($event->get('numRows'));
                 $ids = array_map('current', $limitSubQuery->getScalarResult());
                 // create where-in query
                 $whereInQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
@@ -69,12 +69,12 @@ class Result extends PaginatorListener
                 $result = $whereInQuery->getResult();
             } else {
                 $query->setFirstResult($event->get('offset'))
-                    ->setMaxResults($event->get('count'));
+                    ->setMaxResults($event->get('numRows'));
                 $result = $query->getResult();
             }
             $event->setReturnValue($result);
         } else {
-            ListenerException::queryTypeIsInvalidForManager('ORM');
+            throw ListenerException::queryTypeIsInvalidForManager('ORM');
         }
         return true;
     }
