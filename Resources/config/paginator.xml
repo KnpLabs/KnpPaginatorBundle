@@ -8,12 +8,10 @@
         <parameter key="doctrine_paginator.adapter.class">Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine</parameter>
         
         <parameter key="doctrine_paginator.event.listener.orm.sortable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Sortable</parameter>
-        <parameter key="doctrine_paginator.event.listener.orm.countable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Countable</parameter>
-        <parameter key="doctrine_paginator.event.listener.orm.result.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Result</parameter>
+        <parameter key="doctrine_paginator.event.listener.orm.paginate.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ORM\Paginate</parameter>
         
         <parameter key="doctrine_paginator.event.listener.odm.sortable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ODM\Sortable</parameter>
-        <parameter key="doctrine_paginator.event.listener.odm.countable.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ODM\Countable</parameter>
-        <parameter key="doctrine_paginator.event.listener.odm.result.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ODM\Result</parameter>
+        <parameter key="doctrine_paginator.event.listener.odm.paginate.class">Bundle\DoctrinePaginatorBundle\Event\Listener\ODM\Paginate</parameter>
     </parameters>
 
     <services>
@@ -25,10 +23,7 @@
             <tag name="doctrine_paginator.listener.orm" priority="10" />
             <argument type="service" id="request" />
         </service>
-        <service id="doctrine_paginator.event.listener.orm.countable" class="%doctrine_paginator.event.listener.orm.countable.class%">
-            <tag name="doctrine_paginator.listener.orm" priority="128" />
-        </service>
-        <service id="doctrine_paginator.event.listener.orm.result" class="%doctrine_paginator.event.listener.orm.result.class%">
+        <service id="doctrine_paginator.event.listener.orm.paginate" class="%doctrine_paginator.event.listener.orm.paginate.class%">
             <tag name="doctrine_paginator.listener.orm" priority="128" />
         </service>
         
@@ -36,10 +31,7 @@
             <tag name="doctrine_paginator.listener.odm" priority="10" />
             <argument type="service" id="request" />
         </service>
-        <service id="doctrine_paginator.event.listener.odm.countable" class="%doctrine_paginator.event.listener.odm.countable.class%">
-            <tag name="doctrine_paginator.listener.odm" priority="128" />
-        </service>
-        <service id="doctrine_paginator.event.listener.odm.result" class="%doctrine_paginator.event.listener.odm.result.class%">
+        <service id="doctrine_paginator.event.listener.odm.paginate" class="%doctrine_paginator.event.listener.odm.paginate.class%">
             <tag name="doctrine_paginator.listener.odm" priority="128" />
         </service>
     </services>
