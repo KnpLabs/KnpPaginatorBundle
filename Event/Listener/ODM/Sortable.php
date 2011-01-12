@@ -46,20 +46,16 @@ class Sortable extends PaginatorListener
 
         if (isset($params['sort'])) {
             $query = $event->get('query');
-            if ($query instanceof Query) {
-                $field = $params['sort'];
-                $direction = strtolower($params['direction']) == 'asc' ? 1 : -1;
-                
-                $reflClass = new \ReflectionClass('Doctrine\MongoDB\Query\Query');
-                $reflProp = $reflClass->getProperty('query');
-                $reflProp->setAccessible(true);
-                $queryOptions = $reflProp->getValue($query);
-                
-                $queryOptions['sort'][$field] = $direction;
-                $reflProp->setValue($query, $queryOptions);
-            } else {
-                throw ListenerException::queryTypeIsInvalidForManager('ODM');
-            }
+            $field = $params['sort'];
+            $direction = strtolower($params['direction']) == 'asc' ? 1 : -1;
+            
+            $reflClass = new \ReflectionClass('Doctrine\MongoDB\Query\Query');
+            $reflProp = $reflClass->getProperty('query');
+            $reflProp->setAccessible(true);
+            $queryOptions = $reflProp->getValue($query);
+            
+            $queryOptions['sort'][$field] = $direction;
+            $reflProp->setValue($query, $queryOptions);
         }
     }
     

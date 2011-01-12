@@ -16,11 +16,9 @@ class DoctrinePaginatorExtension extends Extension
      */
     public function configLoad($config, ContainerBuilder $container)
     {
-        //die(print_r($config));
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('paginator.xml');
         $this->applyUserConfig($config, $container, 'doctrine_paginator');
-        //die(print_r($container->getParameterBag()));
     }
     
     /**
@@ -36,6 +34,15 @@ class DoctrinePaginatorExtension extends Extension
         $this->applyUserConfig($config, $container, 'doctrine_paginator.templating');
     }
     
+    /**
+     * Processes the user $config parameters into
+     * $container, prefixed by $prefix recursivelly
+     * 
+     * @param array $config
+     * @param ContainerBuilder $container
+     * @param string $prefix
+     * @return void
+     */
     protected function applyUserConfig(array $config, ContainerBuilder $container, $prefix = '')
     {
         foreach ($config as $name => $value) {

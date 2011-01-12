@@ -4,11 +4,10 @@ namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
 
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
-    Doctrine\ORM\Query,
     Bundle\DoctrinePaginatorBundle\Query\Helper as QueryHelper,
     Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate\CountWalker,
     Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate\WhereInWalker,
-    Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException;
+    Doctrine\ORM\Query;
 
 /**
  * ORM Paginate listener is responsible
@@ -42,20 +41,16 @@ class Paginate extends PaginatorListener
     public function onQueryCount(PaginatorEvent $event)
     {
         $query = $event->get('query');
-        if ($query instanceof Query) {
-            $countQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
-            $countQuery->setParameters($query->getParameters());
-            QueryHelper::addCustomTreeWalker($countQuery, self::TREE_WALKER_COUNT);
-            $countQuery->setHint(
-                CountWalker::HINT_PAGINATOR_COUNT_DISTINCT,
-                $event->get('distinct')
-            );
-            $countQuery->setFirstResult(null)
-                ->setMaxResults(null);
-            $event->setReturnValue($countQuery->getSingleScalarResult());
-        } else {
-            throw ListenerException::queryTypeIsInvalidForManager('ORM');
-        }
+        $countQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
+        $countQuery->setParameters($query->getParameters());
+        QueryHelper::addCustomTreeWalker($countQuery, self::TREE_WALKER_COUNT);
+        $countQuery->setHint(
+            CountWalker::HINT_PAGINATOR_COUNT_DISTINCT,
+            $event->get('distinct')
+        );
+        $countQuery->setFirstResult(null)
+            ->setMaxResults(null);
+        $event->setReturnValue($countQuery->getSingleScalarResult());
         return true;
     }
     
@@ -69,37 +64,33 @@ class Paginate extends PaginatorListener
     public function onQueryResult(PaginatorEvent $event)
     {
         $query = $event->get('query');
-        if ($query instanceof Query) {
-            $distinct = $event->get('distinct');
-            $result = null;
-            if ($distinct) {
-                $limitSubQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
-                $limitSubQuery->setParameters($query->getParameters());
-                QueryHelper::addCustomTreeWalker($limitSubQuery, self::TREE_WALKER_LIMIT_SUBQUERY);
+        $distinct = $event->get('distinct');
+        $result = null;
+        if ($distinct) {
+            $limitSubQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
+            $limitSubQuery->setParameters($query->getParameters());
+            QueryHelper::addCustomTreeWalker($limitSubQuery, self::TREE_WALKER_LIMIT_SUBQUERY);
 
-                $limitSubQuery->setFirstResult($event->get('offset'))
-                    ->setMaxResults($event->get('numRows'));
-                $ids = array_map('current', $limitSubQuery->getScalarResult());
-                // create where-in query
-                $whereInQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
-                QueryHelper::addCustomTreeWalker($whereInQuery, self::TREE_WALKER_WHERE_IN);
-                $whereInQuery->setHint(WhereInWalker::HINT_PAGINATOR_ID_COUNT, count($ids))
-                    ->setFirstResult(null)
-                    ->setMaxResults(null);
+            $limitSubQuery->setFirstResult($event->get('offset'))
+                ->setMaxResults($event->get('numRows'));
+            $ids = array_map('current', $limitSubQuery->getScalarResult());
+            // create where-in query
+            $whereInQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
+            QueryHelper::addCustomTreeWalker($whereInQuery, self::TREE_WALKER_WHERE_IN);
+            $whereInQuery->setHint(WhereInWalker::HINT_PAGINATOR_ID_COUNT, count($ids))
+                ->setFirstResult(null)
+                ->setMaxResults(null);
 
-                foreach ($ids as $i => $id) {
-                    $whereInQuery->setParameter(WhereInWalker::PAGINATOR_ID_ALIAS . '_' . ++$i, $id);
-                }
-                $result = $whereInQuery->getResult();
-            } else {
-                $query->setFirstResult($event->get('offset'))
-                    ->setMaxResults($event->get('numRows'));
-                $result = $query->getResult();
+            foreach ($ids as $i => $id) {
+                $whereInQuery->setParameter(WhereInWalker::PAGINATOR_ID_ALIAS . '_' . ++$i, $id);
             }
-            $event->setReturnValue($result);
+            $result = $whereInQuery->getResult();
         } else {
-            throw ListenerException::queryTypeIsInvalidForManager('ORM');
+            $query->setFirstResult($event->get('offset'))
+                ->setMaxResults($event->get('numRows'));
+            $result = $query->getResult();
         }
+        $event->setReturnValue($result);
         return true;
     }
     

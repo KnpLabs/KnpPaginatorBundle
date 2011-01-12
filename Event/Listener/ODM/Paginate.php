@@ -5,7 +5,7 @@ namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ODM;
 use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
     Doctrine\ODM\MongoDB\Query\Query,
-    Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException;
+    Bundle\DoctrinePaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * ODM Paginate listener is responsible
@@ -24,11 +24,7 @@ class Paginate extends PaginatorListener
     public function onQueryCount(PaginatorEvent $event)
     {
         $query = $event->get('query');
-        if ($query instanceof Query) {
-            $event->setReturnValue($query->count());
-        } else {
-            throw ListenerException::queryTypeIsInvalidForManager('ODM');
-        }
+        $event->setReturnValue($query->count());
         return true;
     }
     
@@ -42,26 +38,22 @@ class Paginate extends PaginatorListener
     public function onQueryResult(PaginatorEvent $event)
     {
         $query = $event->get('query');
-        if ($query instanceof Query) {
-            $type = $query->getType();
-            if ($type !== Query::TYPE_FIND) {
-                throw ListenerException::odmQueryTypeInvalid();
-            }
-            $reflClass = new \ReflectionClass('Doctrine\MongoDB\Query\Query');
-            $reflProp = $reflClass->getProperty('query');
-            $reflProp->setAccessible(true);
-            $queryOptions = $reflProp->getValue($query);
-            
-            $queryOptions['limit'] = $event->get('numRows');
-            $queryOptions['skip'] = $event->get('offset');
-            
-            $resultQuery = clone $query;
-            $reflProp->setValue($resultQuery, $queryOptions);
-            $cursor = $resultQuery->execute();
-            $event->setReturnValue($cursor->toArray());
-        } else {
-            throw ListenerException::queryTypeIsInvalidForManager('ODM');
+        $type = $query->getType();
+        if ($type !== Query::TYPE_FIND) {
+            throw new UnexpectedValueException('ODM query must be a FIND type query');
         }
+        $reflClass = new \ReflectionClass('Doctrine\MongoDB\Query\Query');
+        $reflProp = $reflClass->getProperty('query');
+        $reflProp->setAccessible(true);
+        $queryOptions = $reflProp->getValue($query);
+        
+        $queryOptions['limit'] = $event->get('numRows');
+        $queryOptions['skip'] = $event->get('offset');
+        
+        $resultQuery = clone $query;
+        $reflProp->setValue($resultQuery, $queryOptions);
+        $cursor = $resultQuery->execute();
+        $event->setReturnValue($cursor->toArray());
         return true;
     }
     

@@ -7,7 +7,9 @@ use Bundle\DoctrinePaginatorBundle\Paginator\Adapter,
     Symfony\Component\EventDispatcher\EventDispatcher,
     Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
     Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Bundle\DoctrinePaginatorBundle\Paginator\AdapterException;
+    Bundle\DoctrinePaginatorBundle\Exception\InvalidArgumentException,
+    Bundle\DoctrinePaginatorBundle\Exception\RuntimeException,
+    Bundle\DoctrinePaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * Doctrine Paginator Adapter.
@@ -112,7 +114,7 @@ class Doctrine implements Adapter
                 break;
                 
             default:
-                throw AdapterException::invalidQuery(get_class($query));
+                throw new InvalidArgumentException("The query supplied must be ORM or ODM Query object, [" . get_class($query) . "] given");
         }
         
         if ($this->usedEventServiceTag != $tagName) {
@@ -138,7 +140,7 @@ class Doctrine implements Adapter
     {
         if (is_null($this->rowCount)) {
             if ($this->query === null) {
-                throw AdapterException::queryIsMissing();
+                throw new UnexpectedValueException('Paginator Query must be supplied at this point');
             }
             
             $eventParams = array(
@@ -148,7 +150,7 @@ class Doctrine implements Adapter
             $event = new PaginatorEvent($this, PaginatorListener::EVENT_COUNT, $eventParams);
             $this->eventDispatcher->notifyUntil($event);
             if (!$event->isProcessed()) {
-                 throw AdapterException::eventIsNotProcessed('count');
+                throw new RuntimeException('Some listener must process an event during the "count" method call');
             }
             $this->rowCount = $event->getReturnValue();
         }
@@ -166,7 +168,7 @@ class Doctrine implements Adapter
     public function getItems($offset, $itemCountPerPage)
     {
         if ($this->query === null) {
-            throw AdapterException::queryIsMissing();
+            throw new UnexpectedValueException('Paginator Query must be supplied at this point');
         }
         $eventParams = array(
             'query' => $this->query,
@@ -177,7 +179,7 @@ class Doctrine implements Adapter
         $event = new PaginatorEvent($this, PaginatorListener::EVENT_ITEMS, $eventParams);
         $this->eventDispatcher->notifyUntil($event);
         if (!$event->isProcessed()) {
-             throw AdapterException::eventIsNotProcessed('getItems');
+             throw new RuntimeException('Some listener must process an event during the "getItems" method call');
         }
         return $event->getReturnValue();
     }
