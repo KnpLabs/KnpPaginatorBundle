@@ -20,19 +20,19 @@
         </service>
         
         <service id="doctrine_paginator.event.listener.orm.sortable" class="%doctrine_paginator.event.listener.orm.sortable.class%">
-            <tag name="doctrine_paginator.listener.orm" priority="10" />
+            <tag name="doctrine_paginator.listener.orm" priority="128" />
             <argument type="service" id="request" />
         </service>
         <service id="doctrine_paginator.event.listener.orm.paginate" class="%doctrine_paginator.event.listener.orm.paginate.class%">
-            <tag name="doctrine_paginator.listener.orm" priority="128" />
+            <tag name="doctrine_paginator.listener.orm" priority="0" />
         </service>
         
         <service id="doctrine_paginator.event.listener.odm.sortable" class="%doctrine_paginator.event.listener.odm.sortable.class%">
-            <tag name="doctrine_paginator.listener.odm" priority="10" />
+            <tag name="doctrine_paginator.listener.odm" priority="128" />
             <argument type="service" id="request" />
         </service>
         <service id="doctrine_paginator.event.listener.odm.paginate" class="%doctrine_paginator.event.listener.odm.paginate.class%">
-            <tag name="doctrine_paginator.listener.odm" priority="128" />
+            <tag name="doctrine_paginator.listener.odm" priority="0" />
         </service>
     </services>
 </container>

@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\DependencyInjection\Resource\FileResource;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Component\Templating\Engine;
+use Symfony\Component\Templating\DelegatingEngine;
 use Zend\Paginator\Paginator;
 
 /**
@@ -36,7 +36,7 @@ class PaginationHelper extends Helper
      * used for pagination control
      * rendering
      * 
-     * @var Engine
+     * @var DelegatingEngine
      */
     protected $engine;
     
@@ -77,7 +77,7 @@ class PaginationHelper extends Helper
      * @param Request $request
      * @param array $options
      */
-    public function __construct(Engine $engine, RouterHelper $routerHelper, Request $request, array $options = array())
+    public function __construct(DelegatingEngine $engine, RouterHelper $routerHelper, Request $request, array $options = array())
     {
         $this->scrollingStyle = $options['style'];
         $this->template = $options['template'];

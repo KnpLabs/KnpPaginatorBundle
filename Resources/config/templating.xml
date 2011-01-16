@@ -6,20 +6,26 @@
 
     <parameters>
         <parameter key="templating.helper.doctrine_paginator.class">Bundle\DoctrinePaginatorBundle\Templating\Helper\PaginationHelper</parameter>
-        <parameter key="doctrine_paginator.templating.template">DoctrinePaginatorBundle::pagination.twig</parameter>
+        <parameter key="doctrine_paginator.twig.extension.class">Bundle\DoctrinePaginatorBundle\Templating\PaginatorExtension</parameter>
+        <parameter key="doctrine_paginator.templating.template">DoctrinePaginatorBundle::pagination.twig.html</parameter>
         <parameter key="doctrine_paginator.templating.style">Sliding</parameter>
     </parameters>
     
     <services>
         <service id="templating.helper.doctrine_paginator" class="%templating.helper.doctrine_paginator.class%">
             <tag name="templating.helper" alias="pagination" />
-            <argument type="service" id="templating.engine" />
+            <argument type="service" id="templating" />
             <argument type="service" id="templating.helper.router" />
             <argument type="service" id="request" />
             <argument type="collection">
                 <argument key="template">%doctrine_paginator.templating.template%</argument>
                 <argument key="style">%doctrine_paginator.templating.style%</argument>
             </argument>
+        </service>
+        
+        <service id="doctrine_paginator.twig.extension" class="%doctrine_paginator.twig.extension.class%">
+            <tag name="twig.extension" />
+            <argument type="service" id="service_container" />
         </service>
     </services>
 </container>

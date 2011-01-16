@@ -78,8 +78,8 @@ Checkout the "event-based" branch
     <table>
     <tr>
     {# sorting of properties based on query components #}
-        <th>{{ _view.pagination.sort('Id', 'a.id')|raw }}</th>
-        <th>{{ _view.pagination.sort('Title', 'a.title')|raw }}</th>
+        <th>{{ paginator_sort('Id', 'a.id')|raw }}</th>
+        <th>{{ paginator_sort('Title', 'a.title')|raw }}</th>
     </tr>
 
     {# table body #}
@@ -92,7 +92,8 @@ Checkout the "event-based" branch
     </table>
     {# display navigation #}
     <div id="navigation">
-        {{ _view.pagination.render(paginator)|raw }}
+        {{ paginator_render(paginator)|raw }}
     </div>
 
-As for now this is being implemented, currently it works only for ORM yet.
+As for now this is being implemented, currently it is fully functional with ORM
+type queries, ODM still needs improvements.

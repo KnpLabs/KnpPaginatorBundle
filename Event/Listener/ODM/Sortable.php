@@ -40,7 +40,7 @@ class Sortable extends PaginatorListener
      * @throws ListenerException - if query supplied is invalid
      * @return void
      */
-    public function sort(PaginatorEvent $event)
+    public function onQuerySort(PaginatorEvent $event)
     {
         $params = $this->request->query->all();
 
@@ -65,7 +65,7 @@ class Sortable extends PaginatorListener
     protected function getEvents()
     {
         return array(
-            self::EVENT_ITEMS => 'sort'
+            self::EVENT_ITEMS => 'onQuerySort'
         );
     }
 }
