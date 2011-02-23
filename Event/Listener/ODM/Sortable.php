@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ODM;
+namespace Knplabs\PaginatorBundle\Event\Listener\ODM;
 
-use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
-    Bundle\DoctrinePaginatorBundle\Event\Listener\ListenerException,
+use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
+    Knplabs\PaginatorBundle\Event\PaginatorEvent,
+    Knplabs\PaginatorBundle\Event\Listener\ListenerException,
     Doctrine\ODM\MongoDB\Query\Query,
     Symfony\Component\HttpFoundation\Request;
 
@@ -59,7 +59,7 @@ class Sortable extends PaginatorListener
         }
     }
     
-	/**
+    /**
      * {@inheritDoc}
      */
     protected function getEvents()

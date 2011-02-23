@@ -1,12 +1,12 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
+namespace Knplabs\PaginatorBundle\Event\Listener\ORM;
 
-use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
-    Bundle\DoctrinePaginatorBundle\Query\Helper as QueryHelper,
-    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate\CountWalker,
-    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate\WhereInWalker,
+use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
+    Knplabs\PaginatorBundle\Event\PaginatorEvent,
+    Knplabs\PaginatorBundle\Query\Helper as QueryHelper,
+    Knplabs\PaginatorBundle\Query\TreeWalker\Paginate\CountWalker,
+    Knplabs\PaginatorBundle\Query\TreeWalker\Paginate\WhereInWalker,
     Doctrine\ORM\Query;
 
 /**
@@ -18,17 +18,17 @@ class Paginate extends PaginatorListener
     /**
      * AST Tree Walker for count operation
      */
-    const TREE_WALKER_COUNT = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate\CountWalker';
+    const TREE_WALKER_COUNT = 'Knplabs\PaginatorBundle\Query\TreeWalker\Paginate\CountWalker';
     
     /**
      * AST Tree Walker for primary key retrieval in case of distinct mode
      */
-    const TREE_WALKER_LIMIT_SUBQUERY = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate\LimitSubqueryWalker';
+    const TREE_WALKER_LIMIT_SUBQUERY = 'Knplabs\PaginatorBundle\Query\TreeWalker\Paginate\LimitSubqueryWalker';
     
     /**
      * AST Tree Walker for loading the resultset by primary keys in case of distinct mode
      */
-    const TREE_WALKER_WHERE_IN = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate\WhereInWalker';
+    const TREE_WALKER_WHERE_IN = 'Knplabs\PaginatorBundle\Query\TreeWalker\Paginate\WhereInWalker';
     
     /**
      * Executes the count on Query used for
@@ -41,7 +41,7 @@ class Paginate extends PaginatorListener
     public function onQueryCount(PaginatorEvent $event)
     {
         $query = $event->get('query');
-        $countQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
+        $countQuery = QueryHelper::cloneQuery($query);
         $countQuery->setParameters($query->getParameters());
         QueryHelper::addCustomTreeWalker($countQuery, self::TREE_WALKER_COUNT);
         $countQuery->setHint(
@@ -50,11 +50,11 @@ class Paginate extends PaginatorListener
         );
         $countQuery->setFirstResult(null)
             ->setMaxResults(null);
-        $event->setReturnValue($countQuery->getSingleScalarResult());
-        return true;
+        $event->setProcessed();
+        return $countQuery->getSingleScalarResult();
     }
     
-	/**
+    /**
      * Generates the paginated resultset
      * 
      * @param PaginatorEvent $event
@@ -67,7 +67,7 @@ class Paginate extends PaginatorListener
         $distinct = $event->get('distinct');
         $result = null;
         if ($distinct) {
-            $limitSubQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
+            $limitSubQuery = QueryHelper::cloneQuery($query);
             $limitSubQuery->setParameters($query->getParameters());
             QueryHelper::addCustomTreeWalker($limitSubQuery, self::TREE_WALKER_LIMIT_SUBQUERY);
 
@@ -75,7 +75,7 @@ class Paginate extends PaginatorListener
                 ->setMaxResults($event->get('numRows'));
             $ids = array_map('current', $limitSubQuery->getScalarResult());
             // create where-in query
-            $whereInQuery = QueryHelper::cloneQuery($query, $event->getUsedHints());
+            $whereInQuery = QueryHelper::cloneQuery($query);
             QueryHelper::addCustomTreeWalker($whereInQuery, self::TREE_WALKER_WHERE_IN);
             $whereInQuery->setHint(WhereInWalker::HINT_PAGINATOR_ID_COUNT, count($ids))
                 ->setFirstResult(null)
@@ -90,11 +90,11 @@ class Paginate extends PaginatorListener
                 ->setMaxResults($event->get('numRows'));
             $result = $query->getResult();
         }
-        $event->setReturnValue($result);
-        return true;
+        $event->setProcessed();
+        return $result;
     }
     
-	/**
+    /**
      * {@inheritDoc}
      */
     protected function getEvents()

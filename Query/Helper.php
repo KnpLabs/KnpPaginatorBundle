@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Query;
+namespace Knplabs\PaginatorBundle\Query;
 
 use Doctrine\ORM\Query;
 
@@ -12,21 +12,18 @@ class Helper
 {
     /**
      * Clones the given $query and copies all used
-     * parameters together with specified $usedHints
+     * parameters and hints
      * 
      * @param Query $query
-     * @param array $usedHints
      * @return Query
      */
-    public static function cloneQuery(Query $query, array $usedHints = array())
+    public static function cloneQuery(Query $query)
     {
         $clonedQuery = clone $query;
         $clonedQuery->setParameters($query->getParameters());
         // attach hints
-        foreach ($usedHints as $name) {
-            if (($hint = $query->getHint($name)) !== false) {
-                $clonedQuery->setHint($name, $hint);
-            }
+        foreach ($query->getHints() as $name => $hint) {
+            $clonedQuery->setHint($name, $hint);
         }
         return $clonedQuery;
     }

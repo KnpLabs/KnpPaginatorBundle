@@ -1,14 +1,14 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ORM;
+namespace Knplabs\PaginatorBundle\Event\Listener\ORM;
 
-use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
-    Bundle\DoctrinePaginatorBundle\Query\Helper as QueryHelper,
-    Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
+use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
+    Knplabs\PaginatorBundle\Event\PaginatorEvent,
+    Knplabs\PaginatorBundle\Query\Helper as QueryHelper,
+    Knplabs\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
     Symfony\Component\HttpFoundation\Request,
     Doctrine\ORM\Query,
-    Bundle\DoctrinePaginatorBundle\Exception\UnexpectedValueException;
+    Knplabs\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * ORM Sortable listener is responsible
@@ -20,7 +20,7 @@ class Sortable extends PaginatorListener
     /**
      * AST Tree Walker for sorting operation
      */
-    const TREE_WALKER_ORDER_BY = 'Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker';
+    const TREE_WALKER_ORDER_BY = 'Knplabs\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker';
     
     /**
      * Current request
@@ -57,10 +57,6 @@ class Sortable extends PaginatorListener
             if (count($parts) != 2) {
                 throw new UnexpectedValueException('Invalid sort key came by request, should be example: "article.title"');
             }
-            $event->addUsedHint(OrderByWalker::HINT_PAGINATOR_SORT_ALIAS)
-                ->addUsedHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION)
-                ->addUsedHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD)
-                ->addUsedHint(Query::HINT_CUSTOM_TREE_WALKERS);
             
             $query->setHint(OrderByWalker::HINT_PAGINATOR_SORT_ALIAS, current($parts))
                 ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION, $params['direction'])
@@ -69,7 +65,7 @@ class Sortable extends PaginatorListener
         }
     }
     
-	/**
+    /**
      * {@inheritDoc}
      */
     protected function getEvents()

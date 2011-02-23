@@ -11,7 +11,7 @@
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
 
-namespace Bundle\DoctrinePaginatorBundle\Query\TreeWalker\Paginate;
+namespace Knplabs\PaginatorBundle\Query\TreeWalker\Paginate;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\SelectStatement,
@@ -33,7 +33,7 @@ class CountWalker extends TreeWalkerAdapter
     /**
      * Distinct mode hint name
      */
-    const HINT_PAGINATOR_COUNT_DISTINCT = 'bundle.doctrine_paginator.distinct';
+    const HINT_PAGINATOR_COUNT_DISTINCT = 'bundle.knplabs_paginator.distinct';
     
     /**
      * Walks down a SelectStatement AST node, modifying it to retrieve a COUNT

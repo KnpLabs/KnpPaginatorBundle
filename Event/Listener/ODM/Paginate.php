@@ -1,11 +1,11 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Event\Listener\ODM;
+namespace Knplabs\PaginatorBundle\Event\Listener\ODM;
 
-use Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
+use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
+    Knplabs\PaginatorBundle\Event\PaginatorEvent,
     Doctrine\ODM\MongoDB\Query\Query,
-    Bundle\DoctrinePaginatorBundle\Exception\UnexpectedValueException;
+    Knplabs\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * ODM Paginate listener is responsible
@@ -24,11 +24,10 @@ class Paginate extends PaginatorListener
     public function onQueryCount(PaginatorEvent $event)
     {
         $query = $event->get('query');
-        $event->setReturnValue($query->count());
-        return true;
+        return $query->count();
     }
     
-	/**
+    /**
      * Generates the paginated resultset
      * 
      * @param PaginatorEvent $event
@@ -53,11 +52,12 @@ class Paginate extends PaginatorListener
         $resultQuery = clone $query;
         $reflProp->setValue($resultQuery, $queryOptions);
         $cursor = $resultQuery->execute();
-        $event->setReturnValue($cursor->toArray());
-        return true;
+
+        $event->setProcessed();
+        return $cursor->toArray();
     }
     
-	/**
+    /**
      * {@inheritDoc}
      */
     protected function getEvents()

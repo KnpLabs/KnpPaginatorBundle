@@ -1,15 +1,15 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Paginator\Adapter;
+namespace Knplabs\PaginatorBundle\Paginator\Adapter;
 
-use Bundle\DoctrinePaginatorBundle\Paginator\Adapter,
+use Knplabs\PaginatorBundle\Paginator\Adapter,
     Symfony\Component\DependencyInjection\ContainerInterface,
     Symfony\Component\EventDispatcher\EventDispatcher,
-    Bundle\DoctrinePaginatorBundle\Event\PaginatorEvent,
-    Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener,
-    Bundle\DoctrinePaginatorBundle\Exception\InvalidArgumentException,
-    Bundle\DoctrinePaginatorBundle\Exception\RuntimeException,
-    Bundle\DoctrinePaginatorBundle\Exception\UnexpectedValueException;
+    Knplabs\PaginatorBundle\Event\PaginatorEvent,
+    Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
+    Knplabs\PaginatorBundle\Exception\InvalidArgumentException,
+    Knplabs\PaginatorBundle\Exception\RuntimeException,
+    Knplabs\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * Doctrine Paginator Adapter.
@@ -28,11 +28,21 @@ class Doctrine implements Adapter
     const QUERY_CLASS_ODM = 'Doctrine\ODM\MongoDB\Query\Query';
     
     /**
-     * Currently used event service tag
+     * List of listener services type => serviceIds
+     * types supported:
+     * 		orm - doctrine orm
+     * 		odm - ducument manager
+     * 
+	 * @var array
+     */
+    protected $listenerServices = array();
+    
+    /**
+     * Currently used type
      * 
      * @var string
      */
-    protected $usedEventServiceTag = null;
+    protected $usedType = null;
     
     /**
      * Query object for pagination query
@@ -70,11 +80,11 @@ class Doctrine implements Adapter
      */
     private $container = null;
     
-	/**
-	 * Initialize the doctrine paginator adapter
-	 * 
-	 * @param ContainerInterface $container
-	 */
+    /**
+     * Initialize the doctrine paginator adapter
+     * 
+     * @param ContainerInterface $container
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
@@ -84,7 +94,7 @@ class Doctrine implements Adapter
      * Set the distinct mode
      * 
      * @param bool $distinct
-     * @return Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine
+     * @return Knplabs\PaginatorBundle\Paginator\Adapter\Doctrine
      */
     public function setDistinct($distinct)
     {
@@ -99,31 +109,30 @@ class Doctrine implements Adapter
      * @param Query $query - The query to paginate
      * @param integer $numRows(optional) - number of rows
      * @throws AdapterException - if query type is not supported
-     * @return Bundle\DoctrinePaginatorBundle\Paginator\Adapter\Doctrine
+     * @return Knplabs\PaginatorBundle\Paginator\Adapter\Doctrine
      */
     public function setQuery($query, $numRows = null)
     {
-        $tagName = 'doctrine_paginator.listener.';
+        $type = null;
         switch (get_class($query)) {
             case self::QUERY_CLASS_ORM:
-                $tagName .= 'orm';
+                $type = 'orm';
                 break;
                 
             case self::QUERY_CLASS_ODM:
-                $tagName .= 'odm';
+                $type = 'odm';
                 break;
                 
             default:
                 throw new InvalidArgumentException("The query supplied must be ORM or ODM Query object, [" . get_class($query) . "] given");
         }
         
-        if ($this->usedEventServiceTag != $tagName) {
+        if ($this->usedType != $type) {
             $this->eventDispatcher = new EventDispatcher();
-            foreach ($this->container->findTaggedServiceIds($tagName) as $id => $attributes) {
-                $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-                $this->container->get($id)->subscribe($this->eventDispatcher, $priority);
+            foreach ($this->listenerServices[$type] as $options) {
+                $this->container->get($options['service'])->subscribe($this->eventDispatcher, $options['priority']);
             }
-            $this->usedEventServiceTag = $tagName;
+            $this->usedType = $type;
         }
         $this->query = $query;
         $this->rowCount = is_null($numRows) ? null : intval($numRows);
@@ -148,23 +157,22 @@ class Doctrine implements Adapter
                 'distinct' => $this->distinct
             );
             $event = new PaginatorEvent($this, PaginatorListener::EVENT_COUNT, $eventParams);
-            $this->eventDispatcher->notifyUntil($event);
+            $this->rowCount = $this->eventDispatcher->notifyUntil($event);
             if (!$event->isProcessed()) {
                 throw new RuntimeException('Some listener must process an event during the "count" method call');
             }
-            $this->rowCount = $event->getReturnValue();
         }
         return $this->rowCount;
     }
     
-	/**
-	 * Executes the pagination query
-	 * 
-	 * @param integer $offset
-	 * @param integer $itemCountPerPage
-	 * @throws AdapterException - if event is not finally processed or query not set
-	 * @return mixed - resultset
-	 */
+    /**
+     * Executes the pagination query
+     * 
+     * @param integer $offset
+     * @param integer $itemCountPerPage
+     * @throws AdapterException - if event is not finally processed or query not set
+     * @return mixed - resultset
+     */
     public function getItems($offset, $itemCountPerPage)
     {
         if ($this->query === null) {
@@ -177,11 +185,19 @@ class Doctrine implements Adapter
             'numRows' => $itemCountPerPage
         );
         $event = new PaginatorEvent($this, PaginatorListener::EVENT_ITEMS, $eventParams);
-        $this->eventDispatcher->notifyUntil($event);
+        $result = $this->eventDispatcher->notifyUntil($event);
         if (!$event->isProcessed()) {
              throw new RuntimeException('Some listener must process an event during the "getItems" method call');
         }
-        return $event->getReturnValue();
+        return $result;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function addListenerService($serviceId, $type, $priority)
+    {
+        $this->listenerServices[$type][] = array('service' => $serviceId, 'priority' => $priority);
     }
     
     /**

@@ -5,25 +5,25 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="templating.helper.doctrine_paginator.class">Bundle\DoctrinePaginatorBundle\Templating\Helper\PaginationHelper</parameter>
-        <parameter key="doctrine_paginator.twig.extension.class">Bundle\DoctrinePaginatorBundle\Templating\PaginatorExtension</parameter>
-        <parameter key="doctrine_paginator.templating.template">DoctrinePaginatorBundle::pagination.twig.html</parameter>
-        <parameter key="doctrine_paginator.templating.style">Sliding</parameter>
+        <parameter key="templating.helper.knplabs_paginator.class">Knplabs\PaginatorBundle\Templating\Helper\PaginationHelper</parameter>
+        <parameter key="knplabs_paginator.twig.extension.class">Knplabs\PaginatorBundle\Templating\PaginatorExtension</parameter>
+        <parameter key="knplabs_paginator.templating.template">KnplabsPaginatorBundle::pagination.html.twig</parameter>
+        <parameter key="knplabs_paginator.templating.style">Sliding</parameter>
     </parameters>
     
     <services>
-        <service id="templating.helper.doctrine_paginator" class="%templating.helper.doctrine_paginator.class%">
+        <service id="templating.helper.knplabs_paginator" class="%templating.helper.knplabs_paginator.class%" scope="request">
             <tag name="templating.helper" alias="pagination" />
             <argument type="service" id="templating" />
             <argument type="service" id="templating.helper.router" />
             <argument type="service" id="request" />
             <argument type="collection">
-                <argument key="template">%doctrine_paginator.templating.template%</argument>
-                <argument key="style">%doctrine_paginator.templating.style%</argument>
+                <argument key="template">%knplabs_paginator.templating.template%</argument>
+                <argument key="style">%knplabs_paginator.templating.style%</argument>
             </argument>
         </service>
         
-        <service id="doctrine_paginator.twig.extension" class="%doctrine_paginator.twig.extension.class%">
+        <service id="knplabs_paginator.twig.extension" class="%knplabs_paginator.twig.extension.class%">
             <tag name="twig.extension" />
             <argument type="service" id="service_container" />
         </service>

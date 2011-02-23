@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Templating\Helper;
+namespace Knplabs\PaginatorBundle\Templating\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\DependencyInjection\Resource\FileResource;
@@ -105,32 +105,32 @@ class PaginationHelper extends Helper
     public function sort($title, $key, $options = array())
     {
         $options = array_merge(array(
-    		'absolute' => false
-    	), $options);
+            'absolute' => false
+        ), $options);
         
         $params = $this->params;
         $direction = isset($options['direction']) ? $options['direction'] : 'asc';
-    	
+        
         $sorted = isset($params['sort']) && $params['sort'] == $key;
         if ($sorted) {
-    		$direction = $params['direction'];
+            $direction = $params['direction'];
             $direction = (strtolower($direction) == 'asc') ? 'desc' : 'asc';
             $class = $direction == 'asc' ? 'desc' : 'asc';
-    		if (isset($options['class'])) {
-				$options['class'] .= ' ' . $class;
-			} else {
-				$options['class'] = $class;
-			}
-    	} else {
-    	    $options['class'] = 'sort';
-    	}
+            if (isset($options['class'])) {
+                $options['class'] .= ' ' . $class;
+            } else {
+                $options['class'] = $class;
+            }
+        } else {
+            $options['class'] = 'sort';
+        }
         if (is_array($title) && array_key_exists($direction, $title)) {
-			$title = $title[$direction];
-		}
-		$params = array_merge(
-			$params,
-			array('sort' => $key, 'direction' => $direction)
-		);
+            $title = $title[$direction];
+        }
+        $params = array_merge(
+            $params,
+            array('sort' => $key, 'direction' => $direction)
+        );
         return $this->buildLink($params, $title, $options);
     }
     

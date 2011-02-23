@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Entity;
+namespace Knplabs\PaginatorBundle\Entity;
 
 /**
  * @orm:Table(name="test_articles")

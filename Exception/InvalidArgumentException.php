@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Exception;
+namespace Knplabs\PaginatorBundle\Exception;
 
-use Bundle\DoctrinePaginatorBundle\Exception;
+use Knplabs\PaginatorBundle\Exception;
 
 class InvalidArgumentException 
     extends \InvalidArgumentException

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Event\Listener;
+namespace Knplabs\PaginatorBundle\Event\Listener;
 
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -13,12 +13,12 @@ abstract class PaginatorListener
     /**
      * Count event
      */
-    const EVENT_COUNT = 'doctrine_paginator.count';
+    const EVENT_COUNT = 'knplabs_paginator.count';
     
     /**
      * Items event
      */
-    const EVENT_ITEMS = 'doctrine_paginator.items';
+    const EVENT_ITEMS = 'knplabs_paginator.items';
     
     /**
      * Get the subscribtion event list
@@ -33,7 +33,7 @@ abstract class PaginatorListener
      * 
      * @param EventDispatcher $dispacher
      * @param integer $priority
-     * @return Bundle\DoctrinePaginatorBundle\Event\Listener\PaginatorListener
+     * @return Knplabs\PaginatorBundle\Event\Listener\PaginatorListener
      */
     public function subscribe(EventDispatcher $dispacher, $priority = 0)
     {

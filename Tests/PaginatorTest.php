@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Tests;
+namespace Knplabs\PaginatorBundle\Tests;
 
-use Bundle\DoctrinePaginatorBundle\Entity\Test;
-use Bundle\DoctrinePaginatorBundle\PaginatorODMAdapter;
+use Knplabs\PaginatorBundle\Entity\Test;
+use Knplabs\PaginatorBundle\PaginatorODMAdapter;
 use Zend\Paginator\Paginator;
 
 class PaginatorTest extends BaseDatabaseTest
@@ -211,6 +211,6 @@ class PaginatorTest extends BaseDatabaseTest
 
     protected function createQuery()
     {
-        return self::$kernel->getContainer()->get('doctrine.odm.mongodb.document_manager')->getRepository('Bundle\DoctrinePaginatorBundle\Document\Test')->createQuery()->sort('title', 'asc');
+        return self::$kernel->getContainer()->get('doctrine.odm.mongodb.document_manager')->getRepository('Knplabs\PaginatorBundle\Document\Test')->createQuery()->sort('title', 'asc');
     }
 }

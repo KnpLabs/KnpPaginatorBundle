@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Tests;
+namespace Knplabs\PaginatorBundle\Tests;
 
 // Kernel creation required namespaces
 use Symfony\Component\Finder\Finder;

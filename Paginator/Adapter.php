@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Paginator;
+namespace Knplabs\PaginatorBundle\Paginator;
 
 use Zend\Paginator\Adapter as ZendPaginatorAdapter;
 
@@ -18,10 +18,20 @@ interface Adapter extends ZendPaginatorAdapter
      */
     public function setQuery($query, $numRows = null);
     
-	/**
+    /**
      * Set the distinct mode
      * 
      * @param bool $distinct
      */
     public function setDistinct($distinct);
+    
+    /**
+     * Add a listener service by $type for
+     * adaper to be able to use
+     * 
+     * @param string $serviceId
+     * @param string $type
+     * @param string $priority
+     */
+    public function addListenerService($serviceId, $type, $priority);
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Document;
+namespace Knplabs\PaginatorBundle\Document;
 
 /**
- * @mongodb:Document(collection="doctrine_paginator_test")
+ * @mongodb:Document(collection="knplabs_paginator_test")
  */
 class Test
 {

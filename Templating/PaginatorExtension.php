@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Templating;
+namespace Knplabs\PaginatorBundle\Templating;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Paginator\Paginator;
@@ -24,7 +24,7 @@ class PaginatorExtension extends \Twig_Extension
         $this->container = $container;
     }
 
-	/**
+    /**
      * Returns a list of functions to add to the existing list.
      *
      * @return array An array of functions
@@ -37,7 +37,7 @@ class PaginatorExtension extends \Twig_Extension
         );
     }
 
-	/**
+    /**
      * Create a sort url for the field named $title
      * and identified by $key which consists of
      * alias and field. $options holds all link 
@@ -52,7 +52,7 @@ class PaginatorExtension extends \Twig_Extension
      */
     public function sort($title, $key, $options = array())
     {
-        return $this->container->get('templating.helper.doctrine_paginator')->sort($title, $key, $options);
+        return $this->container->get('templating.helper.knplabs_paginator')->sort($title, $key, $options);
     }
     
     /**
@@ -67,7 +67,7 @@ class PaginatorExtension extends \Twig_Extension
      */
     public function render(Paginator $paginator, $template = null, $style = null)
     {
-        return $this->container->get('templating.helper.doctrine_paginator')->render($paginator, $template, $style);
+        return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $style);
     }
     
     /**

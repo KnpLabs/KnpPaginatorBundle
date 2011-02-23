@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\DoctrinePaginatorBundle\Tests\ORM;
+namespace Knplabs\PaginatorBundle\Tests\ORM;
 
-use Bundle\DoctrinePaginatorBundle\Entity\Article;
+use Knplabs\PaginatorBundle\Entity\Article;
 
 class PaginatorTest extends BaseDatabaseTest
 {
