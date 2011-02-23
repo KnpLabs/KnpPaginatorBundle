@@ -1,7 +1,7 @@
-# Intro to DoctrinePaginatorBundle
+# Intro to PaginatorBundle
 
-This branch contains a new version of DoctrinePaginatorBundle which intends
-to be a reusable, highly customizable and simple to use Symfony2 paginating tool
+This is a new version of Paginator Bundle which has been made reusable, extensible, 
+highly customizable and simple to use Symfony2 paginating tool
 based on Zend Paginator.
 
 It is still experimental and can be changed fundamentally.
@@ -18,33 +18,30 @@ It is still experimental and can be changed fundamentally.
 - Extensions based on events for ODM and ORM query customizations.
 - View helper for simplified pagination templates and other custom operations like sorting.
 
+## Drawbacks
+
+- Currently multiple paginators are not managed during one request
+
 ## Installation and configuration:
 
 ### Get the bundle
 
 Submodule the bundle
 
-    git submodule add git://github.com/l3pp4rd/DoctrinePaginatorBundle.git src/Bundle/DoctrinePaginatorBundle
-    
-Checkout the "event-based" branch
-
-    cd src/Bundle/DoctrinePaginatorBundle
-    git checkout event-based
+    git submodule add git://github.com/knplabs/PaginatorBundle.git src/Knplabs/PaginatorBundle
 
 ### Yml configuration example
 
-    doctrine_paginator.config:~
-    
-    doctrine_paginator.templating:~
+    knplabs_paginator: ~
 
-### Add DoctrinePaginatorBundle to your application kernel
+### Add PaginatorBundle to your application kernel
 
     // app/AppKernel.php
     public function registerBundles()
     {
         return array(
             // ...
-            new Bundle\DoctrinePaginatorBundle\DoctrinePaginatorBundle(),
+            new Knplabs\PaginatorBundle\KnplabsPaginatorBundle(),
             // ...
         );
     }
@@ -54,14 +51,14 @@ Checkout the "event-based" branch
 ### Controller
 
     $em = $this->get('doctrine.orm.entity_manager');
-    $dql = "SELECT a FROM BlogBundle:Article a";
+    $dql = "SELECT a FROM VendorBlogBundle:Article a";
     $query = $em->createQuery($dql);
         
-    $adapter = $this->get('doctrine_paginator.adapter');
+    $adapter = $this->get('knplabs_paginator.adapter');
     $adapter->setQuery($query);
     $adapter->setDistinct(true);
     
-    $paginator = new Paginator($adapter);
+    $paginator = new \Zend\Paginator\Paginator($adapter);
     $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
     $paginator->setItemCountPerPage(10);
     $paginator->setPageRange(5);
@@ -96,4 +93,4 @@ Checkout the "event-based" branch
     </div>
 
 As for now this is being implemented, currently it is fully functional with ORM
-type queries, ODM still needs improvements.
+type queries, ODM is not tested well. Also multiple paginators are not supported in same view yet.
