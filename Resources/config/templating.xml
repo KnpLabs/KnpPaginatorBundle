@@ -17,6 +17,7 @@
             <argument type="service" id="templating" />
             <argument type="service" id="templating.helper.router" />
             <argument type="service" id="request" />
+            <argument type="service" id="translator" />
             <argument type="collection">
                 <argument key="template">%knplabs_paginator.templating.template%</argument>
                 <argument key="style">%knplabs_paginator.templating.style%</argument>

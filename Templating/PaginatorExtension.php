@@ -36,7 +36,7 @@ class PaginatorExtension extends \Twig_Extension
             'paginator_render'  => new \Twig_Function_Method($this, 'render')
         );
     }
-
+    
     /**
      * Create a sort url for the field named $title
      * and identified by $key which consists of
@@ -62,12 +62,12 @@ class PaginatorExtension extends \Twig_Extension
      * 
      * @param Zend\Paginator\Paginator $paginator
      * @param string $template
-     * @param string $style
+     * @param array $custom - custom parameters
      * @return string
      */
-    public function render(Paginator $paginator, $template = null, $style = null)
+    public function render(Paginator $paginator, $template = null, $custom = array())
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $style);
+        return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $custom);
     }
     
     /**

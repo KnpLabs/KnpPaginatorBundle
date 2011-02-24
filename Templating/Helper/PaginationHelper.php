@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\Resource\FileResource;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\DelegatingEngine;
+use Symfony\Component\Translation\TranslatorInterface;
 use Zend\Paginator\Paginator;
 
 /**
@@ -39,6 +40,13 @@ class PaginationHelper extends Helper
      * @var DelegatingEngine
      */
     protected $engine;
+    
+    /**
+     * Translator
+     * 
+     * @var TranslatorInterface
+     */
+    protected $translator;
     
     /**
      * Currently matched route
@@ -75,15 +83,17 @@ class PaginationHelper extends Helper
      * @param Engine $engine
      * @param RouterHelper $routerHelper
      * @param Request $request
+     * @param TranslatorInterface $translator
      * @param array $options
      */
-    public function __construct(DelegatingEngine $engine, RouterHelper $routerHelper, Request $request, array $options = array())
+    public function __construct(DelegatingEngine $engine, RouterHelper $routerHelper, Request $request, TranslatorInterface $translator, array $options = array())
     {
         $this->scrollingStyle = $options['style'];
         $this->template = $options['template'];
         $this->engine = $engine;
         $this->request = $request;
         $this->routerHelper = $routerHelper;
+        $this->translator = $translator;
         
         $this->route = $this->request->get('_route');
         $this->params = $this->request->query->all();
@@ -131,7 +141,7 @@ class PaginationHelper extends Helper
             $params,
             array('sort' => $key, 'direction' => $direction)
         );
-        return $this->buildLink($params, $title, $options);
+        return $this->buildLink($params, $this->translator->trans($title), $options);
     }
     
     /**
@@ -141,20 +151,18 @@ class PaginationHelper extends Helper
      * 
      * @param Zend\Paginator\Paginator $paginator
      * @param string $template
-     * @param string $style
+     * @param array $custom - custom parameters
      * @return string
      */
-    public function render(Paginator $paginator, $template = null, $style = null)
+    public function render(Paginator $paginator, $template = null, $custom = array())
     {
-        if ($style) {
-            $this->scrollingStyle = $style;
-        }
         if ($template) {
             $this->template = $template;
         }
         $params = get_object_vars($paginator->getPages($this->scrollingStyle));
         $params['route'] = $this->route;
         $params['query'] = $this->params;
+        $params['custom'] = $custom;
         return $this->engine->render($this->template, $params);
     }
     
