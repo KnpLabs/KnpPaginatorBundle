@@ -24,6 +24,7 @@ class Paginate extends PaginatorListener
     public function onQueryCount(PaginatorEvent $event)
     {
         $query = $event->get('query');
+        $event->setProcessed();
         return $query->count();
     }
     
