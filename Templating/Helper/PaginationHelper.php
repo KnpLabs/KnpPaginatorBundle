@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\DependencyInjection\Resource\FileResource;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Templating\Helper\Helper;
-use Symfony\Component\Templating\DelegatingEngine;
+use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Zend\Paginator\Paginator;
 
@@ -80,13 +80,13 @@ class PaginationHelper extends Helper
     /**
      * Initialize pagination helper
      * 
-     * @param Engine $engine
+     * @param EngineInterface $engine
      * @param RouterHelper $routerHelper
      * @param Request $request
      * @param TranslatorInterface $translator
      * @param array $options
      */
-    public function __construct(DelegatingEngine $engine, RouterHelper $routerHelper, Request $request, TranslatorInterface $translator, array $options = array())
+    public function __construct(EngineInterface $engine, RouterHelper $routerHelper, Request $request, TranslatorInterface $translator, array $options = array())
     {
         $this->scrollingStyle = $options['style'];
         $this->template = $options['template'];
