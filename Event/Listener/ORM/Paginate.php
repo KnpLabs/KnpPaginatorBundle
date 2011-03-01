@@ -52,7 +52,7 @@ class Paginate extends PaginatorListener
             ->setMaxResults(null);
         $event->setProcessed();
         $countResult = $countQuery->getResult(Query::HYDRATE_ARRAY);
-        return count($countResult) > 1 ? count($countResult) : current($countResult);
+        return count($countResult) > 1 ? count($countResult) : current(current($countResult));
     }
     
     /**
