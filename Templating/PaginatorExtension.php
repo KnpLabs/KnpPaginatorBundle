@@ -64,11 +64,12 @@ class PaginatorExtension extends \Twig_Extension
      * @param Zend\Paginator\Paginator $paginator
      * @param string $template
      * @param array $custom - custom parameters
+     * @param array $routeparams - params for the route
      * @return string
      */
-    public function render(Paginator $paginator, $template = null, $custom = array())
+    public function render(Paginator $paginator, $template = null, $custom = array(), $routeparams)
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $custom);
+        return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $custom, $routeparams);
     }
     
     /**

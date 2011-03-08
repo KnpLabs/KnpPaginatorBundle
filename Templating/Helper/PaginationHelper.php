@@ -152,16 +152,17 @@ class PaginationHelper extends Helper
      * @param Zend\Paginator\Paginator $paginator
      * @param string $template
      * @param array $custom - custom parameters
+     * @param array $routeparams - params for the route
      * @return string
      */
-    public function render(Paginator $paginator, $template = null, $custom = array())
+    public function render(Paginator $paginator, $template = null, $custom = array(), $routeparams=array())
     {
         if ($template) {
             $this->template = $template;
         }
         $params = get_object_vars($paginator->getPages($this->scrollingStyle));
         $params['route'] = $this->route;
-        $params['query'] = $this->params;
+        $params['query'] = array_merge($this->params,$routeparams);
         $params['custom'] = $custom;
         return $this->engine->render($this->template, $params);
     }
