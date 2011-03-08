@@ -112,13 +112,13 @@ class PaginationHelper extends Helper
      * @param array $options
      * @return string
      */
-    public function sort($title, $key, $options = array())
+    public function sort($title, $key, $options = array(), $params = array())
     {
         $options = array_merge(array(
             'absolute' => false
         ), $options);
         
-        $params = $this->params;
+        $params = array_merge($this->params,$params);
         $direction = isset($options['direction']) ? $options['direction'] : 'asc';
         
         $sorted = isset($params['sort']) && $params['sort'] == $key;

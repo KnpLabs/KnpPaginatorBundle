@@ -48,11 +48,12 @@ class PaginatorExtension extends \Twig_Extension
      * @param string $title
      * @param string $key
      * @param array $options
+     * @param array $params
      * @return string
      */
-    public function sort($title, $key, $options = array())
+    public function sort($title, $key, $options = array(), $params = array())
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->sort($title, $key, $options);
+        return $this->container->get('templating.helper.knplabs_paginator')->sort($title, $key, $options, $params);
     }
     
     /**
