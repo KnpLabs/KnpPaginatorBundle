@@ -67,7 +67,7 @@ class PaginatorExtension extends \Twig_Extension
      * @param array $routeparams - params for the route
      * @return string
      */
-    public function render(Paginator $paginator, $template = null, $custom = array(), $routeparams)
+    public function render(Paginator $paginator, $template = null, $custom = array(), $routeparams = array())
     {
         return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $custom, $routeparams);
     }
