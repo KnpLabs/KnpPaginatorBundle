@@ -6,39 +6,49 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 class KnplabsPaginatorExtension extends Extension
 {
-    public function load(array $config, ContainerBuilder $container)
+    /**
+     * Build the extension services
+     * 
+     * @param array $configs
+     * @param ContainerBuilder $container
+     */
+    public function load(array $configs, ContainerBuilder $container)
     {
+        $processor = new Processor();
+        $configuration = new Configuration();
+        $config = $processor->process($configuration->getConfigTree(), $configs);
+        
+        $helpterDefinition = new Definition('%knplabs_paginator.templating.helper.class%');
+        $helpterDefinition
+            ->addTag('templating.helper')
+            ->addMethodCall('setTemplate', array($config['templating']['template']))
+            ->addMethodCall('setStyle', array($config['templating']['style']))
+            ->setScope('request')
+            ->setArguments(array(
+                new Reference('templating'),
+                new Reference('templating.helper.router'),
+                new Reference('request'),
+                new Reference('translator'),
+            ));
+        $container->setDefinition('templating.helper.knplabs_paginator', $helpterDefinition);
+        
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('paginator.xml');
         $loader->load('templating.xml');
-        //die(print_r($container->getParameterBag()));
-        //$this->applyUserConfig($config, $container, 'knplabs_paginator');
     }
     
     /**
-     * Processes the user $config parameters into
-     * $container, prefixed by $prefix recursivelly
+     * Populate the listener service ids
      * 
-     * @param array $config
      * @param ContainerBuilder $container
-     * @param string $prefix
-     * @return void
      */
-    protected function applyUserConfig(array $config, ContainerBuilder $container, $prefix = '')
-    {
-        foreach ($config as $name => $value) {
-            if (is_array($value)) {
-                $this->applyUserConfig($value, $container, $prefix . '.' . $name);
-            } else {
-                $container->setParameter($prefix . '.' . $name, $value);
-            }
-        }
-    }
-    
-    public function configValidate(ContainerBuilder $container)
+    public function populateListeners(ContainerBuilder $container)
     {
         // populate listener services
         $definition = $container->getDefinition('knplabs_paginator.adapter');

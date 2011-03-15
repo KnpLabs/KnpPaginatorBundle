@@ -86,10 +86,8 @@ class PaginationHelper extends Helper
      * @param TranslatorInterface $translator
      * @param array $options
      */
-    public function __construct(EngineInterface $engine, RouterHelper $routerHelper, Request $request, TranslatorInterface $translator, array $options = array())
+    public function __construct(EngineInterface $engine, RouterHelper $routerHelper, Request $request, TranslatorInterface $translator)
     {
-        $this->scrollingStyle = $options['style'];
-        $this->template = $options['template'];
         $this->engine = $engine;
         $this->request = $request;
         $this->routerHelper = $routerHelper;
@@ -97,6 +95,26 @@ class PaginationHelper extends Helper
         
         $this->route = $this->request->get('_route');
         $this->params = $this->request->query->all();
+    }
+    
+    /**
+     * Set the template to render for pagination
+     * 
+     * @param string $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+    
+    /**
+     * Set the style for pagination
+     * 
+     * @param string $style
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
     }
     
     /**

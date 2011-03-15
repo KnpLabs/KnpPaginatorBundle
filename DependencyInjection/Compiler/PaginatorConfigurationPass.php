@@ -7,18 +7,15 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 class PaginatorConfigurationPass implements CompilerPassInterface
 {
-
     /**
-     * Validate the DoctrineExtensions DIC extension config.
-     *
-     * This validation runs in a discrete compiler pass
+     * Populate the listener service ids
      *
      * @param ContainerBuilder $container
      * @return void
      */
     public function process(ContainerBuilder $container)
     {
-        $container->getExtension('knplabs_paginator')->configValidate($container);
+        $container->getExtension('knplabs_paginator')->populateListeners($container);
     }
 
 }

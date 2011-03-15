@@ -5,25 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="templating.helper.knplabs_paginator.class">Knplabs\PaginatorBundle\Templating\Helper\PaginationHelper</parameter>
+        <parameter key="knplabs_paginator.templating.helper.class">Knplabs\PaginatorBundle\Templating\Helper\PaginationHelper</parameter>
         <parameter key="knplabs_paginator.twig.extension.class">Knplabs\PaginatorBundle\Templating\PaginatorExtension</parameter>
-        <parameter key="knplabs_paginator.templating.template">KnplabsPaginatorBundle::pagination.html.twig</parameter>
-        <parameter key="knplabs_paginator.templating.style">Sliding</parameter>
     </parameters>
     
-    <services>
-        <service id="templating.helper.knplabs_paginator" class="%templating.helper.knplabs_paginator.class%" scope="request">
-            <tag name="templating.helper" alias="pagination" />
-            <argument type="service" id="templating" />
-            <argument type="service" id="templating.helper.router" />
-            <argument type="service" id="request" />
-            <argument type="service" id="translator" />
-            <argument type="collection">
-                <argument key="template">%knplabs_paginator.templating.template%</argument>
-                <argument key="style">%knplabs_paginator.templating.style%</argument>
-            </argument>
-        </service>
-        
+    <services>        
         <service id="knplabs_paginator.twig.extension" class="%knplabs_paginator.twig.extension.class%">
             <tag name="twig.extension" />
             <argument type="service" id="service_container" />
