@@ -18,7 +18,6 @@ class Configuration
         $rootNode = $treeBuilder->root('knplabs_paginator', 'array');
         $rootNode
             ->arrayNode('templating')
-                ->addDefaultsIfNotSet()
                 ->scalarNode('style')->defaultValue('Sliding')->end()
                 ->scalarNode('template')->defaultValue('KnplabsPaginatorBundle:Pagination:sliding.html.twig')->end()
             ->end();

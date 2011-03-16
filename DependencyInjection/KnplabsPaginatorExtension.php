@@ -24,23 +24,30 @@ class KnplabsPaginatorExtension extends Extension
         $configuration = new Configuration();
         $config = $processor->process($configuration->getConfigTree(), $configs);
         
-        $helpterDefinition = new Definition('%knplabs_paginator.templating.helper.class%');
-        $helpterDefinition
-            ->addTag('templating.helper')
-            ->addMethodCall('setTemplate', array($config['templating']['template']))
-            ->addMethodCall('setStyle', array($config['templating']['style']))
-            ->setScope('request')
-            ->setArguments(array(
-                new Reference('templating'),
-                new Reference('templating.helper.router'),
-                new Reference('request'),
-                new Reference('translator'),
-            ));
-        $container->setDefinition('templating.helper.knplabs_paginator', $helpterDefinition);
-        
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        if (isset($config['templating'])) {
+            $loader->load('templating.xml');
+            $helpterDefinition = new Definition('%knplabs_paginator.templating.helper.class%');
+            $helpterDefinition
+                ->addTag('templating.helper')
+                ->addMethodCall('setTemplate', array($config['templating']['template']))
+                ->addMethodCall('setStyle', array($config['templating']['style']))
+                ->setScope('request')
+                ->setArguments(array(
+                    new Reference('templating'),
+                    new Reference('templating.helper.router'),
+                    new Reference('request'),
+                    new Reference('translator'),
+                ));
+            $container->setDefinition('templating.helper.knplabs_paginator', $helpterDefinition);
+            
+            $twigExtensionDefinition = new Definition('%knplabs_paginator.twig.extension.class%');
+            $twigExtensionDefinition
+                ->addTag('twig.extension')
+                ->setArguments(array(new Reference('service_container')));
+            $container->setDefinition('knplabs_paginator.twig.extension', $twigExtensionDefinition);
+        }
         $loader->load('paginator.xml');
-        $loader->load('templating.xml');
     }
     
     /**
