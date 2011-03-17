@@ -32,7 +32,8 @@ Submodule the bundle
 
 ### Yml configuration example
 
-    knplabs_paginator: ~
+    knplabs_paginator: 
+        templating: ~ # enables view helper and twig
 
 ### Add PaginatorBundle to your application kernel
 
