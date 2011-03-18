@@ -2,8 +2,8 @@
 
 namespace Knplabs\PaginatorBundle\Event\Listener\ODM;
 
-use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
-    Knplabs\PaginatorBundle\Event\PaginatorEvent,
+use Knplabs\PaginatorBundle\Event\ItemsEvent,
+    Symfony\Component\EventDispatcher\EventSubscriberInterface,
     Knplabs\PaginatorBundle\Event\Listener\ListenerException,
     Doctrine\ODM\MongoDB\Query\Query,
     Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
  * for sorting the resultset by request
  * query parameters
  */
-class Sortable extends PaginatorListener
+class Sortable implements EventSubscriberInterface
 {
     /**
      * Current request
@@ -40,12 +40,12 @@ class Sortable extends PaginatorListener
      * @throws ListenerException - if query supplied is invalid
      * @return void
      */
-    public function onQuerySort(PaginatorEvent $event)
+    public function items(ItemsEvent $event)
     {
         $params = $this->request->query->all();
 
         if (isset($params['sort'])) {
-            $query = $event->get('query');
+            $query = $event->getQquery();
             $field = $params['sort'];
             $direction = strtolower($params['direction']) == 'asc' ? 1 : -1;
             
@@ -62,10 +62,10 @@ class Sortable extends PaginatorListener
     /**
      * {@inheritDoc}
      */
-    protected function getEvents()
+    public static function getEvents()
     {
         return array(
-            self::EVENT_ITEMS => 'onQuerySort'
+            ItemsEvent::NAME
         );
     }
 }

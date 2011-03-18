@@ -5,8 +5,8 @@ namespace Knplabs\PaginatorBundle\Paginator\Adapter;
 use Knplabs\PaginatorBundle\Paginator\Adapter,
     Symfony\Component\DependencyInjection\ContainerInterface,
     Symfony\Component\EventDispatcher\EventDispatcher,
-    Knplabs\PaginatorBundle\Event\PaginatorEvent,
-    Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
+    Knplabs\PaginatorBundle\Event\CountEvent,
+    Knplabs\PaginatorBundle\Event\ItemsEvent,
     Knplabs\PaginatorBundle\Exception\InvalidArgumentException,
     Knplabs\PaginatorBundle\Exception\RuntimeException,
     Knplabs\PaginatorBundle\Exception\UnexpectedValueException;
@@ -130,7 +130,7 @@ class Doctrine implements Adapter
         if ($this->usedType != $type) {
             $this->eventDispatcher = new EventDispatcher();
             foreach ($this->listenerServices[$type] as $options) {
-                $this->container->get($options['service'])->subscribe($this->eventDispatcher, $options['priority']);
+                $this->eventDispatcher->addSubscriber($this->container->get($options['service']), $options['priority']);
             }
             $this->usedType = $type;
         }
@@ -152,15 +152,12 @@ class Doctrine implements Adapter
                 throw new UnexpectedValueException('Paginator Query must be supplied at this point');
             }
             
-            $eventParams = array(
-                'query' => $this->query,
-                'distinct' => $this->distinct
-            );
-            $event = new PaginatorEvent($this, PaginatorListener::EVENT_COUNT, $eventParams);
-            $this->rowCount = $this->eventDispatcher->notifyUntil($event);
-            if (!$event->isProcessed()) {
+            $event = new CountEvent($this->query, $this->distinct);
+            $this->eventDispatcher->dispatch(CountEvent::NAME, $event);
+            if (!$event->isPropagationStopped()) {
                 throw new RuntimeException('Some listener must process an event during the "count" method call');
             }
+            $this->rowCount = $event->getCount();
         }
         return $this->rowCount;
     }
@@ -178,18 +175,13 @@ class Doctrine implements Adapter
         if ($this->query === null) {
             throw new UnexpectedValueException('Paginator Query must be supplied at this point');
         }
-        $eventParams = array(
-            'query' => $this->query,
-            'distinct' => $this->distinct,
-            'offset' => $offset,
-            'numRows' => $itemCountPerPage
-        );
-        $event = new PaginatorEvent($this, PaginatorListener::EVENT_ITEMS, $eventParams);
-        $result = $this->eventDispatcher->notifyUntil($event);
+
+        $event = new ItemsEvent($this->query, $this->distinct, $offset, $itemCountPerPage);
+        $this->eventDispatcher->dispatch(ItemsEvent::NAME, $event);
         if (!$event->isProcessed()) {
              throw new RuntimeException('Some listener must process an event during the "getItems" method call');
         }
-        return $result;
+        return $event->getItems();
     }
     
     /**

@@ -2,8 +2,9 @@
 
 namespace Knplabs\PaginatorBundle\Event\Listener\ODM;
 
-use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
-    Knplabs\PaginatorBundle\Event\PaginatorEvent,
+use Knplabs\PaginatorBundle\Event\CountEvent,
+    Knplabs\PaginatorBundle\Event\ItemsEvent,
+    Symfony\Component\EventDispatcher\EventSubscriberInterface,
     Doctrine\ODM\MongoDB\Query\Query,
     Knplabs\PaginatorBundle\Exception\UnexpectedValueException;
 
@@ -11,33 +12,31 @@ use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
  * ODM Paginate listener is responsible
  * for standard pagination of query resultset
  */
-class Paginate extends PaginatorListener
+class Paginate implements EventSubscriberInterface
 {
     /**
      * Executes the count on Query used for
      * pagination.
      * 
-     * @param PaginatorEvent $event
+     * @param CountEvent $event
      * @throws ListenerException - if query supplied is invalid
-     * @return true - defining the final count event
      */
-    public function onQueryCount(PaginatorEvent $event)
+    public function count(CountEvent $event)
     {
-        $query = $event->get('query');
-        $event->setProcessed();
-        return $query->count();
+        $query = $event->getQquery();
+        $event->stopPropagation();
+        $event->setCount($query->count());
     }
     
     /**
      * Generates the paginated resultset
      * 
-     * @param PaginatorEvent $event
+     * @param ItemsEvent $event
      * @throws ListenerException - if query supplied is invalid
-     * @return true - defining the final items event
      */
-    public function onQueryResult(PaginatorEvent $event)
+    public function items(ItemsEvent $event)
     {
-        $query = $event->get('query');
+        $query = $event->getQuery();
         $type = $query->getType();
         if ($type !== Query::TYPE_FIND) {
             throw new UnexpectedValueException('ODM query must be a FIND type query');
@@ -47,25 +46,25 @@ class Paginate extends PaginatorListener
         $reflProp->setAccessible(true);
         $queryOptions = $reflProp->getValue($query);
         
-        $queryOptions['limit'] = $event->get('numRows');
-        $queryOptions['skip'] = $event->get('offset');
+        $queryOptions['limit'] = $event->getRowCountPerPage();
+        $queryOptions['skip'] = $event->getOffset();
         
         $resultQuery = clone $query;
         $reflProp->setValue($resultQuery, $queryOptions);
         $cursor = $resultQuery->execute();
 
-        $event->setProcessed();
-        return $cursor->toArray();
+        $event->stopPropagation();
+        $event->setItems($cursor->toArray());
     }
     
     /**
      * {@inheritDoc}
      */
-    protected function getEvents()
+    public static function getSubscribedEvents()
     {
         return array(
-            self::EVENT_COUNT => 'onQueryCount',
-            self::EVENT_ITEMS => 'onQueryResult'
+            CountEvent::NAME,
+            ItemsEvent::NAME
         );
     }
 }

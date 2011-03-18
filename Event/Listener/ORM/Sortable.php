@@ -2,8 +2,8 @@
 
 namespace Knplabs\PaginatorBundle\Event\Listener\ORM;
 
-use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
-    Knplabs\PaginatorBundle\Event\PaginatorEvent,
+use Symfony\Component\EventDispatcher\EventSubscriberInterface,
+    Knplabs\PaginatorBundle\Event\ItemsEvent,
     Knplabs\PaginatorBundle\Query\Helper as QueryHelper,
     Knplabs\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
     Symfony\Component\HttpFoundation\Request,
@@ -15,7 +15,7 @@ use Knplabs\PaginatorBundle\Event\Listener\PaginatorListener,
  * for sorting the resultset by request
  * query parameters
  */
-class Sortable extends PaginatorListener
+class Sortable implements EventSubscriberInterface
 {
     /**
      * AST Tree Walker for sorting operation
@@ -43,11 +43,11 @@ class Sortable extends PaginatorListener
      * Adds a sorting to the query if request
      * parameters were set for sorting
      * 
-     * @param PaginatorEvent $event
+     * @param ItemsEvent $event
      * @throws ListenerException - if query supplied is invalid
      * @return void
      */
-    public function onQuerySort(PaginatorEvent $event)
+    public function items(ItemsEvent $event)
     {
         $params = $this->request->query->all();
 
@@ -68,10 +68,10 @@ class Sortable extends PaginatorListener
     /**
      * {@inheritDoc}
      */
-    protected function getEvents()
+    public static function getSubscribedEvents()
     {
         return array(
-            self::EVENT_ITEMS => 'onQuerySort'
+            ItemsEvent::NAME
         );
     }
 }
