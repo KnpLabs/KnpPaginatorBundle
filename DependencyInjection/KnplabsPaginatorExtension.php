@@ -29,7 +29,7 @@ class KnplabsPaginatorExtension extends Extension
             $loader->load('templating.xml');
             $helperDefinition = new Definition('%knplabs_paginator.templating.helper.class%');
             $helperDefinition
-                ->addTag('templating.helper')
+                ->addTag('templating.helper', array('alias' => 'pagination'))
                 ->addMethodCall('setTemplate', array($config['templating']['template']))
                 ->addMethodCall('setStyle', array($config['templating']['style']))
                 ->setScope('request')
