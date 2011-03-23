@@ -27,8 +27,8 @@ class KnplabsPaginatorExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         if (isset($config['templating'])) {
             $loader->load('templating.xml');
-            $helpterDefinition = new Definition('%knplabs_paginator.templating.helper.class%');
-            $helpterDefinition
+            $helperDefinition = new Definition('%knplabs_paginator.templating.helper.class%');
+            $helperDefinition
                 ->addTag('templating.helper')
                 ->addMethodCall('setTemplate', array($config['templating']['template']))
                 ->addMethodCall('setStyle', array($config['templating']['style']))
@@ -39,7 +39,7 @@ class KnplabsPaginatorExtension extends Extension
                     new Reference('request'),
                     new Reference('translator'),
                 ));
-            $container->setDefinition('templating.helper.knplabs_paginator', $helpterDefinition);
+            $container->setDefinition('templating.helper.knplabs_paginator', $helperDefinition);
             
             $twigExtensionDefinition = new Definition('%knplabs_paginator.twig.extension.class%');
             $twigExtensionDefinition
