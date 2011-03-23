@@ -178,7 +178,7 @@ class Doctrine implements Adapter
 
         $event = new ItemsEvent($this->query, $this->distinct, $offset, $itemCountPerPage);
         $this->eventDispatcher->dispatch(ItemsEvent::NAME, $event);
-        if (!$event->isProcessed()) {
+        if (!$event->isPropagationStopped()) {
              throw new RuntimeException('Some listener must process an event during the "getItems" method call');
         }
         return $event->getItems();
