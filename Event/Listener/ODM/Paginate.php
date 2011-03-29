@@ -23,7 +23,7 @@ class Paginate implements EventSubscriberInterface
      */
     public function count(CountEvent $event)
     {
-        $query = $event->getQquery();
+        $query = $event->getQuery();
         $event->stopPropagation();
         $event->setCount($query->count());
     }
