@@ -52,7 +52,7 @@ class Sortable implements EventSubscriberInterface
         $params = $this->request->query->all();
 
         if (isset($params['sort'])) {
-            $query = $event->get('query');
+            $query = $event->getQuery();
             $parts = explode('.', $params['sort']);
             if (count($parts) != 2) {
                 throw new UnexpectedValueException('Invalid sort key came by request, should be example: "article.title"');
