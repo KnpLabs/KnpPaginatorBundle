@@ -45,7 +45,7 @@ class Sortable implements EventSubscriberInterface
         $params = $this->request->query->all();
 
         if (isset($params['sort'])) {
-            $query = $event->getQquery();
+            $query = $event->getQuery();
             $field = $params['sort'];
             $direction = strtolower($params['direction']) == 'asc' ? 1 : -1;
             
