@@ -5,20 +5,20 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="knplabs_paginator.adapter.class">Knplabs\PaginatorBundle\Paginator\Adapter\Doctrine</parameter>
-        
-        <parameter key="knplabs_paginator.event.listener.orm.sortable.class">Knplabs\PaginatorBundle\Event\Listener\ORM\Sortable</parameter>
-        <parameter key="knplabs_paginator.event.listener.orm.paginate.class">Knplabs\PaginatorBundle\Event\Listener\ORM\Paginate</parameter>
-        
-        <parameter key="knplabs_paginator.event.listener.odm.sortable.class">Knplabs\PaginatorBundle\Event\Listener\ODM\Sortable</parameter>
-        <parameter key="knplabs_paginator.event.listener.odm.paginate.class">Knplabs\PaginatorBundle\Event\Listener\ODM\Paginate</parameter>
+        <parameter key="knplabs_paginator.adapter.class">Knplabs\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine</parameter>
+
+        <parameter key="knplabs_paginator.event.listener.orm.sortable.class">Knplabs\Bundle\PaginatorBundle\Event\Listener\ORM\Sortable</parameter>
+        <parameter key="knplabs_paginator.event.listener.orm.paginate.class">Knplabs\Bundle\PaginatorBundle\Event\Listener\ORM\Paginate</parameter>
+
+        <parameter key="knplabs_paginator.event.listener.odm.sortable.class">Knplabs\Bundle\PaginatorBundle\Event\Listener\ODM\Sortable</parameter>
+        <parameter key="knplabs_paginator.event.listener.odm.paginate.class">Knplabs\Bundle\PaginatorBundle\Event\Listener\ODM\Paginate</parameter>
     </parameters>
 
     <services>
         <service id="knplabs_paginator.adapter" class="%knplabs_paginator.adapter.class%">
             <argument type="service" id="service_container" />
         </service>
-        
+
         <service id="knplabs_paginator.event.listener.orm.sortable" class="%knplabs_paginator.event.listener.orm.sortable.class%" scope="request">
             <tag name="knplabs_paginator.listener.orm" priority="128" />
             <argument type="service" id="request" />
@@ -26,7 +26,7 @@
         <service id="knplabs_paginator.event.listener.orm.paginate" class="%knplabs_paginator.event.listener.orm.paginate.class%" scope="request">
             <tag name="knplabs_paginator.listener.orm" priority="0" />
         </service>
-        
+
         <service id="knplabs_paginator.event.listener.odm.sortable" class="%knplabs_paginator.event.listener.odm.sortable.class%" scope="request">
             <tag name="knplabs_paginator.listener.odm" priority="128" />
             <argument type="service" id="request" />

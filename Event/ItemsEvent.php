@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Event;
+namespace Knplabs\Bundle\PaginatorBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
@@ -10,13 +10,13 @@ use Symfony\Component\EventDispatcher\Event;
 class ItemsEvent extends Event
 {
     const NAME = 'items';
-    
+
     private $distinct;
     private $query;
     private $offset;
     private $numRows;
     private $items;
-    
+
     public function __construct($query, $distinct, $offset, $numRows)
     {
         $this->query = $query;
@@ -24,32 +24,32 @@ class ItemsEvent extends Event
         $this->offset = $offset;
         $this->numRows = $numRows;
     }
-    
+
     public function getQuery()
     {
         return $this->query;
     }
-    
+
     public function isDistinct()
     {
         return $this->distinct;
     }
-    
+
     public function getRowCountPerPage()
     {
         return $this->numRows;
     }
-    
+
     public function getOffset()
     {
         return $this->offset;
     }
-    
+
     public function setItems($items)
     {
         $this->items = $items;
     }
-    
+
     public function getItems()
     {
         return $this->items;

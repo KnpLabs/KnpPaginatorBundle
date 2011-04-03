@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Templating\Helper;
+namespace Knplabs\Bundle\PaginatorBundle\Templating\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\DependencyInjection\Resource\FileResource;
@@ -19,67 +19,67 @@ class PaginationHelper extends Helper
 {
     /**
      * Router helper for url generation
-     * 
+     *
      * @var RouterHelper
      */
     protected $routerHelper;
-    
+
     /**
      * Current request object
      * to retrieve url query parameters
-     * 
+     *
      * @var Request
      */
     protected $request;
-    
+
     /**
      * Template rendering engine
      * used for pagination control
      * rendering
-     * 
+     *
      * @var DelegatingEngine
      */
     protected $engine;
-    
+
     /**
      * Translator
-     * 
+     *
      * @var TranslatorInterface
      */
     protected $translator;
-    
+
     /**
      * Currently matched route
-     * 
+     *
      * @var string
      */
     private $route;
-    
+
     /**
      * Request query parameters
-     * 
+     *
      * @var array
      */
     private $params;
-    
+
     /**
      * Scrolling style for Zend paginator
      * to create related pagination control
-     * 
+     *
      * @var string
      */
     private $scrollingStyle;
-    
+
     /**
      * Pagination control template
-     * 
+     *
      * @var string
      */
     private $template;
-    
+
     /**
      * Initialize pagination helper
-     * 
+     *
      * @param EngineInterface $engine
      * @param RouterHelper $routerHelper
      * @param Request $request
@@ -92,39 +92,39 @@ class PaginationHelper extends Helper
         $this->request = $request;
         $this->routerHelper = $routerHelper;
         $this->translator = $translator;
-        
+
         $this->route = $this->request->get('_route');
         $this->params = $this->request->query->all();
     }
-    
+
     /**
      * Set the template to render for pagination
-     * 
+     *
      * @param string $template
      */
     public function setTemplate($template)
     {
         $this->template = $template;
     }
-    
+
     /**
      * Set the style for pagination
-     * 
+     *
      * @param string $style
      */
     public function setStyle($style)
     {
         $this->style = $style;
     }
-    
+
     /**
      * Create a sort url for the field named $title
      * and identified by $key which consists of
-     * alias and field. $options holds all link 
+     * alias and field. $options holds all link
      * parameters like "alt, class" and so on.
-     * 
+     *
      * $key example: "article.title"
-     * 
+     *
      * @param string $title
      * @param string $key
      * @param array $options
@@ -135,10 +135,10 @@ class PaginationHelper extends Helper
         $options = array_merge(array(
             'absolute' => false
         ), $options);
-        
+
         $params = array_merge($this->params,$params);
         $direction = isset($options['direction']) ? $options['direction'] : 'asc';
-        
+
         $sorted = isset($params['sort']) && $params['sort'] == $key;
         if ($sorted) {
             $direction = $params['direction'];
@@ -161,12 +161,12 @@ class PaginationHelper extends Helper
         );
         return $this->buildLink($params, $this->translator->trans($title), $options);
     }
-    
+
     /**
      * Renders a pagination control, for a $paginator given.
      * Optionaly $template and $style can be specified to
      * override default from configuration.
-     * 
+     *
      * @param Zend\Paginator\Paginator $paginator
      * @param string $template
      * @param array $custom - custom parameters
@@ -184,7 +184,7 @@ class PaginationHelper extends Helper
         $params['custom'] = $custom;
         return $this->engine->render($this->template, $params);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -197,7 +197,7 @@ class PaginationHelper extends Helper
      * Build a HTML link. $options holds all link parameters
      * like "alt, class" and so on. $title can also be an image
      * if required.
-     * 
+     *
      * @param array $params - url query params
      * @param string $title
      * @param array $options
@@ -207,7 +207,7 @@ class PaginationHelper extends Helper
     {
         $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
         unset($options['absolute']);
-        
+
         if (!isset($options['title'])) {
             $options['title'] = $title;
         }

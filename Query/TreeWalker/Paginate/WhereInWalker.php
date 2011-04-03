@@ -15,7 +15,7 @@
  * @license     http://hobodave.com/license.txt New BSD License
  */
 
-namespace Knplabs\PaginatorBundle\Query\TreeWalker\Paginate;
+namespace Knplabs\Bundle\PaginatorBundle\Query\TreeWalker\Paginate;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\SelectStatement,
@@ -44,21 +44,21 @@ class WhereInWalker extends TreeWalkerAdapter
      * ID Count hint name
      */
     const HINT_PAGINATOR_ID_COUNT = 'bundle.knplabs_paginator.id.count';
-    
+
     /**
      * Primary key alias for query
      */
     const PAGINATOR_ID_ALIAS = 'dpid';
-    
+
     /**
      * Replaces the whereClause in the AST
      *
      * Generates a clause equivalent to WHERE IN (:dpid_1, :dpid_2, ...)
      *
-     * The parameter namespace (dpid) is defined by 
+     * The parameter namespace (dpid) is defined by
      * the PAGINATOR_ID_ALIAS
-     * 
-     * The total number of parameters is retrieved from 
+     *
+     * The total number of parameters is retrieved from
      * the HINT_PAGINATOR_ID_COUNT query hint
      *
      * @param  SelectStatement $AST
@@ -105,7 +105,7 @@ class WhereInWalker extends TreeWalkerAdapter
                     $conditionalPrimary
                 ))
             );
-        } else {    
+        } else {
             $AST->whereClause = new WhereClause(
                 new ConditionalExpression(array(
                     new ConditionalTerm(array(

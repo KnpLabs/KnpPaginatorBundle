@@ -1,10 +1,10 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Exception;
+namespace Knplabs\Bundle\PaginatorBundle\Exception;
 
-use Knplabs\PaginatorBundle\Exception;
+use Knplabs\Bundle\PaginatorBundle\Exception;
 
-class InvalidArgumentException 
+class InvalidArgumentException
     extends \InvalidArgumentException
     implements Exception
 {}

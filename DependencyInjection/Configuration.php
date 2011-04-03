@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\DependencyInjection;
+namespace Knplabs\Bundle\PaginatorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

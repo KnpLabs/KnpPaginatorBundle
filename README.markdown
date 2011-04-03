@@ -28,7 +28,7 @@ It is still experimental and can be changed fundamentally.
 
 Submodule the bundle
 
-    git submodule add git://github.com/knplabs/PaginatorBundle.git src/Knplabs/PaginatorBundle
+    git submodule add git://github.com/knplabs/PaginatorBundle.git vendor/bundles/Knplabs/Bundle/PaginatorBundle
 
 ### Yml configuration example
 
@@ -42,7 +42,7 @@ Submodule the bundle
     {
         return array(
             // ...
-            new Knplabs\PaginatorBundle\KnplabsPaginatorBundle(),
+            new Knplabs\Bundle\PaginatorBundle\KnplabsPaginatorBundle(),
             // ...
         );
     }

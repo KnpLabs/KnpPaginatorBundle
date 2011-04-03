@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\DependencyInjection;
+namespace Knplabs\Bundle\PaginatorBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
@@ -14,7 +14,7 @@ class KnplabsPaginatorExtension extends Extension
 {
     /**
      * Build the extension services
-     * 
+     *
      * @param array $configs
      * @param ContainerBuilder $container
      */
@@ -23,7 +23,7 @@ class KnplabsPaginatorExtension extends Extension
         $processor = new Processor();
         $configuration = new Configuration();
         $config = $processor->process($configuration->getConfigTree(), $configs);
-        
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         if (isset($config['templating'])) {
             $loader->load('templating.xml');
@@ -40,7 +40,7 @@ class KnplabsPaginatorExtension extends Extension
                     new Reference('translator'),
                 ));
             $container->setDefinition('templating.helper.knplabs_paginator', $helperDefinition);
-            
+
             $twigExtensionDefinition = new Definition('%knplabs_paginator.twig.extension.class%');
             $twigExtensionDefinition
                 ->addTag('twig.extension')
@@ -49,10 +49,10 @@ class KnplabsPaginatorExtension extends Extension
         }
         $loader->load('paginator.xml');
     }
-    
+
     /**
      * Populate the listener service ids
-     * 
+     *
      * @param ContainerBuilder $container
      */
     public function populateListeners(ContainerBuilder $container)
@@ -64,13 +64,13 @@ class KnplabsPaginatorExtension extends Extension
             $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
             $definition->addMethodCall('addListenerService', array($id, 'orm', $priority));
         }
-        
+
         foreach ($container->findTaggedServiceIds('knplabs_paginator.listener.odm') as $id => $attributes) {
             $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
             $definition->addMethodCall('addListenerService', array($id, 'odm', $priority));
         }
     }
-    
+
     /**
      * Returns the base path for the XSD files.
      *

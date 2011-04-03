@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Templating;
+namespace Knplabs\Bundle\PaginatorBundle\Templating;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Paginator\Paginator;
@@ -9,14 +9,14 @@ class PaginatorExtension extends \Twig_Extension
 {
     /**
      * Container
-     * 
+     *
      * @var ContainerInterface
      */
     private $container;
 
     /**
      * Initialize pagination helper
-     * 
+     *
      * @param ContainerInterface $container
      */
     public function __construct(ContainerInterface $container)
@@ -36,15 +36,15 @@ class PaginatorExtension extends \Twig_Extension
             'paginator_render'  => new \Twig_Function_Method($this, 'render')
         );
     }
-    
+
     /**
      * Create a sort url for the field named $title
      * and identified by $key which consists of
-     * alias and field. $options holds all link 
+     * alias and field. $options holds all link
      * parameters like "alt, class" and so on.
-     * 
+     *
      * $key example: "article.title"
-     * 
+     *
      * @param string $title
      * @param string $key
      * @param array $options
@@ -55,12 +55,12 @@ class PaginatorExtension extends \Twig_Extension
     {
         return $this->container->get('templating.helper.knplabs_paginator')->sort($title, $key, $options, $params);
     }
-    
+
     /**
      * Renders a pagination control, for a $paginator given.
      * Optionaly $template and $style can be specified to
      * override default from configuration.
-     * 
+     *
      * @param Zend\Paginator\Paginator $paginator
      * @param string $template
      * @param array $custom - custom parameters
@@ -71,7 +71,7 @@ class PaginatorExtension extends \Twig_Extension
     {
         return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $custom, $routeparams);
     }
-    
+
     /**
      * {@inheritDoc}
      */

@@ -1,16 +1,16 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Tests\Fixture\Entity;
+namespace Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Entity;
 
 /**
  * @Entity
  */
 class Article
 {
-    /** 
+    /**
      * @Id
      * @GeneratedValue
-     * @Column(type="integer") 
+     * @Column(type="integer")
      */
     private $id;
 
@@ -18,12 +18,12 @@ class Article
      * @Column(length=128)
      */
     private $title;
-    
+
     /**
      * @Column(length=16)
      */
     private $type;
-    
+
     /**
      * @ManyToMany(targetEntity="Comment")
      * @JoinTable(
@@ -34,16 +34,16 @@ class Article
      */
     private $comments;
 
-    
+
     public function __construct() {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     public function getId()
     {
         return $this->id;
     }
-    
+
     public function setTitle($title)
     {
         $this->title = $title;
@@ -53,7 +53,7 @@ class Article
     {
         return $this->title;
     }
-    
+
     public function setType($type)
     {
         $this->type = $type;
@@ -63,7 +63,7 @@ class Article
     {
         return $this->type;
     }
-    
+
     public function addComment(Comment $comment)
     {
         $this->comments[] = $comment;

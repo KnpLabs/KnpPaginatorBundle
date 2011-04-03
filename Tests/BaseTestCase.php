@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Tests;
+namespace Knplabs\Bundle\PaginatorBundle\Tests;
 
 use Symfony\Bundle\AsseticBundle\DependencyInjection\AsseticExtension;
 use Symfony\Component\DependencyInjection\Container;
@@ -20,7 +20,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
     protected $requestHeaders;
     protected $container;
     protected $kernel;
-    
+
     static public function assertSaneContainer(Container $container, $message = 'Some of container services are invalid')
     {
         $errors = array();
@@ -34,7 +34,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         self::assertEquals(array(), $errors, $message);
     }
-    
+
     protected function getContainerBuilder()
     {
         // \sys_get_temp_dir()
@@ -47,14 +47,14 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         $container->setParameter('kernel.bundles', array());
         return $container;
     }
-    
+
     protected function getBaseKernelMock()
     {
         return $this->getMockBuilder('Symfony\\Component\\HttpKernel\\Kernel')
             ->disableOriginalConstructor()
             ->getMock();
     }
-    
+
     protected function getDumpedContainer()
     {
         static $i = 0;
@@ -71,12 +71,12 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         return $container;
     }
-    
+
     /**
      * EntityManager mock object together with
      * annotation mapping driver and pdo_sqlite
      * database in memory
-     * 
+     *
      * @return EntityManager
      */
     protected function getMockSqliteEntityManager()
@@ -94,7 +94,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         $config->expects($this->once())
             ->method('getProxyNamespace')
             ->will($this->returnValue('Proxy'));
-            
+
         $config->expects($this->once())
             ->method('getAutoGenerateProxyClasses')
             ->will($this->returnValue(true));
@@ -102,11 +102,11 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         $config->expects($this->once())
             ->method('getClassMetadataFactoryName')
             ->will($this->returnValue('Doctrine\\ORM\\Mapping\\ClassMetadataFactory'));
-            
+
         $reader = new \Doctrine\Common\Annotations\AnnotationReader();
         $reader->setDefaultAnnotationNamespace('Doctrine\ORM\Mapping\\');
         $mappingDriver = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($reader);
-            
+
         $config->expects($this->any())
             ->method('getMetadataDriverImpl')
             ->will($this->returnValue($mappingDriver));

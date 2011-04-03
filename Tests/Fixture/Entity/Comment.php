@@ -1,16 +1,16 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Tests\Fixture\Entity;
+namespace Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Entity;
 
 /**
  * @Entity
  */
 class Comment
 {
-    /** 
-     * @Id 
-     * @GeneratedValue 
-     * @Column(type="integer") 
+    /**
+     * @Id
+     * @GeneratedValue
+     * @Column(type="integer")
      */
     private $id;
 
@@ -23,7 +23,7 @@ class Comment
     {
         return $this->id;
     }
-    
+
     public function setMessage($message)
     {
         $this->message = $message;

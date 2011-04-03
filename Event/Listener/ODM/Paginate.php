@@ -1,12 +1,12 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Event\Listener\ODM;
+namespace Knplabs\Bundle\PaginatorBundle\Event\Listener\ODM;
 
-use Knplabs\PaginatorBundle\Event\CountEvent,
-    Knplabs\PaginatorBundle\Event\ItemsEvent,
+use Knplabs\Bundle\PaginatorBundle\Event\CountEvent,
+    Knplabs\Bundle\PaginatorBundle\Event\ItemsEvent,
     Symfony\Component\EventDispatcher\EventSubscriberInterface,
     Doctrine\ODM\MongoDB\Query\Query,
-    Knplabs\PaginatorBundle\Exception\UnexpectedValueException;
+    Knplabs\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * ODM Paginate listener is responsible
@@ -17,7 +17,7 @@ class Paginate implements EventSubscriberInterface
     /**
      * Executes the count on Query used for
      * pagination.
-     * 
+     *
      * @param CountEvent $event
      * @throws ListenerException - if query supplied is invalid
      */
@@ -27,10 +27,10 @@ class Paginate implements EventSubscriberInterface
         $event->stopPropagation();
         $event->setCount($query->count());
     }
-    
+
     /**
      * Generates the paginated resultset
-     * 
+     *
      * @param ItemsEvent $event
      * @throws ListenerException - if query supplied is invalid
      */
@@ -45,10 +45,10 @@ class Paginate implements EventSubscriberInterface
         $reflProp = $reflClass->getProperty('query');
         $reflProp->setAccessible(true);
         $queryOptions = $reflProp->getValue($query);
-        
+
         $queryOptions['limit'] = $event->getRowCountPerPage();
         $queryOptions['skip'] = $event->getOffset();
-        
+
         $resultQuery = clone $query;
         $reflProp->setValue($resultQuery, $queryOptions);
         $cursor = $resultQuery->execute();
@@ -56,7 +56,7 @@ class Paginate implements EventSubscriberInterface
         $event->stopPropagation();
         $event->setItems($cursor->toArray());
     }
-    
+
     /**
      * {@inheritDoc}
      */

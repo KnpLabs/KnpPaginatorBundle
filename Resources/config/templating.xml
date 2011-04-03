@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="knplabs_paginator.templating.helper.class">Knplabs\PaginatorBundle\Templating\Helper\PaginationHelper</parameter>
-        <parameter key="knplabs_paginator.twig.extension.class">Knplabs\PaginatorBundle\Templating\PaginatorExtension</parameter>
+        <parameter key="knplabs_paginator.templating.helper.class">Knplabs\Bundle\PaginatorBundle\Templating\Helper\PaginationHelper</parameter>
+        <parameter key="knplabs_paginator.twig.extension.class">Knplabs\Bundle\PaginatorBundle\Templating\PaginatorExtension</parameter>
     </parameters>
 </container>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\DependencyInjection\Compiler;
+namespace Knplabs\Bundle\PaginatorBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

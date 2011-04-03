@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Event;
+namespace Knplabs\Bundle\PaginatorBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
@@ -10,32 +10,32 @@ use Symfony\Component\EventDispatcher\Event;
 class CountEvent extends Event
 {
     const NAME = 'count';
-    
+
     private $distinct;
     private $query;
     private $count;
-    
+
     public function __construct($query, $distinct)
     {
         $this->query = $query;
         $this->distinct = (bool)$distinct;
     }
-    
+
     public function getQuery()
     {
         return $this->query;
     }
-    
+
     public function isDistinct()
     {
         return $this->distinct;
     }
-    
+
     public function setCount($count)
     {
         $this->count = intval($count);
     }
-    
+
     public function getCount()
     {
         return $this->count;
