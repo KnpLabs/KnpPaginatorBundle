@@ -35,6 +35,66 @@ class DoctrineORMTest extends BaseTestCase
         $this->populate();
     }
 
+    public function testSingleWhereStatement()
+    {
+        $extension = new KnplabsPaginatorExtension();
+        $this->container->registerExtension($extension);
+        $this->container->addCompilerPass(new PaginatorConfigurationPass);
+        $extension->load(array(array()), $this->container);
+
+        $container = $this->getDumpedContainer();
+        BaseTestCase::assertSaneContainer($container);
+
+        $adapter = $container->get('knplabs_paginator.adapter');
+        $meta = $this->em->getClassMetadata(self::FIXTURE_ARTICLE);
+        $query = $this->em->createQuery("SELECT a FROM {$meta->name} a WHERE a.type = 'season' ORDER BY a.title");
+        $adapter->setQuery($query);
+
+        $this->assertEquals(4, $adapter->count());
+        $items = $adapter->getItems(2, 2); // second page, showing 2 items per page
+
+        $this->assertEquals(2, count($items));
+        $this->assertEquals('Summer', $items[0]->getTitle());
+        $this->assertEquals('Winter', $items[1]->getTitle());
+    }
+
+    public function testGithubIssue15()
+    {
+        $repo = $this->em->getRepository(self::FIXTURE_ARTICLE);
+        $qb = $repo->createQueryBuilder('a');
+        $qb ->select('a');
+        $qb->add('where', $qb->expr()->in('a.id', array(1, 2, 3)));
+        $qb->andWhere("a.type = 'season'");
+        $qb->orderBy('a.title', 'desc');
+        $query = $qb->getQuery();
+
+        $extension = new KnplabsPaginatorExtension();
+        $this->container->registerExtension($extension);
+        $this->container->addCompilerPass(new PaginatorConfigurationPass);
+        $extension->load(array(array()), $this->container);
+
+        $container = $this->getDumpedContainer();
+        BaseTestCase::assertSaneContainer($container);
+
+        $adapter = $container->get('knplabs_paginator.adapter');
+        $adapter->setQuery($query);
+
+        $this->assertEquals(3, $adapter->count());
+        $items = $adapter->getItems(1, 2); // first page, showing 2 items per page
+
+        $this->assertEquals(2, count($items));
+        $this->assertEquals('Spring', $items[0]->getTitle());
+        $this->assertEquals('Autumn', $items[1]->getTitle());
+
+        // single where statement
+        $repo = $this->em->getRepository(self::FIXTURE_ARTICLE);
+        $qb = $repo->createQueryBuilder('a');
+        $qb ->select('a');
+        $qb->add('where', $qb->expr()->in('a.id', array(1, 2, 3)));
+        $qb->orderBy('a.title', 'desc');
+        $query = $qb->getQuery();
+    }
+
     public function testDoctrineAdapter()
     {
         $extension = new KnplabsPaginatorExtension();

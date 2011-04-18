@@ -98,13 +98,19 @@ class WhereInWalker extends TreeWalkerAdapter
         $conditionalPrimary = new ConditionalPrimary;
         $conditionalPrimary->simpleConditionalExpression = $expression;
         if ($AST->whereClause) {
-            $mainConditionalExpression = clone $AST->whereClause->conditionalExpression;
-            $AST->whereClause = new WhereClause(
-                new ConditionalTerm(array(
-                    $mainConditionalExpression,
-                    $conditionalPrimary
-                ))
-            );
+            if ($AST->whereClause->conditionalExpression instanceof ConditionalTerm) {
+                // has more than one conditional expression
+                $AST->whereClause->conditionalExpression->conditionalFactors[] = $conditionalPrimary;
+            } else {
+                // has one primarty conditional expression
+                $mainConditionalExpression = clone $AST->whereClause->conditionalExpression;
+                $AST->whereClause = new WhereClause(
+                    new ConditionalTerm(array(
+                        $mainConditionalExpression,
+                        $conditionalPrimary
+                    ))
+                );
+            }
         } else {
             $AST->whereClause = new WhereClause(
                 new ConditionalExpression(array(
