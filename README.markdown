@@ -17,10 +17,11 @@ It is still experimental and can be changed fundamentally.
 - Possibility to add custom filtering, sorting functionality depending on request parameters.
 - Extensions based on events for ODM and ORM query customizations.
 - View helper for simplified pagination templates and other custom operations like sorting.
+- Supports multiple paginators during one request
 
-## Drawbacks
-
-- Currently multiple paginators are not managed during one request
+**Notice:** using multiple paginators requires setting the alias for adapter in order to keep non
+conflicting parameters. Also it gets quite complicated with a twig template, since hash arrays cannot use
+variables as keys.
 
 ## Installation and configuration:
 
@@ -68,6 +69,7 @@ Submodule the bundle
     
     $adapterODM = clone $adapter;
     $adapterODM->setQuery($someODMquery);
+    $adapterODM->setAlias('p2_'); // we do not want parameters to conflict
     $paginator2 = new Paginator($adapterODM);
     ....
 
@@ -76,22 +78,20 @@ Submodule the bundle
     <table>
     <tr>
     {# sorting of properties based on query components #}
-        <th>{{ paginator_sort('Id', 'a.id')|raw }}</th>
-        <th>{{ paginator_sort('Title', 'a.title')|raw }}</th>
+        <th>{{ paginator|sortable('Id', 'a.id') }}</th>
+        <th>{{ paginator|sortable('Title', 'a.title') }}</th>
     </tr>
 
     {# table body #}
     {% for article in paginator %}
     <tr {% if loop.index is odd %}class="color"{% endif %}>
-        <td>{{ article.getId() }}</td>
-        <td>{{ article.getTitle() }}</td>
+        <td>{{ article.id }}</td>
+        <td>{{ article.title }}</td>
     </tr>
     {% endfor %}
     </table>
     {# display navigation #}
     <div id="navigation">
-        {{ paginator_render(paginator)|raw }}
+        {{ paginator|paginate }}
     </div>
 
-As for now this is being implemented, currently it is fully functional with ORM
-type queries, ODM is not tested well. Also multiple paginators are not supported in same view yet.

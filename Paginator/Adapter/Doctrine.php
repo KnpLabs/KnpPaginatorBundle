@@ -30,8 +30,8 @@ class Doctrine implements Adapter
     /**
      * List of listener services type => serviceIds
      * types supported:
-     * 		orm - doctrine orm
-     * 		odm - ducument manager
+     *      orm - doctrine orm
+     *      odm - ducument manager
      *
 	 * @var array
      */
@@ -81,6 +81,14 @@ class Doctrine implements Adapter
     private $container = null;
 
     /**
+     * Used alias for the paginator to support
+     * multiple paginators in one request
+     *
+     * @var string
+     */
+    private $alias = '';
+
+    /**
      * Initialize the doctrine paginator adapter
      *
      * @param ContainerInterface $container
@@ -100,6 +108,27 @@ class Doctrine implements Adapter
     {
         $this->distinct = (bool)$distinct;
         return $this;
+    }
+
+    /**
+     * Set the alias for this paginator, all
+     * request parameters will be aliased by it
+     *
+     * @param string $alias
+     * @return Knplabs\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAlias()
+    {
+        return $this->alias;
     }
 
     /**
@@ -152,7 +181,7 @@ class Doctrine implements Adapter
                 throw new UnexpectedValueException('Paginator Query must be supplied at this point');
             }
 
-            $event = new CountEvent($this->query, $this->distinct);
+            $event = new CountEvent($this->query, $this->distinct, $this->getAlias());
             $this->eventDispatcher->dispatch(CountEvent::NAME, $event);
             if (!$event->isPropagationStopped()) {
                 throw new RuntimeException('Some listener must process an event during the "count" method call');
@@ -176,7 +205,7 @@ class Doctrine implements Adapter
             throw new UnexpectedValueException('Paginator Query must be supplied at this point');
         }
 
-        $event = new ItemsEvent($this->query, $this->distinct, $offset, $itemCountPerPage);
+        $event = new ItemsEvent($this->query, $this->distinct, $offset, $itemCountPerPage, $this->getAlias());
         $this->eventDispatcher->dispatch(ItemsEvent::NAME, $event);
         if (!$event->isPropagationStopped()) {
              throw new RuntimeException('Some listener must process an event during the "getItems" method call');

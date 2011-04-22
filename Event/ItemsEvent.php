@@ -16,18 +16,25 @@ class ItemsEvent extends Event
     private $offset;
     private $numRows;
     private $items;
+    private $alias;
 
-    public function __construct($query, $distinct, $offset, $numRows)
+    public function __construct($query, $distinct, $offset, $numRows, $alias)
     {
         $this->query = $query;
         $this->distinct = (bool)$distinct;
         $this->offset = $offset;
         $this->numRows = $numRows;
+        $this->alias = $alias;
     }
 
     public function getQuery()
     {
         return $this->query;
+    }
+
+    public function getAlias()
+    {
+        return $this->alias;
     }
 
     public function isDistinct()

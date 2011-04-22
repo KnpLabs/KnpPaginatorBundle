@@ -25,15 +25,15 @@ class PaginatorExtension extends \Twig_Extension
     }
 
     /**
-     * Returns a list of functions to add to the existing list.
+     * Returns a list of filters to add to the existing list.
      *
-     * @return array An array of functions
+     * @return array
      */
-    public function getFunctions()
+    public function getFilters()
     {
         return array(
-            'paginator_sort'   => new \Twig_Function_Method($this, 'sort'),
-            'paginator_render'  => new \Twig_Function_Method($this, 'render')
+            'sortable' => new \Twig_Filter_Method($this, 'sortable', array('is_safe' => array('html'))),
+            'paginate' => new \Twig_Filter_method($this, 'paginate', array('is_safe' => array('html')))
         );
     }
 
@@ -45,15 +45,16 @@ class PaginatorExtension extends \Twig_Extension
      *
      * $key example: "article.title"
      *
+     * @param Zend\Paginator\Paginator $paginator
      * @param string $title
      * @param string $key
      * @param array $options
      * @param array $params
      * @return string
      */
-    public function sort($title, $key, $options = array(), $params = array())
+    public function sortable(Paginator $paginator, $title, $key, $options = array(), $params = array())
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->sort($title, $key, $options, $params);
+        return $this->container->get('templating.helper.knplabs_paginator')->sortable($paginator, $title, $key, $options, $params);
     }
 
     /**
@@ -67,9 +68,9 @@ class PaginatorExtension extends \Twig_Extension
      * @param array $routeparams - params for the route
      * @return string
      */
-    public function render(Paginator $paginator, $template = null, $custom = array(), $routeparams = array())
+    public function paginate(Paginator $paginator, $template = null, $custom = array(), $routeparams = array())
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->render($paginator, $template, $custom, $routeparams);
+        return $this->container->get('templating.helper.knplabs_paginator')->paginate($paginator, $template, $custom, $routeparams);
     }
 
     /**

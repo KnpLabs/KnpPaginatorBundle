@@ -26,6 +26,13 @@ interface Adapter extends ZendPaginatorAdapter
     public function setDistinct($distinct);
 
     /**
+     * Get paginator alias
+     *
+     * @return string
+     */
+    public function getAlias();
+
+    /**
      * Add a listener service by $type for
      * adaper to be able to use
      *

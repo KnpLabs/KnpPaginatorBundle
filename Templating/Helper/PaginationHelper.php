@@ -9,6 +9,7 @@ use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Zend\Paginator\Paginator;
+use Knplabs\Bundle\PaginatorBundle\Paginator\Adapter;
 
 /**
  * Pagination view helper
@@ -130,23 +131,25 @@ class PaginationHelper extends Helper
      *
      * $key example: "article.title"
      *
+     * @param Zend\Paginator\Paginator $paginator
      * @param string $title
      * @param string $key
      * @param array $options
      * @return string
      */
-    public function sort($title, $key, $options = array(), $params = array())
+    public function sortable(Paginator $paginator, $title, $key, $options = array(), $params = array())
     {
+        $alias = $this->getAlias($paginator);
         $options = array_merge(array(
             'absolute' => false
         ), $options);
 
         $params = array_merge($this->params,$params);
-        $direction = isset($options['direction']) ? $options['direction'] : 'asc';
+        $direction = isset($options[$alias.'direction']) ? $options[$alias.'direction'] : 'asc';
 
-        $sorted = isset($params['sort']) && $params['sort'] == $key;
+        $sorted = isset($params[$alias.'sort']) && $params[$alias.'sort'] == $key;
         if ($sorted) {
-            $direction = $params['direction'];
+            $direction = $params[$alias.'direction'];
             $direction = (strtolower($direction) == 'asc') ? 'desc' : 'asc';
             $class = $direction == 'asc' ? 'desc' : 'asc';
             if (isset($options['class'])) {
@@ -155,14 +158,14 @@ class PaginationHelper extends Helper
                 $options['class'] = $class;
             }
         } else {
-            $options['class'] = 'sort';
+            $options['class'] = 'sortable';
         }
         if (is_array($title) && array_key_exists($direction, $title)) {
             $title = $title[$direction];
         }
         $params = array_merge(
             $params,
-            array('sort' => $key, 'direction' => $direction)
+            array($alias.'sort' => $key, $alias.'direction' => $direction)
         );
         return $this->buildLink($params, $this->translator->trans($title), $options);
     }
@@ -178,16 +181,33 @@ class PaginationHelper extends Helper
      * @param array $routeparams - params for the route
      * @return string
      */
-    public function render(Paginator $paginator, $template = null, $custom = array(), $routeparams=array())
+    public function paginate(Paginator $paginator, $template = null, $custom = array(), $routeparams = array())
     {
         if ($template) {
             $this->template = $template;
         }
         $params = get_object_vars($paginator->getPages($this->scrollingStyle));
         $params['route'] = $this->route;
+        $params['alias'] = $this->getAlias($paginator);
         $params['query'] = array_merge($this->params,$routeparams);
         $params['custom'] = $custom;
         return $this->engine->render($this->template, $params);
+    }
+
+    /**
+     * Get the alias of $paginator
+     *
+     * @param Zend\Paginator\Paginator $paginator
+     * @return string
+     */
+    private function getAlias(Paginator $paginator)
+    {
+        $alias = '';
+        $adapter = $paginator->getAdapter();
+        if ($adapter instanceof Adapter) {
+            $alias = $adapter->getAlias();
+        }
+        return $alias;
     }
 
     /**

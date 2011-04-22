@@ -44,10 +44,10 @@ class Sortable implements EventSubscriberInterface
     {
         $params = $this->request->query->all();
 
-        if (isset($params['sort'])) {
+        if (isset($params[$event->getAlias().'sort'])) {
             $query = $event->getQuery();
-            $field = $params['sort'];
-            $direction = strtolower($params['direction']) == 'asc' ? 1 : -1;
+            $field = $params[$event->getAlias().'sort'];
+            $direction = strtolower($params[$event->getAlias().'direction']) == 'asc' ? 1 : -1;
 
             $reflClass = new \ReflectionClass('Doctrine\MongoDB\Query\Query');
             $reflProp = $reflClass->getProperty('query');
