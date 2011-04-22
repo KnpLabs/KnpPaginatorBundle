@@ -10,8 +10,8 @@ use Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Entity\Comment;
 
 class DoctrineORMTest extends BaseTestCase
 {
-    const FIXTURE_ARTICLE = 'Knplabs\\PaginatorBundle\\Tests\\Fixture\\Entity\\Article';
-    const FIXTURE_COMMENT = 'Knplabs\\PaginatorBundle\\Tests\\Fixture\\Entity\\Comment';
+    const FIXTURE_ARTICLE = 'Knplabs\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Entity\\Article';
+    const FIXTURE_COMMENT = 'Knplabs\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Entity\\Comment';
 
     private $em;
 

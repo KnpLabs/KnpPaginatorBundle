@@ -10,7 +10,8 @@ use Symfony\Component\DependencyInjection\Scope;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
+use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver as AnnotationDriverODM;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver as AnnotationDriverORM;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\Common\EventManager;
 use Doctrine\MongoDB\Connection;
@@ -46,8 +47,8 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         $container->addScope(new Scope('request'));
         $container->register('request', 'Symfony\\Component\\HttpFoundation\\Request')->setScope('request');
         $container->setParameter('kernel.debug', false);
-        $container->setParameter('kernel.root_dir', __DIR__);
-        $container->setParameter('kernel.cache_dir', __DIR__);
+        $container->setParameter('kernel.root_dir', __DIR__.'/temp');
+        $container->setParameter('kernel.cache_dir', __DIR__.'/temp');
         $container->setParameter('kernel.bundles', array());
         return $container;
     }
@@ -93,11 +94,11 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         $config = $this->getMock('Doctrine\ORM\Configuration');
         $config->expects($this->once())
             ->method('getProxyDir')
-            ->will($this->returnValue(\sys_get_temp_dir()));
+            ->will($this->returnValue(__DIR__.'/temp'));
 
         $config->expects($this->once())
             ->method('getProxyNamespace')
-            ->will($this->returnValue('Proxy'));
+            ->will($this->returnValue('EntityProxy'));
 
         $config->expects($this->once())
             ->method('getAutoGenerateProxyClasses')
@@ -109,7 +110,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         $reader = new AnnotationReader();
         $reader->setDefaultAnnotationNamespace('Doctrine\ORM\Mapping\\');
-        $mappingDriver = new AnnotationDriver($reader);
+        $mappingDriver = new AnnotationDriverORM($reader);
 
         $config->expects($this->any())
             ->method('getMetadataDriverImpl')
@@ -130,15 +131,15 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
         $config = $this->getMock('Doctrine\\ODM\\MongoDB\\Configuration');
         $config->expects($this->once())
             ->method('getProxyDir')
-            ->will($this->returnValue(\sys_get_temp_dir()));
+            ->will($this->returnValue(__DIR__.'/temp'));
 
         $config->expects($this->once())
             ->method('getProxyNamespace')
-            ->will($this->returnValue('Proxy'));
+            ->will($this->returnValue('DocumentProxy'));
 
         $config->expects($this->once())
             ->method('getHydratorDir')
-            ->will($this->returnValue(\sys_get_temp_dir()));
+            ->will($this->returnValue(__DIR__.'/temp'));
 
         $config->expects($this->once())
             ->method('getHydratorNamespace')
@@ -166,7 +167,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         $reader = new AnnotationReader();
         $reader->setDefaultAnnotationNamespace('Doctrine\\ODM\\MongoDB\\Mapping\\');
-        $mappingDriver = new AnnotationDriver($reader);
+        $mappingDriver = new AnnotationDriverODM($reader);
 
         $config->expects($this->any())
             ->method('getMetadataDriverImpl')

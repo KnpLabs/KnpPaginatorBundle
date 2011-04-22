@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\PaginatorBundle\Tests\Fixture\Document;
+namespace Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Document;
 
 /**
  * @Document
