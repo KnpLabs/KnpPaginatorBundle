@@ -4,11 +4,9 @@ This is a new version of Paginator Bundle which has been made reusable, extensib
 highly customizable and simple to use Symfony2 paginating tool
 based on Zend Paginator.
 
-It is still experimental and can be changed fundamentally.
-
 ## Requirements:
 
-- Zend library paginator package, without any view helpers.
+- Zend library paginator package, without any view helpers. In future this requirement may be dropped
 - Doctrine ODM or ORM active bundle.
 
 ## Features:
