@@ -23,6 +23,10 @@ variables as keys.
 
 ## Installation and configuration:
 
+### Install Zend Framework 2
+    
+    git submodule add git://github.com/zendframework/zf2.git vendor/Zend
+
 ### Get the bundle
 
 Submodule the bundle
@@ -33,6 +37,16 @@ Submodule the bundle
 
     knplabs_paginator: 
         templating: ~ # enables view helper and twig
+
+### Add the namespaces to your autoloader
+
+    // app/autoload.php
+    $loader->registerNamespaces(array(
+        'Knplabs'                       => __DIR__.'/../vendor/bundles',
+        'Zend'                => __DIR__.'/../vendor/Zend/library',
+        // ...
+    ));
+
 
 ### Add PaginatorBundle to your application kernel
 
