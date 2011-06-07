@@ -63,8 +63,8 @@ class Paginate implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            CountEvent::NAME,
-            ItemsEvent::NAME
+            CountEvent::NAME => 'count',
+            ItemsEvent::NAME => 'items'
         );
     }
 }
