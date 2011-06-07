@@ -65,7 +65,7 @@ class Sortable implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            ItemsEvent::NAME
+            ItemsEvent::NAME => 'items'
         );
     }
 }
