@@ -8,4 +8,18 @@
         <parameter key="knplabs_paginator.templating.helper.class">Knplabs\Bundle\PaginatorBundle\Templating\Helper\PaginationHelper</parameter>
         <parameter key="knplabs_paginator.twig.extension.class">Knplabs\Bundle\PaginatorBundle\Templating\PaginatorExtension</parameter>
     </parameters>
+
+    <services>
+        <service id="knplabs_paginator.twig.extension" class="%knplabs_paginator.twig.extension.class%">
+            <argument type="service" id="service_container" />
+            <tag name="twig.extension" />
+        </service>
+        <service id="templating.helper.knplabs_paginator" class="%knplabs_paginator.templating.helper.class%">
+            <argument type="service" id="templating" />
+            <argument type="service" id="templating.helper.router" />
+            <argument type="service" id="translator" />
+            <tag name="templating.helper" alias="pagination" />
+            <tag name="kernel.listener" event="core.request" method="onCoreRequest" />
+        </service>
+    </services>
 </container>

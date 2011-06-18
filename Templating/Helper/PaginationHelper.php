@@ -3,8 +3,6 @@
 namespace Knplabs\Bundle\PaginatorBundle\Templating\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
-use Symfony\Component\DependencyInjection\Resource\FileResource;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;

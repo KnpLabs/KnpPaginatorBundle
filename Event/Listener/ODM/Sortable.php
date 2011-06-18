@@ -4,8 +4,6 @@ namespace Knplabs\Bundle\PaginatorBundle\Event\Listener\ODM;
 
 use Knplabs\Bundle\PaginatorBundle\Event\ItemsEvent,
     Symfony\Component\EventDispatcher\EventSubscriberInterface,
-    Knplabs\Bundle\PaginatorBundle\Event\Listener\ListenerException,
-    Doctrine\ODM\MongoDB\Query\Query,
     Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -36,9 +34,7 @@ class Sortable implements EventSubscriberInterface
      * Adds a sorting to the query if request
      * parameters were set for sorting
      *
-     * @param PaginatorEvent $event
-     * @throws ListenerException - if query supplied is invalid
-     * @return void
+     * @param ItemsEvent $event
      */
     public function items(ItemsEvent $event)
     {

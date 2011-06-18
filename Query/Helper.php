@@ -25,6 +25,7 @@ class Helper
         foreach ($query->getHints() as $name => $hint) {
             $clonedQuery->setHint($name, $hint);
         }
+
         return $clonedQuery;
     }
 
