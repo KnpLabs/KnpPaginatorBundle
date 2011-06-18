@@ -32,25 +32,4 @@ class KnplabsPaginatorExtension extends Extension
         }
         $loader->load('paginator.xml');
     }
-
-    /**
-     * Populate the listener service ids
-     *
-     * @param ContainerBuilder $container
-     */
-    public function populateListeners(ContainerBuilder $container)
-    {
-        // populate listener services
-        $definition = $container->getDefinition('knplabs_paginator.adapter');
-
-        foreach ($container->findTaggedServiceIds('knplabs_paginator.listener.orm') as $id => $attributes) {
-            $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-            $definition->addMethodCall('addListenerService', array($id, 'orm', $priority));
-        }
-
-        foreach ($container->findTaggedServiceIds('knplabs_paginator.listener.odm') as $id => $attributes) {
-            $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-            $definition->addMethodCall('addListenerService', array($id, 'odm', $priority));
-        }
-    }
 }
