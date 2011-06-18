@@ -30,13 +30,12 @@ class KnplabsPaginatorExtension extends Extension
             $helperDefinition = new Definition('%knplabs_paginator.templating.helper.class%');
             $helperDefinition
                 ->addTag('templating.helper', array('alias' => 'pagination'))
+                ->addTag('kernel.listener', array('event' => 'core.request', 'method' => 'onCoreRequest'))
                 ->addMethodCall('setTemplate', array($config['templating']['template']))
                 ->addMethodCall('setStyle', array($config['templating']['style']))
-                ->setScope('request')
                 ->setArguments(array(
                     new Reference('templating'),
                     new Reference('templating.helper.router'),
-                    new Reference('request'),
                     new Reference('translator'),
                 ));
             $container->setDefinition('templating.helper.knplabs_paginator', $helperDefinition);

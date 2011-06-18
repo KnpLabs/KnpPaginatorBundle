@@ -10,6 +10,8 @@ use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Zend\Paginator\Paginator;
 use Knplabs\Bundle\PaginatorBundle\Paginator\Adapter;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Pagination view helper
@@ -24,14 +26,6 @@ class PaginationHelper extends Helper
      * @var RouterHelper
      */
     protected $routerHelper;
-
-    /**
-     * Current request object
-     * to retrieve url query parameters
-     *
-     * @var Request
-     */
-    protected $request;
 
     /**
      * Template rendering engine
@@ -83,22 +77,26 @@ class PaginationHelper extends Helper
      *
      * @param EngineInterface $engine
      * @param RouterHelper $routerHelper
-     * @param Request $request
      * @param TranslatorInterface $translator
-     * @param array $options
      */
-    public function __construct(EngineInterface $engine, RouterHelper $routerHelper, Request $request, TranslatorInterface $translator)
+    public function __construct(EngineInterface $engine, RouterHelper $routerHelper, TranslatorInterface $translator)
     {
         $this->engine = $engine;
-        $this->request = $request;
         $this->routerHelper = $routerHelper;
         $this->translator = $translator;
+    }
 
-        $this->route = $this->request->get('_route');
-        $this->params = array_merge($this->request->query->all(), $this->request->attributes->all());
-        foreach ($this->params as $key => $param) {
-            if (substr($key, 0, 1) == '_') {
-                unset($this->params[$key]);
+    public function onCoreRequest(GetResponseEvent $event)
+    {
+        if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
+            $request = $event->getRequest();
+
+            $this->route = $request->attributes->get('_route');
+            $this->params = array_merge($request->query->all(), $request->attributes->all());
+            foreach ($this->params as $key => $param) {
+                if (substr($key, 0, 1) == '_') {
+                    unset($this->params[$key]);
+                }
             }
         }
     }
@@ -135,16 +133,21 @@ class PaginationHelper extends Helper
      * @param string $title
      * @param string $key
      * @param array $options
+     * @param array $params
+     * @param string $route
      * @return string
      */
-    public function sortable(Paginator $paginator, $title, $key, $options = array(), $params = array())
+    public function sortable(Paginator $paginator, $title, $key, $options = array(), $params = array(), $route = null)
     {
         $alias = $this->getAlias($paginator);
         $options = array_merge(array(
             'absolute' => false
         ), $options);
 
-        $params = array_merge($this->params,$params);
+        if (null === $route) {
+            $route = $this->route;
+        }
+        $params = array_merge($this->params, $params);
         $direction = isset($options[$alias.'direction']) ? $options[$alias.'direction'] : 'asc';
 
         $sorted = isset($params[$alias.'sort']) && $params[$alias.'sort'] == $key;
@@ -167,7 +170,7 @@ class PaginationHelper extends Helper
             $params,
             array($alias.'sort' => $key, $alias.'direction' => $direction)
         );
-        return $this->buildLink($params, $this->translator->trans($title), $options);
+        return $this->buildLink($params, $route, $this->translator->trans($title), $options);
     }
 
     /**
@@ -179,18 +182,24 @@ class PaginationHelper extends Helper
      * @param string $template
      * @param array $custom - custom parameters
      * @param array $routeparams - params for the route
+     * @param string $route
      * @return string
      */
-    public function paginate(Paginator $paginator, $template = null, $custom = array(), $routeparams = array())
+    public function paginate(Paginator $paginator, $template = null, $custom = array(), $routeparams = array(), $route = null)
     {
         if ($template) {
             $this->template = $template;
         }
+        if (null === $route) {
+            $route = $this->route;
+        }
+
         $params = get_object_vars($paginator->getPages($this->scrollingStyle));
-        $params['route'] = $this->route;
+        $params['route'] = $route;
         $params['alias'] = $this->getAlias($paginator);
-        $params['query'] = array_merge($this->params,$routeparams);
+        $params['query'] = array_merge($this->params, $routeparams);
         $params['custom'] = $custom;
+
         return $this->engine->render($this->template, $params);
     }
 
@@ -207,6 +216,7 @@ class PaginationHelper extends Helper
         if ($adapter instanceof Adapter) {
             $alias = $adapter->getAlias();
         }
+
         return $alias;
     }
 
@@ -224,13 +234,14 @@ class PaginationHelper extends Helper
      * if required.
      *
      * @param array $params - url query params
+     * @param string $route
      * @param string $title
      * @param array $options
      * @return string
      */
-    private function buildLink($params, $title, $options = array())
+    private function buildLink($params, $route, $title, $options = array())
     {
-        $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
+        $options['href'] = $this->routerHelper->generate($route, $params, $options['absolute']);
         unset($options['absolute']);
 
         if (!isset($options['title'])) {
@@ -241,6 +252,7 @@ class PaginationHelper extends Helper
             $link .= ' ' . $attr . '="' . $value . '"';
         }
         $link .= '>' . $title . '</a>';
+
         return $link;
     }
 }
