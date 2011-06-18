@@ -2,17 +2,17 @@
 
 namespace Knplabs\Bundle\PaginatorBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class Configuration
+class Configuration implements ConfigurationInterface
 {
     /**
      * Generates the configuration tree.
      *
-     * @return \Symfony\Component\DependencyInjection\Configuration\NodeInterface
+     * @return TreeBuilder
      */
-    public function getConfigTree()
+    public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('knplabs_paginator', 'array');
@@ -26,6 +26,6 @@ class Configuration
                 ->end()
             ->end();
 
-        return $treeBuilder->buildTree();
+        return $treeBuilder;
     }
 }

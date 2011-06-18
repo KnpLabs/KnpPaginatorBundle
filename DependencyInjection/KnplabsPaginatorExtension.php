@@ -20,7 +20,7 @@ class KnplabsPaginatorExtension extends Extension
     {
         $processor = new Processor();
         $configuration = new Configuration();
-        $config = $processor->process($configuration->getConfigTree(), $configs);
+        $config = $processor->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         if (isset($config['templating'])) {
@@ -52,28 +52,5 @@ class KnplabsPaginatorExtension extends Extension
             $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
             $definition->addMethodCall('addListenerService', array($id, 'odm', $priority));
         }
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
-     */
-    public function getXsdValidationBasePath()
-    {
-        return null;
-    }
-
-    public function getNamespace()
-    {
-        return 'http://symfony.com/schema/dic/symfony';
-    }
-
-    /**
-     * @see Symfony\Component\DependencyInjection\Extension\ExtensionInterface
-     */
-    public function getAlias()
-    {
-        return 'knplabs_paginator';
     }
 }
