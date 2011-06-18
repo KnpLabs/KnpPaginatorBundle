@@ -50,11 +50,12 @@ class PaginatorExtension extends \Twig_Extension
      * @param string $key
      * @param array $options
      * @param array $params
+     * @param string $route
      * @return string
      */
-    public function sortable(Paginator $paginator, $title, $key, $options = array(), $params = array())
+    public function sortable(Paginator $paginator, $title, $key, $options = array(), $params = array(), $route = null)
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->sortable($paginator, $title, $key, $options, $params);
+        return $this->container->get('templating.helper.knplabs_paginator')->sortable($paginator, $title, $key, $options, $params, $route);
     }
 
     /**
@@ -66,11 +67,12 @@ class PaginatorExtension extends \Twig_Extension
      * @param string $template
      * @param array $custom - custom parameters
      * @param array $routeparams - params for the route
+     * @param string $route
      * @return string
      */
-    public function paginate(Paginator $paginator, $template = null, $custom = array(), $routeparams = array())
+    public function paginate(Paginator $paginator, $template = null, $custom = array(), $routeparams = array(), $route = null)
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->paginate($paginator, $template, $custom, $routeparams);
+        return $this->container->get('templating.helper.knplabs_paginator')->paginate($paginator, $template, $custom, $routeparams, $route);
     }
 
     /**
