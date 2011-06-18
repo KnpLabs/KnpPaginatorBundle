@@ -107,6 +107,7 @@ class Doctrine implements Adapter
     public function setDistinct($distinct)
     {
         $this->distinct = (bool)$distinct;
+
         return $this;
     }
 
@@ -120,6 +121,7 @@ class Doctrine implements Adapter
     public function setAlias($alias)
     {
         $this->alias = $alias;
+
         return $this;
     }
 
@@ -137,7 +139,7 @@ class Doctrine implements Adapter
      *
      * @param Query $query - The query to paginate
      * @param integer $numRows(optional) - number of rows
-     * @throws AdapterException - if query type is not supported
+     * @throws InvalidArgumentException - if query type is not supported
      * @return Knplabs\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
      */
     public function setQuery($query, $numRows = null)
@@ -165,13 +167,14 @@ class Doctrine implements Adapter
         }
         $this->query = $query;
         $this->rowCount = is_null($numRows) ? null : intval($numRows);
+
         return $this;
     }
 
     /**
      * Executes count on supplied query
      *
-     * @throws AdapterException - if event is not finally processed or query not set
+     * @throws UnexpectedValueException - if event is not finally processed or query not set
      * @return integer
      */
     public function count()
@@ -188,6 +191,7 @@ class Doctrine implements Adapter
             }
             $this->rowCount = $event->getCount();
         }
+
         return $this->rowCount;
     }
 
@@ -196,7 +200,7 @@ class Doctrine implements Adapter
      *
      * @param integer $offset
      * @param integer $itemCountPerPage
-     * @throws AdapterException - if event is not finally processed or query not set
+     * @throws UnexpectedValueException - if event is not finally processed or query not set
      * @return mixed - resultset
      */
     public function getItems($offset, $itemCountPerPage)
@@ -210,6 +214,7 @@ class Doctrine implements Adapter
         if (!$event->isPropagationStopped()) {
              throw new RuntimeException('Some listener must process an event during the "getItems" method call');
         }
+
         return $event->getItems();
     }
 

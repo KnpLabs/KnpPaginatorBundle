@@ -7,7 +7,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface,
     Knplabs\Bundle\PaginatorBundle\Query\Helper as QueryHelper,
     Knplabs\Bundle\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
     Symfony\Component\HttpFoundation\Request,
-    Doctrine\ORM\Query,
     Knplabs\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
@@ -44,8 +43,6 @@ class Sortable implements EventSubscriberInterface
      * parameters were set for sorting
      *
      * @param ItemsEvent $event
-     * @throws ListenerException - if query supplied is invalid
-     * @return void
      */
     public function items(ItemsEvent $event)
     {

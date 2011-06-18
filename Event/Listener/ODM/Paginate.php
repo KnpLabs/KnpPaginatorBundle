@@ -19,7 +19,6 @@ class Paginate implements EventSubscriberInterface
      * pagination.
      *
      * @param CountEvent $event
-     * @throws ListenerException - if query supplied is invalid
      */
     public function count(CountEvent $event)
     {
@@ -32,7 +31,6 @@ class Paginate implements EventSubscriberInterface
      * Generates the paginated resultset
      *
      * @param ItemsEvent $event
-     * @throws ListenerException - if query supplied is invalid
      */
     public function items(ItemsEvent $event)
     {
