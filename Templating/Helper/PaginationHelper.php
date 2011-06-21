@@ -84,7 +84,7 @@ class PaginationHelper extends Helper
         $this->translator = $translator;
     }
 
-    public function onCoreRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event)
     {
         if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
             $request = $event->getRequest();
