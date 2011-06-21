@@ -19,7 +19,7 @@
             <argument type="service" id="templating.helper.router" />
             <argument type="service" id="translator" />
             <tag name="templating.helper" alias="pagination" />
-            <tag name="kernel.listener" event="core.request" method="onCoreRequest" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
     </services>
 </container>
