@@ -1,6 +1,6 @@
 # Intro to PaginatorBundle
 
-This is a new version of Paginator Bundle which has been made reusable, extensible, 
+This is a new version of Paginator Bundle which has been made reusable, extensible,
 highly customizable and simple to use Symfony2 paginating tool
 based on Zend Paginator.
 
@@ -24,7 +24,7 @@ variables as keys.
 ## Installation and configuration:
 
 ### Install Zend Framework 2
-    
+
     git submodule add git://github.com/zendframework/zf2.git vendor/Zend
 
 ### Get the bundle
@@ -35,7 +35,7 @@ Submodule the bundle
 
 ### Yml configuration example
 
-    knplabs_paginator: 
+    knplabs_paginator:
         templating: ~ # enables view helper and twig
 
 ### Add the namespaces to your autoloader
@@ -67,11 +67,11 @@ Submodule the bundle
     $em = $this->get('doctrine.orm.entity_manager');
     $dql = "SELECT a FROM VendorBlogBundle:Article a";
     $query = $em->createQuery($dql);
-        
+
     $adapter = $this->get('knplabs_paginator.adapter');
     $adapter->setQuery($query);
     $adapter->setDistinct(true);
-    
+
     $paginator = new \Zend\Paginator\Paginator($adapter);
     $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
     $paginator->setItemCountPerPage(10);
@@ -79,7 +79,7 @@ Submodule the bundle
 
     // if second paginator is required on same view:
     
-    $adapterODM = clone $adapter;
+    $adapterODM = $this->get('knplabs_paginator.adapter');
     $adapterODM->setQuery($someODMquery);
     $adapterODM->setAlias('p2_'); // we do not want parameters to conflict
     $paginator2 = new Paginator($adapterODM);

@@ -15,7 +15,7 @@
     </parameters>
 
     <services>
-        <service id="knplabs_paginator.adapter" class="%knplabs_paginator.adapter.class%">
+        <service id="knplabs_paginator.adapter" class="%knplabs_paginator.adapter.class%" scope="prototype">
             <argument type="service" id="service_container" />
         </service>
 
