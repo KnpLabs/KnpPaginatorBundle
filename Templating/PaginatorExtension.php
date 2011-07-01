@@ -33,7 +33,7 @@ class PaginatorExtension extends \Twig_Extension
     {
         return array(
             'sortable' => new \Twig_Filter_Method($this, 'sortable', array('is_safe' => array('html'))),
-            'paginate' => new \Twig_Filter_method($this, 'paginate', array('is_safe' => array('html')))
+            'paginate' => new \Twig_Filter_Method($this, 'paginate', array('is_safe' => array('html')))
         );
     }
 
