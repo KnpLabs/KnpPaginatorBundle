@@ -1,8 +1,8 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Event\Listener\ODM;
+namespace Knp\Bundle\PaginatorBundle\Event\Listener\ODM;
 
-use Knplabs\Bundle\PaginatorBundle\Event\ItemsEvent,
+use Knp\Bundle\PaginatorBundle\Event\ItemsEvent,
     Symfony\Component\EventDispatcher\EventSubscriberInterface,
     Symfony\Component\HttpFoundation\Request;
 

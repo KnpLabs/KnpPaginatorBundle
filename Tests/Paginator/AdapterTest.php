@@ -1,10 +1,10 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Tests\Paginator;
+namespace Knp\Bundle\PaginatorBundle\Tests\Paginator;
 
-use Knplabs\Bundle\PaginatorBundle\Tests\BaseTestCase;
-use Knplabs\Bundle\PaginatorBundle\DependencyInjection\KnplabsPaginatorExtension;
-use Knplabs\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
+use Knp\Bundle\PaginatorBundle\Tests\BaseTestCase;
+use Knp\Bundle\PaginatorBundle\DependencyInjection\KnpPaginatorExtension;
+use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
 
 class AdapterTest extends BaseTestCase
 {
@@ -16,7 +16,7 @@ class AdapterTest extends BaseTestCase
 
     public function testAdapter()
     {
-        $extension = new KnplabsPaginatorExtension();
+        $extension = new KnpPaginatorExtension();
         $this->container->registerExtension($extension);
         $extension->load(array(array()), $this->container);
 
@@ -28,7 +28,7 @@ class AdapterTest extends BaseTestCase
             ->method('addMethodCall')
             ->with('addListenerService');
 
-        $this->container->setDefinition('knplabs_paginator.adapter', $adapterDefinition);
+        $this->container->setDefinition('knp_paginator.adapter', $adapterDefinition);
         $pass = new PaginatorConfigurationPass();
         $pass->process($this->container);
     }

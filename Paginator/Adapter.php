@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Paginator;
+namespace Knp\Bundle\PaginatorBundle\Paginator;
 
 use Zend\Paginator\Adapter as ZendPaginatorAdapter;
 

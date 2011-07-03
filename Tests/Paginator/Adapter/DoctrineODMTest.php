@@ -1,17 +1,17 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Tests\Paginator\Adapter;
+namespace Knp\Bundle\PaginatorBundle\Tests\Paginator\Adapter;
 
-use Knplabs\Bundle\PaginatorBundle\Tests\BaseTestCase;
-use Knplabs\Bundle\PaginatorBundle\DependencyInjection\KnplabsPaginatorExtension;
-use Knplabs\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
-use Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Document\Article;
-use Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Document\Comment;
+use Knp\Bundle\PaginatorBundle\Tests\BaseTestCase;
+use Knp\Bundle\PaginatorBundle\DependencyInjection\KnpPaginatorExtension;
+use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
+use Knp\Bundle\PaginatorBundle\Tests\Fixture\Document\Article;
+use Knp\Bundle\PaginatorBundle\Tests\Fixture\Document\Comment;
 
 class DoctrineODMTest extends BaseTestCase
 {
-    const FIXTURE_ARTICLE = 'Knplabs\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Document\\Article';
-    const FIXTURE_COMMENT = 'Knplabs\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Document\\Comment';
+    const FIXTURE_ARTICLE = 'Knp\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Document\\Article';
+    const FIXTURE_COMMENT = 'Knp\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Document\\Comment';
 
     private $dm;
 
@@ -47,7 +47,7 @@ class DoctrineODMTest extends BaseTestCase
 
     public function testSingleWhereStatement()
     {
-        $extension = new KnplabsPaginatorExtension();
+        $extension = new KnpPaginatorExtension();
         $this->container->registerExtension($extension);
         $this->container->addCompilerPass(new PaginatorConfigurationPass);
         $extension->load(array(array()), $this->container);
@@ -55,7 +55,7 @@ class DoctrineODMTest extends BaseTestCase
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
 
-        $adapter = $container->get('knplabs_paginator.adapter');
+        $adapter = $container->get('knp_paginator.adapter');
         $meta = $this->dm->getClassMetadata(self::FIXTURE_ARTICLE);
         $qb = $this->dm->createQueryBuilder($meta->name);
         $qb->field('type')->equals('season');
@@ -75,7 +75,7 @@ class DoctrineODMTest extends BaseTestCase
 
     public function testDoctrineAdapter()
     {
-        $extension = new KnplabsPaginatorExtension();
+        $extension = new KnpPaginatorExtension();
         $this->container->registerExtension($extension);
         $this->container->addCompilerPass(new PaginatorConfigurationPass);
         $extension->load(array(array()), $this->container);
@@ -83,7 +83,7 @@ class DoctrineODMTest extends BaseTestCase
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
 
-        $adapter = $container->get('knplabs_paginator.adapter');
+        $adapter = $container->get('knp_paginator.adapter');
         $meta = $this->dm->getClassMetadata(self::FIXTURE_ARTICLE);
         $qb = $this->dm->createQueryBuilder($meta->name);
         $qb->sort('title', 'ASC');

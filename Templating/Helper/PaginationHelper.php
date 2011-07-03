@@ -1,13 +1,13 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Templating\Helper;
+namespace Knp\Bundle\PaginatorBundle\Templating\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Zend\Paginator\Paginator;
-use Knplabs\Bundle\PaginatorBundle\Paginator\Adapter;
+use Knp\Bundle\PaginatorBundle\Paginator\Adapter;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 

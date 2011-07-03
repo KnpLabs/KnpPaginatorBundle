@@ -1,13 +1,13 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Event\Listener\ORM;
+namespace Knp\Bundle\PaginatorBundle\Event\Listener\ORM;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface,
-    Knplabs\Bundle\PaginatorBundle\Event\ItemsEvent,
-    Knplabs\Bundle\PaginatorBundle\Query\Helper as QueryHelper,
-    Knplabs\Bundle\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
+    Knp\Bundle\PaginatorBundle\Event\ItemsEvent,
+    Knp\Bundle\PaginatorBundle\Query\Helper as QueryHelper,
+    Knp\Bundle\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker,
     Symfony\Component\HttpFoundation\Request,
-    Knplabs\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
+    Knp\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * ORM Sortable listener is responsible
@@ -19,7 +19,7 @@ class Sortable implements EventSubscriberInterface
     /**
      * AST Tree Walker for sorting operation
      */
-    const TREE_WALKER_ORDER_BY = 'Knplabs\Bundle\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker';
+    const TREE_WALKER_ORDER_BY = 'Knp\Bundle\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker';
 
     /**
      * Current request

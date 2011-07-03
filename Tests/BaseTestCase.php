@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Tests;
+namespace Knp\Bundle\PaginatorBundle\Tests;
 
 use Symfony\Bundle\AsseticBundle\DependencyInjection\AsseticExtension;
 use Symfony\Component\DependencyInjection\Container;
@@ -147,7 +147,7 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
 
         $config->expects($this->any())
             ->method('getDefaultDB')
-            ->will($this->returnValue('knplabs_paginator_bundle_test'));
+            ->will($this->returnValue('knp_paginator_bundle_test'));
 
         $config->expects($this->once())
             ->method('getAutoGenerateProxyClasses')

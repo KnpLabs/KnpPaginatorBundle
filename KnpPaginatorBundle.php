@@ -7,13 +7,13 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Knplabs\Bundle\PaginatorBundle;
+namespace Knp\Bundle\PaginatorBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Knplabs\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
+use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
 
-class KnplabsPaginatorBundle extends Bundle
+class KnpPaginatorBundle extends Bundle
 {
 	/**
      * {@inheritdoc}

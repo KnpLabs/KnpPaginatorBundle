@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle;
+namespace Knp\Bundle\PaginatorBundle;
 
 /**
  * Common package exception interface to allow

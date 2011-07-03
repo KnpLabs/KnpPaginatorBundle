@@ -1,17 +1,17 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Tests\Paginator\Adapter;
+namespace Knp\Bundle\PaginatorBundle\Tests\Paginator\Adapter;
 
-use Knplabs\Bundle\PaginatorBundle\Tests\BaseTestCase;
-use Knplabs\Bundle\PaginatorBundle\DependencyInjection\KnplabsPaginatorExtension;
-use Knplabs\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
-use Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Entity\Article;
-use Knplabs\Bundle\PaginatorBundle\Tests\Fixture\Entity\Comment;
+use Knp\Bundle\PaginatorBundle\Tests\BaseTestCase;
+use Knp\Bundle\PaginatorBundle\DependencyInjection\KnpPaginatorExtension;
+use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
+use Knp\Bundle\PaginatorBundle\Tests\Fixture\Entity\Article;
+use Knp\Bundle\PaginatorBundle\Tests\Fixture\Entity\Comment;
 
 class DoctrineORMTest extends BaseTestCase
 {
-    const FIXTURE_ARTICLE = 'Knplabs\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Entity\\Article';
-    const FIXTURE_COMMENT = 'Knplabs\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Entity\\Comment';
+    const FIXTURE_ARTICLE = 'Knp\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Entity\\Article';
+    const FIXTURE_COMMENT = 'Knp\\Bundle\\PaginatorBundle\\Tests\\Fixture\\Entity\\Comment';
 
     private $em;
 
@@ -37,7 +37,7 @@ class DoctrineORMTest extends BaseTestCase
 
     public function testSingleWhereStatement()
     {
-        $extension = new KnplabsPaginatorExtension();
+        $extension = new KnpPaginatorExtension();
         $this->container->registerExtension($extension);
         $this->container->addCompilerPass(new PaginatorConfigurationPass);
         $extension->load(array(array()), $this->container);
@@ -45,7 +45,7 @@ class DoctrineORMTest extends BaseTestCase
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
 
-        $adapter = $container->get('knplabs_paginator.adapter');
+        $adapter = $container->get('knp_paginator.adapter');
         $meta = $this->em->getClassMetadata(self::FIXTURE_ARTICLE);
         $query = $this->em->createQuery("SELECT a FROM {$meta->name} a WHERE a.type = 'season' ORDER BY a.title");
         $adapter->setQuery($query);
@@ -68,7 +68,7 @@ class DoctrineORMTest extends BaseTestCase
         $qb->orderBy('a.title', 'desc');
         $query = $qb->getQuery();
 
-        $extension = new KnplabsPaginatorExtension();
+        $extension = new KnpPaginatorExtension();
         $this->container->registerExtension($extension);
         $this->container->addCompilerPass(new PaginatorConfigurationPass);
         $extension->load(array(array()), $this->container);
@@ -76,7 +76,7 @@ class DoctrineORMTest extends BaseTestCase
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
 
-        $adapter = $container->get('knplabs_paginator.adapter');
+        $adapter = $container->get('knp_paginator.adapter');
         $adapter->setQuery($query);
 
         $this->assertEquals(3, $adapter->count());
@@ -97,7 +97,7 @@ class DoctrineORMTest extends BaseTestCase
 
     public function testDoctrineAdapter()
     {
-        $extension = new KnplabsPaginatorExtension();
+        $extension = new KnpPaginatorExtension();
         $this->container->registerExtension($extension);
         $this->container->addCompilerPass(new PaginatorConfigurationPass);
         $extension->load(array(array()), $this->container);
@@ -105,7 +105,7 @@ class DoctrineORMTest extends BaseTestCase
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
 
-        $adapter = $container->get('knplabs_paginator.adapter');
+        $adapter = $container->get('knp_paginator.adapter');
         $meta = $this->em->getClassMetadata(self::FIXTURE_ARTICLE);
         $query = $this->em->createQuery("SELECT a FROM {$meta->name} a ORDER BY a.title");
         $adapter->setQuery($query);
@@ -120,7 +120,7 @@ class DoctrineORMTest extends BaseTestCase
 
     public function testComplicatedQuery()
     {
-        $extension = new KnplabsPaginatorExtension();
+        $extension = new KnpPaginatorExtension();
         $this->container->registerExtension($extension);
         $this->container->addCompilerPass(new PaginatorConfigurationPass);
         $extension->load(array(array()), $this->container);
@@ -128,7 +128,7 @@ class DoctrineORMTest extends BaseTestCase
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
 
-        $adapter = $container->get('knplabs_paginator.adapter');
+        $adapter = $container->get('knp_paginator.adapter');
         $meta = $this->em->getClassMetadata(self::FIXTURE_ARTICLE);
         $query = $this->em->createQuery("SELECT a, c FROM {$meta->name} a LEFT JOIN a.comments c GROUP BY a.type ORDER BY a.title ASC");
         $adapter->setQuery($query);

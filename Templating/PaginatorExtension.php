@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Templating;
+namespace Knp\Bundle\PaginatorBundle\Templating;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Paginator\Paginator;
@@ -55,7 +55,7 @@ class PaginatorExtension extends \Twig_Extension
      */
     public function sortable(Paginator $paginator, $title, $key, $options = array(), $params = array(), $route = null)
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->sortable($paginator, $title, $key, $options, $params, $route);
+        return $this->container->get('templating.helper.knp_paginator')->sortable($paginator, $title, $key, $options, $params, $route);
     }
 
     /**
@@ -72,7 +72,7 @@ class PaginatorExtension extends \Twig_Extension
      */
     public function paginate(Paginator $paginator, $template = null, $custom = array(), $routeparams = array(), $route = null)
     {
-        return $this->container->get('templating.helper.knplabs_paginator')->paginate($paginator, $template, $custom, $routeparams, $route);
+        return $this->container->get('templating.helper.knp_paginator')->paginate($paginator, $template, $custom, $routeparams, $route);
     }
 
     /**

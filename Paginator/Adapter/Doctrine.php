@@ -1,15 +1,15 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Paginator\Adapter;
+namespace Knp\Bundle\PaginatorBundle\Paginator\Adapter;
 
-use Knplabs\Bundle\PaginatorBundle\Paginator\Adapter,
+use Knp\Bundle\PaginatorBundle\Paginator\Adapter,
     Symfony\Component\DependencyInjection\ContainerInterface,
     Symfony\Component\EventDispatcher\EventDispatcher,
-    Knplabs\Bundle\PaginatorBundle\Event\CountEvent,
-    Knplabs\Bundle\PaginatorBundle\Event\ItemsEvent,
-    Knplabs\Bundle\PaginatorBundle\Exception\InvalidArgumentException,
-    Knplabs\Bundle\PaginatorBundle\Exception\RuntimeException,
-    Knplabs\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
+    Knp\Bundle\PaginatorBundle\Event\CountEvent,
+    Knp\Bundle\PaginatorBundle\Event\ItemsEvent,
+    Knp\Bundle\PaginatorBundle\Exception\InvalidArgumentException,
+    Knp\Bundle\PaginatorBundle\Exception\RuntimeException,
+    Knp\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * Doctrine Paginator Adapter.
@@ -102,7 +102,7 @@ class Doctrine implements Adapter
      * Set the distinct mode
      *
      * @param bool $distinct
-     * @return Knplabs\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
+     * @return Knp\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
      */
     public function setDistinct($distinct)
     {
@@ -116,7 +116,7 @@ class Doctrine implements Adapter
      * request parameters will be aliased by it
      *
      * @param string $alias
-     * @return Knplabs\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
+     * @return Knp\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
      */
     public function setAlias($alias)
     {
@@ -140,7 +140,7 @@ class Doctrine implements Adapter
      * @param Query $query - The query to paginate
      * @param integer $numRows(optional) - number of rows
      * @throws InvalidArgumentException - if query type is not supported
-     * @return Knplabs\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
+     * @return Knp\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
      */
     public function setQuery($query, $numRows = null)
     {

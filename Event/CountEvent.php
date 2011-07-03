@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Event;
+namespace Knp\Bundle\PaginatorBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Exception;
+namespace Knp\Bundle\PaginatorBundle\Exception;
 
-use Knplabs\Bundle\PaginatorBundle\Exception;
+use Knp\Bundle\PaginatorBundle\Exception;
 
 class UnexpectedValueException
     extends \UnexpectedValueException

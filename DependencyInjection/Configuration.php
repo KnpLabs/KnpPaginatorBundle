@@ -1,6 +1,6 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\DependencyInjection;
+namespace Knp\Bundle\PaginatorBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -15,13 +15,13 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('knplabs_paginator', 'array');
+        $rootNode = $treeBuilder->root('knp_paginator', 'array');
         $rootNode
             ->children()
                 ->arrayNode('templating')
                     ->children()
                         ->scalarNode('style')->defaultValue('Sliding')->end()
-                        ->scalarNode('template')->defaultValue('KnplabsPaginatorBundle:Pagination:sliding.html.twig')->end()
+                        ->scalarNode('template')->defaultValue('KnpPaginatorBundle:Pagination:sliding.html.twig')->end()
                     ->end()
                 ->end()
             ->end();

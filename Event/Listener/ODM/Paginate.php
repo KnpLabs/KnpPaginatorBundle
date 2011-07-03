@@ -1,12 +1,12 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Event\Listener\ODM;
+namespace Knp\Bundle\PaginatorBundle\Event\Listener\ODM;
 
-use Knplabs\Bundle\PaginatorBundle\Event\CountEvent,
-    Knplabs\Bundle\PaginatorBundle\Event\ItemsEvent,
+use Knp\Bundle\PaginatorBundle\Event\CountEvent,
+    Knp\Bundle\PaginatorBundle\Event\ItemsEvent,
     Symfony\Component\EventDispatcher\EventSubscriberInterface,
     Doctrine\ODM\MongoDB\Query\Query,
-    Knplabs\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
+    Knp\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * ODM Paginate listener is responsible

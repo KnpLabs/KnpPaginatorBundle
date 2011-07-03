@@ -1,13 +1,13 @@
 <?php
 
-namespace Knplabs\Bundle\PaginatorBundle\Query\TreeWalker\Sortable;
+namespace Knp\Bundle\PaginatorBundle\Query\TreeWalker\Sortable;
 
 use Doctrine\ORM\Query\TreeWalkerAdapter,
     Doctrine\ORM\Query\AST\SelectStatement,
     Doctrine\ORM\Query\AST\PathExpression,
     Doctrine\ORM\Query\AST\OrderByItem,
     Doctrine\ORM\Query\AST\OrderByClause,
-    Knplabs\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
+    Knp\Bundle\PaginatorBundle\Exception\UnexpectedValueException;
 
 /**
  * OrderBy Query TreeWalker for Sortable functionality
@@ -18,17 +18,17 @@ class OrderByWalker extends TreeWalkerAdapter
     /**
      * Sort key alias hint name
      */
-    const HINT_PAGINATOR_SORT_ALIAS = 'bundle.knplabs_paginator.sort.alias';
+    const HINT_PAGINATOR_SORT_ALIAS = 'bundle.knp_paginator.sort.alias';
 
     /**
      * Sort key field hint name
      */
-    const HINT_PAGINATOR_SORT_FIELD = 'bundle.knplabs_paginator.sort.field';
+    const HINT_PAGINATOR_SORT_FIELD = 'bundle.knp_paginator.sort.field';
 
     /**
      * Sort direction hint name
      */
-    const HINT_PAGINATOR_SORT_DIRECTION = 'bundle.knplabs_paginator.sort.direction';
+    const HINT_PAGINATOR_SORT_DIRECTION = 'bundle.knp_paginator.sort.direction';
 
     /**
      * Walks down a SelectStatement AST node, modifying it to

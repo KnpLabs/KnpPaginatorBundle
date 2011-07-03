@@ -31,18 +31,18 @@ variables as keys.
 
 Submodule the bundle
 
-    git submodule add git://github.com/knplabs/PaginatorBundle.git vendor/bundles/Knplabs/Bundle/PaginatorBundle
+    git submodule add git://github.com/knplabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
 
 ### Yml configuration example
 
-    knplabs_paginator:
+    knp_paginator:
         templating: ~ # enables view helper and twig
 
 ### Add the namespaces to your autoloader
 
     // app/autoload.php
     $loader->registerNamespaces(array(
-        'Knplabs'                       => __DIR__.'/../vendor/bundles',
+        'Knp'                       => __DIR__.'/../vendor/bundles',
         'Zend'                => __DIR__.'/../vendor/Zend/library',
         // ...
     ));
@@ -55,7 +55,7 @@ Submodule the bundle
     {
         return array(
             // ...
-            new Knplabs\Bundle\PaginatorBundle\KnplabsPaginatorBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             // ...
         );
     }
@@ -68,7 +68,7 @@ Submodule the bundle
     $dql = "SELECT a FROM VendorBlogBundle:Article a";
     $query = $em->createQuery($dql);
 
-    $adapter = $this->get('knplabs_paginator.adapter');
+    $adapter = $this->get('knp_paginator.adapter');
     $adapter->setQuery($query);
     $adapter->setDistinct(true);
 
@@ -79,7 +79,7 @@ Submodule the bundle
 
     // if second paginator is required on same view:
     
-    $adapterODM = $this->get('knplabs_paginator.adapter');
+    $adapterODM = $this->get('knp_paginator.adapter');
     $adapterODM->setQuery($someODMquery);
     $adapterODM->setAlias('p2_'); // we do not want parameters to conflict
     $paginator2 = new Paginator($adapterODM);
