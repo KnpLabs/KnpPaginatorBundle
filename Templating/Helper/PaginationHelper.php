@@ -246,6 +246,6 @@ class PaginationHelper extends Helper
             $options['title'] = $title;
         }
 
-        return $this->engine->render('KnpPaginatorBundle:Pagination:sortableLink.html.twig', array('options' => $options, 'title' => $title));
+        return $this->engine->render('KnpPaginatorBundle:Pagination:sortable_link.html.twig', array('options' => $options, 'title' => $title));
     }
 }
