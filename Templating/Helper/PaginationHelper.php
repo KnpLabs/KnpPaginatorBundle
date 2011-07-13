@@ -245,12 +245,7 @@ class PaginationHelper extends Helper
         if (!isset($options['title'])) {
             $options['title'] = $title;
         }
-        $link = '<a';
-        foreach ($options as $attr => $value) {
-            $link .= ' ' . $attr . '="' . $value . '"';
-        }
-        $link .= '>' . $title . '</a>';
 
-        return $link;
+        return $this->engine->render('KnpPaginatorBundle:Pagination:sortable_link.html.twig', array('options' => $options, 'title' => $title));
     }
 }

@@ -1,0 +1,6 @@
+{% set link = "" %}
+{% for attr, value in options %}
+    {% set link = link ~ " " ~ attr ~ "=" ~ value %}
+{% endfor %}
+
+<a {{ link }}>{{ title }}</a>
