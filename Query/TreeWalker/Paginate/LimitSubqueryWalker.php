@@ -63,5 +63,8 @@ class LimitSubqueryWalker extends TreeWalkerAdapter
         $AST->selectClause->selectExpressions = array(
             new SimpleSelectExpression($pathExpression)
         );
+
+        // ORDER BY is not needed, only increases query execution through unnecessary sorting.
+        $AST->orderByClause = null;
     }
 }
