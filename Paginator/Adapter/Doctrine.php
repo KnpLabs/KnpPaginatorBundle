@@ -174,17 +174,20 @@ class Doctrine implements Adapter
     /**
      * Executes count on supplied query
      *
+     * @param Query $query - The query to count
+     * 
      * @throws UnexpectedValueException - if event is not finally processed or query not set
      * @return integer
      */
-    public function count()
+    public function count($query = null)
     {
+        $query = $query === null ? $this->query : $query;
         if (is_null($this->rowCount)) {
             if ($this->query === null) {
                 throw new UnexpectedValueException('Paginator Query must be supplied at this point');
             }
 
-            $event = new CountEvent($this->query, $this->distinct, $this->getAlias());
+            $event = new CountEvent($query, $this->distinct, $this->getAlias());
             $this->eventDispatcher->dispatch(CountEvent::NAME, $event);
             if (!$event->isPropagationStopped()) {
                 throw new RuntimeException('Some listener must process an event during the "count" method call');
