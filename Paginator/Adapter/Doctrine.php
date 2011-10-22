@@ -197,6 +197,20 @@ class Doctrine implements Adapter
 
         return $this->rowCount;
     }
+    
+    /**
+     * Set row count
+     * 
+     * @param integer $rowCount
+     * 
+     * @return Knp\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine
+     */
+    public function setRowCount($rowCount)
+    {
+        $this->rowCount = $rowCount;
+        
+        return $this;
+    }
 
     /**
      * Executes the pagination query
