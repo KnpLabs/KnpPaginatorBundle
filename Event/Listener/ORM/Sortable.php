@@ -56,7 +56,7 @@ class Sortable implements EventSubscriberInterface
             }
 
             $query->setHint(OrderByWalker::HINT_PAGINATOR_SORT_ALIAS, current($parts))
-                ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION, $params[$event->getAlias().'direction'])
+                ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION, (stripos($params[$event->getAlias().'direction'], 'desc') === false) ? 'ASC' : 'DESC')
                 ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD, end($parts));
             QueryHelper::addCustomTreeWalker($query, self::TREE_WALKER_ORDER_BY);
         }
