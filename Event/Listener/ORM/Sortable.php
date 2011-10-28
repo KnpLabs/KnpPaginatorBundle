@@ -56,7 +56,7 @@ class Sortable implements EventSubscriberInterface
             
             $whitelist = $query->getHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELDS_WHITELIST);
 
-            if($whitelist !== null && isset($whitelist[$params[$sortKey]])) {
+            if(isset($whitelist[$params[$sortKey]])) {
                 $sortField = $whitelist[$params[$sortKey]];
             } elseif($whitelist === false) {
                 $sortField = $params[$sortKey];
