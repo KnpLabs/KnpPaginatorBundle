@@ -20,7 +20,7 @@ use Doctrine\MongoDB\Connection;
  * The general ideas on mock implementation is used
  * from AsseticBundle tests
  */
-class BaseTestCase extends \PHPUnit_Framework_TestCase
+abstract class BaseTestCase extends \PHPUnit_Framework_TestCase
 {
     protected $requestHeaders;
     protected $container;

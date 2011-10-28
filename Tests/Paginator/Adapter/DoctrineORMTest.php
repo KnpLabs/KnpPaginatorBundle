@@ -2,6 +2,8 @@
 
 namespace Knp\Bundle\PaginatorBundle\Tests\Paginator\Adapter;
 
+use Knp\Bundle\PaginatorBundle\Query\TreeWalker\Sortable\OrderByWalker;
+
 use Knp\Bundle\PaginatorBundle\Tests\BaseTestCase;
 use Knp\Bundle\PaginatorBundle\DependencyInjection\KnpPaginatorExtension;
 use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
@@ -37,10 +39,7 @@ class DoctrineORMTest extends BaseTestCase
 
     public function testSingleWhereStatement()
     {
-        $extension = new KnpPaginatorExtension();
-        $this->container->registerExtension($extension);
-        $this->container->addCompilerPass(new PaginatorConfigurationPass);
-        $extension->load(array(array()), $this->container);
+        $extension = $this->createExtension();
 
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
@@ -57,6 +56,16 @@ class DoctrineORMTest extends BaseTestCase
         $this->assertEquals('Summer', $items[0]->getTitle());
         $this->assertEquals('Winter', $items[1]->getTitle());
     }
+    
+    private function createExtension()
+    {
+        $extension = new KnpPaginatorExtension();
+        $this->container->registerExtension($extension);
+        $this->container->addCompilerPass(new PaginatorConfigurationPass);
+        $extension->load(array(array()), $this->container);
+        
+        return $extension;
+    }
 
     public function testGithubIssue15()
     {
@@ -68,10 +77,7 @@ class DoctrineORMTest extends BaseTestCase
         $qb->orderBy('a.title', 'desc');
         $query = $qb->getQuery();
 
-        $extension = new KnpPaginatorExtension();
-        $this->container->registerExtension($extension);
-        $this->container->addCompilerPass(new PaginatorConfigurationPass);
-        $extension->load(array(array()), $this->container);
+        $extension = $this->createExtension();
 
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
@@ -97,10 +103,7 @@ class DoctrineORMTest extends BaseTestCase
 
     public function testDoctrineAdapter()
     {
-        $extension = new KnpPaginatorExtension();
-        $this->container->registerExtension($extension);
-        $this->container->addCompilerPass(new PaginatorConfigurationPass);
-        $extension->load(array(array()), $this->container);
+        $extension = $this->createExtension();
 
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
@@ -120,10 +123,7 @@ class DoctrineORMTest extends BaseTestCase
 
     public function testComplicatedQuery()
     {
-        $extension = new KnpPaginatorExtension();
-        $this->container->registerExtension($extension);
-        $this->container->addCompilerPass(new PaginatorConfigurationPass);
-        $extension->load(array(array()), $this->container);
+        $extension = $this->createExtension();
 
         $container = $this->getDumpedContainer();
         BaseTestCase::assertSaneContainer($container);
@@ -141,6 +141,105 @@ class DoctrineORMTest extends BaseTestCase
         $this->assertEquals(1, $items[0]->getComments()->count());
         $this->assertEquals('Winter', $items[1]->getTitle());
         $this->assertEquals(0, $items[1]->getComments()->count());
+    }
+    
+    /**
+     * @dataProvider orderDirectionProvider
+     */
+    public function testOrderByClause($direction)
+    {
+        $extension = $this->createExtension();
+        
+        $container = $this->getDumpedContainer();
+        BaseTestCase::assertSaneContainer($container);
+        
+        $adapter = $container->get('knp_paginator.adapter');
+        $meta = $this->em->getClassMetadata(self::FIXTURE_ARTICLE);
+        $query = $this->em->createQuery("SELECT a FROM {$meta->name} a");
+        $adapter->setQuery($query);
+        
+        $request = $container->get('request');
+        $request->query->set('sort', 'a.title');
+        $request->query->set('direction', $direction);
+        
+        $articles = $adapter->getItems(0, 100);
+        
+        $actualOrder = array();
+        
+        foreach($articles as $article) {
+            $actualOrder[] = $article->getTitle();
+        }
+        
+        $expectedOrder = $actualOrder;
+        
+        if($direction === 'desc') {
+            rsort($expectedOrder);
+        } elseif ($direction === 'asc') {
+            sort($expectedOrder);
+        }
+        
+        $this->assertTrue($expectedOrder === $actualOrder);
+    }
+    
+    public function orderDirectionProvider()
+    {
+        return array(
+            array('desc'),
+            array('asc'),
+            array('invalid'),
+        );
+    }
+    
+    /**
+     * @dataProvider orderFieldWhitelistProvider
+     */
+    public function testOrderFieldsWhitelist($orderField, $fieldGetter, $whitelist)
+    {
+        $extension = $this->createExtension();
+        
+        $container = $this->getDumpedContainer();
+        BaseTestCase::assertSaneContainer($container);
+        
+        $adapter = $container->get('knp_paginator.adapter');
+        $meta = $this->em->getClassMetadata(self::FIXTURE_ARTICLE);
+        $query = $this->em->createQuery("SELECT a FROM {$meta->name} a");
+        
+        if($whitelist) {
+            $query->setHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELDS_WHITELIST, $whitelist);
+        }
+
+        $adapter->setQuery($query);
+        
+        $request = $container->get('request');
+        $request->query->set('sort', $orderField);
+        $request->query->set('direction', 'desc');
+        
+        $articles = $adapter->getItems(0, 100);
+        
+        if($fieldGetter !== false) {
+            $actualOrder = array();
+    
+            foreach($articles as $article) {
+                $actualOrder[] = $article->$fieldGetter();
+            }
+            
+            $expectedOrder = $actualOrder;
+            
+            rsort($expectedOrder);
+            
+            $this->assertTrue($expectedOrder === $actualOrder);
+        } else {
+            //ok, exception has not been thrown in order to unknown dql query part
+        }
+    }
+    
+    public function orderFieldWhitelistProvider()
+    {
+        return array(
+            array('a.title', 'getTitle', null),//by default for backward compatibility all fields are allowed
+            array('a.unexistedField', false, array('title' => 'a.title')),
+            array('customSortKey', 'getTitle', array('customSortKey' => 'a.title')),
+        );
     }
 
     private function populate()
