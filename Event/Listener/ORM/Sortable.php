@@ -48,15 +48,30 @@ class Sortable implements EventSubscriberInterface
     {
         $params = $this->request->query->all();
 
-        if (isset($params[$event->getAlias().'sort'])) {
+        $sortKey = $event->getAlias().'sort';
+        $directionKey = $event->getAlias().'direction';
+        
+        if (isset($params[$sortKey])) {
             $query = $event->getQuery();
-            $parts = explode('.', $params[$event->getAlias().'sort']);
+            
+            $whitelist = $query->getHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELDS_WHITELIST);
+
+            if(isset($whitelist[$params[$sortKey]])) {
+                $sortField = $whitelist[$params[$sortKey]];
+            } elseif($whitelist === false) {
+                $sortField = $params[$sortKey];
+            } else {
+                //passed field name do not match to whitelist, skip sorting
+                return;
+            }
+            
+            $parts = explode('.', $sortField);
             if (count($parts) != 2) {
                 throw new UnexpectedValueException('Invalid sort key came by request, should be example: "article.title"');
             }
 
             $query->setHint(OrderByWalker::HINT_PAGINATOR_SORT_ALIAS, current($parts))
-                ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION, (stripos($params[$event->getAlias().'direction'], 'desc') === false) ? 'ASC' : 'DESC')
+                ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_DIRECTION, (stripos($params[$directionKey], 'desc') === false) ? 'ASC' : 'DESC')
                 ->setHint(OrderByWalker::HINT_PAGINATOR_SORT_FIELD, end($parts));
             QueryHelper::addCustomTreeWalker($query, self::TREE_WALKER_ORDER_BY);
         }

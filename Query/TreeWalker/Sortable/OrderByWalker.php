@@ -29,6 +29,11 @@ class OrderByWalker extends TreeWalkerAdapter
      * Sort direction hint name
      */
     const HINT_PAGINATOR_SORT_DIRECTION = 'bundle.knp_paginator.sort.direction';
+    
+    /**
+     * Sort fields whitelist hint name
+     */
+    const HINT_PAGINATOR_SORT_FIELDS_WHITELIST = 'bundle.knp_paginator.sort.fields_whitelist';
 
     /**
      * Walks down a SelectStatement AST node, modifying it to
