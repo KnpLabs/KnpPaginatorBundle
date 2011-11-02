@@ -161,7 +161,7 @@ class Doctrine implements Adapter
         if ($this->usedType != $type) {
             $this->eventDispatcher = new EventDispatcher();
             foreach ($this->listenerServices[$type] as $options) {
-                $this->eventDispatcher->addSubscriber($this->container->get($options['service']), $options['priority']);
+                $this->eventDispatcher->addSubscriber($this->container->get($options['service']));
             }
             $this->usedType = $type;
         }
@@ -238,9 +238,9 @@ class Doctrine implements Adapter
     /**
      * {@inheritdoc}
      */
-    public function addListenerService($serviceId, $type, $priority)
+    public function addListenerService($serviceId, $type)
     {
-        $this->listenerServices[$type][] = array('service' => $serviceId, 'priority' => $priority);
+        $this->listenerServices[$type][] = array('service' => $serviceId);
     }
 
     /**

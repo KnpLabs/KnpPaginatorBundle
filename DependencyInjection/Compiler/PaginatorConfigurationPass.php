@@ -22,13 +22,12 @@ class PaginatorConfigurationPass implements CompilerPassInterface
         $definition = $container->getDefinition('knp_paginator.adapter');
 
         foreach ($container->findTaggedServiceIds('knp_paginator.listener.orm') as $id => $attributes) {
-            $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-            $definition->addMethodCall('addListenerService', array($id, 'orm', $priority));
+            $definition->addMethodCall('addListenerService', array($id, 'orm'));
         }
 
         foreach ($container->findTaggedServiceIds('knp_paginator.listener.odm') as $id => $attributes) {
-            $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-            $definition->addMethodCall('addListenerService', array($id, 'odm', $priority));
+            $definition->addMethodCall('addListenerService', array($id, 'odm'));
         }
+
     }
 }

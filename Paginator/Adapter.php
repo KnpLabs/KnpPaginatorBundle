@@ -38,7 +38,6 @@ interface Adapter extends ZendPaginatorAdapter
      *
      * @param string $serviceId
      * @param string $type
-     * @param string $priority
      */
-    public function addListenerService($serviceId, $type, $priority);
+    public function addListenerService($serviceId, $type);
 }
