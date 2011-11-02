@@ -20,19 +20,19 @@
         </service>
 
         <service id="knp_paginator.event.listener.orm.sortable" class="%knp_paginator.event.listener.orm.sortable.class%" scope="request">
-            <tag name="knp_paginator.listener.orm" priority="128" />
+            <tag name="knp_paginator.listener.orm" />
             <argument type="service" id="request" />
         </service>
         <service id="knp_paginator.event.listener.orm.paginate" class="%knp_paginator.event.listener.orm.paginate.class%" scope="request">
-            <tag name="knp_paginator.listener.orm" priority="0" />
+            <tag name="knp_paginator.listener.orm" />
         </service>
 
         <service id="knp_paginator.event.listener.odm.sortable" class="%knp_paginator.event.listener.odm.sortable.class%" scope="request">
-            <tag name="knp_paginator.listener.odm" priority="128" />
+            <tag name="knp_paginator.listener.odm" />
             <argument type="service" id="request" />
         </service>
         <service id="knp_paginator.event.listener.odm.paginate" class="%knp_paginator.event.listener.odm.paginate.class%" scope="request">
-            <tag name="knp_paginator.listener.odm" priority="0" />
+            <tag name="knp_paginator.listener.odm" />
         </service>
     </services>
 </container>
