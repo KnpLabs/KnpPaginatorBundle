@@ -20,11 +20,12 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('templating')
                     ->children()
-                        ->scalarNode('style')->defaultValue('Sliding')->end()
-                        ->scalarNode('template')->defaultValue('KnpPaginatorBundle:Pagination:sliding.html.twig')->end()
+                        ->scalarNode('pagination_template')->defaultValue('KnpPaginatorBundle:Pagination:sliding.html.twig')->end()
+                        ->scalarNode('sort_link_template')->defaultValue('KnpPaginatorBundle:Pagination:sortable_link.html.twig')->end()
                     ->end()
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }
