@@ -6,9 +6,8 @@ use Knp\Component\Pager\Pagination\AbstractPagination;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
 use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use IteratorAggregate, Countable, Traversable, ArrayIterator;
 
-class SlidingPagination extends AbstractPagination implements Countable, IteratorAggregate
+class SlidingPagination extends AbstractPagination
 {
     private $routerHelper;
     private $route;
@@ -24,6 +23,7 @@ class SlidingPagination extends AbstractPagination implements Countable, Iterato
         $this->routerHelper = $routerHelper;
         $this->engine = $engine;
         $this->translator = $translator;
+        $this->params = $params;
     }
 
     public function setUsedRoute($route)
@@ -51,23 +51,16 @@ class SlidingPagination extends AbstractPagination implements Countable, Iterato
         $this->pageRange = abs(intval($range));
     }
 
-    /**
-     * Returns a foreach-compatible iterator.
-     *
-     * @return Traversable
-     */
-    public function getIterator()
+    public function render($template = null, $queryParams = array())
     {
-        $items = $this->getItems();
-        if (!$items instanceof Traversable) {
-            $items = new ArrayIterator($items);
+        if ($template) {
+            $this->template = $template;
         }
-        return $items;
-    }
-
-    public function count()
-    {
-        return count($this->items);
+        $data = $this->getPaginationData();
+        $data['route'] = $this->route;
+        $data['alias'] = $this->alias;
+        $data['query'] = array_merge($this->params, $queryParams);
+        return $this->engine->render($this->template, $data);
     }
 
     /**
@@ -75,28 +68,25 @@ class SlidingPagination extends AbstractPagination implements Countable, Iterato
      */
     public function __toString()
     {
-        $data = $this->getPaginationData();
-        $data['route'] = $this->route;
-        $data['alias'] = $this->alias;
-        return $this->engine->render($this->engine, $data);
+        return $this->render();
     }
 
     /**
-    * Create a sort url for the field named $title
-    * and identified by $key which consists of
-    * alias and field. $options holds all link
-    * parameters like "alt, class" and so on.
-    *
-    * $key example: "article.title"
-    *
-    * @param string $title
-    * @param string $key
-    * @param array $options
-    * @param array $params
-    * @param string $route
-    * @return string
-    */
-    public function sortable($title, $key, $options = array(), $params = array())
+     * Create a sort url for the field named $title
+     * and identified by $key which consists of
+     * alias and field. $options holds all link
+     * parameters like "alt, class" and so on.
+     *
+     * $key example: "article.title"
+     *
+     * @param string $title
+     * @param string $key
+     * @param array $options
+     * @param array $params
+     * @param string $template
+     * @return string
+     */
+    public function sortable($title, $key, $options = array(), $params = array(), $template = null)
     {
         $options = array_merge(array(
             'absolute' => false
@@ -125,26 +115,17 @@ class SlidingPagination extends AbstractPagination implements Countable, Iterato
             $params,
             array($this->alias.'sort' => $key, $this->alias.'direction' => $direction)
         );
-        return $this->buildLink($params, $this->translator->trans($title), $options);
-    }
 
-    /**
-    * Build a HTML link. $options holds all link parameters
-    * like "alt, class" and so on. $title can also be an image
-    * if required.
-    *
-    * @param array $params - url query params
-    * @param string $title
-    * @param array $options
-    * @return string
-    */
-    private function buildLink($params, $title, $options = array())
-    {
         $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
         unset($options['absolute']);
 
+        $title = $this->translator->trans($title);
         if (!isset($options['title'])) {
             $options['title'] = $title;
+        }
+
+        if ($template) {
+            $this->sortableTemplate = $template;
         }
 
         return $this->engine->render($this->sortableTemplate, compact('options', 'title'));
@@ -155,30 +136,30 @@ class SlidingPagination extends AbstractPagination implements Countable, Iterato
         $pageCount = intval(ceil($this->totalCount / $this->numItemsPerPage));
         $current = $this->currentPageNumber;
 
-        if ($this->range > $pageCount) {
-            $this->range = $pageCount;
+        if ($this->pageRange > $pageCount) {
+            $this->pageRange = $pageCount;
         }
 
-        $delta = ceil($this->range / 2);
+        $delta = ceil($this->pageRange / 2);
 
-        if ($current - $delta > $pageCount - $this->range) {
-            $pages = range($pageCount - $this->range + 1, $pageCount);
+        if ($current - $delta > $pageCount - $this->pageRange) {
+            $pages = range($pageCount - $this->pageRange + 1, $pageCount);
         } else {
             if ($current - $delta < 0) {
                 $delta = $current;
             }
 
             $offset = $current - $delta;
-            $pages = range($offset + 1, $offset + $this->range);
+            $pages = range($offset + 1, $offset + $this->pageRange);
         }
 
         $viewData = array(
-                'last' => $pageCount,
-                'current' => $current,
-                'numItemsPerPage' => $this->numItemsPerPage,
-                'first' => 1,
-                'pageCount' => $pageCount,
-                'totalCount' => $this->totalCount,
+            'last' => $pageCount,
+            'current' => $current,
+            'numItemsPerPage' => $this->numItemsPerPage,
+            'first' => 1,
+            'pageCount' => $pageCount,
+            'totalCount' => $this->totalCount,
         );
 
         if ($current - 1 > 0) {
