@@ -64,14 +64,6 @@ class SlidingPagination extends AbstractPagination
     }
 
     /**
-     * Renders the pagination
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
-
-    /**
      * Create a sort url for the field named $title
      * and identified by $key which consists of
      * alias and field. $options holds all link

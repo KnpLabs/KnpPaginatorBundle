@@ -1,56 +1,58 @@
-# Intro to PaginatorBundle
+# Intro to KnpPaginatorBundle
 
-This is a new version of Paginator Bundle which has been made reusable, extensible,
-highly customizable and simple to use Symfony2 paginating tool
-based on Zend Paginator.
+Generally this bundle is based on [knp Pager component][knp_component_pager]. This
+component introduces a diferent way for pagination handling. You can read more about the
+internal logic on the given documentation link.
 
 ## Requirements:
 
-- Zend library paginator package, without any view helpers. In future this requirement may be dropped
-- Doctrine ODM or ORM active bundle.
+- Knp pager component
 
 ## Features:
 
-- Single adapter for Zend paginator, which can be used as ORM or ODM query paginator, using DIC
+- Does not require initializing specific adapters
+- Can be customized in any way needed, etc.: pagination view, event subscribers.
 - Possibility to add custom filtering, sorting functionality depending on request parameters.
-- Extensions based on events for ODM and ORM query customizations.
-- View helper for simplified pagination templates and other custom operations like sorting.
-- Supports multiple paginators during one request
+- Separation of conserns, paginator is responsible for generating the pagination view only,
+pagination view - for representation purposes.
 
-**Notice:** using multiple paginators requires setting the alias for adapter in order to keep non
+**Notice:** using multiple paginators requires setting the **alias** in order to keep non
 conflicting parameters. Also it gets quite complicated with a twig template, since hash arrays cannot use
 variables as keys.
 
 ## Installation and configuration:
 
-### Install Zend Framework 2
+### Install Knp components
 
-    git submodule add git://github.com/zendframework/zf2.git vendor/Zend
+    git clone git://github.com/knplabs/knp-components.git vendor/knp_components
 
-### Get the bundle
+### Install knp paginator bundle
 
-Submodule the bundle
+    git clone git://github.com/knplabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
 
-    git submodule add git://github.com/knplabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
+### Configuration example
 
-### Yml configuration example
+Is it not enough symfony2 configuration? You can override default templates using parameters
 
-    knp_paginator:
-        templating: ~ # enables view helper and twig
+    // File: app/configs/parameters.yml
+    
+    parameters:
+      knp_paginator.template.pagination: MyBundle:Pagination:pagination.html.twig
+      knp_paginator.template.sortable:   MyBundle:Pagination:sortable.html.twig
 
 ### Add the namespaces to your autoloader
 
-    // app/autoload.php
+    // File: app/autoload.php
     $loader->registerNamespaces(array(
-        'Knp'                       => __DIR__.'/../vendor/bundles',
-        'Zend'                => __DIR__.'/../vendor/Zend/library',
+        'Knp\\Component'      => __DIR__.'/../vendor/knp-components/src'
+        'Knp\\Bundle'         => __DIR__.'/../vendor/bundles',
         // ...
     ));
 
 
 ### Add PaginatorBundle to your application kernel
 
-    // app/AppKernel.php
+    // File: app/AppKernel.php
     public function registerBundles()
     {
         return array(
@@ -68,34 +70,27 @@ Submodule the bundle
     $dql = "SELECT a FROM VendorBlogBundle:Article a";
     $query = $em->createQuery($dql);
 
-    $adapter = $this->get('knp_paginator.adapter');
-    $adapter->setQuery($query);
-    $adapter->setDistinct(true);
+    $paginator = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+        $query,
+        $this->get('request')->query->get('page', 1)/*page number*/,
+        10/*limit per page*/
+    );
 
-    $paginator = new \Zend\Paginator\Paginator($adapter);
-    $paginator->setCurrentPageNumber($this->get('request')->query->get('page', 1));
-    $paginator->setItemCountPerPage(10);
-    $paginator->setPageRange(5);
-
-    // if second paginator is required on same view:
-    
-    $adapterODM = $this->get('knp_paginator.adapter');
-    $adapterODM->setQuery($someODMquery);
-    $adapterODM->setAlias('p2_'); // we do not want parameters to conflict
-    $paginator2 = new Paginator($adapterODM);
-    ....
+    // parameters to template
+    return compact('pagination');
 
 ### View
 
     <table>
     <tr>
     {# sorting of properties based on query components #}
-        <th>{{ paginator|sortable('Id', 'a.id') }}</th>
-        <th>{{ paginator|sortable('Title', 'a.title') }}</th>
+        <th>{{ pagination.sortable('Id', 'a.id')|raw }}</th>
+        <th>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
     </tr>
 
     {# table body #}
-    {% for article in paginator %}
+    {% for article in pagination %}
     <tr {% if loop.index is odd %}class="color"{% endif %}>
         <td>{{ article.id }}</td>
         <td>{{ article.title }}</td>
@@ -103,7 +98,9 @@ Submodule the bundle
     {% endfor %}
     </table>
     {# display navigation #}
-    <div id="navigation">
-        {{ paginator|paginate }}
+    <div class="navigation">
+        {{ pagination.render()|raw }}
     </div>
 
+
+[knp_component_pager]: https://github.com/knplabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
