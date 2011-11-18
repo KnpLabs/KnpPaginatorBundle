@@ -5,34 +5,38 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="knp_paginator.adapter.class">Knp\Bundle\PaginatorBundle\Paginator\Adapter\Doctrine</parameter>
-
-        <parameter key="knp_paginator.event.listener.orm.sortable.class">Knp\Bundle\PaginatorBundle\Event\Listener\ORM\Sortable</parameter>
-        <parameter key="knp_paginator.event.listener.orm.paginate.class">Knp\Bundle\PaginatorBundle\Event\Listener\ORM\Paginate</parameter>
-
-        <parameter key="knp_paginator.event.listener.odm.sortable.class">Knp\Bundle\PaginatorBundle\Event\Listener\ODM\Sortable</parameter>
-        <parameter key="knp_paginator.event.listener.odm.paginate.class">Knp\Bundle\PaginatorBundle\Event\Listener\ODM\Paginate</parameter>
+        <parameter key="knp_paginator.class">Knp\Component\Pager\Paginator</parameter>
+        <parameter key="knp_paginator.template.pagination">KnpPaginatorBundle:Pagination:sliding.html.twig</parameter>
+        <parameter key="knp_paginator.template.sortable">KnpPaginatorBundle:Pagination:sortable_link.html.twig</parameter>
     </parameters>
 
     <services>
-        <service id="knp_paginator.adapter" class="%knp_paginator.adapter.class%" scope="prototype">
+        <service id="knp_paginator.event_dispatcher" class="Symfony\Bundle\FrameworkBundle\ContainerAwareEventDispatcher">
             <argument type="service" id="service_container" />
         </service>
-
-        <service id="knp_paginator.event.listener.orm.sortable" class="%knp_paginator.event.listener.orm.sortable.class%" scope="request">
-            <tag name="knp_paginator.listener.orm" />
-            <argument type="service" id="request" />
-        </service>
-        <service id="knp_paginator.event.listener.orm.paginate" class="%knp_paginator.event.listener.orm.paginate.class%" scope="request">
-            <tag name="knp_paginator.listener.orm" />
+        
+        <service id="knp_paginator" class="%knp_paginator.class%" scope="prototype">
+            <argument type="service" id="knp_paginator.event_dispatcher" />
         </service>
 
-        <service id="knp_paginator.event.listener.odm.sortable" class="%knp_paginator.event.listener.odm.sortable.class%" scope="request">
-            <tag name="knp_paginator.listener.odm" />
-            <argument type="service" id="request" />
+        <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber" scope="request">
+            <tag name="knp_paginator.subscriber" />
         </service>
-        <service id="knp_paginator.event.listener.odm.paginate" class="%knp_paginator.event.listener.odm.paginate.class%" scope="request">
-            <tag name="knp_paginator.listener.odm" />
+
+        <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber" scope="request">
+            <tag name="knp_paginator.subscriber" />
+        </service>
+
+        <service id="knp_paginator.subscriber.sliding_pagination" class="Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber" scope="request">
+            <argument type="service" id="templating" />
+            <argument type="service" id="templating.helper.router" />
+            <argument type="service" id="translator" />
+            <argument type="collection">
+                <argument key="defaultPaginationTemplate">%knp_paginator.template.pagination%</argument>
+                <argument key="defaultSortableTemplate">%knp_paginator.template.sortable%</argument>
+            </argument>
+            <tag name="knp_paginator.subscriber" />
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
     </services>
 </container>
