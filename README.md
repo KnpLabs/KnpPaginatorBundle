@@ -31,13 +31,23 @@ variables as keys.
 
 ## Installation and configuration:
 
-### Install Knp components
+If you use a `deps` file, add:
 
-    git clone git://github.com/knplabs/knp-components.git vendor/knp_components
+    [knp-components]
+        git=http://github.com/knplabs/knp-components.git
 
-### Install knp paginator bundle
+    [KnpPaginatorBundle]
+        git=http://github.com/knplabs/KnpPaginatorBundle.git
+        target=bundles/Knp/Bundle/PaginatorBundle
 
+Or if you want to clone the repos:
+
+    # Install Knp components
+    git clone git://github.com/knplabs/knp-components.git vendor/knp-components
+
+    # Install knp paginator bundle
     git clone git://github.com/knplabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
+
 
 ### Configuration example
 
