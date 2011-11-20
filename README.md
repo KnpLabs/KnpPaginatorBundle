@@ -10,6 +10,8 @@ in the repository
 ## Requirements:
 
 - Knp pager component
+- For now KnpPaginatorBundle's master is only compatible with symfony's master branch (2.1 version).  
+Use the **v1.0** tag of KnpPaginatorBundle if you have to stay compatible with symfony 2.0.
 
 ## Features:
 
