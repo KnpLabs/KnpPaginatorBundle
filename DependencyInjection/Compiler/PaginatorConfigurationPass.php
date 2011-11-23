@@ -30,7 +30,18 @@ class PaginatorConfigurationPass implements CompilerPassInterface
                 throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
             }
 
-            $definition->addMethodCall('addSubscriberService', array($id, $class));
+            foreach ($class::getSubscribedEvents() as $event => $options) {
+                if (!is_array($options)) {
+                    $options = array($options, 0);
+                }
+                $definition->addMethodCall('addListenerService', array(
+                    $event,
+                    array($id, $options[0]),
+                    $options[1]
+                ));
+            }
+            // sf 2.1.x only
+            //$definition->addMethodCall('addSubscriberService', array($id, $class));
         }
     }
 }
