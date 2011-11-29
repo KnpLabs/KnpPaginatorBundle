@@ -186,7 +186,7 @@ class SlidingPagination extends AbstractPagination
 
     public function getFirstItemNumber()
     {
-        return $this->viewData['firstItemNumber'];
+        return $this->paginationData['firstItemNumber'];
     }
 
 }
