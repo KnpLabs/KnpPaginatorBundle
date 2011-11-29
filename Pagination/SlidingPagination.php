@@ -17,7 +17,7 @@ class SlidingPagination extends AbstractPagination
     private $pageRange = 5;
     private $template;
     private $sortableTemplate;
-    public  $paginationData;
+    private $paginationData;
 
     public function __construct(EngineInterface $engine, RouterHelper $routerHelper, TranslatorInterface $translator, array $params)
     {
@@ -175,4 +175,10 @@ class SlidingPagination extends AbstractPagination
 
         return $this->paginationData;
     }
+
+    public function getFirstItemNumber()
+    {
+        return $this->viewData['firstItemNumber'];
+    }
+
 }
