@@ -17,6 +17,7 @@ class SlidingPagination extends AbstractPagination
     private $pageRange = 5;
     private $template;
     private $sortableTemplate;
+    public  $paginationData;
 
     public function __construct(EngineInterface $engine, RouterHelper $routerHelper, TranslatorInterface $translator, array $params)
     {
@@ -56,11 +57,9 @@ class SlidingPagination extends AbstractPagination
         if ($template) {
             $this->template = $template;
         }
-        $data = $this->getPaginationData();
-        $data['route'] = $this->route;
-        $data['alias'] = $this->alias;
-        $data['query'] = array_merge($this->params, $queryParams);
-        return $this->engine->render($this->template, $data);
+        $this->getPaginationData();
+        $this->paginationData['query'] = array_merge($this->params, $queryParams);
+        return $this->engine->render($this->template, $this->paginationData);
     }
 
     /**
@@ -145,7 +144,7 @@ class SlidingPagination extends AbstractPagination
             $pages = range($offset + 1, $offset + $this->pageRange);
         }
 
-        $viewData = array(
+        $this->paginationData = array(
             'last' => $pageCount,
             'current' => $current,
             'numItemsPerPage' => $this->numItemsPerPage,
@@ -155,22 +154,25 @@ class SlidingPagination extends AbstractPagination
         );
 
         if ($current - 1 > 0) {
-            $viewData['previous'] = $current - 1;
+            $this->paginationData['previous'] = $current - 1;
         }
 
         if ($current + 1 <= $pageCount) {
-            $viewData['next'] = $current + 1;
+            $this->paginationData['next'] = $current + 1;
         }
-        $viewData['pagesInRange'] = $pages;
-        $viewData['firstPageInRange'] = min($pages);
-        $viewData['lastPageInRange']  = max($pages);
+        $this->paginationData['pagesInRange'] = $pages;
+        $this->paginationData['firstPageInRange'] = min($pages);
+        $this->paginationData['lastPageInRange']  = max($pages);
 
         if ($this->getItems() !== null) {
-            $viewData['currentItemCount'] = $this->count();
-            $viewData['firstItemNumber'] = (($current - 1) * $this->numItemsPerPage) + 1;
-            $viewData['lastItemNumber'] = $viewData['firstItemNumber'] + $viewData['currentItemCount'] - 1;
+            $this->paginationData['currentItemCount'] = $this->count();
+            $this->paginationData['firstItemNumber'] = (($current - 1) * $this->numItemsPerPage) + 1;
+            $this->paginationData['lastItemNumber'] = $this->paginationData['firstItemNumber'] + $this->paginationData['currentItemCount'] - 1;
         }
 
-        return $viewData;
+        $this->paginationData['route'] = $this->route;
+        $this->paginationData['alias'] = $this->alias;
+
+        return $this->paginationData;
     }
 }
