@@ -123,7 +123,7 @@ class SlidingPagination extends AbstractPagination
         return $this->engine->render($this->sortableTemplate, compact('options', 'title'));
     }
 
-    private function getPaginationData()
+    public function getPaginationData()
     {
         $pageCount = intval(ceil($this->totalCount / $this->numItemsPerPage));
         $current = $this->currentPageNumber;
