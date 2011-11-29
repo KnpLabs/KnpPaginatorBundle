@@ -18,6 +18,7 @@ class SlidingPagination extends AbstractPagination
     private $template;
     private $sortableTemplate;
     private $paginationData;
+    private $additionalViewData;
 
     public function __construct(EngineInterface $engine, RouterHelper $routerHelper, TranslatorInterface $translator, array $params)
     {
@@ -50,6 +51,11 @@ class SlidingPagination extends AbstractPagination
     public function setPageRange($range)
     {
         $this->pageRange = abs(intval($range));
+    }
+
+    public function setAdditionalViewData($params)
+    {
+        $this->additionalViewData = $params;
     }
 
     public function render($template = null, $queryParams = array())
@@ -172,6 +178,8 @@ class SlidingPagination extends AbstractPagination
 
         $this->paginationData['route'] = $this->route;
         $this->paginationData['alias'] = $this->alias;
+
+        $this->paginationData = array_merge($this->paginationData, $this->additionalViewData);
 
         return $this->paginationData;
     }
