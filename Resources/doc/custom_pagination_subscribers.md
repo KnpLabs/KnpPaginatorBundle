@@ -34,7 +34,7 @@ class PaginateDirectorySubscriber implements EventSubscriberInterface
     public function count(CountEvent $event)
     {
         $dir = $event->getTarget();
-        if (is_dir($dir)) {
+        if (is_string($dir) && is_dir($dir)) {
             $finder = new Finder;
             $finder
                 ->files()
@@ -51,7 +51,7 @@ class PaginateDirectorySubscriber implements EventSubscriberInterface
     public function items(ItemsEvent $event)
     {
         $dir = $event->getTarget();
-        if (is_dir($dir)) {
+        if (is_string($dir) && is_dir($dir)) {
             $event->setItems(array_slice(
                 $this->files,
                 $event->getOffset(),
@@ -104,6 +104,7 @@ Now to finish this configuration we need to load it from our dependency injectio
 Modify file: **../symfony-standard/src/Acme/DemoBundle/DependencyInjection/config/AcmeDemoExtension.php**
 
 ``` php
+<?php
 // modify load method, to look like:
 public function load(array $configs, ContainerBuilder $container)
 {
@@ -121,6 +122,7 @@ Modify controller: **../symfony-standard/src/Acme/DemoBundle/Controller/DemoCont
 And add the following action, which paginates the previous directory
 
 ``` php
+<?php
 /**
  * @Route("/test", name="_demo_test")
  * @Template()
