@@ -27,8 +27,8 @@ variables as keys.
 
 ## More detailed documentation:
 
-- [Extending paginate](#) capabilities (todo)
-- [Extending pagination](#) class (todo)
+- Creating [custom pagination subscribers][doc_custom_pagination_subscriber]
+- [Extending pagination](#) class (todo, may require some refactoring)
 - [Customizing view](#) templates and arguments (todo)
 
 ## Installation and configuration:
@@ -142,3 +142,4 @@ return compact('pagination');
 ```
 
 [knp_component_pager]: https://github.com/knplabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
+[doc_custom_pagination_subscriber]: https://github.com/knplabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
