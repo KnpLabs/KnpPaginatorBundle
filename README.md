@@ -123,6 +123,7 @@ return compact('pagination');
 <table>
 <tr>
 {# sorting of properties based on query components #}
+    <th>#</th>
     <th>{{ pagination.sortable('Id', 'a.id')|raw }}</th>
     <th>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
 </tr>
@@ -130,6 +131,7 @@ return compact('pagination');
 {# table body #}
 {% for article in pagination %}
 <tr {% if loop.index is odd %}class="color"{% endif %}>
+    <td>{{ pagination.firstItemNumber + loop.index - 1}}</td>
     <td>{{ article.id }}</td>
     <td>{{ article.title }}</td>
 </tr>
