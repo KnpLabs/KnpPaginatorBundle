@@ -29,7 +29,7 @@ variables as keys.
 
 - Creating [custom pagination subscribers][doc_custom_pagination_subscriber]
 - [Extending pagination](#) class (todo, may require some refactoring)
-- [Customizing view](#) templates and arguments (todo)
+- [Customizing view][doc_templates] templates and arguments
 
 ## Installation and configuration:
 
@@ -98,7 +98,9 @@ Currently paginator can paginate:
 
 - array
 - Doctrine\ORM\Query
+- Doctrine\ORM\QueryBuilder
 - Doctrine\ODM\MongoDB\Query\Query
+- Doctrine\ODM\MongoDB\Query\Builder
 
 ``` php
 <?php
@@ -143,3 +145,4 @@ return compact('pagination');
 
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
+[doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
