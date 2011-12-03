@@ -1,6 +1,6 @@
 # Intro to KnpPaginatorBundle
 
-Generally this bundle is based on [knp Pager component][knp_component_pager]. This
+Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
 component introduces a diferent way for pagination handling. You can read more about the
 internal logic on the given documentation link.
 
@@ -36,19 +36,19 @@ variables as keys.
 If you use a `deps` file, add:
 
     [knp-components]
-        git=http://github.com/knplabs/knp-components.git
+        git=http://github.com/KnpLabs/knp-components.git
 
     [KnpPaginatorBundle]
-        git=http://github.com/knplabs/KnpPaginatorBundle.git
+        git=http://github.com/KnpLabs/KnpPaginatorBundle.git
         target=bundles/Knp/Bundle/PaginatorBundle
 
 Or if you want to clone the repos:
 
     # Install Knp components
-    git clone git://github.com/knplabs/knp-components.git vendor/knp-components
+    git clone git://github.com/KnpLabs/knp-components.git vendor/knp-components
 
     # Install knp paginator bundle
-    git clone git://github.com/knplabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
+    git clone git://github.com/KnpLabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
 
 
 ### Configuration example
@@ -141,5 +141,5 @@ return compact('pagination');
 </div>
 ```
 
-[knp_component_pager]: https://github.com/knplabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
-[doc_custom_pagination_subscriber]: https://github.com/knplabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
+[knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
+[doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
