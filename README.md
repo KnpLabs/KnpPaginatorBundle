@@ -7,6 +7,15 @@ internal logic on the given documentation link.
 **Note:** if you want to use older version of KnpPaginatorBundle - use **v1.0** tag
 in the repository
 
+## Latest updates
+
+**2011-12-05**
+
+- Recently where was a change in repository vendor name: **knplabs** --> **KnpLabs**
+be sure to update your remotes accordingly. etc: http://github.com/**knplabs**/KnpPaginatorBundle.git
+to http://github.com/**KnpLabs**/KnpPaginatorBundle.git.
+- One-liner: `git remote rm origin && git remote add origin http://github.com/KnpLabs/KnpPaginatorBundle.git`
+
 ## Requirements:
 
 - Knp pager component
