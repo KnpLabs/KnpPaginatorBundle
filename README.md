@@ -78,7 +78,7 @@ parameters:
 <?php
 // File: app/autoload.php
 $loader->registerNamespaces(array(
-    'Knp\\Component'      => __DIR__.'/../vendor/knp-components/src'
+    'Knp\\Component'      => __DIR__.'/../vendor/knp-components/src',
     'Knp\\Bundle'         => __DIR__.'/../vendor/bundles',
     // ...
 ));
