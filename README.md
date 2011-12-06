@@ -14,7 +14,7 @@ in the repository
 - Recently there was a change in repository vendor name: **knplabs** --> **KnpLabs**
 be sure to update your remotes accordingly. etc: github.com/**knplabs**/KnpPaginatorBundle.git
 to github.com/**KnpLabs**/KnpPaginatorBundle.git.
-- One-liner: `git remote rm origin && git remote add origin http://github.com/KnpLabs/KnpPaginatorBundle.git`
+- One-liner: `git remote set-url origin http://github.com/KnpLabs/KnpPaginatorBundle.git`
 
 ## Requirements:
 
