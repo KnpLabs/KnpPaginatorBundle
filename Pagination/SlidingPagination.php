@@ -172,6 +172,7 @@ class SlidingPagination extends AbstractPagination
             'first' => 1,
             'pageCount' => $pageCount,
             'totalCount' => $this->totalCount,
+            'pageRange' => $this->pageRange,
         );
 
         if ($current - 1 > 0) {
