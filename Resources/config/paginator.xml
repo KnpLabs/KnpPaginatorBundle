@@ -11,12 +11,8 @@
     </parameters>
 
     <services>
-        <service id="knp_paginator.event_dispatcher" class="Symfony\Bundle\FrameworkBundle\ContainerAwareEventDispatcher">
-            <argument type="service" id="service_container" />
-        </service>
-        
-        <service id="knp_paginator" class="%knp_paginator.class%" scope="prototype">
-            <argument type="service" id="knp_paginator.event_dispatcher" />
+        <service id="knp_paginator" class="%knp_paginator.class%">
+            <argument type="service" id="event_dispatcher" />
         </service>
 
         <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber" scope="request">

@@ -52,7 +52,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
             $this->params
         );
         $pagination->setUsedRoute($this->route);
-        $pagination->setAlias($event->getOption('alias'));
+        $pagination->setAlias($event->options['alias']);
         $pagination->setTemplate($this->options['defaultPaginationTemplate']);
         $pagination->setSortableTemplate($this->options['defaultSortableTemplate']);
         $event->setPagination($pagination);
@@ -62,7 +62,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'pagination' => array('pagination', 1)
+            'knp_pager.pagination' => array('pagination', 1)
         );
     }
 }

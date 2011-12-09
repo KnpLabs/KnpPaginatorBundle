@@ -4,10 +4,15 @@ Generally this bundle is based on [Knp Pager component][knp_component_pager]. Th
 component introduces a diferent way for pagination handling. You can read more about the
 internal logic on the given documentation link.
 
-**Note:** if you want to use older version of KnpPaginatorBundle - use **v1.0** tag
-in the repository
+**Note:** Keep **knp-components** in sync with this bundle. If you want to use 
+older version of KnpPaginatorBundle - use **v1.0** tag in the repository
 
 ## Latest updates
+
+**2011-12-09**
+
+- Changed event names to more distinctive. Using main symfony event dispatcher service.
+- Optimazed event properties for usage by reference
 
 **2011-12-05**
 
