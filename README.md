@@ -9,6 +9,11 @@ older version of KnpPaginatorBundle - use **v1.0** tag in the repository
 
 ## Latest updates
 
+**2011-12-16**
+
+- Joined **count** and **items** events into one **items** which now populates
+count and item result on event. This way it is more straightforward and cleaner
+
 **2011-12-09**
 
 - Changed event names to more distinctive. Using main symfony event dispatcher service.

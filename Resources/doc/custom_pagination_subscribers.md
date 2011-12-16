@@ -24,14 +24,11 @@ namespace Acme\DemoBundle\Subscriber;
 
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Knp\Component\Pager\Event\CountEvent;
 use Knp\Component\Pager\Event\ItemsEvent;
 
 class PaginateDirectorySubscriber implements EventSubscriberInterface
 {
-    private $files;
-
-    public function count(CountEvent $event)
+    public function items(ItemsEvent $event)
     {
         if (is_string($event->target) && is_dir($event->target)) {
             $finder = new Finder;
@@ -41,17 +38,10 @@ class PaginateDirectorySubscriber implements EventSubscriberInterface
                 ->in($event->target)
             ;
             $iter = $finder->getIterator();
-            $this->files = iterator_to_array($iter);
-            $event->count = count($this->files);
-            $event->stopPropagation();
-        }
-    }
-
-    public function items(ItemsEvent $event)
-    {
-        if (is_string($event->target) && is_dir($event->target)) {
+            $files = iterator_to_array($iter);
+            $event->count = count($files);
             $event->items = array_slice(
-                $this->files,
+                $files,
                 $event->getOffset(),
                 $event->getLimit()
             );
@@ -62,14 +52,13 @@ class PaginateDirectorySubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'knp_pager.items' => array('items', 1/*increased priority to override any internal*/),
-            'knp_pager.count' => array('count', 1/*increased priority*/)
+            'knp_pager.items' => array('items', 1/*increased priority to override any internal*/)
         );
     }
 }
 ```
 
-Class above is the simple event subscriber, which listens to **knp_pager.count** and **knp_pager.items** events.
+Class above is the simple event subscriber, which listens to **knp_pager.items** event.
 Creates a finder and looks in this directory for files. To be more specific it will look 
 for the **files** in the directory being paginated, max in 3 level depth.
 
