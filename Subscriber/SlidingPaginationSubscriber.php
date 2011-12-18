@@ -55,6 +55,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         $pagination->setAlias($event->options['alias']);
         $pagination->setTemplate($this->options['defaultPaginationTemplate']);
         $pagination->setSortableTemplate($this->options['defaultSortableTemplate']);
+        $pagination->setPageRange($this->options['defaultPageRange']);
         $event->setPagination($pagination);
         $event->stopPropagation();
     }
