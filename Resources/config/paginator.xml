@@ -8,6 +8,7 @@
         <parameter key="knp_paginator.class">Knp\Component\Pager\Paginator</parameter>
         <parameter key="knp_paginator.template.pagination">KnpPaginatorBundle:Pagination:sliding.html.twig</parameter>
         <parameter key="knp_paginator.template.sortable">KnpPaginatorBundle:Pagination:sortable_link.html.twig</parameter>
+        <parameter key="knp_paginator.page_range">5</parameter>
     </parameters>
 
     <services>
@@ -30,6 +31,7 @@
             <argument type="collection">
                 <argument key="defaultPaginationTemplate">%knp_paginator.template.pagination%</argument>
                 <argument key="defaultSortableTemplate">%knp_paginator.template.sortable%</argument>
+                <argument key="defaultPageRange">%knp_paginator.page_range%</argument>
             </argument>
             <tag name="knp_paginator.subscriber" />
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
