@@ -6,9 +6,6 @@
 
     <parameters>
         <parameter key="knp_paginator.class">Knp\Component\Pager\Paginator</parameter>
-        <parameter key="knp_paginator.template.pagination">KnpPaginatorBundle:Pagination:sliding.html.twig</parameter>
-        <parameter key="knp_paginator.template.sortable">KnpPaginatorBundle:Pagination:sortable_link.html.twig</parameter>
-        <parameter key="knp_paginator.page_range">5</parameter>
     </parameters>
 
     <services>
