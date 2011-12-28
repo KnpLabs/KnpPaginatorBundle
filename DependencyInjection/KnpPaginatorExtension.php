@@ -22,5 +22,12 @@ class KnpPaginatorExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('paginator.xml');
+
+        $configuration = new Configuration();
+        $config = $processor->processConfiguration($configuration, $configs);
+
+        $container->setParameter('knp_paginator.template.pagination', $config['template']['pagination']);
+        $container->setParameter('knp_paginator.template.sortable', $config['template']['sortable']);
+        $container->setParameter('knp_paginator.page_range', $config['page_range']);
     }
 }
