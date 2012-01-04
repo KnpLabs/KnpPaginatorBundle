@@ -1,0 +1,32 @@
+{
+    "name":        "knplabs/knp-paginator-bundle",
+    "type":        "symfony-bundle",
+    "keywords":    ["pager", "paginator", "pagination"],
+    "homepage":    "http://github.com/KnpLabs/KnpPaginatorBundle",
+    "license":     "MIT",
+
+    "authors": [
+        {
+            "name": "KnpLabs Team",
+            "homepage": "http://knplabs.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle/contributors"
+        }
+    ],
+
+    "require": {
+        "php":                      ">=5.3.2",
+        "symfony/framework-bundle": "2.0.*",
+        "knplabs/knp-components":    "*"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Knp\\Bundle\\PaginatorBundle": ""
+        }
+    },
+
+    "target-dir": "Knp/Bundle/PaginatorBundle"
+}
