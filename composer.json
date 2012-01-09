@@ -1,7 +1,7 @@
 {
     "name": "knplabs/knp-paginator-bundle",
     "type": "symfony-bundle",
-    "description": "Paginator bundle for Symfony2 to automate pagination and simplify sorting and other features"
+    "description": "Paginator bundle for Symfony2 to automate pagination and simplify sorting and other features",
     "keywords": ["pager", "paginator", "pagination", "symfony2", "bundle", "knp", "knplabs"],
     "homepage": "http://github.com/KnpLabs/KnpPaginatorBundle",
     "license": "MIT",
