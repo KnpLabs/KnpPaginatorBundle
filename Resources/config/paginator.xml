@@ -21,7 +21,7 @@
             <tag name="knp_paginator.subscriber" />
         </service>
 
-        <service id="knp_paginator.subscriber.sliding_pagination" class="Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber" scope="request">
+        <service id="knp_paginator.subscriber.sliding_pagination" class="Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber">
             <argument type="service" id="templating" />
             <argument type="service" id="templating.helper.router" />
             <argument type="service" id="translator" />
