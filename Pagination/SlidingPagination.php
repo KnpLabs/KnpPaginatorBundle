@@ -111,7 +111,7 @@ class SlidingPagination extends AbstractPagination
         if ($sorted) {
             $direction = $params[$this->alias.'direction'];
             $direction = (strtolower($direction) == 'asc') ? 'desc' : 'asc';
-            $class = $direction == 'asc' ? 'asc' : 'desc';
+            $class = $direction == 'asc' ? 'desc' : 'asc';
             if (isset($options['class'])) {
                 $options['class'] .= ' ' . $class;
             } else {
