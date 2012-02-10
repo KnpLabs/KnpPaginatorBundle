@@ -140,7 +140,7 @@ class SlidingPagination extends AbstractPagination
             $this->sortableTemplate = $template;
         }
 
-        return $this->engine->render($this->sortableTemplate, compact('options', 'title', 'direction'));
+        return $this->engine->render($this->sortableTemplate, compact('options', 'title', 'direction', 'sorted'));
     }
 
     public function getPaginationData()
