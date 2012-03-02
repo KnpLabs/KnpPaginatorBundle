@@ -9,6 +9,10 @@ older version of KnpPaginatorBundle - use **v1.0** tag in the repository
 
 ## Latest updates
 
+**2012-03-02**
+
+- Added support for [Solarium](http://solarium-project.org), a PHP library that handles [Solr](http://lucene.apache.org/solr/) search.
+
 **2011-12-16**
 
 - Joined **count** and **items** events into one **items** which now populates
@@ -120,6 +124,7 @@ Currently paginator can paginate:
 - Doctrine\ORM\QueryBuilder
 - Doctrine\ODM\MongoDB\Query\Query
 - Doctrine\ODM\MongoDB\Query\Builder
+- array with Solarium_Client and Solarium_Query_Select as elements
 
 ``` php
 <?php
