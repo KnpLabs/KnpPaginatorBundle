@@ -1,7 +1,7 @@
 # Intro to KnpPaginatorBundle
 
 Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
-component introduces a diferent way for pagination handling. You can read more about the
+component introduces a different way for pagination handling. You can read more about the
 internal logic on the given documentation link.
 
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use 
@@ -73,6 +73,13 @@ Or if you want to clone the repos:
     # Install knp paginator bundle
     git clone git://github.com/KnpLabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
 
+Or if you use [composer](http://packagist.org)
+
+    {
+        require: {
+            "knplabs/knp-paginator-bundle": "*"
+        }
+    }
 
 ### Configuration example
 
@@ -86,7 +93,10 @@ parameters:
   knp_paginator.template.sortable:   MyBundle:Pagination:sortable.html.twig
 ```
 
-### Add the namespaces to your autoloader
+Or you can override default config values [this
+way](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/paginator_configuration.md)
+
+### Add the namespaces to your autoloader unless you are using composer
 
 ``` php
 <?php
@@ -124,6 +134,8 @@ Currently paginator can paginate:
 - Doctrine\ORM\QueryBuilder
 - Doctrine\ODM\MongoDB\Query\Query
 - Doctrine\ODM\MongoDB\Query\Builder
+- Doctrine\Common\Collection\ArrayCollection - any doctrine relation collection including
+- ModelCriteria - Propel ORM query
 - array with Solarium_Client and Solarium_Query_Select as elements
 
 ``` php
