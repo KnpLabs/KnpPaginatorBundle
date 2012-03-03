@@ -125,7 +125,7 @@ class SlidingPagination extends AbstractPagination
         }
         $params = array_merge(
             $params,
-            array($this->alias.'sort' => $key, $this->alias.'direction' => $direction)
+            array($this->alias.'sort' => $key, $this->alias.'direction' => $direction, $this->alias.'page' => 1)
         );
 
         $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
@@ -139,7 +139,7 @@ class SlidingPagination extends AbstractPagination
         if ($template) {
             $this->sortableTemplate = $template;
         }
-        
+
         $alias = $this->alias;
 
         return $this->engine->render($this->sortableTemplate, compact('options', 'title', 'direction', 'sorted', 'key', 'alias'));
