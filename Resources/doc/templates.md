@@ -11,7 +11,11 @@ There are few ways to override templates
 ### Configuration
 
 This way it will override it globally for all default pagination rendering.
-Place this parameter in **app/config/parameters.yml**
+
+You can override templates in [configurion of
+paginator](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md#configuration)
+
+Or place this parameter in **app/config/parameters.yml**
 
     knp_paginator.template.pagination: MyBundle:Pagination:pagination.html.twig
 
@@ -73,13 +77,12 @@ This would set additional query parameter
 
 ### Additional pagination template parameters
 
-If you need extra parameters in pagination template, use:
+If you need custom parameters in pagination template, use:
 
 ``` php
 <?php
-$pagination->setExtraViewParam('style', 'top');
-// or an array of extra parameters
-$pagination->setExtraViewParams(array(
+// set an array of custom parameters
+$pagination->setCustomParameters(array(
     'style' => 'bottom',
     'span_class' => 'whatever'
 ));
@@ -98,5 +101,26 @@ In template:
 
 ``` php
 {% pagination.setPageRange(7) %}
+```
+
+<a name="query-parameters"></a>
+
+## Query parameters
+
+If you need to change query parameters for paginator or use multiple paginators for the same page.
+You can customize these parameter names through [configuration](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md#configuration)
+or manually with paginator options.
+
+``` php
+<?php // controller
+
+// will change "page" query parameter into "section" and sort direction "direction" into "dir"
+$paginator = $this->get('knp_paginator');
+$pagination = $paginator->paginate(
+    $query, // target to paginate
+    $this->get('request')->query->get('section', 1), // page parameter, now section
+    10, // limit per page
+    array('pageParameterName' => 'section', 'sortDirectionParameterName' => 'dir')
+);
 ```
 
