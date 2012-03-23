@@ -29,5 +29,13 @@ class KnpPaginatorExtension extends Extension
         $container->setParameter('knp_paginator.template.pagination', $config['template']['pagination']);
         $container->setParameter('knp_paginator.template.sortable', $config['template']['sortable']);
         $container->setParameter('knp_paginator.page_range', $config['page_range']);
+
+        $paginatorDef = $container->getDefinition('knp_paginator');
+        $paginatorDef->addMethodCall('setDefaultPaginatorOptions', array(array(
+            'pageParameterName' => $config['default_options']['page_name'],
+            'sortFieldParameterName' => $config['default_options']['sort_field_name'],
+            'sortDirectionParameterName' => $config['default_options']['sort_direction_name'],
+            'distinct' => $config['default_options']['distinct']
+        )));
     }
 }

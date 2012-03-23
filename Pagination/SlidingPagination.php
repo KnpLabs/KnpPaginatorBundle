@@ -47,16 +47,6 @@ class SlidingPagination extends AbstractPagination
         $this->template = $template;
     }
 
-    public function setExtraViewParams(array $params)
-    {
-        $this->extraViewParams = $params;
-    }
-
-    public function setExtraViewParam($name, $param)
-    {
-        $this->extraViewParams[$name] = $param;
-    }
-
     public function setPageRange($range)
     {
         $this->pageRange = abs(intval($range));
@@ -77,9 +67,13 @@ class SlidingPagination extends AbstractPagination
         }
         $data = $this->getPaginationData();
         $data['route'] = $this->route;
-        $data['alias'] = $this->alias;
         $data['query'] = array_merge($this->params, $queryParams);
-        $data = array_merge($this->extraViewParams, $viewParams, $data/* cannot be broken*/);
+        $data = array_merge(
+            $this->paginatorOptions, // options given to paginator when paginated
+            $this->customParameters, // all custom parameters for view
+            $viewParams, // additional custom parameters for view
+            $data // merging base route parameters last, to avoid broke of integrity
+        );
         return $this->engine->render($this->template, $data);
     }
 
@@ -105,11 +99,15 @@ class SlidingPagination extends AbstractPagination
         ), $options);
 
         $params = array_merge($this->params, $params);
-        $direction = isset($options[$this->alias.'direction']) ? $options[$this->alias.'direction'] : 'asc';
+        $direction = isset($options[$this->getPaginatorOption('sortDirectionParameterName')]) ?
+            $options[$this->getPaginatorOption('sortDirectionParameterName')] : 'asc'
+        ;
 
-        $sorted = isset($params[$this->alias.'sort']) && $params[$this->alias.'sort'] == $key;
+        $sorted = isset($params[$this->getPaginatorOption('sortFieldParameterName')])
+            && $params[$this->getPaginatorOption('sortFieldParameterName')] == $key
+        ;
         if ($sorted) {
-            $direction = $params[$this->alias.'direction'];
+            $direction = $params[$this->getPaginatorOption('sortDirectionParameterName')];
             $direction = (strtolower($direction) == 'asc') ? 'desc' : 'asc';
             $class = $direction == 'asc' ? 'desc' : 'asc';
             if (isset($options['class'])) {
@@ -125,7 +123,11 @@ class SlidingPagination extends AbstractPagination
         }
         $params = array_merge(
             $params,
-            array($this->alias.'sort' => $key, $this->alias.'direction' => $direction, $this->alias.'page' => 1)
+            array(
+                $this->getPaginatorOption('sortFieldParameterName') => $key,
+                $this->getPaginatorOption('sortDirectionParameterName') => $direction,
+                $this->getPaginatorOption('pageParameterName') => 1 // reset to 1 on sort
+            )
         );
 
         $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
@@ -140,9 +142,11 @@ class SlidingPagination extends AbstractPagination
             $this->sortableTemplate = $template;
         }
 
-        $alias = $this->alias;
-
-        return $this->engine->render($this->sortableTemplate, compact('options', 'title', 'direction', 'sorted', 'key', 'alias'));
+        return $this->engine->render($this->sortableTemplate, array_merge(
+            $this->paginatorOptions,
+            $this->customParameters,
+            compact('options', 'title', 'direction', 'sorted', 'key')
+        ));
     }
 
     public function getPaginationData()
