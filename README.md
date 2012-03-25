@@ -1,11 +1,14 @@
 # Intro to KnpPaginatorBundle
 
+**SEO** friendly Symfony2 paginator to paginate everything
+
 Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
 component introduces a different way for pagination handling. You can read more about the
 internal logic on the given documentation link.
 
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use 
-older version of KnpPaginatorBundle - use **v1.0** tag in the repository
+older version of KnpPaginatorBundle - use **v1.0** tag in the repository which is
+suitable to paginate **ODM mongodb** and **ORM 2.0** queries
 
 ## Latest updates
 
@@ -16,6 +19,7 @@ for paginations. Instead it will use organized parameter names, which can be set
 as different or configured in default global scope, see the [documentation](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md#configuration)
 and [upgrade
 guide](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/upgrade_to_2.2.md)
+make sure you use **twig at least version 1.5**
 
 - If you do not wish to migrate to these new changes. Checkout paginator bundle at **v2.1** tag and
 komponents at **v1.0**
@@ -43,9 +47,9 @@ to github.com/**KnpLabs**/KnpPaginatorBundle.git.
 
 ## Requirements:
 
-- Knp pager component
-- For now KnpPaginatorBundle's master is only compatible with symfony's master branch (2.1 version).  
-Use the **v1.0** tag of KnpPaginatorBundle if you have to stay compatible with symfony 2.0.
+- Knp pager component **>=1.1**
+- KnpPaginatorBundle's master compatible with symfony (**>=2.0** versions).
+- Twig **>=1.5** version is required if you use twig templating engine
 
 ## Features:
 
