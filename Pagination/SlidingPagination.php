@@ -95,7 +95,9 @@ class SlidingPagination extends AbstractPagination
     public function sortable($title, $key, $options = array(), $params = array(), $template = null)
     {
         $options = array_merge(array(
-            'absolute' => false
+            'absolute' => false,
+            'translationParameters' => array(),
+            'translationDomain' => null,
         ), $options);
 
         $params = array_merge($this->params, $params);
@@ -134,7 +136,7 @@ class SlidingPagination extends AbstractPagination
         $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
         unset($options['absolute']);
 
-        $title = $this->translator->trans($title);
+        $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
         if (!isset($options['title'])) {
             $options['title'] = $title;
         }
