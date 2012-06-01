@@ -134,7 +134,6 @@ class SlidingPagination extends AbstractPagination
         );
 
         $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
-        unset($options['absolute']);
 
         $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
         if (!isset($options['title'])) {
@@ -144,6 +143,7 @@ class SlidingPagination extends AbstractPagination
         if ($template) {
             $this->sortableTemplate = $template;
         }
+        unset($options['absolute'], $options['translationDomain'], $options['translationParameters']);
 
         return $this->engine->render($this->sortableTemplate, array_merge(
             $this->paginatorOptions,
