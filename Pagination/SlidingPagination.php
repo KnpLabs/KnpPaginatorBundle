@@ -32,6 +32,11 @@ class SlidingPagination extends AbstractPagination
         $this->route = $route;
     }
 
+    public function getRoute()
+    {
+        return $this->route;
+    }
+
     public function setSortableTemplate($template)
     {
         $this->sortableTemplate = $template;
@@ -75,6 +80,17 @@ class SlidingPagination extends AbstractPagination
             $data // merging base route parameters last, to avoid broke of integrity
         );
         return $this->engine->render($this->template, $data);
+    }
+
+    /**
+     * Get url query with all parameters
+     *
+     * @param array $additionalQueryParams
+     * @return array - list of query parameters
+     */
+    public function getQuery(array $additionalQueryParams = array())
+    {
+        return array_merge($this->params, $additionalQueryParams);
     }
 
     /**
