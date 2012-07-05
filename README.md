@@ -12,6 +12,11 @@ suitable to paginate **ODM mongodb** and **ORM 2.0** queries
 
 ## Latest updates
 
+**2012-07-06**
+
+- Added method `isSorted` to the `SlidingPagination` to enable views to know if
+a given column is currently sorted.
+
 **2012-03-23**
 
 - Changed the behavior of customization for query parameters. Etc. now there is no more **alias**
@@ -181,7 +186,7 @@ return compact('pagination');
 <tr>
 {# sorting of properties based on query components #}
     <th>{{ pagination.sortable('Id', 'a.id')|raw }}</th>
-    <th>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
+    <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
 </tr>
 
 {# table body #}
