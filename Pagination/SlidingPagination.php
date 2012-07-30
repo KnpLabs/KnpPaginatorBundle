@@ -122,9 +122,8 @@ class SlidingPagination extends AbstractPagination
             : (isset($options['defaultDirection']) ? $options['defaultDirection'] : 'asc')
         ;
 
-        $sorted = isset($params[$this->getPaginatorOption('sortFieldParameterName')])
-            && $params[$this->getPaginatorOption('sortFieldParameterName')] == $key
-        ;
+        $sorted = $this->isSorted($key, $params);
+
         if ($sorted) {
             $direction = $params[$this->getPaginatorOption('sortDirectionParameterName')];
             $direction = (strtolower($direction) == 'asc') ? 'desc' : 'asc';
@@ -166,6 +165,13 @@ class SlidingPagination extends AbstractPagination
             $this->customParameters,
             compact('options', 'title', 'direction', 'sorted', 'key')
         ));
+    }
+
+    public function isSorted($key, array $params = array())
+    {
+        $params = array_merge($this->params, $params);
+
+        return isset($params[$this->getPaginatorOption('sortFieldParameterName')]) && $params[$this->getPaginatorOption('sortFieldParameterName')] === $key;
     }
 
     public function getPaginationData()
