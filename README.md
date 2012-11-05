@@ -6,6 +6,8 @@ Generally this bundle is based on [Knp Pager component][knp_component_pager]. Th
 component introduces a different way for pagination handling. You can read more about the
 internal logic on the given documentation link.
 
+[![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
+
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use 
 older version of KnpPaginatorBundle - use **v1.0** tag in the repository which is
 suitable to paginate **ODM mongodb** and **ORM 2.0** queries
@@ -76,6 +78,14 @@ variables as keys.
 
 ## Installation and configuration:
 
+Pretty simple with [composer](http://packagist.org), add:
+
+    {
+        require: {
+            "knplabs/knp-paginator-bundle": "dev-master"
+        }
+    }
+
 If you use a `deps` file, add:
 
     [knp-components]
@@ -93,13 +103,6 @@ Or if you want to clone the repos:
     # Install knp paginator bundle
     git clone git://github.com/KnpLabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
 
-Or if you use [composer](http://packagist.org)
-
-    {
-        require: {
-            "knplabs/knp-paginator-bundle": "dev-master"
-        }
-    }
 
 <a name="configuration"></a>
 
