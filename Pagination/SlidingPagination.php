@@ -136,9 +136,11 @@ class SlidingPagination extends AbstractPagination
         } else {
             $options['class'] = 'sortable';
         }
+
         if (is_array($title) && array_key_exists($direction, $title)) {
             $title = $title[$direction];
         }
+
         $params = array_merge(
             $params,
             array(
@@ -179,6 +181,10 @@ class SlidingPagination extends AbstractPagination
         $pageCount = intval(ceil($this->totalCount / $this->numItemsPerPage));
         $current = $this->currentPageNumber;
 
+        if ($pageCount < $current) {
+            $this->currentPageNumber = $current = $pageCount;
+        }
+
         if ($this->pageRange > $pageCount) {
             $this->pageRange = $pageCount;
         }
@@ -213,6 +219,7 @@ class SlidingPagination extends AbstractPagination
         if ($current + 1 <= $pageCount) {
             $viewData['next'] = $current + 1;
         }
+
         $viewData['pagesInRange'] = $pages;
         $viewData['firstPageInRange'] = min($pages);
         $viewData['lastPageInRange']  = max($pages);

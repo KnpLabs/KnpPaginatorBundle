@@ -30,15 +30,17 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
-            $request = $event->getRequest();
+        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+            return;
+        }
 
-            $this->route = $request->attributes->get('_route');
-            $this->params = array_merge($request->query->all(), $request->attributes->all());
-            foreach ($this->params as $key => $param) {
-                if (substr($key, 0, 1) == '_') {
-                    unset($this->params[$key]);
-                }
+        $request = $event->getRequest();
+
+        $this->route = $request->attributes->get('_route');
+        $this->params = array_merge($request->query->all(), $request->attributes->all());
+        foreach ($this->params as $key => $param) {
+            if (substr($key, 0, 1) == '_') {
+                unset($this->params[$key]);
             }
         }
     }
