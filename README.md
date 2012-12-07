@@ -208,7 +208,11 @@ return compact('pagination');
 
 ### Translation in view
 
-For translating the following text: ```%foo% name``` with translation key ```table_header_name```. The translation is in the domain ```messages```.
+For translating the following text:
+* ```%foo% name``` with translation key ```table_header_name```. The translation is in the domain ```messages```.
+* ```{0} No author|{1} Author|[2,Inf] Authors``` with translation key ```table_header_author```. The translation is in the domain ```messages```.
+
+translationCount and translationParameters can be combined.
 
 ``` html
 <table>
@@ -216,6 +220,7 @@ For translating the following text: ```%foo% name``` with translation key ```tab
 {# sorting of properties based on query components #}
     <th>{{ pagination.sortable('table_header_name', 'a.id', {'translationDomain' : 'messages', 'translationParameter' : { '%foo%' : 'bar' } } )|raw }}</th>
     <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
+    <th>{{ pagination.sortable('table_header_author', 'a.author', {'translationDomain' : 'messages', 'translationCount' : 1 } )|raw }}</th>
 </tr>
 
 <!-- Content of the table -->
