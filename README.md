@@ -206,6 +206,22 @@ return compact('pagination');
 </div>
 ```
 
+### Translation in view
+
+For translating the following text: ```%foo% name``` with translation key ```table_header_name```. The translation is in the domain ```messages```.
+
+``` html
+<table>
+<tr>
+{# sorting of properties based on query components #}
+    <th>{{ pagination.sortable('table_header_name', 'a.id', {'translationDomain' : 'messages', 'translationParameter' : { '%foo%' : 'bar' } } )|raw }}</th>
+    <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
+</tr>
+
+<!-- Content of the table -->
+
+</table>
+```
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
 [doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
