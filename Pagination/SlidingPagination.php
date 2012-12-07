@@ -114,6 +114,7 @@ class SlidingPagination extends AbstractPagination
             'absolute' => false,
             'translationParameters' => array(),
             'translationDomain' => null,
+            'translationCount' => null,
         ), $options);
 
         $params = array_merge($this->params, $params);
@@ -153,7 +154,12 @@ class SlidingPagination extends AbstractPagination
         $options['href'] = $this->routerHelper->generate($this->route, $params, $options['absolute']);
 
         if( !is_null($options['translationDomain']) ) {
-            $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);    
+            if( !is_null($options['translationCount']) ) {
+                $title = $this->translator->transChoice($title, $options['translationCount'], $options['translationParameters'], $options['translationDomain']);    
+            }
+            else {
+                $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);    
+            }
         }
         if (!isset($options['title'])) {
             $options['title'] = $title;
