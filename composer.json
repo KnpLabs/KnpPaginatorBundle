@@ -18,10 +18,10 @@
     ],
 
     "require": {
-        "php": ">=5.3.2",
-        "symfony/framework-bundle": "2.*,<2.3",
-        "knplabs/knp-components": ">=1.1",
-        "twig/twig": ">=1.5"
+        "php":                      ">=5.3.3",
+        "symfony/framework-bundle": "~2.0",
+        "knplabs/knp-components":   "~1.1",
+        "twig/twig":                "~1.5"
     },
 
     "autoload": {
@@ -30,5 +30,11 @@
         }
     },
 
-    "target-dir": "Knp/Bundle/PaginatorBundle"
+    "target-dir": "Knp/Bundle/PaginatorBundle",
+    
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.3.x-dev"
+        }
+    }
 }
