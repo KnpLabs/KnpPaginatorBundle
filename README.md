@@ -8,7 +8,7 @@ internal logic on the given documentation link.
 
 [![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
 
-**Note:** Keep **knp-components** in sync with this bundle. If you want to use 
+**Note:** Keep **knp-components** in sync with this bundle. If you want to use
 older version of KnpPaginatorBundle - use **v1.0** tag in the repository which is
 suitable to paginate **ODM mongodb** and **ORM 2.0** queries
 
@@ -25,7 +25,7 @@ a given column is currently sorted.
 for paginations. Instead it will use organized parameter names, which can be set for each pagination
 as different or configured in default global scope, see the [documentation](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md#configuration)
 and [upgrade
-guide](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/upgrade_to_2.2.md)
+guide](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/upgrade.md)
 make sure you use **twig at least version 1.5**
 
 - If you do not wish to migrate to these new changes. Checkout paginator bundle at **v2.1** tag and
@@ -188,8 +188,8 @@ return compact('pagination');
 <table>
 <tr>
 {# sorting of properties based on query components #}
-    <th>{{ pagination.sortable('Id', 'a.id')|raw }}</th>
-    <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+    <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
 </tr>
 
 {# table body #}
@@ -202,7 +202,7 @@ return compact('pagination');
 </table>
 {# display navigation #}
 <div class="navigation">
-    {{ pagination.render()|raw }}
+    {{ knp_pagination_render(pagination) }}
 </div>
 ```
 
