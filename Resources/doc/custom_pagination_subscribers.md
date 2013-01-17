@@ -59,7 +59,7 @@ class PaginateDirectorySubscriber implements EventSubscriberInterface
 ```
 
 Class above is the simple event subscriber, which listens to **knp_pager.items** event.
-Creates a finder and looks in this directory for files. To be more specific it will look 
+Creates a finder and looks in this directory for files. To be more specific it will look
 for the **files** in the directory being paginated, max in 3 level depth.
 
 ## Register subscriber as service
@@ -144,7 +144,7 @@ And the last thing is the template, create: **../symfony-standard/src/Acme/DemoB
         <li><a href="{{ path('_demo_secured_hello', {'name': 'World'}) }}">Access the secured area</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('_demo_login') }}">Go to the login page</a></li>
         {# <li><a href="{{ path('_demo_contact') }}">Send a Message</a></li> #}
     </ul>
-    
+
     <table>
     <tr>
     {# sorting of properties based on query components #}
@@ -162,11 +162,11 @@ And the last thing is the template, create: **../symfony-standard/src/Acme/DemoB
     </table>
     {# display navigation #}
     <div id="navigation">
-        {{ files.render()|raw }}
+        {{ knp_pagination_render(files) }}
     </div>
 {% endblock %}
 ```
 
 Do not forget to reload the cache: **./app/console ca:c -e dev**
-You should find some files paginated if you open 
+You should find some files paginated if you open
 the url: **http://baseurl/app_dev.php/demo/test**
