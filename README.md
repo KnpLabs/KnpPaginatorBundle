@@ -135,6 +135,14 @@ $loader->registerNamespaces(array(
 ));
 ```
 
+Symfony 2.1 works for the following configuration
+```php
+// KnpLabs components
+$loader->add('Knp\\Component', __DIR__.'/../vendor/knplabs/knp-components/src');
+$loader->add('Knp\\Bundle\\PaginatorBundle', __DIR__.'/../vendor/knplabs/knp-paginator-bundle');
+
+```
+
 ### Add PaginatorBundle to your application kernel
 
 ``` php
