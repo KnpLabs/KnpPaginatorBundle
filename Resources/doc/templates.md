@@ -40,7 +40,7 @@ or in view
 
 ### In render method
 
-{{ pagination.render('MyBundle:Pagination:pagination.html.twig')|raw }}
+{{ knp_pagination_render(pagination, 'MyBundle:Pagination:pagination.html.twig') }}
 
 ## Other useful parameters
 

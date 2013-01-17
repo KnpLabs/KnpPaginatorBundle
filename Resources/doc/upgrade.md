@@ -1,3 +1,27 @@
+# Upgrade Paginator to 2.3 version
+
+Changes to adapt to on view:
+
+- Pagination:
+    - Before
+
+            {{ pagination.render()|raw }}
+
+    - After
+
+            {{ knp_pagination_render(pagination) }}
+
+- Sortable:
+    - Before:
+
+            {{ pagination.sortable('Name', 'name')|raw }}
+
+    - After:
+
+            {{ knp_pagination_sortable(pagination, 'Name', 'name') }}
+
+
+
 # Upgrade Paginator to 2.2 version
 
 Changes to adapt to
