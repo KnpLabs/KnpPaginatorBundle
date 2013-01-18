@@ -13,11 +13,11 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber" scope="request">
+        <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
 
-        <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber" scope="request">
+        <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
 
