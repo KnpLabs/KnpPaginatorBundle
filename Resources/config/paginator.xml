@@ -13,11 +13,11 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber" scope="request">
+        <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
 
-        <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber" scope="request">
+        <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
 
@@ -28,7 +28,6 @@
                 <argument key="defaultPageRange">%knp_paginator.page_range%</argument>
             </argument>
             <tag name="knp_paginator.subscriber" />
-            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
 
         <service id="knp_paginator.twig.extension.pagination" class="Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension">
