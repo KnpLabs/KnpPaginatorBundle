@@ -107,14 +107,31 @@ class SlidingPagination extends AbstractPagination
             $pages = range($offset + 1, $offset + $this->pageRange);
         }
 
+        $proximity = floor($this->pageRange / 2);
+
+        $startPage  = $current - $proximity;
+        $endPage    = $current + $proximity;
+
+        if ($startPage < 1) {
+            $endPage = min($endPage + (1 - $startPage), $pageCount);
+            $startPage = 1;
+        }
+
+        if ($endPage > $pageCount) {
+            $startPage = max($startPage - ($endPage - $pageCount), 1);
+            $endPage = $pageCount;
+        }
+
         $viewData = array(
-            'last' => $pageCount,
-            'current' => $current,
-            'numItemsPerPage' => $this->numItemsPerPage,
-            'first' => 1,
-            'pageCount' => $pageCount,
-            'totalCount' => $this->totalCount,
-            'pageRange' => $this->pageRange,
+            'last'              => $pageCount,
+            'current'           => $current,
+            'numItemsPerPage'   => $this->numItemsPerPage,
+            'first'             => 1,
+            'pageCount'         => $pageCount,
+            'totalCount'        => $this->totalCount,
+            'pageRange'         => $this->pageRange,
+            'startPage'         => $startPage,
+            'endPage'           => $endPage
         );
 
         if ($current - 1 > 0) {
