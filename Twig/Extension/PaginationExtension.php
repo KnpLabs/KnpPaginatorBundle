@@ -34,6 +34,7 @@ class PaginationExtension extends \Twig_Extension
         return array(
             'knp_pagination_render' => new \Twig_Function_Method($this, 'render', array('is_safe' => array('html'))),
             'knp_pagination_sortable' => new \Twig_Function_Method($this, 'sortable', array('is_safe' => array('html'))),
+            'knp_pagination_filter' => new \Twig_Function_Method($this, 'filter', array('is_safe' => array('html'))),
         );
     }
 
@@ -140,6 +141,57 @@ class PaginationExtension extends \Twig_Extension
             $pagination->getPaginatorOptions(),
             $pagination->getCustomParameters(),
             compact('options', 'title', 'direction', 'sorted', 'key')
+        ));
+    }
+
+    /**
+     * Create a filter url for the field named $title
+     * and identified by $key which consists of
+     * alias and field. $options holds all link
+     * parameters like "alt, class" and so on.
+     *
+     * $key example: "article.title"
+     *
+     * @param string $title
+     * @param string $key
+     * @param array $options
+     * @param array $params
+     * @param string $template
+     * @return string
+     */
+    public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
+    {
+        $options = array_merge(array(
+            'absolute' => false,
+            'translationParameters' => array(),
+            'translationDomain' => null,
+            'button' => 'Filter',
+        ), $options);
+
+        $params = array_merge($pagination->getParams(), $params);
+        $params[$pagination->getPaginatorOption('pageParameterName')] = 1; // reset to 1 on filter
+
+        $filterFieldName = $pagination->getPaginatorOption('filterFieldParameterName');
+        $filterValueName = $pagination->getPaginatorOption('filterValueParameterName');
+
+        $selectedField = isset($params[$filterFieldName]) ? $params[$filterFieldName] : null;
+        $selectedValue = isset($params[$filterValueName]) ? $params[$filterValueName] : null;
+
+        $action = $this->routerHelper->generate($pagination->getRoute(), $params, $options['absolute']);
+
+        foreach ($fields as $field => $title) {
+            $fields[$field] = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
+        }
+        $options['button'] = $this->translator->trans($options['button'], $options['translationParameters'], $options['translationDomain']);
+
+        $template = $template ?: $pagination->getFiltrationTemplate();
+
+        unset($options['absolute'], $options['translationDomain'], $options['translationParameters']);
+
+        return $this->environment->render($template, array_merge(
+            $pagination->getPaginatorOptions(),
+            $pagination->getCustomParameters(),
+            compact('fields', 'action', 'filterFieldName', 'filterValueName', 'selectedField', 'selectedValue', 'options')
         ));
     }
 

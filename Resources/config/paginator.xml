@@ -20,11 +20,16 @@
         <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
+        
+        <service id="knp_paginator.subscriber.filtration" class="Knp\Component\Pager\Event\Subscriber\Filtration\FiltrationSubscriber">
+            <tag name="knp_paginator.subscriber" />
+        </service>
 
         <service id="knp_paginator.subscriber.sliding_pagination" class="Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber">
             <argument type="collection">
                 <argument key="defaultPaginationTemplate">%knp_paginator.template.pagination%</argument>
                 <argument key="defaultSortableTemplate">%knp_paginator.template.sortable%</argument>
+                <argument key="defaultFiltrationTemplate">%knp_paginator.template.filtration%</argument>
                 <argument key="defaultPageRange">%knp_paginator.page_range%</argument>
             </argument>
             <tag name="knp_paginator.subscriber" />
