@@ -20,9 +20,9 @@ chapter of documentation.
 
 ## Requirements:
 
-- Knp pager component **>=1.1**
-- KnpPaginatorBundle's master compatible with symfony (**>=2.0** versions).
-- Twig **>=1.5** version is required if you use twig templating engine
+- Knp pager component `>=1.1`
+- KnpPaginatorBundle's master compatible with symfony (`>=2.0` versions).
+- Twig`>=1.5` version is required if you use twig templating engine
 
 ## Features:
 
@@ -44,13 +44,15 @@ variables as keys.
 
 ## Installation and configuration:
 
-Pretty simple with [composer](http://packagist.org), add:
+Pretty simple with [Composer](http://packagist.org), add:
 
-    {
-        require: {
-            "knplabs/knp-paginator-bundle": "dev-master"
-        }
+```json
+{
+    "require": {
+        "knplabs/knp-paginator-bundle": "dev-master"
     }
+}
+```
 
 If you use a `deps` file, add:
 
@@ -76,7 +78,7 @@ Or if you want to clone the repos:
 
 You can configure default query parameter names and templates
 
-``` yaml
+```yaml
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
     default_options:
@@ -89,9 +91,9 @@ knp_paginator:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 ```
 
-### Add the namespaces to your autoloader unless you are using composer
+### Add the namespaces to your autoloader unless you are using Composer
 
-``` php
+```php
 <?php
 // File: app/autoload.php
 $loader->registerNamespaces(array(
@@ -103,17 +105,16 @@ $loader->registerNamespaces(array(
 
 ### Add PaginatorBundle to your application kernel
 
-``` php
-<?php
-    // File: app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            // ...
-        );
-    }
+```php
+// app/AppKernel.php
+public function registerBundles()
+{
+    return array(
+        // ...
+        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+        // ...
+    );
+}
 ```
 
 ## Usage examples:
@@ -122,35 +123,39 @@ $loader->registerNamespaces(array(
 
 Currently paginator can paginate:
 
-- array
-- Doctrine\ORM\Query
-- Doctrine\ORM\QueryBuilder
-- Doctrine\ODM\MongoDB\Query\Query
-- Doctrine\ODM\MongoDB\Query\Builder
-- Doctrine\Common\Collection\ArrayCollection - any doctrine relation collection including
-- ModelCriteria - Propel ORM query
-- array with Solarium_Client and Solarium_Query_Select as elements
+- `array`
+- `Doctrine\ORM\Query`
+- `Doctrine\ORM\QueryBuilder`
+- `Doctrine\ODM\MongoDB\Query\Query`
+- `Doctrine\ODM\MongoDB\Query\Builder`
+- `Doctrine\Common\Collection\ArrayCollection` - any doctrine relation collection including
+- `ModelCriteria` - Propel ORM query
+- array with `Solarium_Client` and `Solarium_Query_Select` as elements
 
-``` php
-<?php
-$em = $this->get('doctrine.orm.entity_manager');
-$dql = "SELECT a FROM VendorBlogBundle:Article a";
-$query = $em->createQuery($dql);
+```php
+// Acme\MainBundle\Controller\ArticleController.php
 
-$paginator = $this->get('knp_paginator');
-$pagination = $paginator->paginate(
-    $query,
-    $this->get('request')->query->get('page', 1)/*page number*/,
-    10/*limit per page*/
-);
+public function listAction() 
+{
+    $em    = $this->get('doctrine.orm.entity_manager');
+    $dql   = "SELECT a FROM AcmeMainBundle:Article a";
+    $query = $em->createQuery($dql);
 
-// parameters to template
-return compact('pagination');
+    $paginator  = $this->get('knp_paginator');
+    $pagination = $paginator->paginate(
+        $query,
+        $this->get('request')->query->get('page', 1)/*page number*/,
+        10/*limit per page*/
+    );
+
+    // parameters to template
+    return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
+}
 ```
 
 ### View
 
-``` html
+```jinja
 <table>
 <tr>
 {# sorting of properties based on query components #}
