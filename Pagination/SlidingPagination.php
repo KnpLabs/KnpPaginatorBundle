@@ -11,6 +11,7 @@ class SlidingPagination extends AbstractPagination
     private $pageRange = 5;
     private $template;
     private $sortableTemplate;
+    private $filtrationTemplate;
     private $extraViewParams = array();
 
     public function __construct(array $params)
@@ -36,6 +37,16 @@ class SlidingPagination extends AbstractPagination
     public function getSortableTemplate()
     {
         return $this->sortableTemplate;
+    }
+
+    public function setFiltrationTemplate($template)
+    {
+        $this->filtrationTemplate = $template;
+    }
+
+    public function getFiltrationTemplate()
+    {
+        return $this->filtrationTemplate;
     }
 
     public function setParam($name, $value)
