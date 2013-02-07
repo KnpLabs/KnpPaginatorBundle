@@ -128,8 +128,8 @@ class PaginationExtension extends \Twig_Extension
 
         $options['href'] = $this->routerHelper->generate($pagination->getRoute(), $params, $options['absolute']);
 
-        if (!is_null($options['translationDomain'])) {
-            if (!is_null($options['translationCount'])) {
+        if (null !== $options['translationDomain']) {
+            if (null !== $options['translationCount']) {
                 $title = $this->translator->transChoice($title, $options['translationCount'], $options['translationParameters'], $options['translationDomain']);
             } else {
                 $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
