@@ -87,6 +87,7 @@ class PaginationExtension extends \Twig_Extension
             'absolute' => false,
             'translationParameters' => array(),
             'translationDomain' => null,
+            'translationCount' => null,
         ), $options);
 
         $params = array_merge($pagination->getParams(), $params);
@@ -127,7 +128,13 @@ class PaginationExtension extends \Twig_Extension
 
         $options['href'] = $this->routerHelper->generate($pagination->getRoute(), $params, $options['absolute']);
 
-        $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
+        if (!is_null($options['translationDomain'])) {
+            if (!is_null($options['translationCount'])) {
+                $title = $this->translator->transChoice($title, $options['translationCount'], $options['translationParameters'], $options['translationDomain']);
+            } else {
+                $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
+            }
+        }
 
         if (!isset($options['title'])) {
             $options['title'] = $title;
