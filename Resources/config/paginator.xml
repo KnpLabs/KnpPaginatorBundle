@@ -9,7 +9,8 @@
     </parameters>
 
     <services>
-        <service id="knp_paginator" class="%knp_paginator.class%">
+        <service id="knp_paginator" class="%knp_paginator.class%" scope="request">
+            <argument type="service" id="request"  />
             <argument type="service" id="event_dispatcher" />
         </service>
 

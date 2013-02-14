@@ -22,6 +22,8 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('filter_field_name')->defaultValue('filterField')->end()
                         ->scalarNode('filter_value_name')->defaultValue('firterValue')->end()
                         ->scalarNode('page_name')->defaultValue('page')->end()
+                        ->scalarNode('limit_name')->defaultValue('limit')->end()
+                        ->scalarNode('limit_value')->defaultValue(10)->defaultTrue()->end()
                         ->booleanNode('distinct')->defaultTrue()->end()
                     ->end()
                 ->end()
