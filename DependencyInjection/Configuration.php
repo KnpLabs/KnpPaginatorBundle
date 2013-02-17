@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('sort_field_name')->defaultValue('sort')->end()
                         ->scalarNode('sort_direction_name')->defaultValue('direction')->end()
                         ->scalarNode('filter_field_name')->defaultValue('filterField')->end()
-                        ->scalarNode('filter_value_name')->defaultValue('firterValue')->end()
+                        ->scalarNode('filter_value_name')->defaultValue('filterValue')->end()
                         ->scalarNode('page_name')->defaultValue('page')->end()
                         ->booleanNode('distinct')->defaultTrue()->end()
                     ->end()
