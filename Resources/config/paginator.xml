@@ -5,12 +5,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="knp_paginator.class">Knp\Component\Pager\Paginator</parameter>
+        <parameter key="knp_paginator.class">Knp\Bundle\PaginatorBundle\Pagination\Paginator</parameter>
     </parameters>
 
     <services>
-        <service id="knp_paginator" class="%knp_paginator.class%">
-            <argument type="service" id="event_dispatcher" />
+        <service id="knp_paginator" class="%knp_paginator.class%" scope="request">
+           <argument type="service" id="event_dispatcher" />
+           <argument type="service" id="request"  />
         </service>
 
         <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">

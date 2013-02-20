@@ -38,6 +38,8 @@ class KnpPaginatorExtension extends Extension
             'sortDirectionParameterName' => $config['default_options']['sort_direction_name'],
             'filterFieldParameterName' => $config['default_options']['filter_field_name'],
             'filterValueParameterName' => $config['default_options']['filter_value_name'],
+            'limitParameterName' => $config['default_options']['limit_name'],
+            'limitDefaultValue' => $config['default_options']['limit_value'],
             'distinct' => $config['default_options']['distinct']
         )));
     }
