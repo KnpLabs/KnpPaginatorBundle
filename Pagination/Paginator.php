@@ -46,7 +46,9 @@ class Paginator extends BasePaginator
      */
     public function getPageValue($default = 1)
     {
-        if (null === ($page = $this->request->get($this->defaultOptions['pageParameterName']))) {
+        $page = $this->request->get($this->defaultOptions['pageParameterName']);
+
+        if (null === $page || !is_numeric($page)) {
             $page = $default;
         }
 
@@ -62,7 +64,9 @@ class Paginator extends BasePaginator
      */
     public function getLimitValue($default = null)
     {
-        if (null === ($limit = $this->request->get($this->defaultOptions['limitParameterName']))) {
+        $limit = $this->request->get($this->defaultOptions['limitParameterName']);
+
+        if (null === $limit || !is_numeric($limit)) {
             if ($default !== null) {
                 $limit = $default;
             } else {
