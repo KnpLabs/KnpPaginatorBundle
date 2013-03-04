@@ -1,0 +1,48 @@
+{# default Sliding pagination control implementation #}
+
+{% if pageCount > 1 %}
+<div class="pagination">
+    {% if first is defined and current != first %}
+        <span class="first">
+            <a href="{{ path(firstPageRoute) }}">&lt;&lt;</a>
+        </span>
+    {% endif %}
+
+    {% if previous is defined %}
+        <span class="previous">
+        {% if previous == 1 %}
+            <a href="{{ path(firstPageRoute) }}">&lt;</a>
+        {% else %}
+            <a href="{{ path(otherPagesRoute, {(pageParameterName): previous}) }}">&lt;</a>
+        {% endif %}
+        </span>
+    {% endif %}
+
+    {% for page in pagesInRange %}
+        {% if page != current %}
+			<span class="page">
+			{% if page == 1 %}
+				<a href="{{ path(firstPageRoute) }}">{{ page }}</a>
+			{% else %}
+				<a href="{{ path(otherPagesRoute, {(pageParameterName): page}) }}">{{ page }}</a>							
+			{% endif %}    
+			</span>
+        {% else %}
+            <span class="current">{{ page }}</span>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if next is defined %}
+        <span class="next">
+            <a href="{{ path(otherPagesRoute, {(pageParameterName): next}) }}">&gt;</a>
+        </span>
+    {% endif %}
+
+    {% if last is defined and current != last %}
+        <span class="last">
+            <a href="{{ path(otherPagesRoute, {(pageParameterName): last}) }}">&gt;&gt;</a>
+        </span>
+    {% endif %}
+</div>
+{% endif %}
