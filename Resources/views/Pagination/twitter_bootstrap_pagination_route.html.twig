@@ -24,9 +24,9 @@
     {% if previous is defined %}
         <li>
         {% if previous == 1 %}
-            <a href="{{ path(firstPageRoute) }}">&laquo;&nbsp;Previous</a>
+            <a href="{{ path(firstPageRoute, query|merge({(pageParameterName): null})) }}">&laquo;&nbsp;Previous</a>
         {% else %}
-            <a href="{{ path(otherPagesRoute, {(pageParameterName): previous}) }}">&laquo;&nbsp;Previous</a>
+            <a href="{{ path(otherPagesRoute, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;Previous</a>
         {% endif %}
         </li>
     {% else %}
@@ -37,11 +37,11 @@
 
     {% if startPage > 1 %}
         <li>
-            <a href="{{ path(firstPageRoute) }}">1</a>
+            <a href="{{ path(firstPageRoute, query|merge({(pageParameterName): null})) }}">1</a>
         </li>
         {% if startPage == 3 %}
             <li>
-                <a href="{{ path(otherPagesRoute, {(pageParameterName): 2}) }}">2</a>
+                <a href="{{ path(otherPagesRoute, query|merge({(pageParameterName): 2})) }}">2</a>
             </li>
         {% elseif startPage != 2 %}
         <li class="disabled">
@@ -50,14 +50,14 @@
         {% endif %}
     {% endif %}
 
-    {% for page in pagesInRange %}	
+    {% for page in pagesInRange %}
         {% if page != current %}
 			<li>
 			{% if page == 1 %}
-				<a href="{{ path(firstPageRoute) }}">{{ page }}</a>
+				<a href="{{ path(firstPageRoute, query|merge({(pageParameterName): null})) }}">{{ page }}</a>
 			{% else %}
-				<a href="{{ path(otherPagesRoute, {(pageParameterName): page}) }}">{{ page }}</a>
-			{% endif %}    
+				<a href="{{ path(otherPagesRoute, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+			{% endif %}
 			</li>
         {% else %}
             <li class="active">
@@ -86,7 +86,7 @@
 
     {% if next is defined %}
         <li>
-            <a href="{{ path(otherPagesRoute, {(pageParameterName): next}) }}">Next&nbsp;&raquo;</a>
+            <a href="{{ path(otherPagesRoute, query|merge({(pageParameterName): next})) }}">Next&nbsp;&raquo;</a>
         </li>
     {% else %}
         <li class="disabled">

@@ -4,16 +4,16 @@
 <div class="pagination">
     {% if first is defined and current != first %}
         <span class="first">
-            <a href="{{ path(firstPageRoute) }}">&lt;&lt;</a>
+            <a href="{{ path(firstPageRoute, query|merge({(pageParameterName): null})) }}">&lt;&lt;</a>
         </span>
     {% endif %}
 
     {% if previous is defined %}
         <span class="previous">
         {% if previous == 1 %}
-            <a href="{{ path(firstPageRoute) }}">&lt;</a>
+            <a href="{{ path(firstPageRoute, query|merge({(pageParameterName): null})) }}">&lt;</a>
         {% else %}
-            <a href="{{ path(otherPagesRoute, {(pageParameterName): previous}) }}">&lt;</a>
+            <a href="{{ path(otherPagesRoute, query|merge({(pageParameterName)): previous}) }}">&lt;</a>
         {% endif %}
         </span>
     {% endif %}
@@ -22,10 +22,10 @@
         {% if page != current %}
 			<span class="page">
 			{% if page == 1 %}
-				<a href="{{ path(firstPageRoute) }}">{{ page }}</a>
+				<a href="{{ path(firstPageRoute, query|merge({(pageParameterName): null})) }}">{{ page }}</a>
 			{% else %}
-				<a href="{{ path(otherPagesRoute, {(pageParameterName): page}) }}">{{ page }}</a>							
-			{% endif %}    
+				<a href="{{ path(otherPagesRoute, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+			{% endif %}
 			</span>
         {% else %}
             <span class="current">{{ page }}</span>
@@ -35,13 +35,13 @@
 
     {% if next is defined %}
         <span class="next">
-            <a href="{{ path(otherPagesRoute, {(pageParameterName): next}) }}">&gt;</a>
+            <a href="{{ path(otherPagesRoute, query|merge({(pageParameterName): next})) }}">&gt;</a>
         </span>
     {% endif %}
 
     {% if last is defined and current != last %}
         <span class="last">
-            <a href="{{ path(otherPagesRoute, {(pageParameterName): last}) }}">&gt;&gt;</a>
+            <a href="{{ path(otherPagesRoute, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
         </span>
     {% endif %}
 </div>
