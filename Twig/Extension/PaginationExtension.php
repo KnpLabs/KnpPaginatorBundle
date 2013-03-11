@@ -53,14 +53,13 @@ class PaginationExtension extends \Twig_Extension
 
         $data = $pagination->getPaginationData();
 
-        $data['route'] = $pagination->getRoute();
         $data['query'] = array_merge($pagination->getParams(), $queryParams);
 
         $data = array_merge(
             $pagination->getPaginatorOptions(), // options given to paginator when paginated
             $pagination->getCustomParameters(), // all custom parameters for view
-            $viewParams, // additional custom parameters for view
-            $data // merging base route parameters last, to avoid broke of integrity
+            $data, // merging base route parameters last
+            $viewParams // additional custom parameters for view
         );
 
         return $this->environment->render($template, $data);

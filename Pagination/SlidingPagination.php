@@ -7,6 +7,8 @@ use Knp\Component\Pager\Pagination\AbstractPagination;
 class SlidingPagination extends AbstractPagination
 {
     private $route;
+    private $firstPageRoute;
+    private $otherPagesRoute;	
     private $params;
     private $pageRange = 5;
     private $template;
@@ -21,13 +23,33 @@ class SlidingPagination extends AbstractPagination
 
     public function setUsedRoute($route)
     {
-        $this->route = $route;
+        $this->firstPageRoute = $this->otherPagesRoute = $this->route = $route;
     }
 
     public function getRoute()
     {
         return $this->route;
     }
+	
+    public function setFirstPageRoute($firstPageRoute)
+    {
+        $this->firstPageRoute = $firstPageRoute;
+    }
+
+    public function getFirstPageRoute()
+    {
+        return $this->firstPageRoute;
+    }
+
+    public function setOtherPagesRoute($otherPagesRoute)
+    {
+        $this->otherPagesRoute = $otherPagesRoute;
+    }
+
+    public function getOtherPagesRoute()
+    {
+        return $this->otherPagesRoute;
+    }	
 
     public function setSortableTemplate($template)
     {
@@ -142,7 +164,10 @@ class SlidingPagination extends AbstractPagination
             'totalCount'        => $this->totalCount,
             'pageRange'         => $this->pageRange,
             'startPage'         => $startPage,
-            'endPage'           => $endPage
+            'endPage'           => $endPage,
+            'route'             => $this->route,
+            'firstPageRoute'    => $this->firstPageRoute,
+            'otherPagesRoute'   => $this->otherPagesRoute			
         );
 
         if ($current - 1 > 0) {
