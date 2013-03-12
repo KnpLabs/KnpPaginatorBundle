@@ -1,44 +1,35 @@
 <?php
 
-namespace Knp\Bundle\PaginatorBundle\Twig\Extension;
+namespace Knp\Bundle\PaginatorBundle\Templating;
+
+use Symfony\Component\Templating\PhpEngine;
+use Symfony\Component\Templating\Helper\Helper;
 
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
 
-class PaginationExtension extends \Twig_Extension
+/**
+ * Pagionation PHP helper
+ *
+ * Basically provides access to KnpPaginator from PHP templates
+ *
+ * @author Rafa³ Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
+ */
+class PaginationHelper extends Helper
 {
     /**
-     * @var \Twig_Environment
+     * @var PhpEngine
      */
-    protected $environment;
+    protected $templating;
 
     /**
      * @var Processor
      */
     protected $processor;
 
-    public function __construct(Processor $processor)
+    public function __construct(Processor $processor, PhpEngine $templating)
     {
         $this->processor = $processor;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->environment = $environment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getFunctions()
-    {
-        return array(
-            'knp_pagination_render' => new \Twig_Function_Method($this, 'render', array('is_safe' => array('html'))),
-            'knp_pagination_sortable' => new \Twig_Function_Method($this, 'sortable', array('is_safe' => array('html'))),
-            'knp_pagination_filter' => new \Twig_Function_Method($this, 'filter', array('is_safe' => array('html'))),
-        );
+        $this->templating = $templating;
     }
 
     /**
@@ -52,7 +43,7 @@ class PaginationExtension extends \Twig_Extension
      */
     public function render($pagination, $template = null, array $queryParams = array(), array $viewParams = array())
     {
-        return $this->environment->render(
+        return $this->templating->render(
             $template ?: $pagination->getTemplate(),
             $this->processor->render($pagination, $queryParams, $vierParams)
         );
@@ -75,7 +66,7 @@ class PaginationExtension extends \Twig_Extension
      */
     public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
     {
-        return $this->environment->render(
+        return $this->templating->render(
             $template ?: $pagination->getSortableTemplate()
             $this->processor->sortable($pagination, $title, $key, $options, $params
         );
@@ -98,14 +89,14 @@ class PaginationExtension extends \Twig_Extension
      */
     public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
     {
-        return $this->environment->render(
+        return $this->templating->render(
             $template ?: $pagination->getFiltrationTemplate()
             $this->processor->filter($pagination, $fields, $options, $params)
         );
     }
 
     /**
-     * Get name
+     * Get helper name
      *
      * @return string
      */
