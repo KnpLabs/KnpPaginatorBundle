@@ -76,7 +76,7 @@ class PaginationExtension extends \Twig_Extension
     public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
     {
         return $this->environment->render(
-            $template ?: $pagination->getSortableTemplate()
+            $template ?: $pagination->getSortableTemplate(),
             $this->processor->sortable($pagination, $title, $key, $options, $params
         );
     }
@@ -99,7 +99,7 @@ class PaginationExtension extends \Twig_Extension
     public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
     {
         return $this->environment->render(
-            $template ?: $pagination->getFiltrationTemplate()
+            $template ?: $pagination->getFiltrationTemplate(),
             $this->processor->filter($pagination, $fields, $options, $params)
         );
     }

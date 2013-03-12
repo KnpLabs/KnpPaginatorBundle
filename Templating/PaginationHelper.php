@@ -67,7 +67,7 @@ class PaginationHelper extends Helper
     public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
     {
         return $this->templating->render(
-            $template ?: $pagination->getSortableTemplate()
+            $template ?: $pagination->getSortableTemplate(),
             $this->processor->sortable($pagination, $title, $key, $options, $params
         );
     }
@@ -90,7 +90,7 @@ class PaginationHelper extends Helper
     public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
     {
         return $this->templating->render(
-            $template ?: $pagination->getFiltrationTemplate()
+            $template ?: $pagination->getFiltrationTemplate(),
             $this->processor->filter($pagination, $fields, $options, $params)
         );
     }
