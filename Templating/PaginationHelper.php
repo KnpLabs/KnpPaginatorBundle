@@ -68,7 +68,7 @@ class PaginationHelper extends Helper
     {
         return $this->templating->render(
             $template ?: $pagination->getSortableTemplate(),
-            $this->processor->sortable($pagination, $title, $key, $options, $params
+            $this->processor->sortable($pagination, $title, $key, $options, $params)
         );
     }
 
