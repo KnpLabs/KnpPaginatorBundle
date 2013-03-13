@@ -6,6 +6,8 @@
 
     <parameters>
         <parameter key="knp_paginator.class">Knp\Component\Pager\Paginator</parameter>
+        <parameter key="knp_paginator.templating.helper.pagination.class">Knp\Bundle\PaginatorBundle\Templating\PaginationHelper</parameter>
+        <parameter key="knp_paginator.helper.processor.class">Knp\Bundle\PaginatorBundle\Helper\Processor</parameter>
     </parameters>
 
     <services>
@@ -36,9 +38,19 @@
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
 
-        <service id="knp_paginator.twig.extension.pagination" class="Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension">
+        <service id="knp_paginator.helper.processor" class="%knp_paginator.helper.processor.class%">
             <argument type="service" id="templating.helper.router" />
             <argument type="service" id="translator" />
+        </service>
+
+        <service id="knp_paginator.templating.helper.pagination" class="%knp_paginator.templating.helper.pagination.class%">
+            <argument type="service" id="knp_paginator.helper.processor" />
+            <argument type="service" id="templating.engine.php" />
+            <tag name="templating.helper" alias="knp_pagination" />
+        </service>
+
+        <service id="knp_paginator.twig.extension.pagination" class="Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension">
+            <argument type="service" id="knp_paginator.helper.processor" />
             <tag name="twig.extension" />
         </service>
     </services>
