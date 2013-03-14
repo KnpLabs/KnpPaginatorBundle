@@ -54,7 +54,7 @@ class PaginationExtension extends \Twig_Extension
     {
         return $this->environment->render(
             $template ?: $pagination->getTemplate(),
-            $this->processor->render($pagination, $queryParams, $vierParams)
+            $this->processor->render($pagination, $queryParams, $viewParams)
         );
     }
 
