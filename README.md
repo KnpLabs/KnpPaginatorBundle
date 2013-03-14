@@ -184,7 +184,7 @@ For translating the following text:
 
 translationCount and translationParameters can be combined.
 
-``` html
+```jinja
 <table>
     <tr>
 {# sorting of properties based on query components #}
