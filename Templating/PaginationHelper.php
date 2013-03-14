@@ -45,7 +45,7 @@ class PaginationHelper extends Helper
     {
         return $this->templating->render(
             $template ?: $pagination->getTemplate(),
-            $this->processor->render($pagination, $queryParams, $vierParams)
+            $this->processor->render($pagination, $queryParams, $viewParams)
         );
     }
 
