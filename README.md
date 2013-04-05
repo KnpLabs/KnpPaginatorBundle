@@ -135,7 +135,7 @@ Currently paginator can paginate:
 ```php
 // Acme\MainBundle\Controller\ArticleController.php
 
-public function listAction() 
+public function listAction()
 {
     $em    = $this->get('doctrine.orm.entity_manager');
     $dql   = "SELECT a FROM AcmeMainBundle:Article a";
@@ -198,6 +198,35 @@ translationCount and translationParameters can be combined.
 </table>
 ```
 
+### Dependency Injection
+
+You can automatically inject a paginator service into another service by using the ```knp_paginator.injectable``` DIC tag.
+The tag takes one optional argument ```paginator```, which is the ID of the paginator service that should be injected.
+It defaults to ```knp_paginator```.
+
+The class that receives the KnpPaginator service must implement ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface```.
+If you're too lazy you can also just extend the ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAware``` base class.
+
+###### XML configuration example
+
+```xml
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="my_bundle.paginator_aware.class">MyBundle\Repository\PaginatorAwareRepository</parameter>
+    </parameters>
+
+    <services>
+        <service id="my_bundle.paginator_aware" class="my_bundle.paginator_aware.class">
+            <tag name="knp_paginator.injectable" paginator="knp_paginator" />
+        </service>
+    </services>
+</container>
+```
 
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
