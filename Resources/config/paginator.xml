@@ -8,11 +8,18 @@
         <parameter key="knp_paginator.class">Knp\Component\Pager\Paginator</parameter>
         <parameter key="knp_paginator.templating.helper.pagination.class">Knp\Bundle\PaginatorBundle\Templating\PaginationHelper</parameter>
         <parameter key="knp_paginator.helper.processor.class">Knp\Bundle\PaginatorBundle\Helper\Processor</parameter>
+        <parameter key="knp_paginator.synced_request_params" type="collection" />
     </parameters>
 
     <services>
         <service id="knp_paginator" class="%knp_paginator.class%">
             <argument type="service" id="event_dispatcher" />
+        </service>
+
+        <service id="knp_paginator.subscriber.request" class="Knp\Bundle\PaginatorBundle\Subscriber\RequestSubscriber" scope="request" >
+            <tag name="knp_paginator.subscriber" />
+            <argument type="service" id="request" />
+            <argument>%knp_paginator.synced_request_params%</argument>
         </service>
 
         <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">
@@ -22,7 +29,7 @@
         <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
-        
+
         <service id="knp_paginator.subscriber.filtration" class="Knp\Component\Pager\Event\Subscriber\Filtration\FiltrationSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
