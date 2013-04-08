@@ -188,9 +188,9 @@ translationCount and translationParameters can be combined.
 <table>
     <tr>
 {# sorting of properties based on query components #}
-        <th>{{ pagination.sortable('table_header_name', 'a.id', {'translationDomain' : 'messages', 'translationParameter' : { '%foo%' : 'bar' } } )|raw }}</th>
-        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ pagination.sortable('Title', 'a.title')|raw }}</th>
-        <th>{{ pagination.sortable('table_header_author', 'a.author', {'translationDomain' : 'messages', 'translationCount' : 1 } )|raw }}</th>
+       <th>{{ knp_pagination_sortable(pagination, 'Id'|trans({foo:'bar'},'messages'), 'a.id' )|raw }}</th>
+       <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title')|raw }}</th>
+       <th>{{ knp_pagination_sortable(pagination, 'Author'|trans({}, 'messages'), 'a.author' )|raw }}</th>
     </tr>
 
 <!-- Content of the table -->
