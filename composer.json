@@ -20,7 +20,7 @@
     "require": {
         "php":                      ">=5.3.3",
         "symfony/framework-bundle": "~2.0",
-        "knplabs/knp-components":   "~1.1",
+        "knplabs/knp-components":   "~1.2",
         "twig/twig":                "~1.5"
     },
 
