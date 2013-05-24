@@ -10,9 +10,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class SlidingPaginationSubscriber implements EventSubscriberInterface
 {
-    private $route;
-    private $params = array();
-    private $options;
+    protected $route;
+    protected $params = array();
+    protected $options;
 
     public function __construct(array $options)
     {

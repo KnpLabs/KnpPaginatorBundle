@@ -6,13 +6,13 @@ use Knp\Component\Pager\Pagination\AbstractPagination;
 
 class SlidingPagination extends AbstractPagination
 {
-    private $route;
-    private $params;
-    private $pageRange = 5;
-    private $template;
-    private $sortableTemplate;
-    private $filtrationTemplate;
-    private $extraViewParams = array();
+    protected $route;
+    protected $params;
+    protected $pageRange = 5;
+    protected $template;
+    protected $sortableTemplate;
+    protected $filtrationTemplate;
+    protected $extraViewParams = array();
 
     public function __construct(array $params)
     {
