@@ -3,16 +3,16 @@
 namespace Knp\Bundle\PaginatorBundle\Subscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Knp\Component\Pager\Event\ItemsEvent;
 use Knp\Component\Pager\Event\AfterEvent;
 
 class RequestSubscriber implements EventSubscriberInterface
 {
     /**
-     * @var Symfony\Component\HttpFoundation\Request
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $request;
+    protected $container;
 
     /**
      * @var array
@@ -25,12 +25,12 @@ class RequestSubscriber implements EventSubscriberInterface
     protected $get;
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request The request object
-     * @param array                                     $params  The keys of the fields from the Paginator options to synchronize
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $request The request object
+     * @param array                                                     $params  The keys of the fields from the Paginator options to synchronize
      */
-    public function __construct(Request $request, $params = array())
+    public function __construct(ContainerInterface $container, $params = array())
     {
-        $this->request = $request;
+        $this->container = $container;
         $this->params = $params;
         $this->get = array();
     }
@@ -44,11 +44,11 @@ class RequestSubscriber implements EventSubscriberInterface
             if (isset($event->options[$option])) {
                 $name = $event->options[$option];
 
-                if (null !== $this->request->get($name)
-                    && (!array_key_exists($name, $_GET) || $_GET[$name] !== $this->request->get($name))
+                if (null !== $this->container->get('request')->get($name)
+                    && (!array_key_exists($name, $_GET) || $_GET[$name] !== $this->container->get('request')->get($name))
                 ) {
                     $this->get[$name] = isset($_GET[$name]) ?: null;
-                    $_GET[$name] = $this->request->get($name);
+                    $_GET[$name] = $this->container->get('request')->get($name);
                 }
             }
         }
