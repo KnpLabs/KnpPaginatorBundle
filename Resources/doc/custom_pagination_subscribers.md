@@ -167,6 +167,6 @@ And the last thing is the template, create: **../symfony-standard/src/Acme/DemoB
 {% endblock %}
 ```
 
-Do not forget to reload the cache: **./app/console ca:c -e dev**
+Do not forget to reload the cache: **./app/console cache:clear -e dev**
 You should find some files paginated if you open
 the url: **http://baseurl/app_dev.php/demo/test**
