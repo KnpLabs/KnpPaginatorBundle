@@ -8,7 +8,7 @@ use Symfony\Component\Templating\Helper\Helper;
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
 
 /**
- * Pagionation PHP helper
+ * Pagination PHP helper
  *
  * Basically provides access to KnpPaginator from PHP templates
  *
