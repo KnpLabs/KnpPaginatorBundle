@@ -156,7 +156,10 @@ public function listAction()
 ### View
 
 ```jinja
-<div class="count">pagination.getTotalItemCount</div>
+{# total items count #}
+<div class="count">
+    {{ pagination.getTotalItemCount }}
+</div>
 <table>
 <tr>
 {# sorting of properties based on query components #}
