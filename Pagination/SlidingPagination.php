@@ -94,7 +94,7 @@ class SlidingPagination extends AbstractPagination
 
     public function getPaginationData()
     {
-        $pageCount = intval(ceil($this->totalCount / $this->numItemsPerPage));
+        $pageCount = $this->getPageCount();
         $current = $this->currentPageNumber;
 
         if ($pageCount < $current) {
@@ -164,6 +164,11 @@ class SlidingPagination extends AbstractPagination
         }
 
         return $viewData;
+    }
+    
+    public function getPageCount()
+    {
+        return intval(ceil($this->totalCount / $this->numItemsPerPage));
     }
 
     public function getPaginatorOptions()
