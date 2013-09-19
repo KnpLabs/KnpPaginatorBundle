@@ -15,11 +15,16 @@ class PaginatorConfigurationPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         // use main symfony dispatcher
-        if (!$container->hasDefinition('event_dispatcher')) {
+        if (!$container->hasDefinition('event_dispatcher') && !$container->hasAlias('event_dispatcher')) {
             return;
         }
 
-        $definition = $container->getDefinition('event_dispatcher');
+        if ($container->hasAlias('event_dispatcher') && $alias = $container->getAlias('event_dispatcher')) {
+            // Event disaptcher sets as alias to another service
+            $definition = $container->getDefinition($alias);
+        } else {
+            $definition = $container->getDefinition('event_dispatcher');
+        }
 
         foreach ($container->findTaggedServiceIds('knp_paginator.subscriber') as $id => $attributes) {
             // We must assume that the class value has been correcly filled, even if the service is created by a factory
