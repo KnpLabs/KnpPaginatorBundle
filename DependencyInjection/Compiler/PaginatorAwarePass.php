@@ -38,8 +38,10 @@ class PaginatorAwarePass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds(self::PAGINATOR_AWARE_TAG) as $id => $attributes) {
             $definition = $container->getDefinition($id);
+            $class = $definition->getClass();
+            $class = $container->getParameterBag()->resolveValue($class);
 
-            $refClass = new \ReflectionClass($definition->getClass());
+            $refClass = new \ReflectionClass($class);
             if (!$refClass->implementsInterface(self::PAGINATOR_AWARE_INTERFACE)) {
                 throw new \InvalidArgumentException(
                     sprintf('Service "%s" must implement interface "%s".', $id, self::PAGINATOR_AWARE_INTERFACE)
