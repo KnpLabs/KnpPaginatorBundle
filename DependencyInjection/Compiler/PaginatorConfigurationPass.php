@@ -24,6 +24,7 @@ class PaginatorConfigurationPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds('knp_paginator.subscriber') as $id => $attributes) {
             // We must assume that the class value has been correcly filled, even if the service is created by a factory
             $class = $container->getDefinition($id)->getClass();
+            $class = $container->getParameterBag()->resolveValue($class);
 
             $refClass = new \ReflectionClass($class);
             $interface = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
