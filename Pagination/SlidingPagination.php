@@ -92,6 +92,11 @@ class SlidingPagination extends AbstractPagination
         return isset($params[$this->getPaginatorOption('sortFieldParameterName')]) && $params[$this->getPaginatorOption('sortFieldParameterName')] === $key;
     }
 
+    public function getDirection ()
+    {
+        return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
+    }
+
     public function getPaginationData()
     {
         $pageCount = intval(ceil($this->totalCount / $this->numItemsPerPage));
