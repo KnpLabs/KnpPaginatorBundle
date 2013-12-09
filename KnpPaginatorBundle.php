@@ -13,6 +13,7 @@ use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorAwarePass;
 use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorConfigurationPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 
 class KnpPaginatorBundle extends Bundle
 {
@@ -23,6 +24,6 @@ class KnpPaginatorBundle extends Bundle
     {
         parent::build($container);
         $container->addCompilerPass(new PaginatorConfigurationPass());
-        $container->addCompilerPass(new PaginatorAwarePass());
+        $container->addCompilerPass(new PaginatorAwarePass(), PassConfig::TYPE_BEFORE_REMOVING);
     }
 }
