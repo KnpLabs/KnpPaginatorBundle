@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class KnpPaginatorBundle extends Bundle
 {
-	/**
+    /**
      * {@inheritdoc}
      */
     public function build(ContainerBuilder $container)
