@@ -1,6 +1,6 @@
 # Manual counting
 
-**Note:** this documentation conserns more advanced usage of ORM
+**Note:** this documentation concerns more advanced usage of ORM
 query pagination. Paginator cannot support two **FROM** components
 or composite identifiers, because it cannot predict the total count
 in the database.
