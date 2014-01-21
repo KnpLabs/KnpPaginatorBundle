@@ -103,6 +103,17 @@ In template:
 {% pagination.setPageRange(7) %}
 ```
 
+## Choose the sorting direction
+
+The `knp_pagination_sortable()` template switch automaticly the sorting direction but sometimes you need to propose to your users to select the sorting direction of you list.
+You can add an array at the end of `knp_pagination_sortable()` to choose the direction.
+
+``` html
+{{ knp_pagination_sortable(pagination, 'Title A-Z', 'a.title', {'direction': 'asc'}) }}
+{{ knp_pagination_sortable(pagination, 'Title Z-A', 'a.title', {'direction': 'desc'}) }}
+```
+(Assuming you use the default configuration value of sort_direction_name)
+
 <a name="query-parameters"></a>
 
 ## Query parameters
