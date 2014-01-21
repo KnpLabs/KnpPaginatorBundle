@@ -49,7 +49,7 @@ Pretty simple with [Composer](http://packagist.org), add:
 ```json
 {
     "require": {
-        "knplabs/knp-paginator-bundle": "dev-master"
+        "knplabs/knp-paginator-bundle": "~2.4"
     }
 }
 ```
