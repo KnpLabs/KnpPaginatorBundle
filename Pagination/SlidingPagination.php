@@ -12,7 +12,6 @@ class SlidingPagination extends AbstractPagination
     private $template;
     private $sortableTemplate;
     private $filtrationTemplate;
-    private $extraViewParams = array();
 
     public function __construct(array $params)
     {
