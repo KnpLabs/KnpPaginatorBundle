@@ -1,3 +1,8 @@
+## Not actively maintained
+
+This project is not actively maintained by KnpLabs. Please contact us if you would like to take over.
+
+
 # Intro to KnpPaginatorBundle
 
 **SEO** friendly Symfony2 paginator to paginate everything
