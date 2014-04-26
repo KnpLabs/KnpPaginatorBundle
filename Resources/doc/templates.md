@@ -12,7 +12,7 @@ There are few ways to override templates
 
 This way it will override it globally for all default pagination rendering.
 
-You can override templates in [configurion of
+You can override templates in [configuration of
 paginator](http://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md#configuration)
 
 Or place this parameter in **app/config/parameters.yml**
