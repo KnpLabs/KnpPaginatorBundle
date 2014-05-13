@@ -94,7 +94,11 @@ class SlidingPagination extends AbstractPagination
 
     public function getDirection ()
     {
-        return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
+        if (array_key_exists($this->getPaginatorOption('sortDirectionParameterName'), $this->params)) {
+            return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
+        }
+    
+        return null;
     }
 
     public function getPaginationData()
