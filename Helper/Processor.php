@@ -89,14 +89,14 @@ class Processor
             $direction = $params[$pagination->getPaginatorOption('sortDirectionParameterName')];
             $direction = (strtolower($direction) == 'asc') ? 'desc' : 'asc';
             $class = $direction == 'asc' ? 'desc' : 'asc';
-
-            if (isset($options['class'])) {
-                $options['class'] .= ' ' . $class;
-            } else {
-                $options['class'] = $class;
-            }
         } else {
-            $options['class'] = 'sortable';
+            $class = 'sortable';
+        }
+
+        if (isset($options['class'])) {
+            $options['class'] .= ' ' . $class;
+        } else {
+            $options['class'] = $class;
         }
 
         if (is_array($title) && array_key_exists($direction, $title)) {
