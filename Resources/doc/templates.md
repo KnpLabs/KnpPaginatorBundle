@@ -35,7 +35,7 @@ $pagination->setSortableTemplate('MyBundle:Pagination:sortable.html.twig');
 or in view
 
 ``` html
-{% pagination.setTemplate('MyBundle:Pagination:pagination.html.twig') %}
+{% do pagination.setTemplate('MyBundle:Pagination:pagination.html.twig') %}
 ```
 
 ### In render method
@@ -100,7 +100,7 @@ $pagination->setPageRange(7);
 In template:
 
 ``` php
-{% pagination.setPageRange(7) %}
+{% do pagination.setPageRange(7) %}
 ```
 
 ## Choose the sorting direction
