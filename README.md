@@ -2,6 +2,8 @@
 
 **SEO** friendly Symfony2 paginator to paginate everything
 
+[![Build Status](https://travis-ci.org/KnpLabs/KnpPaginatorBundle.svg?branch=master)](https://travis-ci.org/KnpLabs/KnpPaginatorBundle)
+
 Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
 component introduces a different way for pagination handling. You can read more about the
 internal logic on the given documentation link.
