@@ -97,6 +97,7 @@ knp_paginator:
 
 ```php
 <?php
+
 // File: app/autoload.php
 $loader->registerNamespaces(array(
     'Knp\\Component'      => __DIR__.'/../vendor/knp-components/src',
@@ -108,6 +109,8 @@ $loader->registerNamespaces(array(
 ### Add PaginatorBundle to your application kernel
 
 ```php
+<?php
+
 // app/AppKernel.php
 public function registerBundles()
 {
@@ -135,6 +138,8 @@ Currently paginator can paginate:
 - array with `Solarium_Client` and `Solarium_Query_Select` as elements
 
 ```php
+<?php
+
 // Acme\MainBundle\Controller\ArticleController.php
 
 public function listAction()
