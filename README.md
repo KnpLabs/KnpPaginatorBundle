@@ -46,14 +46,10 @@ variables as keys.
 
 ## Installation and configuration:
 
-Pretty simple with [Composer](http://packagist.org), add:
+Pretty simple with [Composer](http://packagist.org), run:
 
-```json
-{
-    "require": {
-        "knplabs/knp-paginator-bundle": "~2.4"
-    }
-}
+```sh
+composer require knplabs/knp-paginator-bundle
 ```
 
 If you use a `deps` file, add:
