@@ -137,7 +137,7 @@ Currently paginator can paginate:
 ```php
 // Acme\MainBundle\Controller\ArticleController.php
 
-public function listAction()
+public function listAction(Request $request)
 {
     $em    = $this->get('doctrine.orm.entity_manager');
     $dql   = "SELECT a FROM AcmeMainBundle:Article a";
@@ -146,7 +146,7 @@ public function listAction()
     $paginator  = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
         $query,
-        $this->get('request')->query->get('page', 1)/*page number*/,
+        $request->query->get('page', 1)/*page number*/,
         10/*limit per page*/
     );
 
