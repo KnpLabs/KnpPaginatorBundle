@@ -1,7 +1,7 @@
 # Templates
 
 This document will describe how pagination can be rendered, extended and used in
-templates. For now theres only a sliding pagination supported, so all documentation
+templates. For now there's only a sliding pagination supported, so all documentation
 will reference it.
 
 ## Overriding default pagination template
@@ -105,7 +105,7 @@ In template:
 
 ## Choose the sorting direction
 
-The `knp_pagination_sortable()` template switch automaticly the sorting direction but sometimes you need to propose to your users to select the sorting direction of you list.
+The `knp_pagination_sortable()` template switch automatically the sorting direction but sometimes you need to propose to your users to select the sorting direction of you list.
 You can add an array at the end of `knp_pagination_sortable()` to choose the direction.
 
 ``` html
