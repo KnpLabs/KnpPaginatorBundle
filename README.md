@@ -56,6 +56,11 @@ Pretty simple with [Composer](http://packagist.org), add:
 }
 ```
 
+And run:
+```
+composer update knplabs/knp-paginator-bundle
+```
+
 If you use a `deps` file, add:
 
     [knp-components]
