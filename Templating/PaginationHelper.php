@@ -4,7 +4,6 @@ namespace Knp\Bundle\PaginatorBundle\Templating;
 
 use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
-
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
 
 /**
