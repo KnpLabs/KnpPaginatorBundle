@@ -1,2 +1,2 @@
-nbproject/
-Tests/temp/*
+composer.lock
+vendor/*
