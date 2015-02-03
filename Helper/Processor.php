@@ -2,7 +2,7 @@
 
 namespace Knp\Bundle\PaginatorBundle\Helper;
 
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -15,18 +15,18 @@ use Symfony\Component\Translation\TranslatorInterface;
 class Processor
 {
     /**
-     * @var RouterHelper
+     * @var UrlGeneratorInterface
      */
-    protected $routerHelper;
+    protected $router;
 
     /**
      * @var TranslatorInterface
      */
     protected $translator;
 
-    public function __construct(RouterHelper $routerHelper, TranslatorInterface $translator)
+    public function __construct(UrlGeneratorInterface $router, TranslatorInterface $translator)
     {
-        $this->routerHelper = $routerHelper;
+        $this->router = $router;
         $this->translator = $translator;
     }
 
@@ -112,7 +112,7 @@ class Processor
             )
         );
 
-        $options['href'] = $this->routerHelper->generate($pagination->getRoute(), $params, $options['absolute']);
+        $options['href'] = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
 
         if (null !== $options['translationDomain']) {
             if (null !== $options['translationCount']) {
@@ -167,7 +167,7 @@ class Processor
         $selectedField = isset($params[$filterFieldName]) ? $params[$filterFieldName] : null;
         $selectedValue = isset($params[$filterValueName]) ? $params[$filterValueName] : null;
 
-        $action = $this->routerHelper->generate($pagination->getRoute(), $params, $options['absolute']);
+        $action = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
 
         foreach ($fields as $field => $title) {
             $fields[$field] = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
