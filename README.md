@@ -135,6 +135,7 @@ public function listAction(Request $request)
 {# sorting of properties based on query components #}
     <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
     <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</th>
 </tr>
 
 {# table body #}
@@ -142,6 +143,7 @@ public function listAction(Request $request)
 <tr {% if loop.index is odd %}class="color"{% endif %}>
     <td>{{ article.id }}</td>
     <td>{{ article.title }}</td>
+    <td>{{ article.date | date('Y-m-d') }}, {{ article.time | date('H:i:s') }}</td>
 </tr>
 {% endfor %}
 </table>
