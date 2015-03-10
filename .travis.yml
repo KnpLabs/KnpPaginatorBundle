@@ -1,5 +1,4 @@
 language: php
-
 php:
   - 5.3
   - 5.4
@@ -8,6 +7,6 @@ php:
   - hhvm
 
 before_script:
-  - composer update --dev
+  - composer install --dev
 
 script: phpunit

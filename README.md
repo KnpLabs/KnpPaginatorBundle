@@ -46,32 +46,11 @@ variables as keys.
 
 ## Installation and configuration:
 
-Pretty simple with [Composer](http://packagist.org), add:
+Pretty simple with [Composer](http://packagist.org), run:
 
-```json
-{
-    "require": {
-        "knplabs/knp-paginator-bundle": "~2.4"
-    }
-}
+```sh
+composer require knplabs/knp-paginator-bundle
 ```
-
-If you use a `deps` file, add:
-
-    [knp-components]
-        git=http://github.com/KnpLabs/knp-components.git
-
-    [KnpPaginatorBundle]
-        git=http://github.com/KnpLabs/KnpPaginatorBundle.git
-        target=bundles/Knp/Bundle/PaginatorBundle
-
-Or if you want to clone the repos:
-
-    # Install Knp components
-    git clone git://github.com/KnpLabs/knp-components.git vendor/knp-components
-
-    # Install knp paginator bundle
-    git clone git://github.com/KnpLabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
 
 
 <a name="configuration"></a>
@@ -93,17 +72,6 @@ knp_paginator:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 ```
 
-### Add the namespaces to your autoloader unless you are using Composer
-
-```php
-<?php
-// File: app/autoload.php
-$loader->registerNamespaces(array(
-    'Knp\\Component'      => __DIR__.'/../vendor/knp-components/src',
-    'Knp\\Bundle'         => __DIR__.'/../vendor/bundles',
-    // ...
-));
-```
 
 ### Add PaginatorBundle to your application kernel
 
@@ -137,7 +105,7 @@ Currently paginator can paginate:
 ```php
 // Acme\MainBundle\Controller\ArticleController.php
 
-public function listAction()
+public function listAction(Request $request)
 {
     $em    = $this->get('doctrine.orm.entity_manager');
     $dql   = "SELECT a FROM AcmeMainBundle:Article a";
@@ -146,7 +114,7 @@ public function listAction()
     $paginator  = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
         $query,
-        $this->get('request')->query->get('page', 1)/*page number*/,
+        $request->query->get('page', 1)/*page number*/,
         10/*limit per page*/
     );
 

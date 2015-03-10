@@ -23,6 +23,12 @@ class KnpPaginatorExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('paginator.xml');
 
+        if ($container->hasParameter('templating.engines')) {
+            if (in_array('php', $container->getParameter('templating.engines'), true)) {
+                $loader->load('templating_php.xml');
+            }
+        }
+
         $configuration = new Configuration();
         $config = $processor->processConfiguration($configuration, $configs);
 

@@ -12,7 +12,6 @@ class SlidingPagination extends AbstractPagination
     private $template;
     private $sortableTemplate;
     private $filtrationTemplate;
-    private $extraViewParams = array();
 
     public function __construct(array $params)
     {
@@ -92,7 +91,7 @@ class SlidingPagination extends AbstractPagination
         return isset($params[$this->getPaginatorOption('sortFieldParameterName')]) && $params[$this->getPaginatorOption('sortFieldParameterName')] === $key;
     }
 
-    public function getDirection ()
+    public function getDirection()
     {
         if (array_key_exists($this->getPaginatorOption('sortDirectionParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
@@ -103,7 +102,7 @@ class SlidingPagination extends AbstractPagination
 
     public function getPaginationData()
     {
-        $pageCount = intval(ceil($this->totalCount / $this->numItemsPerPage));
+        $pageCount = $this->getPageCount();
         $current = $this->currentPageNumber;
 
         if ($pageCount < $current) {
@@ -173,6 +172,11 @@ class SlidingPagination extends AbstractPagination
         }
 
         return $viewData;
+    }
+    
+    public function getPageCount()
+    {
+        return intval(ceil($this->totalCount / $this->numItemsPerPage));
     }
 
     public function getPaginatorOptions()
