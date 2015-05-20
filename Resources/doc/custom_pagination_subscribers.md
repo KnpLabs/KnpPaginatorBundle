@@ -119,7 +119,7 @@ public function testAction()
     $paginator = $this->get('knp_paginator');
     $files = $paginator->paginate(
         __DIR__.'/../',
-        $this->get('request')->query->get('page', 1),
+        $this->get('request')->query->getInt('page', 1),
         10
     );
     return compact('files');

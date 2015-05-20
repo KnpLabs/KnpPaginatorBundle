@@ -129,7 +129,7 @@ or manually with paginator options.
 $paginator = $this->get('knp_paginator');
 $pagination = $paginator->paginate(
     $query, // target to paginate
-    $this->get('request')->query->get('section', 1), // page parameter, now section
+    $this->get('request')->query->getInt('section', 1), // page parameter, now section
     10, // limit per page
     array('pageParameterName' => 'section', 'sortDirectionParameterName' => 'dir')
 );
