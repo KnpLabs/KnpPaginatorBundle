@@ -90,6 +90,7 @@ There are a few additional pagination templates, that could be used out of the b
 * `KnpPaginatorBundle:Pagination:sliding.html.twig` (by default)
 * `KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig`
 * `KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig`
+* `KnpPaginatorBundle:Pagination:foundation_v5_pagination.html.twig`
 
 
 ## Usage examples:
