@@ -75,6 +75,9 @@ class PaginationExtension extends \Twig_Extension
      */
     public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
     {
+        if (is_array($key)) {
+            $key = implode('+', $key);
+        }
         return $this->environment->render(
             $template ?: $pagination->getSortableTemplate(),
             $this->processor->sortable($pagination, $title, $key, $options, $params)
