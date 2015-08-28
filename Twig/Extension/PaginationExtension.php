@@ -35,9 +35,9 @@ class PaginationExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'knp_pagination_render' => new \Twig_Function_Method($this, 'render', array('is_safe' => array('html'))),
-            'knp_pagination_sortable' => new \Twig_Function_Method($this, 'sortable', array('is_safe' => array('html'))),
-            'knp_pagination_filter' => new \Twig_Function_Method($this, 'filter', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('knp_pagination_render', array($this, 'render'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('knp_pagination_sortable', array($this, 'sortable'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('knp_pagination_filter', array($this, 'filter'), array('is_safe' => array('html'))),
         );
     }
 
