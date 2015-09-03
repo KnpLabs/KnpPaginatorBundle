@@ -78,7 +78,7 @@ to use in pagination. It is also very simple, create additional service config f
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="acme.directory.subscriber" class="Acme\DemoBundle\Subscriber\PaginateDirectorySubscriber" scope="request">
+        <service id="acme.directory.subscriber" class="Acme\DemoBundle\Subscriber\PaginateDirectorySubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
     </services>
