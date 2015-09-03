@@ -52,6 +52,19 @@ Pretty simple with [Composer](http://packagist.org), run:
 composer require knplabs/knp-paginator-bundle
 ```
 
+### Add PaginatorBundle to your application kernel
+
+```php
+// app/AppKernel.php
+public function registerBundles()
+{
+    return array(
+        // ...
+        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+        // ...
+    );
+}
+```
 
 <a name="configuration"></a>
 
@@ -78,19 +91,6 @@ There are a few additional pagination templates, that could be used out of the b
 * `KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig`
 * `KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig`
 
-### Add PaginatorBundle to your application kernel
-
-```php
-// app/AppKernel.php
-public function registerBundles()
-{
-    return array(
-        // ...
-        new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-        // ...
-    );
-}
-```
 
 ## Usage examples:
 
