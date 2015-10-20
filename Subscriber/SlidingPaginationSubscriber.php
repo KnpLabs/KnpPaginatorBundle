@@ -2,9 +2,9 @@
 
 namespace Knp\Bundle\PaginatorBundle\Subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Knp\Component\Pager\Event\PaginationEvent;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Component\Pager\Event\PaginationEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -40,15 +40,15 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
     {
         // default sort field and order
         $eventOptions = $event->options;
-        
+
         if (isset($eventOptions['defaultSortFieldName']) && !isset($this->params[$eventOptions['sortFieldParameterName']])) {
             $this->params[$eventOptions['sortFieldParameterName']] = $eventOptions['defaultSortFieldName'];
         }
-        
+
         if (isset($eventOptions['defaultSortDirection']) && !isset($this->params[$eventOptions['sortDirectionParameterName']])) {
             $this->params[$eventOptions['sortDirectionParameterName']] = $eventOptions['defaultSortDirection'];
         }
-        
+
         $pagination = new SlidingPagination($this->params);
 
         $pagination->setUsedRoute($this->route);
@@ -64,7 +64,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'knp_pager.pagination' => array('pagination', 1)
+            'knp_pager.pagination' => array('pagination', 1),
         );
     }
 }
