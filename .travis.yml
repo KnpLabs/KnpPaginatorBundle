@@ -10,4 +10,4 @@ php:
 before_script:
   - composer install --dev
 
-script: phpunit
+script: make test
