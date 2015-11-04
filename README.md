@@ -104,6 +104,8 @@ Currently paginator can paginate:
 - `Doctrine\ORM\QueryBuilder`
 - `Doctrine\ODM\MongoDB\Query\Query`
 - `Doctrine\ODM\MongoDB\Query\Builder`
+- `Doctrine\ODM\PHPCR\Query\Query`
+- `Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder`
 - `Doctrine\Common\Collection\ArrayCollection` - any doctrine relation collection including
 - `ModelCriteria` - Propel ORM query
 - array with `Solarium_Client` and `Solarium_Query_Select` as elements
