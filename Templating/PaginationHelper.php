@@ -11,7 +11,7 @@ use Knp\Bundle\PaginatorBundle\Helper\Processor;
  *
  * Basically provides access to KnpPaginator from PHP templates
  *
- * @author Rafa≥ Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
+ * @author Rafa≈Ç Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  */
 class PaginationHelper extends Helper
 {
