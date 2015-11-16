@@ -28,27 +28,22 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $this->route = $request->attributes->get('_route');
-        $this->params = array_merge($request->query->all(), $request->attributes->all());
-        foreach ($this->params as $key => $param) {
-            if (substr($key, 0, 1) == '_') {
-                unset($this->params[$key]);
-            }
-        }
+        $this->params = array_merge($request->query->all(), $request->attributes->get('_route_params', array()));
     }
 
     public function pagination(PaginationEvent $event)
     {
         // default sort field and order
         $eventOptions = $event->options;
-        
+
         if (isset($eventOptions['defaultSortFieldName']) && !isset($this->params[$eventOptions['sortFieldParameterName']])) {
             $this->params[$eventOptions['sortFieldParameterName']] = $eventOptions['defaultSortFieldName'];
         }
-        
+
         if (isset($eventOptions['defaultSortDirection']) && !isset($this->params[$eventOptions['sortDirectionParameterName']])) {
             $this->params[$eventOptions['sortDirectionParameterName']] = $eventOptions['defaultSortDirection'];
         }
-        
+
         $pagination = new SlidingPagination($this->params);
 
         $pagination->setUsedRoute($this->route);
