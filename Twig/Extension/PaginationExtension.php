@@ -44,7 +44,8 @@ class PaginationExtension extends \Twig_Extension
     /**
      * Renders the pagination template
      *
-     * @param string $template
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $pagination
+     * @param string|null $template
      * @param array $queryParams
      * @param array $viewParams
      *
@@ -66,11 +67,13 @@ class PaginationExtension extends \Twig_Extension
      *
      * $key example: "article.title"
      *
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $pagination
      * @param string $title
      * @param string $key
      * @param array $options
      * @param array $params
-     * @param string $template
+     * @param string|null $template
+     *
      * @return string
      */
     public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
@@ -92,11 +95,12 @@ class PaginationExtension extends \Twig_Extension
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination $pagination
+     * @param array $fields
      * @param array $options
      * @param array $params
-     * @param string $template
+     * @param string|null $template
+     *
      * @return string
      */
     public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
