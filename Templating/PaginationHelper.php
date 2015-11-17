@@ -2,12 +2,12 @@
 
 namespace Knp\Bundle\PaginatorBundle\Templating;
 
-use Symfony\Component\Templating\PhpEngine;
-use Symfony\Component\Templating\Helper\Helper;
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
+use Symfony\Component\Templating\Helper\Helper;
+use Symfony\Component\Templating\PhpEngine;
 
 /**
- * Pagination PHP helper
+ * Pagination PHP helper.
  *
  * Basically provides access to KnpPaginator from PHP templates
  *
@@ -32,11 +32,11 @@ class PaginationHelper extends Helper
     }
 
     /**
-     * Renders the pagination template
+     * Renders the pagination template.
      *
      * @param string $template
-     * @param array $queryParams
-     * @param array $viewParams
+     * @param array  $queryParams
+     * @param array  $viewParams
      *
      * @return string
      */
@@ -58,9 +58,10 @@ class PaginationHelper extends Helper
      *
      * @param string $title
      * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param array  $options
+     * @param array  $params
      * @param string $template
+     *
      * @return string
      */
     public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
@@ -81,9 +82,10 @@ class PaginationHelper extends Helper
      *
      * @param string $title
      * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param array  $options
+     * @param array  $params
      * @param string $template
+     *
      * @return string
      */
     public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
@@ -95,7 +97,7 @@ class PaginationHelper extends Helper
     }
 
     /**
-     * Get helper name
+     * Get helper name.
      *
      * @return string
      */

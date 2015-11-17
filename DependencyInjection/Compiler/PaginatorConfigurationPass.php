@@ -2,13 +2,13 @@
 
 namespace Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class PaginatorConfigurationPass implements CompilerPassInterface
 {
     /**
-     * Populate the listener service ids
+     * Populate the listener service ids.
      *
      * @param ContainerBuilder $container
      */
@@ -38,7 +38,7 @@ class PaginatorConfigurationPass implements CompilerPassInterface
                 $definition->addMethodCall('addListenerService', array(
                     $event,
                     array($id, $options[0]),
-                    $options[1]
+                    $options[1],
                 ));
             }
             // sf 2.1.x only

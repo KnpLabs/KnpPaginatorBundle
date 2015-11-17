@@ -2,18 +2,18 @@
 
 namespace Knp\Bundle\PaginatorBundle\DependencyInjection;
 
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class KnpPaginatorExtension extends Extension
 {
     /**
-     * Build the extension services
+     * Build the extension services.
      *
-     * @param array $configs
+     * @param array            $configs
      * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -44,7 +44,7 @@ class KnpPaginatorExtension extends Extension
             'sortDirectionParameterName' => $config['default_options']['sort_direction_name'],
             'filterFieldParameterName' => $config['default_options']['filter_field_name'],
             'filterValueParameterName' => $config['default_options']['filter_value_name'],
-            'distinct' => $config['default_options']['distinct']
+            'distinct' => $config['default_options']['distinct'],
         )));
     }
 }

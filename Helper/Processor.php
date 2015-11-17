@@ -6,7 +6,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Pagination data processor
+ * Pagination data processor.
  *
  * Common data processor for all templating engines
  *
@@ -31,7 +31,7 @@ class Processor
     }
 
     /**
-     * Generates pagination template data
+     * Generates pagination template data.
      *
      * @param array $queryParams
      * @param array $viewParams
@@ -63,8 +63,9 @@ class Processor
      *
      * @param string $title
      * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param array  $options
+     * @param array  $params
+     *
      * @return array
      */
     public function sortable($pagination, $title, $key, $options = array(), $params = array())
@@ -94,7 +95,7 @@ class Processor
         }
 
         if (isset($options['class'])) {
-            $options['class'] .= ' ' . $class;
+            $options['class'] .= ' '.$class;
         } else {
             $options['class'] = $class;
         }
@@ -108,7 +109,7 @@ class Processor
             array(
                 $pagination->getPaginatorOption('sortFieldParameterName') => $key,
                 $pagination->getPaginatorOption('sortDirectionParameterName') => $direction,
-                $pagination->getPaginatorOption('pageParameterName') => 1 // reset to 1 on sort
+                $pagination->getPaginatorOption('pageParameterName') => 1, // reset to 1 on sort
             )
         );
 
@@ -145,8 +146,9 @@ class Processor
      *
      * @param string $title
      * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param array  $options
+     * @param array  $params
+     *
      * @return array
      */
     public function filter($pagination, array $fields, $options = array(), $params = array())

@@ -22,7 +22,7 @@ class PaginationExtension extends \Twig_Extension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function initRuntime(\Twig_Environment $environment)
     {
@@ -30,7 +30,7 @@ class PaginationExtension extends \Twig_Extension
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
@@ -42,11 +42,11 @@ class PaginationExtension extends \Twig_Extension
     }
 
     /**
-     * Renders the pagination template
+     * Renders the pagination template.
      *
      * @param string $template
-     * @param array $queryParams
-     * @param array $viewParams
+     * @param array  $queryParams
+     * @param array  $viewParams
      *
      * @return string
      */
@@ -68,9 +68,10 @@ class PaginationExtension extends \Twig_Extension
      *
      * @param string $title
      * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param array  $options
+     * @param array  $params
      * @param string $template
+     *
      * @return string
      */
     public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
@@ -78,6 +79,7 @@ class PaginationExtension extends \Twig_Extension
         if (is_array($key)) {
             $key = implode('+', $key);
         }
+
         return $this->environment->render(
             $template ?: $pagination->getSortableTemplate(),
             $this->processor->sortable($pagination, $title, $key, $options, $params)
@@ -94,9 +96,10 @@ class PaginationExtension extends \Twig_Extension
      *
      * @param string $title
      * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param array  $options
+     * @param array  $params
      * @param string $template
+     *
      * @return string
      */
     public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
@@ -108,7 +111,7 @@ class PaginationExtension extends \Twig_Extension
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */

@@ -2,9 +2,9 @@
 
 namespace Knp\Bundle\PaginatorBundle\Subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Knp\Component\Pager\Event\PaginationEvent;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Component\Pager\Event\PaginationEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -59,7 +59,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'knp_pager.pagination' => array('pagination', 1)
+            'knp_pager.pagination' => array('pagination', 1),
         );
     }
 }

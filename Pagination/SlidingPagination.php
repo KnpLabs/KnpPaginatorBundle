@@ -74,9 +74,10 @@ class SlidingPagination extends AbstractPagination
     }
 
     /**
-     * Get url query with all parameters
+     * Get url query with all parameters.
      *
      * @param array $additionalQueryParams
+     *
      * @return array - list of query parameters
      */
     public function getQuery(array $additionalQueryParams = array())
@@ -96,8 +97,8 @@ class SlidingPagination extends AbstractPagination
         if (array_key_exists($this->getPaginatorOption('sortDirectionParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
         }
-    
-        return null;
+
+        return;
     }
 
     public function getPaginationData()
@@ -142,15 +143,15 @@ class SlidingPagination extends AbstractPagination
         }
 
         $viewData = array(
-            'last'              => $pageCount,
-            'current'           => $current,
-            'numItemsPerPage'   => $this->numItemsPerPage,
-            'first'             => 1,
-            'pageCount'         => $pageCount,
-            'totalCount'        => $this->totalCount,
-            'pageRange'         => $this->pageRange,
-            'startPage'         => $startPage,
-            'endPage'           => $endPage
+            'last' => $pageCount,
+            'current' => $current,
+            'numItemsPerPage' => $this->numItemsPerPage,
+            'first' => 1,
+            'pageCount' => $pageCount,
+            'totalCount' => $this->totalCount,
+            'pageRange' => $this->pageRange,
+            'startPage' => $startPage,
+            'endPage' => $endPage,
         );
 
         if ($current - 1 > 0) {
@@ -173,7 +174,7 @@ class SlidingPagination extends AbstractPagination
 
         return $viewData;
     }
-    
+
     public function getPageCount()
     {
         return intval(ceil($this->totalCount / $this->numItemsPerPage));
