@@ -2,6 +2,7 @@
 
 namespace Knp\Bundle\PaginatorBundle\Helper;
 
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -33,12 +34,13 @@ class Processor
     /**
      * Generates pagination template data
      *
-     * @param array $queryParams
-     * @param array $viewParams
+     * @param SlidingPagination $pagination
+     * @param array             $queryParams
+     * @param array             $viewParams
      *
      * @return array
      */
-    public function render($pagination, array $queryParams = array(), array $viewParams = array())
+    public function render(SlidingPagination $pagination, array $queryParams = array(), array $viewParams = array())
     {
         $data = $pagination->getPaginationData();
 
@@ -61,13 +63,15 @@ class Processor
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param SlidingPagination $pagination
+     * @param string            $title
+     * @param string            $key
+     * @param array             $options
+     * @param array             $params
+     *
      * @return array
      */
-    public function sortable($pagination, $title, $key, $options = array(), $params = array())
+    public function sortable(SlidingPagination $pagination, $title, $key, $options = array(), $params = array())
     {
         $options = array_merge(array(
             'absolute' => false,
@@ -143,13 +147,14 @@ class Processor
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param SlidingPagination $pagination
+     * @param array             $fields
+     * @param array             $options
+     * @param array             $params
+     *
      * @return array
      */
-    public function filter($pagination, array $fields, $options = array(), $params = array())
+    public function filter(SlidingPagination $pagination, array $fields, $options = array(), $params = array())
     {
         $options = array_merge(array(
             'absolute' => false,
