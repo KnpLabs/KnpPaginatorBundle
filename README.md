@@ -119,7 +119,7 @@ public function listAction(Request $request)
 
     $paginator  = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
-        $query,
+        $query, /* query NOT result */
         $request->query->getInt('page', 1)/*page number*/,
         10/*limit per page*/
     );
