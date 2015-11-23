@@ -2,7 +2,6 @@
 
 namespace Knp\Bundle\PaginatorBundle\Definition;
 
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Knp\Component\Pager\Paginator;
 
 /**
