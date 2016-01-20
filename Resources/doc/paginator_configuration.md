@@ -9,7 +9,7 @@ knp_paginator:
     page_range: 5                      # default page range used in pagination control
     default_options:
         page_name: page                # page query parameter name
-        sort_field_name: sort          # sort field query parameter name
+        sort_field_name: sort          # sort field query parameter name; to disable sorting set this field to ~ (null)
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
