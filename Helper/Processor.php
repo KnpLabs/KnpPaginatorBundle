@@ -116,7 +116,7 @@ class Processor
             )
         );
 
-        $options['href'] = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
+        $options['href'] = $this->router->generate($pagination->getRoute(), $params, UrlGeneratorInterface::ABSOLUTE_URL);
 
         if (null !== $options['translationDomain']) {
             if (null !== $options['translationCount']) {
@@ -172,7 +172,7 @@ class Processor
         $selectedField = isset($params[$filterFieldName]) ? $params[$filterFieldName] : null;
         $selectedValue = isset($params[$filterValueName]) ? $params[$filterValueName] : null;
 
-        $action = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
+        $action = $this->router->generate($pagination->getRoute(), $params, UrlGeneratorInterface::ABSOLUTE_URL);
 
         foreach ($fields as $field => $title) {
             $fields[$field] = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
