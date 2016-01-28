@@ -74,7 +74,7 @@ class Processor
     public function sortable(SlidingPagination $pagination, $title, $key, $options = array(), $params = array())
     {
         $options = array_merge(array(
-            'absolute' => false,
+            'absolute' => defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,
             'translationParameters' => array(),
             'translationDomain' => null,
             'translationCount' => null,
@@ -157,7 +157,7 @@ class Processor
     public function filter(SlidingPagination $pagination, array $fields, $options = array(), $params = array())
     {
         $options = array_merge(array(
-            'absolute' => false,
+            'absolute' => defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,
             'translationParameters' => array(),
             'translationDomain' => null,
             'button' => 'Filter',
