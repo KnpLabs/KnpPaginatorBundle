@@ -116,7 +116,8 @@ class Processor
             )
         );
 
-        $options['href'] = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
+	$absolute = (isset($options['absolute']) && $options['absolute']) ? UrlGeneratorInterface::ABSOLUTE_URL : UrlGeneratorInterface::ABSOLUTE_PATH;
+        $options['href'] = $this->router->generate($pagination->getRoute(), $params, $absolute);
 
         if (null !== $options['translationDomain']) {
             if (null !== $options['translationCount']) {
