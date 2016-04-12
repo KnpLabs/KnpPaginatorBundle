@@ -130,7 +130,7 @@ class Processor
             $options['title'] = $title;
         }
 
-        unset($options['absolute'], $options['translationDomain'], $options['translationParameters']);
+        unset($options['absolute'], $options['translationParameters'], $options['translationDomain'], $options['translationCount']);
 
         return array_merge(
             $pagination->getPaginatorOptions(),
