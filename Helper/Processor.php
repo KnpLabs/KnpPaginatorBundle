@@ -74,7 +74,7 @@ class Processor
     public function sortable(SlidingPagination $pagination, $title, $key, $options = array(), $params = array())
     {
         $options = array_merge(array(
-            'absolute' => false,
+            'absolute' => UrlGeneratorInterface::ABSOLUTE_URL,
             'translationParameters' => array(),
             'translationDomain' => null,
             'translationCount' => null,
