@@ -171,11 +171,11 @@ class SlidingPagination extends AbstractPagination
             'endPage'           => $endPage
         );
 
-        if ($current - 1 > 0) {
+        if ($current > 1) {
             $viewData['previous'] = $current - 1;
         }
 
-        if ($current + 1 <= $pageCount) {
+        if ($current < $pageCount) {
             $viewData['next'] = $current + 1;
         }
 
