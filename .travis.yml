@@ -24,4 +24,4 @@ before_script:
   - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
   - composer install --dev
 
-script: phpunit
+script: make test
