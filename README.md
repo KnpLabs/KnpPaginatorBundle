@@ -46,63 +46,10 @@ variables as keys.
 
 ## Installation and configuration:
 
-Pretty simple with [Composer](http://packagist.org), add:
+Pretty simple with [Composer](http://packagist.org), run:
 
-```json
-{
-    "require": {
-        "knplabs/knp-paginator-bundle": "~2.4"
-    }
-}
-```
-
-If you use a `deps` file, add:
-
-    [knp-components]
-        git=http://github.com/KnpLabs/knp-components.git
-
-    [KnpPaginatorBundle]
-        git=http://github.com/KnpLabs/KnpPaginatorBundle.git
-        target=bundles/Knp/Bundle/PaginatorBundle
-
-Or if you want to clone the repos:
-
-    # Install Knp components
-    git clone git://github.com/KnpLabs/knp-components.git vendor/knp-components
-
-    # Install knp paginator bundle
-    git clone git://github.com/KnpLabs/KnpPaginatorBundle.git vendor/bundles/Knp/Bundle/PaginatorBundle
-
-
-<a name="configuration"></a>
-
-### Configuration example
-
-You can configure default query parameter names and templates
-
-```yaml
-knp_paginator:
-    page_range: 5                      # default page range used in pagination control
-    default_options:
-        page_name: page                # page query parameter name
-        sort_field_name: sort          # sort field query parameter name
-        sort_direction_name: direction # sort direction query parameter name
-        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
-    template:
-        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
-        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
-```
-
-### Add the namespaces to your autoloader unless you are using Composer
-
-```php
-<?php
-// File: app/autoload.php
-$loader->registerNamespaces(array(
-    'Knp\\Component'      => __DIR__.'/../vendor/knp-components/src',
-    'Knp\\Bundle'         => __DIR__.'/../vendor/bundles',
-    // ...
-));
+```sh
+composer require knplabs/knp-paginator-bundle
 ```
 
 ### Add PaginatorBundle to your application kernel
@@ -119,6 +66,33 @@ public function registerBundles()
 }
 ```
 
+<a name="configuration"></a>
+
+### Configuration example
+
+You can configure default query parameter names and templates
+
+```yaml
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: 'KnpPaginatorBundle:Pagination:sliding.html.twig'     # sliding pagination controls template
+        sortable: 'KnpPaginatorBundle:Pagination:sortable_link.html.twig' # sort link template
+```
+
+There are a few additional pagination templates, that could be used out of the box in `knp_paginator.template.pagination` key:
+
+* `KnpPaginatorBundle:Pagination:sliding.html.twig` (by default)
+* `KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig`
+* `KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig`
+* `KnpPaginatorBundle:Pagination:foundation_v5_pagination.html.twig`
+
+
 ## Usage examples:
 
 ### Controller
@@ -130,6 +104,8 @@ Currently paginator can paginate:
 - `Doctrine\ORM\QueryBuilder`
 - `Doctrine\ODM\MongoDB\Query\Query`
 - `Doctrine\ODM\MongoDB\Query\Builder`
+- `Doctrine\ODM\PHPCR\Query\Query`
+- `Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder`
 - `Doctrine\Common\Collection\ArrayCollection` - any doctrine relation collection including
 - `ModelCriteria` - Propel ORM query
 - array with `Solarium_Client` and `Solarium_Query_Select` as elements
@@ -137,7 +113,7 @@ Currently paginator can paginate:
 ```php
 // Acme\MainBundle\Controller\ArticleController.php
 
-public function listAction()
+public function listAction(Request $request)
 {
     $em    = $this->get('doctrine.orm.entity_manager');
     $dql   = "SELECT a FROM AcmeMainBundle:Article a";
@@ -145,8 +121,8 @@ public function listAction()
 
     $paginator  = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
-        $query,
-        $this->get('request')->query->get('page', 1)/*page number*/,
+        $query, /* query NOT result */
+        $request->query->getInt('page', 1)/*page number*/,
         10/*limit per page*/
     );
 
@@ -167,6 +143,7 @@ public function listAction()
 {# sorting of properties based on query components #}
     <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
     <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+    <th>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</th>
 </tr>
 
 {# table body #}
@@ -174,6 +151,7 @@ public function listAction()
 <tr {% if loop.index is odd %}class="color"{% endif %}>
     <td>{{ article.id }}</td>
     <td>{{ article.title }}</td>
+    <td>{{ article.date | date('Y-m-d') }}, {{ article.time | date('H:i:s') }}</td>
 </tr>
 {% endfor %}
 </table>

@@ -2,9 +2,9 @@
 
 namespace Knp\Bundle\PaginatorBundle\Templating;
 
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\Helper\Helper;
-
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
 
 /**
@@ -12,7 +12,7 @@ use Knp\Bundle\PaginatorBundle\Helper\Processor;
  *
  * Basically provides access to KnpPaginator from PHP templates
  *
- * @author Rafa³ Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
+ * @author RafaÂ³ Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  */
 class PaginationHelper extends Helper
 {
@@ -35,13 +35,14 @@ class PaginationHelper extends Helper
     /**
      * Renders the pagination template
      *
-     * @param string $template
-     * @param array $queryParams
-     * @param array $viewParams
+     * @param SlidingPagination $pagination
+     * @param string            $template
+     * @param array             $queryParams
+     * @param array             $viewParams
      *
      * @return string
      */
-    public function render($pagination, $template = null, array $queryParams = array(), array $viewParams = array())
+    public function render(SlidingPagination $pagination, $template = null, array $queryParams = array(), array $viewParams = array())
     {
         return $this->templating->render(
             $template ?: $pagination->getTemplate(),
@@ -57,14 +58,16 @@ class PaginationHelper extends Helper
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
-     * @param string $template
+     * @param SlidingPagination $pagination
+     * @param string            $title
+     * @param string            $key
+     * @param array             $options
+     * @param array             $params
+     * @param string            $template
+     *
      * @return string
      */
-    public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
+    public function sortable(SlidingPagination $pagination, $title, $key, $options = array(), $params = array(), $template = null)
     {
         return $this->templating->render(
             $template ?: $pagination->getSortableTemplate(),
@@ -80,14 +83,15 @@ class PaginationHelper extends Helper
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
-     * @param string $template
+     * @param SlidingPagination $pagination
+     * @param array             $fields
+     * @param array             $options
+     * @param array             $params
+     * @param string            $template
+     *
      * @return string
      */
-    public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
+    public function filter(SlidingPagination $pagination, array $fields, $options = array(), $params = array(), $template = null)
     {
         return $this->templating->render(
             $template ?: $pagination->getFiltrationTemplate(),

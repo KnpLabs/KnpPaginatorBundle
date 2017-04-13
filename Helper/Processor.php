@@ -2,7 +2,8 @@
 
 namespace Knp\Bundle\PaginatorBundle\Helper;
 
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\RouterHelper;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -15,30 +16,31 @@ use Symfony\Component\Translation\TranslatorInterface;
 class Processor
 {
     /**
-     * @var RouterHelper
+     * @var UrlGeneratorInterface
      */
-    protected $routerHelper;
+    protected $router;
 
     /**
      * @var TranslatorInterface
      */
     protected $translator;
 
-    public function __construct(RouterHelper $routerHelper, TranslatorInterface $translator)
+    public function __construct(UrlGeneratorInterface $router, TranslatorInterface $translator)
     {
-        $this->routerHelper = $routerHelper;
+        $this->router = $router;
         $this->translator = $translator;
     }
 
     /**
      * Generates pagination template data
      *
-     * @param array $queryParams
-     * @param array $viewParams
+     * @param SlidingPagination $pagination
+     * @param array             $queryParams
+     * @param array             $viewParams
      *
      * @return array
      */
-    public function render($pagination, array $queryParams = array(), array $viewParams = array())
+    public function render(SlidingPagination $pagination, array $queryParams = array(), array $viewParams = array())
     {
         $data = $pagination->getPaginationData();
 
@@ -61,16 +63,22 @@ class Processor
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param SlidingPagination $pagination
+     * @param string            $title
+     * @param string|array      $key
+     * @param array             $options
+     * @param array             $params
+     *
      * @return array
      */
-    public function sortable($pagination, $title, $key, $options = array(), $params = array())
+    public function sortable(SlidingPagination $pagination, $title, $key, $options = array(), $params = array())
     {
+        if (is_array($key)) {
+            $key = implode('+', $key);
+        }
+
         $options = array_merge(array(
-            'absolute' => false,
+            'absolute' => defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,
             'translationParameters' => array(),
             'translationDomain' => null,
             'translationCount' => null,
@@ -112,7 +120,7 @@ class Processor
             )
         );
 
-        $options['href'] = $this->routerHelper->generate($pagination->getRoute(), $params, $options['absolute']);
+        $options['href'] = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
 
         if (null !== $options['translationDomain']) {
             if (null !== $options['translationCount']) {
@@ -126,7 +134,7 @@ class Processor
             $options['title'] = $title;
         }
 
-        unset($options['absolute'], $options['translationDomain'], $options['translationParameters']);
+        unset($options['absolute'], $options['translationParameters'], $options['translationDomain'], $options['translationCount']);
 
         return array_merge(
             $pagination->getPaginatorOptions(),
@@ -143,16 +151,17 @@ class Processor
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
+     * @param SlidingPagination $pagination
+     * @param array             $fields
+     * @param array             $options
+     * @param array             $params
+     *
      * @return array
      */
-    public function filter($pagination, array $fields, $options = array(), $params = array())
+    public function filter(SlidingPagination $pagination, array $fields, $options = array(), $params = array())
     {
         $options = array_merge(array(
-            'absolute' => false,
+            'absolute' => defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,
             'translationParameters' => array(),
             'translationDomain' => null,
             'button' => 'Filter',
@@ -167,7 +176,7 @@ class Processor
         $selectedField = isset($params[$filterFieldName]) ? $params[$filterFieldName] : null;
         $selectedValue = isset($params[$filterValueName]) ? $params[$filterValueName] : null;
 
-        $action = $this->routerHelper->generate($pagination->getRoute(), $params, $options['absolute']);
+        $action = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
 
         foreach ($fields as $field => $title) {
             $fields[$field] = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);

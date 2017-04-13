@@ -5,7 +5,7 @@ And when we have such a handy **Finder** component in symfony, its easily achiev
 
 ## Prepare environment
 
-I will asume we you just installed [symfony-standard](https://github.com/symfony/symfony-standard)
+I will assume we you just installed [symfony-standard](https://github.com/symfony/symfony-standard)
 edition and you install [KnpPaginatorBundle](https://github.com/knplabs/KnpPaginatorBundle).
 Follow the installation guide on these repositories, its very easy to setup.
 
@@ -65,7 +65,7 @@ for the **files** in the directory being paginated, max in 3 level depth.
 ## Register subscriber as service
 
 Next we need to tell **knp_paginator** about our new fancy subscriber which we intend
-to use in pagination. It is also very simple, create aditional service config file:
+to use in pagination. It is also very simple, create additional service config file:
 **../symfony-standard/src/Acme/DemoBundle/Resources/config/paginate.xml**
 
 ``` html
@@ -78,7 +78,7 @@ to use in pagination. It is also very simple, create aditional service config fi
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="acme.directory.subscriber" class="Acme\DemoBundle\Subscriber\PaginateDirectorySubscriber" scope="request">
+        <service id="acme.directory.subscriber" class="Acme\DemoBundle\Subscriber\PaginateDirectorySubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
     </services>
@@ -119,7 +119,7 @@ public function testAction()
     $paginator = $this->get('knp_paginator');
     $files = $paginator->paginate(
         __DIR__.'/../',
-        $this->get('request')->query->get('page', 1),
+        $this->get('request')->query->getInt('page', 1),
         10
     );
     return compact('files');

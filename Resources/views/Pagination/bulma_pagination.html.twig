@@ -1,0 +1,42 @@
+{# bulma Sliding pagination control implementation #}
+
+{% if pageCount > 1 %}
+    <nav class="pagination">
+        {% if previous is defined %}
+            <a class="button" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+        {% else %}
+            <a class="button" disabled>&lt;</a>
+        {% endif %}
+        {% if next is defined %}
+            <a class="button" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+        {% else %}
+            <a class="button" disabled>&gt;</a>
+        {% endif %}
+        <ul>
+            <li>
+                <a class="button" href="{{ path(route, query|merge({(pageParameterName): first})) }}">1</a>
+            </li>
+            {% if pagesInRange[0] - first >= 2 %}
+                <li>
+                    <span>…</span>
+                </li>
+            {% endif %}
+            {% for page in pagesInRange %}
+                {% if first != page and page != last %}
+                    <li>
+                        <a class="button"
+                           href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if  last - pagesInRange[pagesInRange|length - 1] >= 2 %}
+                <li>
+                    <span>…</span>
+                </li>
+            {% endif %}
+            <li>
+                <a class="button" href="{{ path(route, query|merge({(pageParameterName): last})) }}">{{ last }}</a>
+            </li>
+        </ul>
+    </nav>
+{% endif %}

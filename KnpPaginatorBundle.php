@@ -23,7 +23,7 @@ class KnpPaginatorBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-        $container->addCompilerPass(new PaginatorConfigurationPass());
+        $container->addCompilerPass(new PaginatorConfigurationPass(), PassConfig::TYPE_BEFORE_REMOVING);
         $container->addCompilerPass(new PaginatorAwarePass(), PassConfig::TYPE_BEFORE_REMOVING);
     }
 }

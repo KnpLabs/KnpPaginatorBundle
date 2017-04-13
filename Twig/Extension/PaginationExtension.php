@@ -3,14 +3,10 @@
 namespace Knp\Bundle\PaginatorBundle\Twig\Extension;
 
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 
 class PaginationExtension extends \Twig_Extension
 {
-    /**
-     * @var \Twig_Environment
-     */
-    protected $environment;
-
     /**
      * @var Processor
      */
@@ -24,35 +20,29 @@ class PaginationExtension extends \Twig_Extension
     /**
      * {@inheritDoc}
      */
-    public function initRuntime(\Twig_Environment $environment)
-    {
-        $this->environment = $environment;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getFunctions()
     {
         return array(
-            'knp_pagination_render' => new \Twig_Function_Method($this, 'render', array('is_safe' => array('html'))),
-            'knp_pagination_sortable' => new \Twig_Function_Method($this, 'sortable', array('is_safe' => array('html'))),
-            'knp_pagination_filter' => new \Twig_Function_Method($this, 'filter', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('knp_pagination_render', array($this, 'render'), array('is_safe' => array('html'), 'needs_environment' => true)),
+            new \Twig_SimpleFunction('knp_pagination_sortable', array($this, 'sortable'), array('is_safe' => array('html'), 'needs_environment' => true)),
+            new \Twig_SimpleFunction('knp_pagination_filter', array($this, 'filter'), array('is_safe' => array('html'), 'needs_environment' => true)),
         );
     }
 
     /**
      * Renders the pagination template
      *
-     * @param string $template
-     * @param array $queryParams
-     * @param array $viewParams
+     * @param \Twig_Environment $env
+     * @param SlidingPagination $pagination
+     * @param string            $template
+     * @param array             $queryParams
+     * @param array             $viewParams
      *
      * @return string
      */
-    public function render($pagination, $template = null, array $queryParams = array(), array $viewParams = array())
+    public function render(\Twig_Environment $env, SlidingPagination $pagination, $template = null, array $queryParams = array(), array $viewParams = array())
     {
-        return $this->environment->render(
+        return $env->render(
             $template ?: $pagination->getTemplate(),
             $this->processor->render($pagination, $queryParams, $viewParams)
         );
@@ -66,16 +56,19 @@ class PaginationExtension extends \Twig_Extension
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
-     * @param string $template
+     * @param \Twig_Environment $env
+     * @param SlidingPagination $pagination
+     * @param string            $title
+     * @param string            $key
+     * @param array             $options
+     * @param array             $params
+     * @param string            $template
+     *
      * @return string
      */
-    public function sortable($pagination, $title, $key, $options = array(), $params = array(), $template = null)
+    public function sortable(\Twig_Environment $env, SlidingPagination $pagination, $title, $key, $options = array(), $params = array(), $template = null)
     {
-        return $this->environment->render(
+        return $env->render(
             $template ?: $pagination->getSortableTemplate(),
             $this->processor->sortable($pagination, $title, $key, $options, $params)
         );
@@ -89,16 +82,18 @@ class PaginationExtension extends \Twig_Extension
      *
      * $key example: "article.title"
      *
-     * @param string $title
-     * @param string $key
-     * @param array $options
-     * @param array $params
-     * @param string $template
+     * @param \Twig_Environment $env
+     * @param SlidingPagination $pagination
+     * @param array             $fields
+     * @param array             $options
+     * @param array             $params
+     * @param string            $template
+     *
      * @return string
      */
-    public function filter($pagination, array $fields, $options = array(), $params = array(), $template = null)
+    public function filter(\Twig_Environment $env, SlidingPagination $pagination, array $fields, $options = array(), $params = array(), $template = null)
     {
-        return $this->environment->render(
+        return $env->render(
             $template ?: $pagination->getFiltrationTemplate(),
             $this->processor->filter($pagination, $fields, $options, $params)
         );

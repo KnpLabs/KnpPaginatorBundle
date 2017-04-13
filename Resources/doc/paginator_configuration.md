@@ -17,3 +17,8 @@ knp_paginator:
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 ```
 
+There are a few additional pagination templates, that could be used out of the box in `knp_paginator.template.pagination` key:
+
+* `KnpPaginatorBundle:Pagination:sliding.html.twig` (by default)
+* `KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig`
+* `KnpPaginatorBundle:Pagination:twitter_bootstrap_pagination.html.twig`
