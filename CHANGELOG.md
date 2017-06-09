@@ -1,3 +1,10 @@
+**v2.6** *(2017-06-09)*  
+- Drop support for unmaintained versions of symfony
+- Fix readme / doc
+- Add translations for id, it, lt, nl and sw
+- Improve pagination template for Semantic
+- Add support for Bootstrap 4 (alpha 6)
+
 **2013-01-19**
 - Removed Twig extenstion methods: `render()` & `sortable()`,
 - Pagination subscribers no longer depend on `request` scope.
