@@ -215,3 +215,8 @@ If you're too lazy you can also just extend the ```Knp\Bundle\PaginatorBundle\De
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
 [doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
+
+## Maintainers
+
+- [@NiR-](https://github.com/NiR-)
+- [@nicolasmure](https://github.com/nicolasmure)
