@@ -191,6 +191,12 @@ It defaults to ```knp_paginator```.
 The class that receives the KnpPaginator service must implement ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface```.
 If you're too lazy you can also just extend the ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAware``` base class.
 
+#### Lazy service
+
+The `knp_paginator` service will be created lazily if the package `ocramius/proxy-manager` is installed.
+
+For more information about lazy services, consult the [Symfony documentation on dependency injection](https://symfony.com/doc/current/service_container/lazy_services.html).
+
 ###### XML configuration example
 
 ```xml
