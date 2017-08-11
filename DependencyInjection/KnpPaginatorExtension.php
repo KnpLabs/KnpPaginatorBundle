@@ -46,5 +46,7 @@ class KnpPaginatorExtension extends Extension
             'filterValueParameterName' => $config['default_options']['filter_value_name'],
             'distinct' => $config['default_options']['distinct']
         )));
+
+        $paginatorDef->setLazy(true);
     }
 }
