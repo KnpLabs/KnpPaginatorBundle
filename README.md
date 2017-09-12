@@ -1,6 +1,6 @@
 # Intro to KnpPaginatorBundle
 
-**SEO** friendly Symfony2 paginator to paginate everything
+**SEO** friendly Symfony paginator to paginate everything
 
 [![Build Status](https://travis-ci.org/KnpLabs/KnpPaginatorBundle.svg?branch=master)](https://travis-ci.org/KnpLabs/KnpPaginatorBundle)
 
@@ -23,7 +23,7 @@ chapter of documentation.
 ## Requirements:
 
 - Knp pager component `>=1.1`
-- KnpPaginatorBundle's master compatible with symfony (`>=2.0` versions).
+- KnpPaginatorBundle's master compatible with symfony (`>=2.7` versions).
 - Twig`>=1.5` version is required if you use twig templating engine
 
 ## Features:
