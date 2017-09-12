@@ -109,8 +109,8 @@ The `knp_pagination_sortable()` template switch automatically the sorting direct
 You can add an array at the end of `knp_pagination_sortable()` to choose the direction.
 
 ``` html
-{{ knp_pagination_sortable(pagination, 'Title A-Z', 'a.title', {'direction': 'asc'}) }}
-{{ knp_pagination_sortable(pagination, 'Title Z-A', 'a.title', {'direction': 'desc'}) }}
+{{ knp_pagination_sortable(pagination, 'Title A-Z', 'a.title', {}, {'direction': 'asc'}) }}
+{{ knp_pagination_sortable(pagination, 'Title Z-A', 'a.title', {}, {'direction': 'desc'}) }}
 ```
 (Assuming you use the default configuration value of sort_direction_name)
 
