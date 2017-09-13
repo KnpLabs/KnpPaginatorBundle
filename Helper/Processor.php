@@ -84,14 +84,18 @@ class Processor
             'translationCount' => null,
         ), $options);
 
-        $hasFixedDirection = isset($params['direction']);
+
+        $hasFixedDirection = $pagination->getPaginatorOption('sortDirectionParameterName') !== null
+            && isset($params[$pagination->getPaginatorOption('sortDirectionParameterName')])
+        ;
+
         $params = array_merge($pagination->getParams(), $params);
 
         $direction = isset($options['defaultDirection']) ? $options['defaultDirection'] : 'asc';
-        if (isset($params['direction'])) {
-            $direction = $params['direction'];
-        } elseif ($pagination->getPaginatorOption('sortDirectionParameterName') !== null) {
-            if (isset($options[$pagination->getPaginatorOption('sortDirectionParameterName')])) {
+        if ($pagination->getPaginatorOption('sortDirectionParameterName') !== null) {
+            if (isset($params[$pagination->getPaginatorOption('sortDirectionParameterName')])) {
+                $direction = $params[$pagination->getPaginatorOption('sortDirectionParameterName')];
+            } elseif (isset($options[$pagination->getPaginatorOption('sortDirectionParameterName')])) {
                 $direction = $options[$pagination->getPaginatorOption('sortDirectionParameterName')];
             }
         }
