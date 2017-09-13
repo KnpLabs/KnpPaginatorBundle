@@ -84,9 +84,13 @@ class SlidingPagination extends AbstractPagination
         return array_merge($this->params, $additionalQueryParams);
     }
 
-    public function isSorted($key, array $params = array())
+    public function isSorted($key = null, array $params = array())
     {
         $params = array_merge($this->params, $params);
+
+        if ($key === null) {
+            return isset($params[$this->getPaginatorOption('sortFieldParameterName')]);
+        }
 
         return isset($params[$this->getPaginatorOption('sortFieldParameterName')]) && $params[$this->getPaginatorOption('sortFieldParameterName')] === $key;
     }
