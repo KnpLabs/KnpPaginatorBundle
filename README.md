@@ -35,8 +35,7 @@ chapter of documentation.
 pagination view - for representation purposes.
 
 **Note:** using multiple paginators requires setting the **alias** in order to keep non
-conflicting parameters. Also it gets quite complicated with a twig template, since hash arrays cannot use
-variables as keys.
+conflicting parameters.
 
 ## More detailed documentation:
 
