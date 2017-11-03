@@ -26,7 +26,7 @@ matrix:
   fast_finish: true
 
 before_script:
-  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update "symfony/symfony:${SYMFONY_VERSION}"; fi;
+  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update "symfony/framework-bundle:${SYMFONY_VERSION}"; fi;
   - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
   - composer install --dev
 
