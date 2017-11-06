@@ -14,7 +14,7 @@
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" />
+        <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" public="true" />
 
         <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">
             <tag name="knp_paginator.subscriber" />
