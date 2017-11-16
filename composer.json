@@ -23,7 +23,7 @@
     },
     "require-dev": {
         "symfony/expression-language": "~2.7|~3.0|~4.0",
-        "phpunit/phpunit": "~4.8|~5"
+        "phpunit/phpunit": "~4.8.35|~5.4.3|~6.4"
     },
     "autoload": {
         "psr-4": {
