@@ -3,6 +3,7 @@
 namespace Knp\Bundle\PaginatorBundle\Tests\DependencyInjection\Compiler;
 
 use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorAwarePass;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -10,7 +11,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Class PaginatorAwarePassTest
  */
-class PaginatorAwarePassTest extends \PHPUnit_Framework_TestCase
+class PaginatorAwarePassTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -27,7 +28,7 @@ class PaginatorAwarePassTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->container = $this->getMock('Symfony\Component\DependencyInjection\ContainerBuilder');
+        $this->container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerBuilder')->getMock();
         $this->pass      = new PaginatorAwarePass();
     }
 
