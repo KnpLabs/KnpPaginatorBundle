@@ -10,11 +10,11 @@
     </parameters>
 
     <services>
-        <service id="knp_paginator" class="%knp_paginator.class%">
+        <service id="knp_paginator" class="%knp_paginator.class%" public="true">
             <argument type="service" id="event_dispatcher" />
         </service>
 
-        <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" public="true" />
+        <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" />
 
         <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">
             <tag name="knp_paginator.subscriber" />
@@ -23,7 +23,7 @@
         <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
-        
+
         <service id="knp_paginator.subscriber.filtration" class="Knp\Component\Pager\Event\Subscriber\Filtration\FiltrationSubscriber">
             <tag name="knp_paginator.subscriber" />
         </service>
