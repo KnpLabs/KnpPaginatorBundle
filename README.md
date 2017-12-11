@@ -225,6 +225,24 @@ For more information about lazy services, consult the [Symfony documentation on 
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
 [doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
 
+## Troubleshooting
+
+- Make sure the translator is activated in your symfony config :
+ 
+```yaml
+framework:
+    translator: { fallbacks: ['%locale%'] }
+```
+
+- If your locale is not available, create your own translation file in
+`app/Resources/translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
+. Then add these lines:
+
+```yaml
+label_next: Next
+label_previous: Previous
+```
+
 ## Maintainers
 
 - [@NiR-](https://github.com/NiR-)
