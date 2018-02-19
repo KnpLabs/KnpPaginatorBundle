@@ -5,13 +5,13 @@
         {% if previous is defined %}
             <a class="pagination-previous" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% else %}
-            <a class="pagination-previous" disabled>Previous</a>
+            <a class="pagination-previous" disabled>{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% endif %}
 
         {% if next is defined %}
             <a class="pagination-next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% else %}
-            <a class="pagination-next" disabled>Next</a>
+            <a class="pagination-next" disabled>{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% endif %}
 
         <ul class="pagination-list">
