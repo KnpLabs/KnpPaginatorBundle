@@ -1,7 +1,17 @@
 {# bulma Sliding pagination control implementation #}
 
+{% set position = position|default('left') %}
+{% set rounded = rounded|default(false) %}
+{% set size = size|default(null) %}
+
+{% set classes = ['pagination'] %}
+
+{% if position != 'left' %}{% set classes = classes|merge(['is-' ~ position]) %}{% endif %}
+{% if rounded %}{% set classes = classes|merge(['is-rounded']) %}{% endif %}
+{% if size != null %}{% set classes = classes|merge(['is-' ~ size]) %}{% endif %}
+
 {% if pageCount > 1 %}
-    <nav class="pagination" role="navigation" aria-label="pagination">
+    <nav class="{{ classes|join(' ') }}" role="navigation" aria-label="pagination">
         {% if previous is defined %}
             <a class="pagination-previous" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% else %}
