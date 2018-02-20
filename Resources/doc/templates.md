@@ -153,3 +153,32 @@ Or even in Twig:
         ) }}
 ```
 
+## Customize rendering
+
+As seen above, it is possible to pass parameters to the view by using the 4th
+argument of `knp_pagination_render`. It means that you can customize the template
+rendering.
+
+At this moment, only Bulma template is customizable.
+
+### Bulma
+
+You can configure the position, the size, and make the buttons rounded or not:
+- `position`: `'left'`, `'centered'`, or `'right'`. By default it's `'left'` 
+- `size`: `'small'`, `'medium'`, or `'large'`. By default, size is not modified
+- `rounded`: `true` or `false`. By default it's `false`
+
+Here is an example:
+
+```twig
+{{ knp_pagination_render(
+    pagination,
+    null,
+    {},  
+    {
+       'position': 'centered',
+       'size': 'large'
+       'rounded': true,
+    }
+) }}
+```
