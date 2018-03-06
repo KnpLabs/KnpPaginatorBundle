@@ -153,3 +153,29 @@ Or even in Twig:
         ) }}
 ```
 
+## Customize rendering
+
+### Bulma
+
+You can configure the position, the size, and make the buttons rounded or not:
+- `position`: `'left'`, `'centered'`, or `'right'`. By default it's `'left'` 
+- `size`: `'small'`, `'medium'`, or `'large'`. By default, size is not modified
+- `rounded`: `true` or `false`. By default it's `false`
+
+In your controller:
+```php
+$pagination->setCustomParameters([
+    'position' => 'centered',
+    'size' => 'large',
+    'rounded' => true,
+]);
+```
+
+or in the view:
+```twig
+{{ knp_pagination_render(pagination, null, {}, {
+   'position': 'centered',
+   'size': 'large'
+   'rounded': true,
+}) }}
+```
