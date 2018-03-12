@@ -9,8 +9,8 @@
 
 <a{% for attr, value  in options %} {{ attr }}="{{ value }}"{% endfor %} style="color: #000;">
     <span class="pull-right">
-        {% if app.request.get('sort') == key %}
-            {% if app.request.get('direction') == 'desc' %}
+        {% if sorted %}
+            {% if direction == 'desc' %}
                 <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
             {% else %}
                 <i class="glyphicon glyphicon-sort-by-attributes"></i>
