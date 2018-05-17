@@ -88,6 +88,10 @@ class SlidingPagination extends AbstractPagination
     {
         $params = array_merge($this->params, $params);
 
+        if(is_array($key)) {
+            $key = implode('+', $key);
+        }
+
         if ($key === null) {
             return isset($params[$this->getPaginatorOption('sortFieldParameterName')]);
         }
