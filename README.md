@@ -96,6 +96,7 @@ There are a few additional pagination templates, that could be used out of the b
 * `@KnpPaginator/Pagination/foundation_v5_pagination.html.twig`
 * `@KnpPaginator/Pagination/bulma_pagination.html.twig`
 * `@KnpPaginator/Pagination/semantic_ui_pagination.html.twig`
+* `@KnpPaginator/Pagination/materialize_pagination.html.twig`
 
 
 ## Usage examples:
