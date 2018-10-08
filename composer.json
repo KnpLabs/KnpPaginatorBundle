@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php":                      ">=5.3.3",
+        "php":                      ">=5.4.0",
         "symfony/framework-bundle": "~2.7|~3.0|~4.0",
         "knplabs/knp-components":   "~1.2",
         "twig/twig":                "~1.12|~2"

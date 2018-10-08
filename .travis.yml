@@ -12,8 +12,6 @@ php:
 
 matrix:
   include:
-    - php: 5.3
-      dist: precise
     - php: 5.6
       env: SYMFONY_VERSION='2.7.*'
     - php: 5.6
