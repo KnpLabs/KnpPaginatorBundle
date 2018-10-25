@@ -1,20 +1,55 @@
-**v2.6** *(2017-06-09)*  
+# 2.7.0
+*Released at 2017-12-01*
+
+## New features
+- Symfony 4 support
+- Prevent warning in Symfony 3.3 DI
+- Twitter bootstrap 4 alignment
+- Twitter bootstrap 3 sortable links
+- PHPUnit 6 compatibility
+- Added translations
+  - Danish
+  - Hungarian
+  - Persian
+  - Swedish
+  
+## Changes
+- The knp_paginator service is now marked as lazy
+- Use paginator option for direction parameter name
+- Allow isSorted() to have no arguments
+- Use modern twig namespace notation
+
+## Bugfixes
+- Fix invalid index
+- Various documentation fixes
+- Running tests against PHP 5.3
+
+# 2.6
+*Released at 2017-06-09*
+
 - Drop support for unmaintained versions of symfony
 - Fix readme / doc
 - Add translations for id, it, lt, nl and sw
 - Improve pagination template for Semantic
 - Add support for Bootstrap 4 (alpha 6)
 
-**2013-01-19**
+# 2.5.4
+*Released at 2017-03-21*
+
+## New features
+- Added bulma css paginator template
+
+# 2013-01-19
+
 - Removed Twig extenstion methods: `render()` & `sortable()`,
 - Pagination subscribers no longer depend on `request` scope.
 
-**2012-07-06**
+# 2012-07-06
 
 - Added method `isSorted` to the `SlidingPagination` to enable views to know if
 a given column is currently sorted.
 
-**2012-03-23**
+# 2012-03-23
 
 - Changed the behavior of customization for query parameters. Etc. now there is no more **alias**
 for paginations. Instead it will use organized parameter names, which can be set for each pagination
@@ -26,21 +61,21 @@ make sure you use **twig at least version 1.5**
 - If you do not wish to migrate to these new changes. Checkout paginator bundle at **v2.1** tag and
 komponents at **v1.0**
 
-**2012-03-02**
+# 2012-03-02
 
 - Added support for [Solarium](http://solarium-project.org), a PHP library that handles [Solr](http://lucene.apache.org/solr/) search.
 
-**2011-12-16**
+# 2011-12-16
 
 - Joined **count** and **items** events into one **items** which now populates
 count and item result on event. This way it is more straightforward and cleaner
 
-**2011-12-09**
+# 2011-12-09
 
 - Changed event names to more distinctive. Using main symfony event dispatcher service.
 - Optimazed event properties for usage by reference
 
-**2011-12-05**
+# 2011-12-05
 
 - Recently there was a change in repository vendor name: **knplabs** --> **KnpLabs**
 be sure to update your remotes accordingly. etc: github.com/**knplabs**/KnpPaginatorBundle.git
