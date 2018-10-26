@@ -1,32 +1,32 @@
 # 2.8.0
 *Released at 2018-05-16*
 
-## New features
+### New features
 - Updated Bulma pagination template for version 0.6.x
 - Added Ukrainian translation
 - Added size option for Bootstrap v4
 
-## Bugfixes
+### Bugfixes
 - Add PHP 7.2 to test matrix
 - Some `README.md` fixes
 
 # 2.7.2
 *Released at 2018-01-30*
 
-## New features
+### New features
 - Added Arabic translation and documentation about translation troubleshooting
 - Added Brazilian Portuguese translation
 
 # 2.7.1
 *Released at 2017-12-01*
 
-## Bugfixes
+### Bugfixes
 - the `knp_paginator` service is now really marked as public #462
 
 # 2.7.0
 *Released at 2017-12-01*
 
-## New features
+### New features
 - Symfony 4 support
 - Prevent warning in Symfony 3.3 DI
 - Twitter bootstrap 4 alignment
@@ -38,13 +38,13 @@
   - Persian
   - Swedish
   
-## Changes
+### Changes
 - The `knp_paginator` service is now marked as lazy
 - Use paginator option for direction parameter name
 - Allow `isSorted()` to have no arguments
 - Use modern twig namespace notation
 
-## Bugfixes
+### Bugfixes
 - Fix invalid index
 - Various documentation fixes
 - Running tests against PHP 5.3
@@ -61,36 +61,36 @@
 # 2.5.4
 *Released at 2017-03-21*
 
-## New features
+### New features
 - Added bulma css paginator template
 
 # 2.5.3
 *Released at 2016-04-20*
-## Bugfixes
+### Bugfixes
 - Regression was introduced
 
 # 2.5.2
 *Released at 2016-04-20*
 
-## Bugfixes
+### Bugfixes
 - Updated composer dev version
 
 # 2.5.1
 *Released at 2015-11-23*
 
-## New features
+### New features
 - Symfony 3 and Twig 2 compatibility
 
 # 2.5.0
 *Released at 2015-09-17*
 
-## New features
+### New features
 - Added Foundation 5 Sliding pagination control implementation template
 
 # 2.4.2
 *Released at 2015-06-09*
 
-# New features
+### New features
 - Uses more relevant method to get current page value
 
 # 2.4.1
@@ -102,7 +102,7 @@
 # 2.3.3
 *Released at 2013-07-30*
 
-## New features
+### New features
 - Added twitter bootstrap3 support
 - Improved `README.md`
 
