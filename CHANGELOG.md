@@ -1,3 +1,9 @@
+# 2.7.1
+*Released at 2017-12-01*
+
+## Bugfixes
+- the `knp_paginator` service is now really marked as public #462
+
 # 2.7.0
 *Released at 2017-12-01*
 
@@ -14,9 +20,9 @@
   - Swedish
   
 ## Changes
-- The knp_paginator service is now marked as lazy
+- The `knp_paginator` service is now marked as lazy
 - Use paginator option for direction parameter name
-- Allow isSorted() to have no arguments
+- Allow `isSorted()` to have no arguments
 - Use modern twig namespace notation
 
 ## Bugfixes
