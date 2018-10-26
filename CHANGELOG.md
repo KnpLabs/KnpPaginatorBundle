@@ -1,3 +1,10 @@
+# 2.7.2
+*Released at 2018-01-30*
+
+## New features
+- Added Arabic translation and documentation about translation troubleshooting
+- Added Brazilian Portuguese translation
+
 # 2.7.1
 *Released at 2017-12-01*
 
