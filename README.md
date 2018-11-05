@@ -82,12 +82,13 @@ knp_paginator:
         filter_field_name: filterField  # filter field query parameter name
         filter_value_name: filterValue  # filter value query parameter name
     template:                                        
-        pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template                                    
+        pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template         
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template                                
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
 ```
 
-There are a few additional pagination templates, that could be used out of the box in `knp_paginator.template.pagination` key:
+#### Additional pagination templates
+That could be used out of the box in `knp_paginator.template.pagination` key:
 
 * `@KnpPaginator/Pagination/sliding.html.twig` (by default)
 * `@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig`
@@ -98,6 +99,12 @@ There are a few additional pagination templates, that could be used out of the b
 * `@KnpPaginator/Pagination/semantic_ui_pagination.html.twig`
 * `@KnpPaginator/Pagination/materialize_pagination.html.twig`
 
+#### Additional sortable templates
+That could be used out of the box in `knp_paginator.template.sortable` key:
+
+* `@KnpPaginator/Pagination/sortable_link.html.twig` (by default)
+* `@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig`
+* `@KnpPaginator/Pagination/font_awesome_sortable_link.html.twig`
 
 ## Usage examples:
 
