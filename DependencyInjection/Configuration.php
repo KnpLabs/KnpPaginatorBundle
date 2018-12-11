@@ -9,9 +9,11 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder();
+        $treeBuilder = new TreeBuilder('knp_paginator');
+        // BC layer for symfony/config < 4.2
+        $rootNode = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('knp_paginator');
 
-        $builder->root('knp_paginator')
+        $rootNode
             ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('default_options')
