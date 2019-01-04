@@ -176,7 +176,7 @@ or in the view:
 ```twig
 {{ knp_pagination_render(pagination, null, {}, {
    'position': 'centered',
-   'size': 'large'
+   'size': 'large',
    'rounded': true,
 }) }}
 ```
