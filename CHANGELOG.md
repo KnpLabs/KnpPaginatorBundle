@@ -1,3 +1,23 @@
+# 3.0.0
+
+*Released at 2019-02-28*
+
+### BC Breaks
+- Drop support for EOL PHP versions (`5.4` and `5.5`)
+
+### New features
+- Added Japanese translation
+- Added Czech translation
+- Added Norwegian translation
+- Added Materialize template
+- Added font awesome sortable filters
+
+### Bugfixes
+- Fix README typos
+- Require symfony/translation explicitly
+- Avoid deprecation warning when using symfony/config >= 4.2
+- Improve Bootstrap 3 template
+
 # 2.8.0
 *Released at 2018-05-16*
 
