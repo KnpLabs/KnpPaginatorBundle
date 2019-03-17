@@ -12,7 +12,7 @@ internal logic on the given documentation link.
 
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use
 older version of KnpPaginatorBundle - use **v1.0** tag in the repository which is
-suitable to paginate **ODM mongodb** and **ORM 2.0** queries
+suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
 
 ## Latest updates
 
@@ -22,13 +22,13 @@ chapter of documentation.
 
 ## Requirements:
 
-- Knp pager component `>=1.1`
-- KnpPaginatorBundle's master compatible with symfony (`>=2.7` versions).
-- Twig`>=1.5` version is required if you use twig templating engine
+- Knp Pager component `>=1.1`.
+- KnpPaginatorBundle's master compatible with Symfony `>=2.7` versions.
+- Twig `>=1.5` version is required if you use twig templating engine.
 
 ## Features:
 
-- Does not require initializing specific adapters
+- Does not require initializing specific adapters.
 - Can be customized in any way needed, etc.: pagination view, event subscribers.
 - Possibility to add custom filtering, sorting functionality depending on request parameters.
 - Separation of concerns, paginator is responsible for generating the pagination view only,
@@ -45,7 +45,7 @@ conflicting parameters.
 
 ## Installation and configuration:
 
-Pretty simple with [Composer](http://packagist.org), run:
+### Pretty simple with [Composer](http://packagist.org), run
 
 ```sh
 composer require knplabs/knp-paginator-bundle
@@ -119,7 +119,7 @@ Currently paginator can paginate:
 - `Doctrine\ODM\MongoDB\Query\Builder`
 - `Doctrine\ODM\PHPCR\Query\Query`
 - `Doctrine\ODM\PHPCR\Query\Builder\QueryBuilder`
-- `Doctrine\Common\Collection\ArrayCollection` - any doctrine relation collection including
+- `Doctrine\Common\Collection\ArrayCollection` - any Doctrine relation collection including
 - `ModelCriteria` - Propel ORM query
 - array with `Solarium_Client` and `Solarium_Query_Select` as elements
 
@@ -135,8 +135,8 @@ public function listAction(Request $request)
     $paginator  = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
         $query, /* query NOT result */
-        $request->query->getInt('page', 1)/*page number*/,
-        10/*limit per page*/
+        $request->query->getInt('page', 1), /*page number*/
+        10 /*limit per page*/
     );
 
     // parameters to template
@@ -152,21 +152,21 @@ public function listAction(Request $request)
     {{ pagination.getTotalItemCount }}
 </div>
 <table>
-<tr>
-{# sorting of properties based on query components #}
-    <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
-    <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
-    <th>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</th>
-</tr>
+    <tr>
+        {# sorting of properties based on query components #}
+        <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</th>
+    </tr>
 
-{# table body #}
-{% for article in pagination %}
-<tr {% if loop.index is odd %}class="color"{% endif %}>
-    <td>{{ article.id }}</td>
-    <td>{{ article.title }}</td>
-    <td>{{ article.date | date('Y-m-d') }}, {{ article.time | date('H:i:s') }}</td>
-</tr>
-{% endfor %}
+    {# table body #}
+    {% for article in pagination %}
+        <tr {% if loop.index is odd %}class="color"{% endif %}>
+            <td>{{ article.id }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.date | date('Y-m-d') }}, {{ article.time | date('H:i:s') }}</td>
+        </tr>
+    {% endfor %}
 </table>
 {# display navigation #}
 <div class="navigation">
@@ -184,14 +184,13 @@ translationCount and translationParameters can be combined.
 ```jinja
 <table>
     <tr>
-{# sorting of properties based on query components #}
+       {# sorting of properties based on query components #}
        <th>{{ knp_pagination_sortable(pagination, 'Id'|trans({foo:'bar'},'messages'), 'a.id' )|raw }}</th>
        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title')|raw }}</th>
        <th>{{ knp_pagination_sortable(pagination, 'Author'|trans({}, 'messages'), 'a.author' )|raw }}</th>
     </tr>
 
-<!-- Content of the table -->
-
+    <!-- Content of the table -->
 </table>
 ```
 
@@ -237,7 +236,7 @@ For more information about lazy services, consult the [Symfony documentation on 
 
 ## Troubleshooting
 
-- Make sure the translator is activated in your symfony config :
+- Make sure the translator is activated in your symfony config:
  
 ```yaml
 framework:
