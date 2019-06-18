@@ -4,7 +4,7 @@ namespace Knp\Bundle\PaginatorBundle\Pagination;
 
 use Knp\Component\Pager\Pagination\AbstractPagination;
 
-class SlidingPagination extends AbstractPagination
+final class SlidingPagination extends AbstractPagination
 {
     private $route;
     private $params;
@@ -18,7 +18,7 @@ class SlidingPagination extends AbstractPagination
         $this->params = $params;
     }
 
-    public function setUsedRoute($route)
+    public function setUsedRoute($route): void
     {
         $this->route = $route;
     }
@@ -28,7 +28,7 @@ class SlidingPagination extends AbstractPagination
         return $this->route;
     }
 
-    public function setSortableTemplate($template)
+    public function setSortableTemplate($template): void
     {
         $this->sortableTemplate = $template;
     }
@@ -38,7 +38,7 @@ class SlidingPagination extends AbstractPagination
         return $this->sortableTemplate;
     }
 
-    public function setFiltrationTemplate($template)
+    public function setFiltrationTemplate($template): void
     {
         $this->filtrationTemplate = $template;
     }
@@ -48,7 +48,7 @@ class SlidingPagination extends AbstractPagination
         return $this->filtrationTemplate;
     }
 
-    public function setParam($name, $value)
+    public function setParam($name, $value): void
     {
         $this->params[$name] = $value;
     }
@@ -58,7 +58,7 @@ class SlidingPagination extends AbstractPagination
         return $this->params;
     }
 
-    public function setTemplate($template)
+    public function setTemplate($template): void
     {
         $this->template = $template;
     }
@@ -68,27 +68,28 @@ class SlidingPagination extends AbstractPagination
         return $this->template;
     }
 
-    public function setPageRange($range)
+    public function setPageRange($range): void
     {
-        $this->pageRange = abs(intval($range));
+        $this->pageRange = \abs((int) $range);
     }
 
     /**
-     * Get url query with all parameters
+     * Get url query with all parameters.
      *
      * @param array $additionalQueryParams
+     *
      * @return array - list of query parameters
      */
-    public function getQuery(array $additionalQueryParams = array())
+    public function getQuery(array $additionalQueryParams = [])
     {
-        return array_merge($this->params, $additionalQueryParams);
+        return \array_merge($this->params, $additionalQueryParams);
     }
 
-    public function isSorted($key = null, array $params = array())
+    public function isSorted($key = null, array $params = [])
     {
-        $params = array_merge($this->params, $params);
+        $params = \array_merge($this->params, $params);
 
-        if ($key === null) {
+        if (null === $key) {
             return isset($params[$this->getPaginatorOption('sortFieldParameterName')]);
         }
 
@@ -97,28 +98,28 @@ class SlidingPagination extends AbstractPagination
 
     public function getPage()
     {
-        if (array_key_exists($this->getPaginatorOption('pageParameterName'), $this->params)) {
+        if (\array_key_exists($this->getPaginatorOption('pageParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('pageParameterName')];
         }
-    
+
         return null;
     }
 
     public function getSort()
     {
-        if (array_key_exists($this->getPaginatorOption('sortFieldParameterName'), $this->params)) {
+        if (\array_key_exists($this->getPaginatorOption('sortFieldParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('sortFieldParameterName')];
         }
-    
+
         return null;
     }
 
     public function getDirection()
     {
-        if (array_key_exists($this->getPaginatorOption('sortDirectionParameterName'), $this->params)) {
+        if (\array_key_exists($this->getPaginatorOption('sortDirectionParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
         }
-    
+
         return null;
     }
 
@@ -135,45 +136,45 @@ class SlidingPagination extends AbstractPagination
             $this->pageRange = $pageCount;
         }
 
-        $delta = ceil($this->pageRange / 2);
+        $delta = \ceil($this->pageRange / 2);
 
         if ($current - $delta > $pageCount - $this->pageRange) {
-            $pages = range($pageCount - $this->pageRange + 1, $pageCount);
+            $pages = \range($pageCount - $this->pageRange + 1, $pageCount);
         } else {
             if ($current - $delta < 0) {
                 $delta = $current;
             }
 
             $offset = $current - $delta;
-            $pages = range($offset + 1, $offset + $this->pageRange);
+            $pages = \range($offset + 1, $offset + $this->pageRange);
         }
 
-        $proximity = floor($this->pageRange / 2);
+        $proximity = \floor($this->pageRange / 2);
 
-        $startPage  = $current - $proximity;
-        $endPage    = $current + $proximity;
+        $startPage = $current - $proximity;
+        $endPage = $current + $proximity;
 
         if ($startPage < 1) {
-            $endPage = min($endPage + (1 - $startPage), $pageCount);
+            $endPage = \min($endPage + (1 - $startPage), $pageCount);
             $startPage = 1;
         }
 
         if ($endPage > $pageCount) {
-            $startPage = max($startPage - ($endPage - $pageCount), 1);
+            $startPage = \max($startPage - ($endPage - $pageCount), 1);
             $endPage = $pageCount;
         }
 
-        $viewData = array(
-            'last'              => $pageCount,
-            'current'           => $current,
-            'numItemsPerPage'   => $this->numItemsPerPage,
-            'first'             => 1,
-            'pageCount'         => $pageCount,
-            'totalCount'        => $this->totalCount,
-            'pageRange'         => $this->pageRange,
-            'startPage'         => $startPage,
-            'endPage'           => $endPage
-        );
+        $viewData = [
+            'last' => $pageCount,
+            'current' => $current,
+            'numItemsPerPage' => $this->numItemsPerPage,
+            'first' => 1,
+            'pageCount' => $pageCount,
+            'totalCount' => $this->totalCount,
+            'pageRange' => $this->pageRange,
+            'startPage' => $startPage,
+            'endPage' => $endPage,
+        ];
 
         if ($current > 1) {
             $viewData['previous'] = $current - 1;
@@ -184,10 +185,10 @@ class SlidingPagination extends AbstractPagination
         }
 
         $viewData['pagesInRange'] = $pages;
-        $viewData['firstPageInRange'] = min($pages);
-        $viewData['lastPageInRange']  = max($pages);
+        $viewData['firstPageInRange'] = \min($pages);
+        $viewData['lastPageInRange'] = \max($pages);
 
-        if ($this->getItems() !== null) {
+        if (null !== $this->getItems()) {
             $viewData['currentItemCount'] = $this->count();
             $viewData['firstItemNumber'] = 0;
             $viewData['lastItemNumber'] = 0;
@@ -199,10 +200,10 @@ class SlidingPagination extends AbstractPagination
 
         return $viewData;
     }
-    
+
     public function getPageCount()
     {
-        return intval(ceil($this->totalCount / $this->numItemsPerPage));
+        return (int) (\ceil($this->totalCount / $this->numItemsPerPage));
     }
 
     public function getPaginatorOptions()

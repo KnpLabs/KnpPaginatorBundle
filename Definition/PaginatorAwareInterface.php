@@ -5,7 +5,7 @@ namespace Knp\Bundle\PaginatorBundle\Definition;
 use Knp\Component\Pager\Paginator;
 
 /**
- * Interface PaginatorAwareInterface
+ * Interface PaginatorAwareInterface.
  *
  * PaginatorAwareInterface should be implemented by classes that depend on a KnpPaginator service.
  */

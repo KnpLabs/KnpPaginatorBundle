@@ -1,31 +1,25 @@
 language: php
 
-dist: trusty
-
 php:
-  - 5.6
-  - 7.0
   - 7.1
   - 7.2
   - 7.3
+    - 7.4snapshot
+    - nightly
 
 matrix:
   include:
-    - php: 5.6
-      env: SYMFONY_VERSION='2.7.*'
-    - php: 5.6
-      env: SYMFONY_VERSION='2.8.*'
-    - php: 7.0
-      env: SYMFONY_VERSION='3.3.*'
     - php: 7.1
       env: DEPENDENCIES='dev' SYMFONY_VERSION='3.4.*@dev'
     - php: 7.1
-      env: DEPENDENCIES='dev' SYMFONY_VERSION='4.0.*'
+      env: DEPENDENCIES='dev' SYMFONY_VERSION='4.2.*'
     - php: 7.2
-      env: DEPENDENCIES='dev' SYMFONY_VERSION='4.0.*'
+      env: DEPENDENCIES='dev' SYMFONY_VERSION='4.2.*'
     - php: 7.3
-      env: DEPENDENCIES='dev' SYMFONY_VERSION='4.0.*'
+      env: DEPENDENCIES='dev' SYMFONY_VERSION='4.3.*'
   fast_finish: true
+  allow_failures:
+    - php: nightly
 
 before_script:
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update "symfony/framework-bundle:${SYMFONY_VERSION}"; fi;

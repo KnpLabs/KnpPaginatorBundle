@@ -9,9 +9,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
- * Class PaginatorAwarePassTest
+ * Class PaginatorAwarePassTest.
  */
-class ConfigurationTest extends TestCase
+final class ConfigurationTest extends TestCase
 {
     /**
      * @var Configuration
@@ -23,13 +23,13 @@ class ConfigurationTest extends TestCase
      */
     private $processor;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->configuration = new Configuration();
         $this->processor = new Processor();
     }
 
-    public function testDefaultConfig()
+    public function testDefaultConfig(): void
     {
         $treeBuilder = $this->configuration->getConfigTreeBuilder();
         $config = $this->processor->processConfiguration($this->configuration, []);
@@ -54,7 +54,7 @@ class ConfigurationTest extends TestCase
         ], $config);
     }
 
-    public function testCustomConfig()
+    public function testCustomConfig(): void
     {
         $treeBuilder = $this->configuration->getConfigTreeBuilder();
 
@@ -74,7 +74,7 @@ class ConfigurationTest extends TestCase
             ],
             'page_range' => 15,
         ];
-        $config = $this->processor->processConfiguration($this->configuration, ['knp_paginator'=> $expected]);
+        $config = $this->processor->processConfiguration($this->configuration, ['knp_paginator' => $expected]);
 
         $this->assertInstanceOf(ConfigurationInterface::class, $this->configuration);
         $this->assertInstanceOf(TreeBuilder::class, $treeBuilder);
