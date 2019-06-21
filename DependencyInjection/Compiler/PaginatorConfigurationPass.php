@@ -6,14 +6,14 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass;
 
-class PaginatorConfigurationPass implements CompilerPassInterface
+final class PaginatorConfigurationPass implements CompilerPassInterface
 {
     /**
-     * Populate the listener service ids
+     * Populate the listener service ids.
      *
      * @param ContainerBuilder $container
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         // use main symfony dispatcher
         if (!$container->hasDefinition('event_dispatcher') && !$container->hasAlias('event_dispatcher')) {

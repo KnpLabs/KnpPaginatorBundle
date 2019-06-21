@@ -4,14 +4,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="knp_paginator.class">Knp\Component\Pager\Paginator</parameter>
-        <parameter key="knp_paginator.helper.processor.class">Knp\Bundle\PaginatorBundle\Helper\Processor</parameter>
-    </parameters>
-
     <services>
-        <service id="knp_paginator" class="%knp_paginator.class%" public="true">
+        <service id="knp_paginator" class="Knp\Component\Pager\Paginator" public="true">
             <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="request_stack" />
         </service>
 
         <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" />
@@ -39,7 +35,7 @@
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
 
-        <service id="knp_paginator.helper.processor" class="%knp_paginator.helper.processor.class%">
+        <service id="knp_paginator.helper.processor" class="Knp\Bundle\PaginatorBundle\Helper\Processor">
             <argument type="service" id="router" />
             <argument type="service" id="translator" />
         </service>
