@@ -11,7 +11,7 @@ internal logic on the given documentation link.
 [![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
 
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use
-older version of KnpPaginatorBundle - use **v1.0** tag in the repository which is
+older version of KnpPaginatorBundle - use **v3.0** tag in the repository which is
 suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
 
 ## Latest updates
@@ -22,9 +22,9 @@ chapter of documentation.
 
 ## Requirements:
 
-- Knp Pager component `>=1.1`.
-- KnpPaginatorBundle's master compatible with Symfony `>=2.7` versions.
-- Twig `>=1.5` version is required if you use twig templating engine.
+- Knp Pager component `>=1.3`.
+- KnpPaginatorBundle's master compatible with Symfony `>=3.4` versions.
+- Twig `>=2.0` version is required if you use twig templating engine.
 
 ## Features:
 
@@ -53,15 +53,17 @@ composer require knplabs/knp-paginator-bundle
 
 ### Add PaginatorBundle to your application kernel
 
+If you don't use flex (you should), you need to manually enable bundle:
+
 ```php
 // app/AppKernel.php
 public function registerBundles()
 {
-    return array(
+    return [
         // ...
         new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         // ...
-    );
+    ];
 }
 ```
 
@@ -105,6 +107,7 @@ That could be used out of the box in `knp_paginator.template.sortable` key:
 * `@KnpPaginator/Pagination/sortable_link.html.twig` (by default)
 * `@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig`
 * `@KnpPaginator/Pagination/font_awesome_sortable_link.html.twig`
+* `@KnpPaginator/Pagination/semantic_ui_sortable_link.html.twig`
 
 ## Usage examples:
 
@@ -124,7 +127,7 @@ Currently paginator can paginate:
 - array with `Solarium_Client` and `Solarium_Query_Select` as elements
 
 ```php
-// Acme\MainBundle\Controller\ArticleController.php
+// App\Controller\ArticleController.php
 
 public function listAction(Request $request)
 {
@@ -140,7 +143,7 @@ public function listAction(Request $request)
     );
 
     // parameters to template
-    return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
+    return $this->render('article/list.html.twig', ['pagination' => $pagination]);
 }
 ```
 
@@ -256,3 +259,4 @@ label_previous: Previous
 
 - [@NiR-](https://github.com/NiR-)
 - [@nicolasmure](https://github.com/nicolasmure)
+- [@garak](https://github.com/garak)
