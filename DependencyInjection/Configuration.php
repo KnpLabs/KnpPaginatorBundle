@@ -5,13 +5,13 @@ namespace Knp\Bundle\PaginatorBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('knp_paginator');
         // BC layer for symfony/config < 4.2
-        $rootNode = method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('knp_paginator');
+        $rootNode = \method_exists($treeBuilder, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('knp_paginator');
 
         $rootNode
             ->addDefaultsIfNotSet()
@@ -46,6 +46,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+
         return $treeBuilder;
     }
 }

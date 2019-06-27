@@ -4,14 +4,13 @@ namespace Knp\Bundle\PaginatorBundle\Tests\DependencyInjection\Compiler;
 
 use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorAwarePass;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class PaginatorAwarePassTest
+ * Class PaginatorAwarePassTest.
  */
-class PaginatorAwarePassTest extends TestCase
+final class PaginatorAwarePassTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -24,28 +23,28 @@ class PaginatorAwarePassTest extends TestCase
     public $pass;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerBuilder')->getMock();
-        $this->pass      = new PaginatorAwarePass();
+        $this->pass = new PaginatorAwarePass();
     }
 
-    public function testCorrectPassProcess()
+    public function testCorrectPassProcess(): void
     {
-        $tagged = array(
-            'tag.one' => array('paginator' => 'knp.paginator')
-        );
+        $tagged = [
+            'tag.one' => ['paginator' => 'knp.paginator'],
+        ];
 
-        $classes = array(
-            'tag.one' => 'Knp\Bundle\PaginatorBundle\Definition\PaginatorAware'
-        );
+        $classes = [
+            'tag.one' => 'Knp\Bundle\PaginatorBundle\Definition\PaginatorAware',
+        ];
 
         $definition = $this->setUpContainerMock('tag.one', $tagged, $classes);
 
         $tested = clone $definition;
-        $tested->addMethodCall('setPaginator', array(new Reference('knp.paginator')));
+        $tested->addMethodCall('setPaginator', [new Reference('knp.paginator')]);
 
         $this->container
             ->expects($this->once())
@@ -56,37 +55,35 @@ class PaginatorAwarePassTest extends TestCase
         $this->pass->process($this->container);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Service "tag.one" must implement interface "Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface".
-     */
-    public function testExceptionWrongInterface()
+    public function testExceptionWrongInterface(): void
     {
-        $tagged = array(
-            'tag.one' => array('paginator' => 'knp.paginator')
-        );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Service "tag.one" must implement interface "Knp\\Bundle\\PaginatorBundle\\Definition\\PaginatorAwareInterface".');
 
-        $classes = array(
-            'tag.one' => 'Knp\Bundle\PaginatorBundle\Helper\Processor'
-        );
+        $tagged = [
+            'tag.one' => ['paginator' => 'knp.paginator'],
+        ];
+
+        $classes = [
+            'tag.one' => 'Knp\Bundle\PaginatorBundle\Helper\Processor',
+        ];
 
         $this->setUpContainerMock('tag.one', $tagged, $classes, true, true);
         $this->pass->process($this->container);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException
-     * @expectedExceptionMessage Paginator service "INVALID" for tag "knp_paginator.injectable" on service "tag.one" could not be found.
-     */
-    public function testExceptionNoPaginator()
+    public function testExceptionNoPaginator(): void
     {
-        $tagged = array(
-            'tag.one' => array('paginator' => 'INVALID')
-        );
+        $this->expectException(\Symfony\Component\Config\Definition\Exception\InvalidDefinitionException::class);
+        $this->expectExceptionMessage('Paginator service "INVALID" for tag "knp_paginator.injectable" on service "tag.one" could not be found.');
 
-        $classes = array(
-            'tag.one' => 'Knp\Bundle\PaginatorBundle\Definition\PaginatorAware'
-        );
+        $tagged = [
+            'tag.one' => ['paginator' => 'INVALID'],
+        ];
+
+        $classes = [
+            'tag.one' => 'Knp\Bundle\PaginatorBundle\Definition\PaginatorAware',
+        ];
 
         $this->setUpContainerMock('tag.one', $tagged, $classes, false);
         $this->pass->process($this->container);
@@ -100,14 +97,14 @@ class PaginatorAwarePassTest extends TestCase
             ->expects($this->once())
             ->method('findTaggedServiceIds')
             ->with(PaginatorAwarePass::PAGINATOR_AWARE_TAG)
-            ->will($this->returnValue($services))
+            ->willReturn($services)
         ;
 
         $this->container
             ->expects($this->once())
             ->method('getDefinition')
             ->with($id)
-            ->will($this->returnValue($definition))
+            ->willReturn($definition)
         ;
 
         if (!$exception) {
@@ -115,7 +112,7 @@ class PaginatorAwarePassTest extends TestCase
                 ->expects($this->once())
                 ->method('has')
                 ->with($services[$id]['paginator'])
-                ->will($this->returnValue($return))
+                ->willReturn($return)
             ;
         }
 

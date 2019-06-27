@@ -5,11 +5,11 @@ namespace Knp\Bundle\PaginatorBundle\Definition;
 use Knp\Component\Pager\Paginator;
 
 /**
- * Class PaginatorAware
+ * Class PaginatorAware.
  *
  * This is a base class that can be extended if you're too lazy to implement PaginatorAwareInterface yourself.
  */
-class PaginatorAware implements PaginatorAwareInterface
+final class PaginatorAware implements PaginatorAwareInterface
 {
     /**
      * @var Paginator

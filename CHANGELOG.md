@@ -1,3 +1,12 @@
+# 4.0.0
+
+*Still to be released*
+
+- Drop support for EOL PHP versions (`5.6` and `7.0`)
+- Drop support for EOL Symfony versions (`2.*` and `3.*` before `3.4`)
+- Drop support for Twig 1 (and fix deprecation for Twig 2)
+- Add support for knp-components 2
+
 # 3.0.0
 
 *Released at 2019-02-28*

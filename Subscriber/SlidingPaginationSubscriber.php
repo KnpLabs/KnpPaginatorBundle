@@ -2,16 +2,16 @@
 
 namespace Knp\Bundle\PaginatorBundle\Subscriber;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Knp\Component\Pager\Event\PaginationEvent;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Component\Pager\Event\PaginationEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class SlidingPaginationSubscriber implements EventSubscriberInterface
+final class SlidingPaginationSubscriber implements EventSubscriberInterface
 {
     private $route;
-    private $params = array();
+    private $params = [];
     private $options;
 
     public function __construct(array $options)
@@ -19,7 +19,7 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         $this->options = $options;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             return;
@@ -28,15 +28,15 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $this->route = $request->attributes->get('_route');
-        $this->params = array_merge($request->query->all(), $request->attributes->get('_route_params', array()));
+        $this->params = \array_merge($request->query->all(), $request->attributes->get('_route_params', []));
         foreach ($this->params as $key => $param) {
-            if (substr($key, 0, 1) == '_') {
+            if ('_' == \substr($key, 0, 1)) {
                 unset($this->params[$key]);
             }
         }
     }
 
-    public function pagination(PaginationEvent $event)
+    public function pagination(PaginationEvent $event): void
     {
         // default sort field and order
         $eventOptions = $event->options;
@@ -63,8 +63,8 @@ class SlidingPaginationSubscriber implements EventSubscriberInterface
 
     public static function getSubscribedEvents()
     {
-        return array(
-            'knp_pager.pagination' => array('pagination', 1)
-        );
+        return [
+            'knp_pager.pagination' => ['pagination', 1],
+        ];
     }
 }
