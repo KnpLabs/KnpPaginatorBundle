@@ -1,6 +1,6 @@
 # 4.0.0
 
-*Still to be released*
+*Released at 2019-06-27*
 
 - Drop support for EOL PHP versions (`5.6` and `7.0`)
 - Drop support for EOL Symfony versions (`2.*` and `3.*` before `3.4`)
