@@ -1,10 +1,14 @@
 <form method="get" action="{{ action }}" enctype="application/x-www-form-urlencoded">
 
-    <select name="{{ filterFieldName }}">
-        {% for field, label in fields %}
-            <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
-        {% endfor %}
-    </select>
+    {% if fields|length > 1 %}
+        <select name="{{ filterFieldName }}">
+            {% for field, label in fields %}
+                <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}" />
+    {% endif %}
 
     <input type="text" value="{{ selectedValue }}" name="{{ filterValueName }}" />
 
