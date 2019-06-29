@@ -9,7 +9,7 @@
                 {% endfor %}
             </select>
         {% else %}
-            <input type="hidden" name="filterField" value="{{ fields|keys|first }}" />
+            <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}" />
         {% endif %}
 
         <input class="form-control" type="search" value="{{ selectedValue }}" name="{{ filterValueName }}" placeholder="{{ 'Searchword...'|trans }}" />
