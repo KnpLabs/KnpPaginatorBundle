@@ -7,7 +7,7 @@
             {% endfor %}
         </select>
     {% else %}
-        <input type="hidden" name="filterField" value="{{ fields|keys|first }}" />
+        <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}" />
     {% endif %}
 
     <input type="text" value="{{ selectedValue }}" name="{{ filterValueName }}" />
