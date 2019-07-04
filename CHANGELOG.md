@@ -1,3 +1,10 @@
+# 4.1.0
+*To be released*
+
+### New features
+- Improve filtration for single filter
+- Added bootstrap 4 template for filtration
+
 # 4.0.0
 
 *Released at 2019-06-27*
