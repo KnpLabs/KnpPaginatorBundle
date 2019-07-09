@@ -62,14 +62,14 @@ final class PaginationExtension extends AbstractExtension
      * @param Environment       $env
      * @param SlidingPagination $pagination
      * @param string            $title
-     * @param string            $key
+     * @param string|array      $key
      * @param array             $options
      * @param array             $params
      * @param string            $template
      *
      * @return string
      */
-    public function sortable(Environment $env, SlidingPagination $pagination, string $title, string $key, array $options = [], array $params = [], string $template = null): string
+    public function sortable(Environment $env, SlidingPagination $pagination, string $title, $key, array $options = [], array $params = [], string $template = null): string
     {
         return $env->render(
             $template ?: $pagination->getSortableTemplate(),
