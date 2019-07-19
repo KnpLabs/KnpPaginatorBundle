@@ -3,7 +3,7 @@
     <div class="form-group">
 
         {% if fields|length > 1 %}
-            <select name="{{ filterFieldName }}">
+            <select class="form-control" name="{{ filterFieldName }}">
                 {% for field, label in fields %}
                     <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
                 {% endfor %}
