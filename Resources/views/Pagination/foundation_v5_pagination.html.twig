@@ -22,7 +22,7 @@
     <ul class="pagination">
         {% if previous is defined %}
                  <li class="arrow">
-                     <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo; {{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
+                     <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo; {{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
                  </li>
         {% else %}
             <li class="arrow unavailable">
@@ -83,7 +83,7 @@
 
         {% if next is defined %}
             <li class="arrow">
-                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
                     {{ 'label_next'|trans({}, 'KnpPaginatorBundle') }} &nbsp;&raquo;
                 </a>
             </li>

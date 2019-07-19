@@ -29,7 +29,7 @@
 
         {% if previous is defined %}
             <li class="waves-effect">
-                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
                     <i class="material-icons">chevron_left</i>
                 </a>
             </li>
@@ -55,7 +55,7 @@
 
         {% if next is defined %}
             <li class="waves-effect">
-                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
                     <i class="material-icons">chevron_right</i>
                 </a>
             </li>
