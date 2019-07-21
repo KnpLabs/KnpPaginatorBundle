@@ -13,13 +13,13 @@
 {% if pageCount > 1 %}
     <nav class="{{ classes|join(' ') }}" role="navigation" aria-label="pagination">
         {% if previous is defined %}
-            <a class="pagination-previous" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
+            <a rel="prev" class="pagination-previous" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% else %}
             <a class="pagination-previous" disabled>{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% endif %}
 
         {% if next is defined %}
-            <a class="pagination-next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}</a>
+            <a rel="next" class="pagination-next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% else %}
             <a class="pagination-next" disabled>{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}</a>
         {% endif %}

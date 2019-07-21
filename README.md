@@ -1,6 +1,6 @@
 # Intro to KnpPaginatorBundle
 
-**SEO** friendly Symfony paginator to paginate everything
+Friendly Symfony paginator to paginate everything
 
 [![Build Status](https://travis-ci.org/KnpLabs/KnpPaginatorBundle.svg?branch=master)](https://travis-ci.org/KnpLabs/KnpPaginatorBundle)
 

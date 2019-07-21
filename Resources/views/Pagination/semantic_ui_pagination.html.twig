@@ -19,7 +19,7 @@
     {% endif %}
 
     {% if previous is defined %}
-        <a class="item icon" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
+        <a rel="prev" class="item icon" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
             <i class="angle left icon"></i>
         </a>
     {% endif %}
@@ -34,7 +34,7 @@
     {% endfor %}
 
     {% if next is defined %}
-        <a class="icon item" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+        <a rel="next" class="icon item" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
             <i class="angle right icon"></i>
         </a>
     {% endif %}
