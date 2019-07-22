@@ -76,16 +76,16 @@ You can configure default query parameter names and templates
 ```yaml
 knp_paginator:
     page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
-    default_options:                                 
+    default_options:
         page_name: page                 # page query parameter name
         sort_field_name: sort           # sort field query parameter name
         sort_direction_name: direction  # sort direction query parameter name
         distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
         filter_field_name: filterField  # filter field query parameter name
         filter_value_name: filterValue  # filter value query parameter name
-    template:                                        
-        pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template         
-        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template                                
+    template:
+        pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template
+        sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
 ```
 
@@ -240,7 +240,7 @@ For more information about lazy services, consult the [Symfony documentation on 
 ## Troubleshooting
 
 - Make sure the translator is activated in your symfony config:
- 
+
 ```yaml
 framework:
     translator: { fallbacks: ['%locale%'] }
@@ -257,6 +257,8 @@ label_previous: Previous
 
 ## Maintainers
 
-- [@NiR-](https://github.com/NiR-)
-- [@nicolasmure](https://github.com/nicolasmure)
-- [@garak](https://github.com/garak)
+Please read [this post](https://knplabs.com/en/blog/news-for-our-foss-projects-maintenance) first.
+
+This library is maintained by the following people (alphabetically sorted) :
+- @garak
+- @polc
