@@ -1,6 +1,8 @@
 # Configuring paginator
 
-There's easy way to configure paginator - just add `knp_paginator` to `config.yml` and change default values.
+There's easy way to configure paginator - just add a `knp_paginator` entry to your configuration and change default values.
+Location of your configuration file depends on your Symfony versions: most common places are `config/packages/knp_paginator.yaml`
+for recent versions of Symfony and `app/config.yml` for older versions. If you can't find a configuration file, you can create it.
 
 ## Default options
 
@@ -14,7 +16,7 @@ knp_paginator:
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
         pagination: @KnpPaginator/Pagination/sliding.html.twig     # sliding pagination controls template
-        sortable:   @KnpPaginator/Pagination/sortable_link.html.twig # sort link template
+        sortable: @KnpPaginator/Pagination/sortable_link.html.twig # sort link template
 ```
 
 There are a few additional pagination templates, that could be used out of the box in `knp_paginator.template.pagination` key:
