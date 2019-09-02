@@ -154,6 +154,15 @@ Or even in Twig:
         ) }}
 ```
 
+## Filter your query
+
+Only include this lines and enjoy the pagination :
+``` html
+{{ knp_pagination_filter(pagination, {
+        'entity.name': 'Name',
+    }) }}
+```
+
 ## Customize rendering
 
 ### Bulma
