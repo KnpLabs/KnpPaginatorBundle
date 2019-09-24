@@ -13,7 +13,7 @@ manually through the hint on the query.
 ``` php
 <?php
 
-$paginator = new Paginator;
+$paginator = new Paginator();
 
 $count = $entityManager
     ->createQuery('SELECT COUNT(c) FROM Entity\CompositeKey c')
@@ -24,7 +24,7 @@ $query = $entityManager
     ->createQuery('SELECT c FROM Entity\CompositeKey c')
     ->setHint('knp_paginator.count', $count)
 ;
-$pagination = $paginator->paginate($query, 1, 10, array('distinct' => false));
+$pagination = $paginator->paginate($query, 1, 10, ['distinct' => false]);
 ```
 
 Distinction in this case also cannot be determined by paginator. It will take direct result

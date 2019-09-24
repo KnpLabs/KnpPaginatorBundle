@@ -61,7 +61,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         $event->stopPropagation();
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             'knp_pager.pagination' => ['pagination', 1],
