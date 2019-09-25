@@ -82,12 +82,12 @@ If you need custom parameters in pagination template, use:
 ``` php
 <?php
 // set an array of custom parameters
-$pagination->setCustomParameters(array(
+$pagination->setCustomParameters([
     'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
     'size' => 'large', # small|large (for template: twitter_bootstrap_v4_pagination)
     'style' => 'bottom',
-    'span_class' => 'whatever'
-));
+    'span_class' => 'whatever',
+]);
 ```
 
 ### You can also change the page range
@@ -133,7 +133,7 @@ $pagination = $paginator->paginate(
     $query, // target to paginate
     $this->get('request')->query->getInt('section', 1), // page parameter, now section
     10, // limit per page
-    array('pageParameterName' => 'section', 'sortDirectionParameterName' => 'dir')
+    ['pageParameterName' => 'section', 'sortDirectionParameterName' => 'dir']
 );
 ```
 

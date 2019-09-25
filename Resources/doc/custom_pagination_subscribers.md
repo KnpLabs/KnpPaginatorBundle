@@ -49,11 +49,11 @@ class PaginateDirectorySubscriber implements EventSubscriberInterface
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return array(
-            'knp_pager.items' => array('items', 1/*increased priority to override any internal*/)
-        );
+        return [
+            'knp_pager.items' => ['items', 1/*increased priority to override any internal*/]
+        ];
     }
 }
 ```
