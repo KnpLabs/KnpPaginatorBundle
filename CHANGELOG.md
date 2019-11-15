@@ -1,12 +1,14 @@
 # 4.1.0
-*To be released*
+*Released at 2019-11-15*
 
 ### New features
-- Improve filtration for single filter
 - Added bootstrap 4 template for filtration
 
-# 4.0.0
+### Bugfixes
+- Improved filtration for single filter
+- Added some missing typehints
 
+# 4.0.0
 *Released at 2019-06-27*
 
 - Drop support for EOL PHP versions (`5.6` and `7.0`)
