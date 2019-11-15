@@ -4,7 +4,7 @@ namespace Knp\Bundle\PaginatorBundle\Helper;
 
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Pagination data processor.
@@ -133,11 +133,12 @@ final class Processor
         $options['href'] = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
 
         if (null !== $options['translationDomain']) {
-            if (null !== $options['translationCount']) {
-                $title = $this->translator->transChoice($title, $options['translationCount'], $options['translationParameters'], $options['translationDomain']);
+            if (null === $options['translationCount']) {
+                $translationParameters = $options['translationParameters'];
             } else {
-                $title = $this->translator->trans($title, $options['translationParameters'], $options['translationDomain']);
+                $translationParameters = $options['translationParameters'] + ['%count%' => $options['translationCount']];
             }
+            $title = $this->translator->trans($title, $translationParameters, $options['translationDomain']);
         }
 
         if (!isset($options['title'])) {
