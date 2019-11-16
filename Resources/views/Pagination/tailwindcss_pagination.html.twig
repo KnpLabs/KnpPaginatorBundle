@@ -11,7 +11,7 @@
 
         {% if previous is defined %}
             <span class="bg-white text-blue-600 px-3 text-lg py-2 border-r border-gray-400">
-                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
             </span>
         {% endif %}
 
@@ -27,7 +27,7 @@
 
         {% if next is defined %}
             <span class="bg-white text-blue-600 px-3 py-2 text-lg border-r border-gray-400">
-                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
             </span>
         {% endif %}
 
