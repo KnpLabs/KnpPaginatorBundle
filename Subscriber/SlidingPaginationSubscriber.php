@@ -5,7 +5,7 @@ namespace Knp\Bundle\PaginatorBundle\Subscriber;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Event\PaginationEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class SlidingPaginationSubscriber implements EventSubscriberInterface
@@ -19,7 +19,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         $this->options = $options;
     }
 
-    public function onKernelRequest(ResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             return;
