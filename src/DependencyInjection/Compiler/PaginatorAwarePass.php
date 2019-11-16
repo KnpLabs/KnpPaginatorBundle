@@ -27,8 +27,6 @@ final class PaginatorAwarePass implements CompilerPassInterface
     /**
      * Populates all tagged services with the paginator service.
      *
-     * @param ContainerBuilder $container
-     *
      * @throws \InvalidArgumentException
      * @throws \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException
      */
@@ -41,21 +39,12 @@ final class PaginatorAwarePass implements CompilerPassInterface
 
             $refClass = new \ReflectionClass($definition->getClass());
             if (!$refClass->implementsInterface(self::PAGINATOR_AWARE_INTERFACE)) {
-                throw new \InvalidArgumentException(
-                    \sprintf('Service "%s" must implement interface "%s".', $id, self::PAGINATOR_AWARE_INTERFACE)
-                );
+                throw new \InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $id, self::PAGINATOR_AWARE_INTERFACE));
             }
 
             $attributes = \array_merge($defaultAttributes, $attributes);
             if (!$container->has($attributes['paginator'])) {
-                throw new InvalidDefinitionException(
-                    \sprintf(
-                        'Paginator service "%s" for tag "%s" on service "%s" could not be found.',
-                        $attributes['paginator'],
-                        self::PAGINATOR_AWARE_TAG,
-                        $id
-                    )
-                );
+                throw new InvalidDefinitionException(\sprintf('Paginator service "%s" for tag "%s" on service "%s" could not be found.', $attributes['paginator'], self::PAGINATOR_AWARE_TAG, $id));
             }
 
             $definition->addMethodCall('setPaginator', [new Reference($attributes['paginator'])]);

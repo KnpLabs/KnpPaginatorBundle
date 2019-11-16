@@ -13,10 +13,6 @@ interface PaginatorAwareInterface
 {
     /**
      * Sets the KnpPaginator instance.
-     *
-     * @param Paginator $paginator
-     *
-     * @return mixed
      */
-    public function setPaginator(Paginator $paginator);
+    public function setPaginator(Paginator $paginator): self;
 }

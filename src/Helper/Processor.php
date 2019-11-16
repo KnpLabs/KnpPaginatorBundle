@@ -33,14 +33,8 @@ final class Processor
 
     /**
      * Generates pagination template data.
-     *
-     * @param SlidingPagination $pagination
-     * @param array             $queryParams
-     * @param array             $viewParams
-     *
-     * @return array
      */
-    public function render(SlidingPagination $pagination, array $queryParams = [], array $viewParams = [])
+    public function render(SlidingPagination $pagination, array $queryParams = [], array $viewParams = []): array
     {
         $data = $pagination->getPaginationData();
 
@@ -63,15 +57,9 @@ final class Processor
      *
      * $key example: "article.title"
      *
-     * @param SlidingPagination $pagination
-     * @param string            $title
-     * @param string|array      $key
-     * @param array             $options
-     * @param array             $params
-     *
-     * @return array
+     * @param string|array $key
      */
-    public function sortable(SlidingPagination $pagination, $title, $key, $options = [], $params = [])
+    public function sortable(SlidingPagination $pagination, string $title, $key, array $options = [], array $params = []): array
     {
         if (\is_array($key)) {
             $key = \implode('+', $key);
@@ -161,15 +149,8 @@ final class Processor
      * parameters like "alt, class" and so on.
      *
      * $key example: "article.title"
-     *
-     * @param SlidingPagination $pagination
-     * @param array             $fields
-     * @param array             $options
-     * @param array             $params
-     *
-     * @return array
      */
-    public function filter(SlidingPagination $pagination, array $fields, $options = [], $params = [])
+    public function filter(SlidingPagination $pagination, array $fields, array $options = [], array $params = []): array
     {
         $options = \array_merge([
             'absolute' => \defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,

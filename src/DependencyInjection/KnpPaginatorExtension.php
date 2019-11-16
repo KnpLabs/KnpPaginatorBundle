@@ -12,15 +12,12 @@ final class KnpPaginatorExtension extends Extension
 {
     /**
      * Build the extension services.
-     *
-     * @param array            $configs
-     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $processor = new Processor();
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('paginator.xml');
 
         if ($container->hasParameter('templating.engines')) {

@@ -10,8 +10,6 @@ final class PaginatorConfigurationPass implements CompilerPassInterface
 {
     /**
      * Populate the listener service ids.
-     *
-     * @param ContainerBuilder $container
      */
     public function process(ContainerBuilder $container): void
     {

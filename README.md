@@ -11,19 +11,19 @@ internal logic on the given documentation link.
 [![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
 
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use
-older version of KnpPaginatorBundle - use **v3.0** tag in the repository which is
+older version of KnpPaginatorBundle - use **v3.0** or **v4.X** tags in the repository which is
 suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
 
 ## Latest updates
 
 For notes about latest changes please read [`CHANGELOG`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CHANGELOG.md),
-for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/upgrade.md)
+for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/docs/upgrade.md)
 chapter of documentation.
 
 ## Requirements:
 
-- Knp Pager component `>=1.3`.
-- KnpPaginatorBundle's master compatible with Symfony `>=3.4` versions.
+- Knp Pager component `>=2.0`.
+- KnpPaginatorBundle's master compatible with Symfony `>=4.3` versions.
 - Twig `>=2.0` version is required if you use twig templating engine.
 
 ## Features:
@@ -200,12 +200,12 @@ translationCount and translationParameters can be combined.
 
 ### Dependency Injection
 
-You can automatically inject a paginator service into another service by using the ```knp_paginator.injectable``` DIC tag.
-The tag takes one optional argument ```paginator```, which is the ID of the paginator service that should be injected.
-It defaults to ```knp_paginator```.
+You can automatically inject a paginator service into another service by using the `knp_paginator.injectable` DIC tag.
+The tag takes one optional argument `paginator`, which is the ID of the paginator service that should be injected.
+It defaults to `knp_paginator`.
 
-The class that receives the KnpPaginator service must implement ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface```.
-If you're too lazy you can also just extend the ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAware``` base class.
+The class that receives the KnpPaginator service must implement `Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface`.
+If you're too lazy you can also just extend the `Knp\Bundle\PaginatorBundle\Definition\PaginatorAware` base class.
 
 #### Lazy service
 
@@ -235,8 +235,8 @@ For more information about lazy services, consult the [Symfony documentation on 
 ```
 
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
-[doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
-[doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
+[doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/docs/custom_pagination_subscribers.md "Custom pagination subscribers"
+[doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/docs/templates.md "Customizing Pagination templates"
 
 ## Troubleshooting
 
@@ -248,7 +248,7 @@ framework:
 ```
 
 - If your locale is not available, create your own translation file in
-`app/Resources/translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
+`translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
 . Then add these lines:
 
 ```yaml

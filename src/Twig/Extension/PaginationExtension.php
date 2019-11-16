@@ -34,14 +34,6 @@ final class PaginationExtension extends AbstractExtension
 
     /**
      * Renders the pagination template.
-     *
-     * @param Environment       $env
-     * @param SlidingPagination $pagination
-     * @param string|null       $template
-     * @param array|null        $queryParams
-     * @param array|null        $viewParams
-     *
-     * @return string
      */
     public function render(Environment $env, SlidingPagination $pagination, ?string $template = null, ?array $queryParams = [], ?array $viewParams = []): string
     {
@@ -59,17 +51,9 @@ final class PaginationExtension extends AbstractExtension
      *
      * $key example: "article.title"
      *
-     * @param Environment       $env
-     * @param SlidingPagination $pagination
-     * @param string            $title
-     * @param string|array      $key
-     * @param array             $options
-     * @param array             $params
-     * @param string            $template
-     *
-     * @return string
+     * @param string|array $key
      */
-    public function sortable(Environment $env, SlidingPagination $pagination, string $title, $key, array $options = [], array $params = [], string $template = null): string
+    public function sortable(Environment $env, SlidingPagination $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
     {
         return $env->render(
             $template ?: $pagination->getSortableTemplate(),
@@ -84,15 +68,6 @@ final class PaginationExtension extends AbstractExtension
      * parameters like "alt, class" and so on.
      *
      * $key example: "article.title"
-     *
-     * @param Environment       $env
-     * @param SlidingPagination $pagination
-     * @param array             $fields
-     * @param array|null        $options
-     * @param array|null        $params
-     * @param string|null       $template
-     *
-     * @return string
      */
     public function filter(Environment $env, SlidingPagination $pagination, array $fields, ?array $options = [], ?array $params = [], ?string $template = null): string
     {

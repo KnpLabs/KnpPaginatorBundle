@@ -1,3 +1,12 @@
+# 5.0.0
+*Still to be released*
+
+### New features
+- Changed directory structure
+
+### BC Breaks
+- Added return type to PaginationAwareInterface
+
 # 4.1.0
 *Released at 2019-11-15*
 

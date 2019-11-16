@@ -3,4 +3,4 @@
 .travis.yml      export-ignore
 CHANGELOG.md     export-ignore
 phpunit.xml.dist export-ignore
-Tests            export-ignore
+tests            export-ignore
