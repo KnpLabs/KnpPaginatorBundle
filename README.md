@@ -11,19 +11,19 @@ internal logic on the given documentation link.
 [![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
 
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use
-older version of KnpPaginatorBundle - use **v3.0** tag in the repository which is
+older version of KnpPaginatorBundle - use **v3.0** or **v4.X** tags in the repository which is
 suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
 
 ## Latest updates
 
 For notes about latest changes please read [`CHANGELOG`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CHANGELOG.md),
-for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/Resources/doc/upgrade.md)
+for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/docs/upgrade.md)
 chapter of documentation.
 
 ## Requirements:
 
-- Knp Pager component `>=1.3`.
-- KnpPaginatorBundle's master compatible with Symfony `>=3.4` versions.
+- Knp Pager component `>=2.0`.
+- KnpPaginatorBundle's master compatible with Symfony `>=4.3` versions.
 - Twig `>=2.0` version is required if you use twig templating engine.
 
 ## Features:
@@ -130,13 +130,11 @@ Currently paginator can paginate:
 ```php
 // App\Controller\ArticleController.php
 
-public function listAction(Request $request)
+public function listAction(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request)
 {
-    $em    = $this->get('doctrine.orm.entity_manager');
     $dql   = "SELECT a FROM AcmeMainBundle:Article a";
     $query = $em->createQuery($dql);
 
-    $paginator  = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
         $query, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
@@ -150,7 +148,7 @@ public function listAction(Request $request)
 
 ### View
 
-```jinja
+```twig
 {# total items count #}
 <div class="count">
     {{ pagination.getTotalItemCount }}
@@ -180,12 +178,12 @@ public function listAction(Request $request)
 
 ### Translation in view
 For translating the following text:
-* ```%foo% name``` with translation key ```table_header_name```. The translation is in the domain ```messages```.
-* ```{0} No author|{1} Author|[2,Inf] Authors``` with translation key ```table_header_author```. The translation is in the domain ```messages```.
+* `%foo% name` with translation key `table_header_name`. The translation is in the domain `messages`.
+* `{0} No author|{1} Author|[2,Inf] Authors` with translation key `table_header_author`. The translation is in the domain `messages`.
 
 translationCount and translationParameters can be combined.
 
-```jinja
+```twig
 <table>
     <tr>
        {# sorting of properties based on query components #}
@@ -200,12 +198,12 @@ translationCount and translationParameters can be combined.
 
 ### Dependency Injection
 
-You can automatically inject a paginator service into another service by using the ```knp_paginator.injectable``` DIC tag.
-The tag takes one optional argument ```paginator```, which is the ID of the paginator service that should be injected.
-It defaults to ```knp_paginator```.
+You can automatically inject a paginator service into another service by using the `knp_paginator.injectable` DIC tag.
+The tag takes one optional argument `paginator`, which is the ID of the paginator service that should be injected.
+It defaults to `knp_paginator`.
 
-The class that receives the KnpPaginator service must implement ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface```.
-If you're too lazy you can also just extend the ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAware``` base class.
+The class that receives the KnpPaginator service must implement `Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface`.
+If you're too lazy you can also just extend the `Knp\Bundle\PaginatorBundle\Definition\PaginatorAware` base class.
 
 #### Lazy service
 
@@ -235,12 +233,12 @@ For more information about lazy services, consult the [Symfony documentation on 
 ```
 
 [knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
-[doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/custom_pagination_subscribers.md "Custom pagination subscribers"
-[doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/Resources/doc/templates.md "Customizing Pagination templates"
+[doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/docs/custom_pagination_subscribers.md "Custom pagination subscribers"
+[doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/docs/templates.md "Customizing Pagination templates"
 
 ## Troubleshooting
 
-- Make sure the translator is activated in your symfony config:
+- Make sure the translator is activated in your Symfony config:
 
 ```yaml
 framework:
@@ -248,7 +246,7 @@ framework:
 ```
 
 - If your locale is not available, create your own translation file in
-`app/Resources/translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
+`translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
 . Then add these lines:
 
 ```yaml

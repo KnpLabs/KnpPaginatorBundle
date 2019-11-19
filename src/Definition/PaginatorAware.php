@@ -18,12 +18,8 @@ final class PaginatorAware implements PaginatorAwareInterface
 
     /**
      * Sets the KnpPaginator instance.
-     *
-     * @param Paginator $paginator
-     *
-     * @return PaginatorAware
      */
-    public function setPaginator(Paginator $paginator)
+    public function setPaginator(Paginator $paginator): PaginatorAwareInterface
     {
         $this->paginator = $paginator;
 
@@ -32,10 +28,8 @@ final class PaginatorAware implements PaginatorAwareInterface
 
     /**
      * Returns the KnpPaginator instance.
-     *
-     * @return Paginator
      */
-    public function getPaginator()
+    public function getPaginator(): Paginator
     {
         return $this->paginator;
     }

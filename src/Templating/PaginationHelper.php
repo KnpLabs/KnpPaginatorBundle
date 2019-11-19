@@ -35,14 +35,9 @@ final class PaginationHelper extends Helper
     /**
      * Renders the pagination template.
      *
-     * @param SlidingPagination $pagination
-     * @param string            $template
-     * @param array             $queryParams
-     * @param array             $viewParams
-     *
-     * @return string
+     * @param string $template
      */
-    public function render(SlidingPagination $pagination, $template = null, array $queryParams = [], array $viewParams = [])
+    public function render(SlidingPagination $pagination, ?string $template = null, array $queryParams = [], array $viewParams = []): string
     {
         return $this->templating->render(
             $template ?: $pagination->getTemplate(),
@@ -58,16 +53,10 @@ final class PaginationHelper extends Helper
      *
      * $key example: "article.title"
      *
-     * @param SlidingPagination $pagination
-     * @param string            $title
-     * @param string            $key
-     * @param array             $options
-     * @param array             $params
-     * @param string            $template
-     *
-     * @return string
+     * @param string|array $key
+     * @param string       $template
      */
-    public function sortable(SlidingPagination $pagination, $title, $key, $options = [], $params = [], $template = null)
+    public function sortable(SlidingPagination $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
     {
         return $this->templating->render(
             $template ?: $pagination->getSortableTemplate(),
@@ -83,15 +72,9 @@ final class PaginationHelper extends Helper
      *
      * $key example: "article.title"
      *
-     * @param SlidingPagination $pagination
-     * @param array             $fields
-     * @param array             $options
-     * @param array             $params
-     * @param string            $template
-     *
-     * @return string
+     * @param string $template
      */
-    public function filter(SlidingPagination $pagination, array $fields, $options = [], $params = [], $template = null)
+    public function filter(SlidingPagination $pagination, array $fields, array $options = [], array $params = [], ?string $template = null): string
     {
         return $this->templating->render(
             $template ?: $pagination->getFiltrationTemplate(),
@@ -101,10 +84,8 @@ final class PaginationHelper extends Helper
 
     /**
      * Get helper name.
-     *
-     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'knp_pagination';
     }

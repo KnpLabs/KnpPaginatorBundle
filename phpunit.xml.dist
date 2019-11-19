@@ -3,7 +3,7 @@
 <phpunit colors="false" bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="KnpPaginatorBundle Test Suite">
-            <directory suffix="Test.php">./Tests/</directory>
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

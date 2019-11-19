@@ -76,8 +76,6 @@ final class SlidingPagination extends AbstractPagination
     /**
      * Get url query with all parameters.
      *
-     * @param array $additionalQueryParams
-     *
      * @return array - list of query parameters
      */
     public function getQuery(array $additionalQueryParams = [])
