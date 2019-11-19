@@ -17,13 +17,15 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class KnpPaginatorBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
         $container->addCompilerPass(new PaginatorConfigurationPass(), PassConfig::TYPE_BEFORE_REMOVING);
         $container->addCompilerPass(new PaginatorAwarePass(), PassConfig::TYPE_BEFORE_REMOVING);
+    }
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
     }
 }

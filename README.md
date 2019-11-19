@@ -130,13 +130,11 @@ Currently paginator can paginate:
 ```php
 // App\Controller\ArticleController.php
 
-public function listAction(Request $request)
+public function listAction(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request)
 {
-    $em    = $this->get('doctrine.orm.entity_manager');
     $dql   = "SELECT a FROM AcmeMainBundle:Article a";
     $query = $em->createQuery($dql);
 
-    $paginator  = $this->get('knp_paginator');
     $pagination = $paginator->paginate(
         $query, /* query NOT result */
         $request->query->getInt('page', 1), /*page number*/
@@ -150,7 +148,7 @@ public function listAction(Request $request)
 
 ### View
 
-```jinja
+```twig
 {# total items count #}
 <div class="count">
     {{ pagination.getTotalItemCount }}
@@ -180,12 +178,12 @@ public function listAction(Request $request)
 
 ### Translation in view
 For translating the following text:
-* ```%foo% name``` with translation key ```table_header_name```. The translation is in the domain ```messages```.
-* ```{0} No author|{1} Author|[2,Inf] Authors``` with translation key ```table_header_author```. The translation is in the domain ```messages```.
+* `%foo% name` with translation key `table_header_name`. The translation is in the domain `messages`.
+* `{0} No author|{1} Author|[2,Inf] Authors` with translation key `table_header_author`. The translation is in the domain `messages`.
 
 translationCount and translationParameters can be combined.
 
-```jinja
+```twig
 <table>
     <tr>
        {# sorting of properties based on query components #}
@@ -240,7 +238,7 @@ For more information about lazy services, consult the [Symfony documentation on 
 
 ## Troubleshooting
 
-- Make sure the translator is activated in your symfony config:
+- Make sure the translator is activated in your Symfony config:
 
 ```yaml
 framework:
