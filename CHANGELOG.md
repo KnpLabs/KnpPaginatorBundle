@@ -1,8 +1,9 @@
 # 5.0.0
-*Still to be released*
+*Released at 2019-11-27*
 
 ### New features
 - Changed directory structure
+- Added support for Symfony 5
 
 ### BC Breaks
 - Added return type to PaginationAwareInterface
