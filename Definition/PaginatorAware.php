@@ -9,7 +9,7 @@ use Knp\Component\Pager\Paginator;
  *
  * This is a base class that can be extended if you're too lazy to implement PaginatorAwareInterface yourself.
  */
-final class PaginatorAware implements PaginatorAwareInterface
+class PaginatorAware implements PaginatorAwareInterface
 {
     /**
      * @var Paginator
