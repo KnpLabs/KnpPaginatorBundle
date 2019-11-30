@@ -207,7 +207,7 @@ If you're too lazy you can also just extend the `Knp\Bundle\PaginatorBundle\Defi
 
 #### Lazy service
 
-The `knp_paginator` service will be created lazily if the package `ocramius/proxy-manager` is installed.
+The `knp_paginator` service will be created lazily if the package `symfony/proxy-manager-bridge` is installed.
 
 For more information about lazy services, consult the [Symfony documentation on dependency injection](https://symfony.com/doc/current/service_container/lazy_services.html).
 
@@ -246,8 +246,8 @@ framework:
 ```
 
 - If your locale is not available, create your own translation file in
-`translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
-. Then add these lines:
+`translations/KnpPaginatorBundle.en.yml` (substitute "en" for your own language code if needed).
+Then add these lines:
 
 ```yaml
 label_next: Next
