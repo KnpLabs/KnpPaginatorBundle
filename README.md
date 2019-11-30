@@ -149,7 +149,7 @@ public function listAction(Request $request)
 
 ### View
 
-```jinja
+```twig
 {# total items count #}
 <div class="count">
     {{ pagination.getTotalItemCount }}
@@ -179,12 +179,12 @@ public function listAction(Request $request)
 
 ### Translation in view
 For translating the following text:
-* ```%foo% name``` with translation key ```table_header_name```. The translation is in the domain ```messages```.
-* ```{0} No author|{1} Author|[2,Inf] Authors``` with translation key ```table_header_author```. The translation is in the domain ```messages```.
+* `%foo% name` with translation key `table_header_name`. The translation is in the domain `messages`.
+* `{0} No author|{1} Author|[2,Inf] Authors` with translation key `table_header_author`. The translation is in the domain `messages`.
 
 translationCount and translationParameters can be combined.
 
-```jinja
+```twig
 <table>
     <tr>
        {# sorting of properties based on query components #}
@@ -199,16 +199,16 @@ translationCount and translationParameters can be combined.
 
 ### Dependency Injection
 
-You can automatically inject a paginator service into another service by using the ```knp_paginator.injectable``` DIC tag.
-The tag takes one optional argument ```paginator```, which is the ID of the paginator service that should be injected.
-It defaults to ```knp_paginator```.
+You can automatically inject a paginator service into another service by using the `knp_paginator.injectable` DIC tag.
+The tag takes one optional argument `paginator`, which is the ID of the paginator service that should be injected.
+It defaults to `knp_paginator`.
 
-The class that receives the KnpPaginator service must implement ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface```.
-If you're too lazy you can also just extend the ```Knp\Bundle\PaginatorBundle\Definition\PaginatorAware``` base class.
+The class that receives the KnpPaginator service must implement `Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface`.
+If you're too lazy you can also just extend the `Knp\Bundle\PaginatorBundle\Definition\PaginatorAware` base class.
 
 #### Lazy service
 
-The `knp_paginator` service will be created lazily if the package `ocramius/proxy-manager` is installed.
+The `knp_paginator` service will be created lazily if the package `symfony/proxy-manager-bridge` is installed.
 
 For more information about lazy services, consult the [Symfony documentation on dependency injection](https://symfony.com/doc/current/service_container/lazy_services.html).
 
@@ -247,8 +247,8 @@ framework:
 ```
 
 - If your locale is not available, create your own translation file in
-`app/Resources/translations/KnpPaginatorBundle.en.yml` (substitute en for your own language code if needed)
-. Then add these lines:
+`app/Resources/translations/KnpPaginatorBundle.en.yml` (substitute "en" for your own language code if needed).
+Then add these lines:
 
 ```yaml
 label_next: Next
