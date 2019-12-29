@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit colors="false" bootstrap="vendor/autoload.php">
+<phpunit colors="true" bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="KnpPaginatorBundle Test Suite">
             <directory suffix="Test.php">./tests/</directory>

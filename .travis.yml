@@ -19,7 +19,10 @@ matrix:
     - php: nightly
 
 before_script:
-  - if [ "$SYMFONY_VERSION" != "" ]; then composer require --no-update "symfony/framework-bundle:${SYMFONY_VERSION}"; fi;
+  - |
+    if [ "$SYMFONY_VERSION" != "" ]; then
+      sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'$SYMFONY_VERSION'"/' composer.json;
+    fi;
   - if [ "$DEPENDENCIES" = "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
   - composer install --dev
 
