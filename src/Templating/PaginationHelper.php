@@ -3,7 +3,7 @@
 namespace Knp\Bundle\PaginatorBundle\Templating;
 
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
-use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPaginationInterface;
 use Symfony\Component\Templating\Helper\Helper;
 use Symfony\Component\Templating\PhpEngine;
 
@@ -37,7 +37,7 @@ final class PaginationHelper extends Helper
      *
      * @param string $template
      */
-    public function render(SlidingPagination $pagination, ?string $template = null, array $queryParams = [], array $viewParams = []): string
+    public function render(SlidingPaginationInterface $pagination, ?string $template = null, array $queryParams = [], array $viewParams = []): string
     {
         return $this->templating->render(
             $template ?: $pagination->getTemplate(),
@@ -56,7 +56,7 @@ final class PaginationHelper extends Helper
      * @param string|array $key
      * @param string       $template
      */
-    public function sortable(SlidingPagination $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
+    public function sortable(SlidingPaginationInterface $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
     {
         return $this->templating->render(
             $template ?: $pagination->getSortableTemplate(),
@@ -74,7 +74,7 @@ final class PaginationHelper extends Helper
      *
      * @param string $template
      */
-    public function filter(SlidingPagination $pagination, array $fields, array $options = [], array $params = [], ?string $template = null): string
+    public function filter(SlidingPaginationInterface $pagination, array $fields, array $options = [], array $params = [], ?string $template = null): string
     {
         return $this->templating->render(
             $template ?: $pagination->getFiltrationTemplate(),

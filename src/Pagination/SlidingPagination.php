@@ -4,7 +4,7 @@ namespace Knp\Bundle\PaginatorBundle\Pagination;
 
 use Knp\Component\Pager\Pagination\AbstractPagination;
 
-final class SlidingPagination extends AbstractPagination
+final class SlidingPagination extends AbstractPagination implements SlidingPaginationInterface
 {
     private $route;
     private $params;
