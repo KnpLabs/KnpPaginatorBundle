@@ -3,7 +3,7 @@
 namespace Knp\Bundle\PaginatorBundle\Twig\Extension;
 
 use Knp\Bundle\PaginatorBundle\Helper\Processor;
-use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPaginationInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -35,7 +35,7 @@ final class PaginationExtension extends AbstractExtension
     /**
      * Renders the pagination template.
      */
-    public function render(Environment $env, SlidingPagination $pagination, ?string $template = null, ?array $queryParams = [], ?array $viewParams = []): string
+    public function render(Environment $env, SlidingPaginationInterface $pagination, ?string $template = null, ?array $queryParams = [], ?array $viewParams = []): string
     {
         return $env->render(
             $template ?: $pagination->getTemplate(),
@@ -53,7 +53,7 @@ final class PaginationExtension extends AbstractExtension
      *
      * @param string|array $key
      */
-    public function sortable(Environment $env, SlidingPagination $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
+    public function sortable(Environment $env, SlidingPaginationInterface $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
     {
         return $env->render(
             $template ?: $pagination->getSortableTemplate(),
@@ -69,7 +69,7 @@ final class PaginationExtension extends AbstractExtension
      *
      * $key example: "article.title"
      */
-    public function filter(Environment $env, SlidingPagination $pagination, array $fields, ?array $options = [], ?array $params = [], ?string $template = null): string
+    public function filter(Environment $env, SlidingPaginationInterface $pagination, array $fields, ?array $options = [], ?array $params = [], ?string $template = null): string
     {
         return $env->render(
             $template ?: $pagination->getFiltrationTemplate(),

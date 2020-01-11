@@ -2,7 +2,7 @@
 
 namespace Knp\Bundle\PaginatorBundle\Helper;
 
-use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPaginationInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -34,7 +34,7 @@ final class Processor
     /**
      * Generates pagination template data.
      */
-    public function render(SlidingPagination $pagination, array $queryParams = [], array $viewParams = []): array
+    public function render(SlidingPaginationInterface $pagination, array $queryParams = [], array $viewParams = []): array
     {
         $data = $pagination->getPaginationData();
 
@@ -59,7 +59,7 @@ final class Processor
      *
      * @param string|array $key
      */
-    public function sortable(SlidingPagination $pagination, string $title, $key, array $options = [], array $params = []): array
+    public function sortable(SlidingPaginationInterface $pagination, string $title, $key, array $options = [], array $params = []): array
     {
         if (\is_array($key)) {
             $key = \implode('+', $key);
@@ -150,7 +150,7 @@ final class Processor
      *
      * $key example: "article.title"
      */
-    public function filter(SlidingPagination $pagination, array $fields, array $options = [], array $params = []): array
+    public function filter(SlidingPaginationInterface $pagination, array $fields, array $options = [], array $params = []): array
     {
         $options = \array_merge([
             'absolute' => \defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,
