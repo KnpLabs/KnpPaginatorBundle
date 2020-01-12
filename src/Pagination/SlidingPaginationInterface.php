@@ -6,10 +6,15 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 
 interface SlidingPaginationInterface extends PaginationInterface
 {
-    public function getRoute();
-    public function getParams();
-    public function isSorted($key = null, array $params = []);
-    public function getPaginationData();
-    public function getPaginatorOptions();
-    public function getCustomParameters();
+    public function getRoute(): ?string;
+
+    public function getParams(): array;
+
+    public function isSorted(?string $key = null, array $params = []): bool;
+
+    public function getPaginationData(): array;
+
+    public function getPaginatorOptions(): ?array;
+
+    public function getCustomParameters(): ?array;
 }

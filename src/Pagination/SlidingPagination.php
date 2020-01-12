@@ -6,11 +6,22 @@ use Knp\Component\Pager\Pagination\AbstractPagination;
 
 final class SlidingPagination extends AbstractPagination implements SlidingPaginationInterface
 {
+    /** @var string|null */
     private $route;
+
+    /** @var array */
     private $params;
+
+    /** @var int */
     private $pageRange = 5;
+
+    /** @var string|null */
     private $template;
+
+    /** @var string|null */
     private $sortableTemplate;
+
+    /** @var string|null */
     private $filtrationTemplate;
 
     public function __construct(array $params)
@@ -18,59 +29,59 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         $this->params = $params;
     }
 
-    public function setUsedRoute($route): void
+    public function setUsedRoute(string $route): void
     {
         $this->route = $route;
     }
 
-    public function getRoute()
+    public function getRoute(): ?string
     {
         return $this->route;
     }
 
-    public function setSortableTemplate($template): void
+    public function setSortableTemplate(string $template): void
     {
         $this->sortableTemplate = $template;
     }
 
-    public function getSortableTemplate()
+    public function getSortableTemplate(): ?string
     {
         return $this->sortableTemplate;
     }
 
-    public function setFiltrationTemplate($template): void
+    public function setFiltrationTemplate(string $template): void
     {
         $this->filtrationTemplate = $template;
     }
 
-    public function getFiltrationTemplate()
+    public function getFiltrationTemplate(): ?string
     {
         return $this->filtrationTemplate;
     }
 
-    public function setParam($name, $value): void
+    public function setParam(string $name, $value): void
     {
         $this->params[$name] = $value;
     }
 
-    public function getParams()
+    public function getParams(): array
     {
         return $this->params;
     }
 
-    public function setTemplate($template): void
+    public function setTemplate(string $template): void
     {
         $this->template = $template;
     }
 
-    public function getTemplate()
+    public function getTemplate(): ?string
     {
         return $this->template;
     }
 
-    public function setPageRange($range): void
+    public function setPageRange(int $range): void
     {
-        $this->pageRange = \abs((int) $range);
+        $this->pageRange = \abs($range);
     }
 
     /**
@@ -78,12 +89,12 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
      *
      * @return array - list of query parameters
      */
-    public function getQuery(array $additionalQueryParams = [])
+    public function getQuery(array $additionalQueryParams = []): array
     {
         return \array_merge($this->params, $additionalQueryParams);
     }
 
-    public function isSorted($key = null, array $params = [])
+    public function isSorted(?string $key = null, array $params = []): bool
     {
         $params = \array_merge($this->params, $params);
 
@@ -94,7 +105,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         return isset($params[$this->getPaginatorOption('sortFieldParameterName')]) && $params[$this->getPaginatorOption('sortFieldParameterName')] === $key;
     }
 
-    public function getPage()
+    public function getPage(): ?int
     {
         if (\array_key_exists($this->getPaginatorOption('pageParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('pageParameterName')];
@@ -103,7 +114,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         return null;
     }
 
-    public function getSort()
+    public function getSort(): ?string
     {
         if (\array_key_exists($this->getPaginatorOption('sortFieldParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('sortFieldParameterName')];
@@ -112,7 +123,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         return null;
     }
 
-    public function getDirection()
+    public function getDirection(): ?string
     {
         if (\array_key_exists($this->getPaginatorOption('sortDirectionParameterName'), $this->params)) {
             return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
@@ -121,7 +132,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         return null;
     }
 
-    public function getPaginationData()
+    public function getPaginationData(): array
     {
         $pageCount = $this->getPageCount();
         $current = $this->currentPageNumber;
@@ -199,17 +210,17 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         return $viewData;
     }
 
-    public function getPageCount()
+    public function getPageCount(): int
     {
-        return (int) (\ceil($this->totalCount / $this->numItemsPerPage));
+        return \ceil($this->totalCount / $this->numItemsPerPage);
     }
 
-    public function getPaginatorOptions()
+    public function getPaginatorOptions(): ?array
     {
         return $this->paginatorOptions;
     }
 
-    public function getCustomParameters()
+    public function getCustomParameters(): ?array
     {
         return $this->customParameters;
     }
