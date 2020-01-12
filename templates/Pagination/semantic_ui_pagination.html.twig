@@ -5,12 +5,11 @@
  *
  * View that can be used with the pagination module
  * from the Semantic UI CSS Toolkit
- * http://semantic-ui.com/collections/menu.html#pagination
+ * https://semantic-ui.com/collections/menu.html#pagination
  *
  * @author Valerian Dorcy <valerian.dorcy@gmail.com>
  */
 #}
-
 <div class="ui pagination menu">
     {% if first is defined and current != first %}
         <a class="icon item" href="{{ path(route, query|merge({(pageParameterName): first})) }}">
