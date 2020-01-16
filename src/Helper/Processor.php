@@ -57,9 +57,10 @@ final class Processor
      *
      * $key example: "article.title"
      *
+     * @param string|array $title
      * @param string|array $key
      */
-    public function sortable(SlidingPaginationInterface $pagination, string $title, $key, array $options = [], array $params = []): array
+    public function sortable(SlidingPaginationInterface $pagination, $title, $key, array $options = [], array $params = []): array
     {
         if (\is_array($key)) {
             $key = \implode('+', $key);
