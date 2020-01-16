@@ -1,3 +1,10 @@
+# 5.1.0
+*Released at 2020-01-16*
+
+- Added new SlidingPaginationInterface
+- Fixed some type hints / return types
+- Minor fixes on templates
+
 # 5.0.0
 *Released at 2019-11-27*
 
