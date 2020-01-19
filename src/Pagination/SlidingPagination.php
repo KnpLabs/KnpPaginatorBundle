@@ -29,7 +29,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         $this->params = $params;
     }
 
-    public function setUsedRoute(string $route): void
+    public function setUsedRoute(?string $route): void
     {
         $this->route = $route;
     }
