@@ -12,7 +12,7 @@
             <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}" />
         {% endif %}
 
-        <input class="form-control" type="search" value="{{ selectedValue }}" name="{{ filterValueName }}" placeholder="{{ 'Searchword...'|trans }}" />
+        <input class="form-control" type="search" value="{{ selectedValue }}" name="{{ filterValueName }}" placeholder="{{ 'filter_searchword'|trans({}, 'KnpPaginatorBundle') }}" />
 
     </div>
 

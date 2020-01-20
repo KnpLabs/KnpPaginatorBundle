@@ -10,6 +10,10 @@
         <source>label_next</source>
         <target>Następna</target>
       </trans-unit>
+      <trans-unit id="2" resname="filter_searchword">
+        <source>filter_searchword</source>
+        <target>Szukaj...</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

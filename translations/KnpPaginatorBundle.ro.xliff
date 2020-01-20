@@ -10,6 +10,10 @@
         <source>label_previous</source>
         <target>Pagina urmatoare</target>
       </trans-unit>
+      <trans-unit id="2" resname="filter_searchword">
+        <source>filter_searchword</source>
+        <target>Căutare...</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
