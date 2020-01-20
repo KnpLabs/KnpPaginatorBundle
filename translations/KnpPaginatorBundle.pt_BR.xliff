@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en" target-language="pt-BR" datatype="plaintext"  original="file.ext">
+  <file source-language="en" target-language="pt-BR" datatype="plaintext" original="file.ext">
     <body>
       <trans-unit id="0" resname="label_previous">
         <source>label_previous</source>
@@ -9,6 +9,10 @@
       <trans-unit id="1" resname="label_next">
         <source>label_next</source>
         <target>Próximo</target>
+      </trans-unit>
+      <trans-unit id="2" resname="filter_searchword">
+        <source>filter_searchword</source>
+        <target>Procurar...</target>
       </trans-unit>
     </body>
   </file>
