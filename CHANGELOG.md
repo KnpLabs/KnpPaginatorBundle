@@ -1,3 +1,10 @@
+# 5.1.1
+*Released at 2020-01-21*
+
+### Bugfixes
+- Added missing translation
+- Allowed wider type on SlidingPagination
+
 # 5.1.0
 *Released at 2020-01-16*
 
