@@ -17,4 +17,12 @@ interface SlidingPaginationInterface extends PaginationInterface
     public function getPaginatorOptions(): ?array;
 
     public function getCustomParameters(): ?array;
+    
+    public function getPage(): ?int;
+    
+    public function getSort(): ?string;
+    
+    public function getDirection(): ?string;
+    
+    public function getPageCount(): int;
 }
