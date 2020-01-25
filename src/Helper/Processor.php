@@ -67,7 +67,7 @@ final class Processor
         }
 
         $options = \array_merge([
-            'absolute' => \defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,
+            'absolute' => UrlGeneratorInterface::ABSOLUTE_PATH,
             'translationParameters' => [],
             'translationDomain' => null,
             'translationCount' => null,
@@ -154,7 +154,7 @@ final class Processor
     public function filter(SlidingPaginationInterface $pagination, array $fields, array $options = [], array $params = []): array
     {
         $options = \array_merge([
-            'absolute' => \defined('Symfony\Component\Routing\Generator\UrlGeneratorInterface::ABSOLUTE_PATH') ? UrlGeneratorInterface::ABSOLUTE_PATH : false,
+            'absolute' => UrlGeneratorInterface::ABSOLUTE_PATH,
             'translationParameters' => [],
             'translationDomain' => null,
             'button' => 'Filter',
