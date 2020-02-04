@@ -96,8 +96,6 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
 
     /**
      * @param string[]|string|null $key
-     * @param array $params
-     * @return bool
      */
     public function isSorted($key = null, array $params = []): bool
     {
