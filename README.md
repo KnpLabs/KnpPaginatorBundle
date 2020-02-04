@@ -157,8 +157,12 @@ public function listAction(EntityManagerInterface $em, PaginatorInterface $pagin
     <tr>
         {# sorting of properties based on query components #}
         <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
-        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}</th>
+        <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}
+        </th>
+        <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+            {{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}
+        </th>
     </tr>
 
     {# table body #}

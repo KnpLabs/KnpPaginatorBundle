@@ -94,7 +94,12 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         return \array_merge($this->params, $additionalQueryParams);
     }
 
-    public function isSorted(?string $key = null, array $params = []): bool
+    /**
+     * @param string[]|string|null $key
+     * @param array $params
+     * @return bool
+     */
+    public function isSorted($key = null, array $params = []): bool
     {
         $params = \array_merge($this->params, $params);
 
