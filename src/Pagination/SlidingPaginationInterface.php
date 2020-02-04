@@ -10,7 +10,10 @@ interface SlidingPaginationInterface extends PaginationInterface
 
     public function getParams(): array;
 
-    public function isSorted(?string $key = null, array $params = []): bool;
+    /**
+     * @param string[]|string|null $key
+     */
+    public function isSorted($key = null, array $params = []): bool;
 
     public function getPaginationData(): array;
 
