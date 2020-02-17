@@ -41,12 +41,12 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         // default sort field and order
         $eventOptions = $event->options;
 
-        if (isset($eventOptions['defaultSortFieldName']) && !isset($this->params[$eventOptions['sortFieldParameterName']])) {
-            $this->params[$eventOptions['sortFieldParameterName']] = $eventOptions['defaultSortFieldName'];
+        if (isset($eventOptions['defaultSortFieldName']) && isset($this->params[$eventOptions['sortFieldParameterName']]) && $eventOptions['defaultSortFieldName'] === $this->params[$eventOptions['sortFieldParameterName']]) {
+            unset($this->params[$eventOptions['sortFieldParameterName']]);
         }
 
-        if (isset($eventOptions['defaultSortDirection']) && !isset($this->params[$eventOptions['sortDirectionParameterName']])) {
-            $this->params[$eventOptions['sortDirectionParameterName']] = $eventOptions['defaultSortDirection'];
+        if (isset($eventOptions['defaultSortDirection']) && isset($this->params[$eventOptions['sortDirectionParameterName']]) && $eventOptions['defaultSortDirection'] === $this->params[$eventOptions['sortDirectionParameterName']]) {
+            unset($this->params[$eventOptions['sortDirectionParameterName']]);
         }
 
         $pagination = new SlidingPagination($this->params);
