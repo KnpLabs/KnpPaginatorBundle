@@ -15,7 +15,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
     private $options;
     private $subscriberOptions;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $defaultOptions = [
             PaginatorInterface::PAGE_PARAMETER_NAME => 'page',
