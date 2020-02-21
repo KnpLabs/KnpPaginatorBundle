@@ -49,6 +49,22 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
             $this->params[$eventOptions['sortDirectionParameterName']] = $eventOptions['defaultSortDirection'];
         }
 
+        // remove default sort params from pagination links
+        if (isset($eventOptions['removeDefaultSortParams']) && $eventOptions['removeDefaultSortParams'] === true) {
+            $defaultSortFieldName = $eventOptions['defaultSortFieldName'];
+            $sortFieldParameterName = $this->params[$eventOptions['sortFieldParameterName']];
+            $isFieldEqual = $defaultSortFieldName === $sortFieldParameterName;
+            $defaultSortDirection = $eventOptions['defaultSortDirection'];
+            $sortDirectionParameterName = $this->params[$eventOptions['sortDirectionParameterName']];
+            $isDirectionEqual = $defaultSortDirection === $sortDirectionParameterName;
+
+            if (isset($defaultSortFieldName) && isset($sortFieldParameterName) && $isFieldEqual
+                && isset($defaultSortDirection) && isset($sortDirectionParameterName) && $isDirectionEqual) {
+                unset($this->params[$eventOptions['sortFieldParameterName']]);
+                unset($this->params[$eventOptions['sortDirectionParameterName']]);
+            }
+        }
+
         $pagination = new SlidingPagination($this->params);
 
         $pagination->setUsedRoute($this->route);
