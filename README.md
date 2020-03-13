@@ -4,7 +4,7 @@ Friendly Symfony paginator to paginate everything
 
 [![Build Status](https://travis-ci.org/KnpLabs/KnpPaginatorBundle.svg?branch=master)](https://travis-ci.org/KnpLabs/KnpPaginatorBundle)
 
-Generally this bundle is based on [Knp Pager component](https://github.com/KnpLabs/knp-components/blob/master/docs/pager/intro.md). This
+Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
 component introduces a different way for pagination handling. You can read more about the
 internal logic on the given documentation link.
 
@@ -236,7 +236,7 @@ For more information about lazy services, consult the [Symfony documentation on 
 </container>
 ```
 
-[knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/doc/pager/intro.md "Knp Pager component introduction"
+[knp_component_pager]: https://github.com/KnpLabs/knp-components/blob/master/docs/pager/intro.md "Knp Pager component introduction"
 [doc_custom_pagination_subscriber]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/docs/custom_pagination_subscribers.md "Custom pagination subscribers"
 [doc_templates]: https://github.com/KnpLabs/KnpPaginatorBundle/tree/master/docs/templates.md "Customizing Pagination templates"
 
