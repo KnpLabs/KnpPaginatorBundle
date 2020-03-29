@@ -107,7 +107,7 @@ That could be used out of the box in `knp_paginator.template.sortable` key:
 
 * `@KnpPaginator/Pagination/sortable_link.html.twig` (by default)
 * `@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig`
-* `@KnpPaginator/Pagination/font_awesome_sortable_link.html.twig`
+* `@KnpPaginator/Pagination/twitter_bootstrap_v4_font_awesome_sortable_link.html.twig`
 * `@KnpPaginator/Pagination/semantic_ui_sortable_link.html.twig`
 
 ## Usage examples:
