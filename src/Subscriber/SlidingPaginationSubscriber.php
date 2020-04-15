@@ -28,7 +28,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $this->route = $request->attributes->get('_route');
-        $this->params = \array_merge($request->query->all(), $request->attributes->get('_route_params', []));
+        $this->params = \array_replace($request->query->all(), $request->attributes->get('_route_params', []));
         foreach ($this->params as $key => $param) {
             if ('_' == \substr($key, 0, 1)) {
                 unset($this->params[$key]);
