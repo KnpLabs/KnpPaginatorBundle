@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Knp\Bundle\PaginatorBundle\Tests\Pagination;
 
@@ -8,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class SlidingPaginationTest.
  */
-class SlidingPaginationTest extends TestCase
+final class SlidingPaginationTest extends TestCase
 {
     /**
      * @var SlidingPagination
@@ -23,7 +25,7 @@ class SlidingPaginationTest extends TestCase
     /**
      * @dataProvider getPageLimitData
      */
-    public function testGetPageCount(int $expected, int $totalItemCount, int $itemsPerPage, ?int $pageLimit)
+    public function testGetPageCount(int $expected, int $totalItemCount, int $itemsPerPage, ?int $pageLimit): void
     {
         $this->pagination->setTotalItemCount($totalItemCount);
         $this->pagination->setItemNumberPerPage($itemsPerPage);
