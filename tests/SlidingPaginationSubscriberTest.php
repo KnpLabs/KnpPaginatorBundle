@@ -6,6 +6,9 @@ use Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber;
 use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\Framework\TestCase;
 use Knp\Component\Pager\Event;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * Class SlidingPaginationSubscriberTest.
@@ -85,6 +88,42 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $this->assertEquals([
             "sort" => "p.id",
             "direction" => "desc",
+        ], $paginationParams);
+    }
+
+    public function testRequestParams(): void
+    {
+        $query = [
+            '_hash' => 'abcdef',
+            '123' => 'integer key',
+            'page' => '2',
+        ];
+        $attributes = [
+            '_route_params' => [
+                '_locale' => 'en',
+                '123' => 'integer key from _route_params',
+                'some_route_param' => 'something',
+            ],
+        ];
+
+        $this->options['removeDefaultSortParams'] = true;
+
+        $paginationEvent = new Event\PaginationEvent;
+        $paginationEvent->options = &$this->options;
+
+        $kernel = $this->createMock(HttpKernelInterface::class);
+        $request = new Request($query, [], $attributes);
+        $requestEvent = new RequestEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
+
+        $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
+        $slidingPaginationSubscriber->onKernelRequest($requestEvent);
+        $slidingPaginationSubscriber->pagination($paginationEvent);
+        $paginationParams = $paginationEvent->getPagination()->getParams();
+
+        $this->assertEquals([
+            '123' => 'integer key from _route_params',
+            'page' => '2',
+            'some_route_param' => 'something',
         ], $paginationParams);
     }
 }
