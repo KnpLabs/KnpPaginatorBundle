@@ -5,9 +5,8 @@ namespace Knp\Bundle\PaginatorBundle\Tests\Pagination;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use PHPUnit\Framework\TestCase;
 
-
 /**
- * @copyright 2020 PB Web Media B.V.
+ * Class SlidingPaginationTest.
  */
 class SlidingPaginationTest extends TestCase
 {
