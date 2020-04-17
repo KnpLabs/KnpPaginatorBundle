@@ -15,6 +15,9 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
     /** @var int */
     private $pageRange = 5;
 
+    /** @var int|null */
+    private $pageLimit = null;
+
     /** @var string|null */
     private $template;
 
@@ -82,6 +85,11 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
     public function setPageRange(int $range): void
     {
         $this->pageRange = \abs($range);
+    }
+
+    public function setPageLimit(?int $limit): void
+    {
+        $this->pageLimit = $limit;
     }
 
     /**
@@ -215,7 +223,13 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
 
     public function getPageCount(): int
     {
-        return \ceil($this->totalCount / $this->numItemsPerPage);
+        $count = \ceil($this->totalCount / $this->numItemsPerPage);
+
+        if ($this->pageLimit !== null) {
+            return \min($count, $this->pageLimit);
+        }
+
+        return $count;
     }
 
     public function getPaginatorOptions(): ?array
