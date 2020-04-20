@@ -105,6 +105,22 @@ In template:
 {% do pagination.setPageRange(7) %}
 ```
 
+### Setting a page limit
+
+The default page limit is unlimited, but if for some reason you want to limit
+the number of pages you can do so. Doing it in controller:
+
+``` php
+<?php
+$pagination->setPageLimit(25);
+```
+
+In template:
+
+``` php
+{% do pagination.setPageLimit(25) %}
+```
+
 ## Choose the sorting direction
 
 The `knp_pagination_sortable()` template switch automatically the sorting direction but sometimes you need to propose to your users to select the sorting direction of you list.
