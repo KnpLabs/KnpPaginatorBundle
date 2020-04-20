@@ -39,6 +39,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
             'defaultSortableTemplate' => '@KnpPaginator/Pagination/baz.html.twig',
             'defaultFiltrationTemplate' => '@KnpPaginator/Pagination/bar.html.twig',
             'defaultPageRange' => 5,
+            'defaultPageLimit' => null,
         ];
         $this->options = $options;
         $this->subscriberOptions = $subscriberOptions;

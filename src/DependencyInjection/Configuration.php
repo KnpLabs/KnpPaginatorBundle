@@ -43,6 +43,9 @@ final class Configuration implements ConfigurationInterface
                 ->scalarNode('page_range')
                 ->defaultValue(5)
                 ->end()
+                ->integerNode('page_limit')
+                ->defaultNull()
+                ->end()
             ->end()
         ;
 

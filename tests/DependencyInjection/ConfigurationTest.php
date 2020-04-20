@@ -51,6 +51,7 @@ final class ConfigurationTest extends TestCase
                 'sortable' => '@KnpPaginator/Pagination/sortable_link.html.twig',
             ],
             'page_range' => 5,
+            'page_limit' => null,
         ], $config);
     }
 
@@ -73,6 +74,7 @@ final class ConfigurationTest extends TestCase
                 'sortable' => '@KnpPaginator/Pagination/baz.html.twig',
             ],
             'page_range' => 15,
+            'page_limit' => 100,
         ];
         $config = $this->processor->processConfiguration($this->configuration, ['knp_paginator' => $expected]);
 

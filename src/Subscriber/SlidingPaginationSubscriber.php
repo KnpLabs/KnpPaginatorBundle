@@ -72,6 +72,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         $pagination->setSortableTemplate($this->options['defaultSortableTemplate']);
         $pagination->setFiltrationTemplate($this->options['defaultFiltrationTemplate']);
         $pagination->setPageRange($this->options['defaultPageRange']);
+        $pagination->setPageLimit($this->options['defaultPageLimit']);
 
         $event->setPagination($pagination);
         $event->stopPropagation();
