@@ -9,6 +9,7 @@ for recent versions of Symfony and `app/config.yml` for older versions. If you c
 ``` yaml
 knp_paginator:
     page_range: 5                      # default page range used in pagination control
+    page_limit: 100                    # page limit for pagination control; to disable set this field to ~ (null)
     default_options:
         page_name: page                # page query parameter name
         sort_field_name: sort          # sort field query parameter name; to disable sorting set this field to ~ (null)

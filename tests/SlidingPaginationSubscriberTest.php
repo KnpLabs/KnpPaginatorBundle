@@ -39,6 +39,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
             'defaultSortableTemplate' => '@KnpPaginator/Pagination/baz.html.twig',
             'defaultFiltrationTemplate' => '@KnpPaginator/Pagination/bar.html.twig',
             'defaultPageRange' => 5,
+            'defaultPageLimit' => null,
         ];
         $this->options = $options;
         $this->subscriberOptions = $subscriberOptions;
@@ -89,6 +90,27 @@ final class SlidingPaginationSubscriberTest extends TestCase
             "sort" => "p.id",
             "direction" => "desc",
         ], $paginationParams);
+    }
+
+    public function testPageLimitSet()
+    {
+        $this->subscriberOptions['defaultPageLimit'] = 50;
+
+        $paginationEvent = new Event\PaginationEvent;
+        $paginationEvent->options = &$this->options;
+
+        $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
+        $slidingPaginationSubscriber->pagination($paginationEvent);
+        $pagination = $paginationEvent->getPagination();
+
+        $pagination->setItemNumberPerPage(1);
+        $pagination->setTotalItemCount(49);
+
+        $this->assertSame(49, $pagination->getPageCount());
+
+        $pagination->setTotalItemCount(51);
+
+        $this->assertSame(50, $pagination->getPageCount());
     }
 
     public function testRequestParams(): void
