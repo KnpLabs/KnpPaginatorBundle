@@ -1,3 +1,9 @@
+# 5.2.0
+*Released at 2020-04-28*
+
+### New features
+- Added option to limit pages
+
 # 5.1.1
 *Released at 2020-01-21*
 
