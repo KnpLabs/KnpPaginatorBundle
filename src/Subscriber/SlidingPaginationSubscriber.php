@@ -50,7 +50,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         }
 
         // remove default sort params from pagination links
-        if (isset($eventOptions['removeDefaultSortParams']) && $eventOptions['removeDefaultSortParams'] === true) {
+        if (isset($eventOptions['removeDefaultSortParams']) && true === $eventOptions['removeDefaultSortParams']) {
             $defaultSortFieldName = $eventOptions['defaultSortFieldName'];
             $sortFieldParameterName = $this->params[$eventOptions['sortFieldParameterName']];
             $isFieldEqual = $defaultSortFieldName === $sortFieldParameterName;

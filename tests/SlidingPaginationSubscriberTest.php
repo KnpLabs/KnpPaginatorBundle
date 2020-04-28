@@ -3,9 +3,9 @@
 namespace Knp\Bundle\PaginatorBundle\Tests;
 
 use Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber;
+use Knp\Component\Pager\Event;
 use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\Framework\TestCase;
-use Knp\Component\Pager\Event;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -33,7 +33,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
             PaginatorInterface::DEFAULT_SORT_DIRECTION => 'desc',
             PaginatorInterface::SORT_FIELD_WHITELIST => ['p.id', 'p.name'],
         ];
-        $options = array_merge($defaultOptions, $options);
+        $options = \array_merge($defaultOptions, $options);
         $subscriberOptions = [
             'defaultPaginationTemplate' => '@KnpPaginator/Pagination/foo.html.twig',
             'defaultSortableTemplate' => '@KnpPaginator/Pagination/baz.html.twig',
@@ -49,7 +49,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
     {
         $this->options['removeDefaultSortParams'] = false;
 
-        $paginationEvent = new Event\PaginationEvent;
+        $paginationEvent = new Event\PaginationEvent();
         $paginationEvent->options = &$this->options;
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
@@ -57,8 +57,8 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $paginationParams = $paginationEvent->getPagination()->getparams();
 
         $this->assertEquals([
-            "sort" => "p.id",
-            "direction" => "desc",
+            'sort' => 'p.id',
+            'direction' => 'desc',
         ], $paginationParams);
     }
 
@@ -67,7 +67,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $this->options['removeDefaultSortParams'] = true;
 
         // pagination initialization event
-        $paginationEvent = new Event\PaginationEvent;
+        $paginationEvent = new Event\PaginationEvent();
         $paginationEvent->options = &$this->options;
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
@@ -79,7 +79,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
 
     public function testRemoveDefaultSortParamsNotIsset(): void
     {
-        $paginationEvent = new Event\PaginationEvent;
+        $paginationEvent = new Event\PaginationEvent();
         $paginationEvent->options = &$this->options;
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
@@ -87,16 +87,16 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $paginationParams = $paginationEvent->getPagination()->getparams();
 
         $this->assertEquals([
-            "sort" => "p.id",
-            "direction" => "desc",
+            'sort' => 'p.id',
+            'direction' => 'desc',
         ], $paginationParams);
     }
 
-    public function testPageLimitSet()
+    public function testPageLimitSet(): void
     {
         $this->subscriberOptions['defaultPageLimit'] = 50;
 
-        $paginationEvent = new Event\PaginationEvent;
+        $paginationEvent = new Event\PaginationEvent();
         $paginationEvent->options = &$this->options;
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
@@ -130,7 +130,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
 
         $this->options['removeDefaultSortParams'] = true;
 
-        $paginationEvent = new Event\PaginationEvent;
+        $paginationEvent = new Event\PaginationEvent();
         $paginationEvent->options = &$this->options;
 
         $kernel = $this->createMock(HttpKernelInterface::class);

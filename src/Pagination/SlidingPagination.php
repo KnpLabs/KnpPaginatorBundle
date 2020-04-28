@@ -225,7 +225,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
     {
         $count = \ceil($this->totalCount / $this->numItemsPerPage);
 
-        if ($this->pageLimit !== null) {
+        if (null !== $this->pageLimit) {
             return \min($count, $this->pageLimit);
         }
 
