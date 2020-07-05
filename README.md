@@ -200,6 +200,22 @@ translationCount and translationParameters can be combined.
 </table>
 ```
 
+### Adding translation files
+You can also override translations by creating translation file in the following name format: `domain.locale.format`.
+So, to create translation file for this bundle you need to create for instance `KnpPaginatorBundle.tr.yaml` file under `project_root/translations/` 
+and add your translations there:
+```yaml
+label_previous: "Önceki"
+label_next: "Sonraki"
+filter_searchword: "Arama kelimesi"
+```
+If you set default translation for configuration accordingly:
+```yaml
+framework:
+    default_locale: tr
+```
+Symfony will pick it automatically.
+
 ### Dependency Injection
 
 You can automatically inject a paginator service into another service by using the `knp_paginator.injectable` DIC tag.
