@@ -15,6 +15,8 @@ knp_paginator:
         sort_field_name: sort          # sort field query parameter name; to disable sorting set this field to ~ (null)
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        page_out_of_range: ignore      # if page number exceeds the last page. Options: 'fix'(return last page); 'throwException'
+        default_limit: 10              # default number of items per page
     template:
         pagination: @KnpPaginator/Pagination/sliding.html.twig     # sliding pagination controls template
         sortable: @KnpPaginator/Pagination/sortable_link.html.twig # sort link template
