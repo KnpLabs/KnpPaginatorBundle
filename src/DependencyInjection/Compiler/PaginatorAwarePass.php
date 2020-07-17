@@ -34,7 +34,7 @@ final class PaginatorAwarePass implements CompilerPassInterface
     {
         $defaultAttributes = ['paginator' => 'knp_paginator'];
 
-        foreach ($container->findTaggedServiceIds(self::PAGINATOR_AWARE_TAG) as $id => $attributes) {
+        foreach ($container->findTaggedServiceIds(self::PAGINATOR_AWARE_TAG) as $id => [$attributes]) {
             $definition = $container->getDefinition($id);
 
             $refClass = new \ReflectionClass($definition->getClass());
