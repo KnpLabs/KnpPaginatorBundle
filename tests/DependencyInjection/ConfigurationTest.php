@@ -3,6 +3,7 @@
 namespace Knp\Bundle\PaginatorBundle\Tests\DependencyInjection;
 
 use Knp\Bundle\PaginatorBundle\DependencyInjection\Configuration;
+use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -44,6 +45,8 @@ final class ConfigurationTest extends TestCase
                 'filter_value_name' => 'filterValue',
                 'page_name' => 'page',
                 'distinct' => true,
+                'page_out_of_range' => PaginatorInterface::PAGE_OUT_OF_RANGE_IGNORE,
+                'default_limit' => PaginatorInterface::DEFAULT_LIMIT_VALUE,
             ],
             'template' => [
                 'pagination' => '@KnpPaginator/Pagination/sliding.html.twig',
@@ -67,6 +70,8 @@ final class ConfigurationTest extends TestCase
                 'filter_value_name' => 'there',
                 'page_name' => 'bar',
                 'distinct' => false,
+                'page_out_of_range' => PaginatorInterface::PAGE_OUT_OF_RANGE_FIX,
+                'default_limit' => 20,
             ],
             'template' => [
                 'pagination' => '@KnpPaginator/Pagination/foo.html.twig',
