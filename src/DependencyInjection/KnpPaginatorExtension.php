@@ -34,8 +34,6 @@ final class KnpPaginatorExtension extends Extension
         $container->setParameter('knp_paginator.template.sortable', $config['template']['sortable']);
         $container->setParameter('knp_paginator.page_range', $config['page_range']);
         $container->setParameter('knp_paginator.page_limit', $config['page_limit']);
-        $container->setParameter('knp_paginator.page_out_of_range', $config['page_out_of_range']);
-        $container->setParameter('knp_paginator.default_limit', $config['default_limit']);
 
         $paginatorDef = $container->getDefinition('knp_paginator');
         $paginatorDef->addMethodCall('setDefaultPaginatorOptions', [[
