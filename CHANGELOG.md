@@ -1,3 +1,10 @@
+# 5.3.0
+*Released at 2020-07-21*
+
+### New features
+- Added option to handle out of range pages
+- Added option to use a default limit
+
 # 5.2.0
 *Released at 2020-04-28*
 
