@@ -73,6 +73,7 @@ public function registerBundles()
 
 You can configure default query parameter names and templates
 
+#### YAML:
 ```yaml
 knp_paginator:
     page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
@@ -87,6 +88,34 @@ knp_paginator:
         pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+```
+#### PHP: (Symfony 5.x)
+```php
+// config/packages/paginator.php
+
+<?php declare(strict_types=1);
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $configurator): void
+{
+    $configurator->extension('knp_paginator', [
+        'page_range' => 5,
+        'default_options' => [
+            'page_name' => 'page',
+            'sort_field_name' => 'sort',
+            'sort_direction_name' => 'direction',
+            'distinct' => true,
+            'filter_field_name' => 'filterField',
+            'filter_value_name' => 'filterValue'
+        ],
+        'template' => [
+            'pagination' => '@KnpPaginator/Pagination/sliding.html.twig',
+            'sortable' => '@KnpPaginator/Pagination/sortable_link.html.twig',
+            'filtration' => '@KnpPaginator/Pagination/filtration.html.twig'
+        ]
+    ]);
+};
 ```
 
 #### Additional pagination templates
