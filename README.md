@@ -101,6 +101,7 @@ That could be used out of the box in `knp_paginator.template.pagination` key:
 * `@KnpPaginator/Pagination/semantic_ui_pagination.html.twig`
 * `@KnpPaginator/Pagination/materialize_pagination.html.twig`
 * `@KnpPaginator/Pagination/tailwindcss_pagination.html.twig`
+* `@KnpPaginator/Pagination/uikit_v3_pagination.html.twig`
 
 #### Additional sortable templates
 That could be used out of the box in `knp_paginator.template.sortable` key:
@@ -109,6 +110,7 @@ That could be used out of the box in `knp_paginator.template.sortable` key:
 * `@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_v4_font_awesome_sortable_link.html.twig`
 * `@KnpPaginator/Pagination/semantic_ui_sortable_link.html.twig`
+* `@KnpPaginator/Pagination/uikit_v3_sortable.html.twig`
 
 ## Usage examples:
 
