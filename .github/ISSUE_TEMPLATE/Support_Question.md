@@ -21,4 +21,8 @@ previously discussed.
 
 ### Support Question
 
-<!-- Describe the issue you are facing here. -->
+<!--
+Describe the issue you are facing here.
+If you're not sure about your configuration, run
+bin/console debug:config knp_paginator
+-->
