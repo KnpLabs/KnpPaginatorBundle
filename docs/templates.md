@@ -1,3 +1,4 @@
+
 # Templates
 
 This document will describe how pagination can be rendered, extended and used in
@@ -40,7 +41,15 @@ or in view
 
 ### In render method
 
+```twig
 {{ knp_pagination_render(pagination, 'MyBundle:Pagination:pagination.html.twig') }}
+```
+
+or by specifying path to your custom template that is located under your project's `templates` directory:
+```twig
+{{ knp_pagination_sortable(pagination, 'date', 'c.publishedAt', {}, {}, 'KnpPaginator/Pagination/bootstrap_v4_sortable_link.html.twig') }}
+{{ knp_pagination_render(pagination, 'KnpPaginator/Pagination/bootstrap_v4_pagination.html.twig') }}
+```
 
 ## Other useful parameters
 
