@@ -64,6 +64,5 @@ vendor/bin/phpunit
 [GitHub-issue]: https://github.com/KnpLabs/KnpPaginatorBundle/issues
 [ReadMe]: https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/README.md
 [KNPLink]: https://github.com/KnpLabs
-[CodeofConduct]: https://github.com/KnpLabs/KnpPaginatorBundle/blob/normalize-code-of-conduct/CODE_OF_CONDUCT.md
-
+[CodeofConduct]: https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CODE_OF_CONDUCT.md
 
