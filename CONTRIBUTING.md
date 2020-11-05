@@ -55,8 +55,7 @@ git checkout -b BRANCH_NAME master
 6. Update documentation (if needed)
 7. Run the tests and make sure that they are passing
 ```
-composer unit-tests
-composer static-analysis
+vendor/bin/phpunit
 ```
 8. Squash your commits
 9. Rebase your branch on master and fix merge conflicts
