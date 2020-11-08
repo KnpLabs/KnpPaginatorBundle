@@ -1,6 +1,6 @@
 ---
 name: ⚙ Improvement
-about: You have some improvement to make VichUploaderBundle better? 🎁
+about: You have some improvement to make KnpPaginatorBundle better? 🎁
 ---
 
 ### Improvement
