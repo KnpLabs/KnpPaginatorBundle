@@ -40,6 +40,9 @@
     "config": {
         "sort-packages": true
     },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "5.3.x-dev"
