@@ -1,38 +1,40 @@
 {# default Sliding pagination control implementation #}
 {% if pageCount > 1 %}
-    <div class="pagination">
+    <ul class="pagination">
         {% if first is defined and current != first %}
-            <span class="first">
-                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
-            </span>
+            <li class="first">
+                <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): first})) }}">&laquo;</a>
+            </li>
         {% endif %}
 
         {% if previous is defined %}
-            <span class="previous">
-                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
-            </span>
+            <li class="previous">
+                <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">Previous</a>
+            </li>
         {% endif %}
 
         {% for page in pagesInRange %}
             {% if page != current %}
-                <span class="page">
-                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
-                </span>
+                <li class="page-item">
+                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                </li>
             {% else %}
-                <span class="current">{{ page }}</span>
+                <li  class="page-item active">
+                    <a class="page-link">{{ page }}</a>
+                </li>
             {% endif %}
         {% endfor %}
 
         {% if next is defined %}
-            <span class="next">
-                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
-            </span>
+            <li class="next">
+                <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): next})) }}">Next</a>
+            </li>
         {% endif %}
 
         {% if last is defined and current != last %}
-            <span class="last">
-                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
-            </span>
+            <li class="last">
+                <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): last})) }}">&raquo;</a>
+            </li>
         {% endif %}
-    </div>
+    </ul>
 {% endif %}
