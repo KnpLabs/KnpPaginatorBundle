@@ -5,9 +5,10 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="knp_paginator" class="Knp\Component\Pager\Paginator" public="true">
+        <service id="knp_paginator" class="Knp\Component\Pager\Paginator" public="true" lazy="true">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="request_stack" />
+            <tag name="proxy" interface="Knp\Component\Pager\PaginatorInterface" />
         </service>
 
         <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" />

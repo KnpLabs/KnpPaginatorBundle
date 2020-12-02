@@ -46,7 +46,5 @@ final class KnpPaginatorExtension extends Extension
             'pageOutOfRange' => $config['default_options']['page_out_of_range'],
             'defaultLimit' => $config['default_options']['default_limit'],
         ]]);
-
-        $paginatorDef->setLazy(true);
     }
 }

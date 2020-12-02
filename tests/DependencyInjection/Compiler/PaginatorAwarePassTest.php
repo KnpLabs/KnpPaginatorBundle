@@ -4,10 +4,13 @@ namespace Knp\Bundle\PaginatorBundle\Tests\DependencyInjection\Compiler;
 
 use Knp\Bundle\PaginatorBundle\Definition\PaginatorAware;
 use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorAwarePass;
+use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class PaginatorAwarePassTest extends TestCase
 {
@@ -49,5 +52,17 @@ final class PaginatorAwarePassTest extends TestCase
         $this->expectExceptionMessage('Paginator service "INVALID" for tag "knp_paginator.injectable" on service "tag.one" could not be found.');
 
         (new PaginatorAwarePass())->process($container);
+    }
+
+    public function testProxyAndLazy(): void
+    {
+        $container = new ContainerBuilder();
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../../config'));
+        $loader->load('paginator.xml');
+        $container->register('knp.paginator');
+
+        $definition = $container->getDefinition('knp_paginator');
+        $this->assertSame([['interface' => PaginatorInterface::class]], $definition->getTag('proxy'));
+        $this->assertTrue($definition->isLazy());
     }
 }
