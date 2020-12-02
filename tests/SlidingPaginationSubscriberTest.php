@@ -31,7 +31,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $options = [
             PaginatorInterface::DEFAULT_SORT_FIELD_NAME => 'p.id',
             PaginatorInterface::DEFAULT_SORT_DIRECTION => 'desc',
-            PaginatorInterface::SORT_FIELD_WHITELIST => ['p.id', 'p.name'],
+            PaginatorInterface::SORT_FIELD_ALLOW_LIST => ['p.id', 'p.name'],
         ];
         $options = \array_merge($defaultOptions, $options);
         $subscriberOptions = [
