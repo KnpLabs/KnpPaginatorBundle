@@ -1,3 +1,10 @@
+# 5.4.0
+*Released at 2020-12-02*
+
+### New features
+- Added support for php 8
+- Added support for Material design in sortable
+
 # 5.3.0
 *Released at 2020-07-21*
 
