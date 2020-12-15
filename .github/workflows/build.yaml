@@ -1,0 +1,44 @@
+name: Build
+
+on:
+    pull_request: ~
+    push: ~
+
+jobs:
+    tests:
+        runs-on: ubuntu-20.04
+        strategy:
+            matrix:
+                php:
+                    - '7.3'
+                    - '7.4'
+                    - '8.0'
+                include:
+                    - description: 'Symfony 4.4'
+                      php: '7.3'
+                      composer_option: '--prefer-lowest'
+                    - description: 'Symfony 5.1'
+                      php: '7.4'
+                      symfony: 5.1.*
+                    - description: 'Symfony 5.2'
+                      php: '8.0'
+                      symfony: 5.2.*
+        name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Cache
+              uses: actions/cache@v2
+              with: 
+                  path: ~/.composer/cache/files
+                  key: ${{ matrix.php }}-${{ matrix.symfony }}-${{ matrix.composer_option }} 
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+            - run: |
+                  sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'${{ matrix.symfony }}'"/' composer.json;
+              if: matrix.symfony
+            - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
+            - run: vendor/bin/phpunit
+
