@@ -18,12 +18,12 @@ final class Processor
     /**
      * @var UrlGeneratorInterface
      */
-    protected $router;
+    private $router;
 
     /**
      * @var TranslatorInterface
      */
-    protected $translator;
+    private $translator;
 
     public function __construct(UrlGeneratorInterface $router, TranslatorInterface $translator)
     {
