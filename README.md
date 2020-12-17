@@ -5,7 +5,7 @@ Friendly Symfony paginator to paginate everything
 [![Build Status](https://travis-ci.org/KnpLabs/KnpPaginatorBundle.svg?branch=master)](https://travis-ci.org/KnpLabs/KnpPaginatorBundle)
 
 Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
-component introduces a different way for pagination handling. You can read more about the
+component introduces a different way of pagination handling. You can read more about the
 internal logic on the given documentation link.
 
 [![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
@@ -16,14 +16,14 @@ suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
 
 ## Latest updates
 
-For notes about latest changes please read [`CHANGELOG`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CHANGELOG.md),
+For notes about the latest changes please read [`CHANGELOG`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CHANGELOG.md),
 for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/docs/upgrade.md)
-chapter of documentation.
+chapter of the documentation.
 
 ## Requirements:
 
 - Knp Pager component `>=2.0`.
-- KnpPaginatorBundle's master compatible with Symfony `>=4.3` versions.
+- KnpPaginatorBundle's master is compatible with Symfony `>=4.4` versions.
 - Twig `>=2.0` version is required if you use twig templating engine.
 
 ## Features:
@@ -233,8 +233,8 @@ translationCount and translationParameters can be combined.
 ```
 
 ### Adding translation files
-You can also override translations by creating translation file in the following name format: `domain.locale.format`.
-So, to create translation file for this bundle you need to create for instance `KnpPaginatorBundle.tr.yaml` file under `project_root/translations/` 
+You can also override translations by creating a translation file in the following name format: `domain.locale.format`.
+So, to create a translation file for this bundle you need to create for instance `KnpPaginatorBundle.tr.yaml` file under `project_root/translations/` 
 and add your translations there:
 ```yaml
 label_previous: "Önceki"
@@ -256,6 +256,9 @@ It defaults to `knp_paginator`.
 
 The class that receives the KnpPaginator service must implement `Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface`.
 If you're too lazy you can also just extend the `Knp\Bundle\PaginatorBundle\Definition\PaginatorAware` base class.
+
+> **⚠ Warning** using `PaginatorAwareInterface` is discouraged, and could be removed in a future version. You should not rely on setter
+> injection, but only on proper constructor injection. Using Symfony built-in autowiring mechanism is the suggested way to go.
 
 #### Lazy service
 

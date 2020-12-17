@@ -5,6 +5,9 @@
 - Added support for php 8
 - Added support for Material design in sortable
 
+### BC Breaks
+- PaginationAwareInterface is now using PaginationInterface instead of Pagination
+
 # 5.3.0
 *Released at 2020-07-21*
 

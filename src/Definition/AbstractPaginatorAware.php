@@ -2,7 +2,7 @@
 
 namespace Knp\Bundle\PaginatorBundle\Definition;
 
-use Knp\Component\Pager\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * This is a base class that can be extended if you're too lazy to implement PaginatorAwareInterface yourself.
@@ -10,14 +10,14 @@ use Knp\Component\Pager\Paginator;
 abstract class AbstractPaginatorAware implements PaginatorAwareInterface
 {
     /**
-     * @var Paginator
+     * @var PaginatorInterface
      */
     private $paginator;
 
     /**
      * Sets the KnpPaginator instance.
      */
-    public function setPaginator(Paginator $paginator): PaginatorAwareInterface
+    public function setPaginator(PaginatorInterface $paginator): PaginatorAwareInterface
     {
         $this->paginator = $paginator;
 
@@ -27,7 +27,7 @@ abstract class AbstractPaginatorAware implements PaginatorAwareInterface
     /**
      * Returns the KnpPaginator instance.
      */
-    public function getPaginator(): Paginator
+    public function getPaginator(): PaginatorInterface
     {
         return $this->paginator;
     }
