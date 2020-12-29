@@ -2,7 +2,7 @@
 
 Friendly Symfony paginator to paginate everything
 
-[![Build Status](https://travis-ci.org/KnpLabs/KnpPaginatorBundle.svg?branch=master)](https://travis-ci.org/KnpLabs/KnpPaginatorBundle)
+[![Build Status](https://github.com/KnpLabs/KnpPaginatorBundle/workflows/build/badge.svg)](https://github.com/KnpLabs/KnpPaginatorBundle/actions)
 
 Generally this bundle is based on [Knp Pager component][knp_component_pager]. This
 component introduces a different way of pagination handling. You can read more about the
