@@ -92,7 +92,7 @@ If you need custom parameters in pagination template, use:
 <?php
 // set an array of custom parameters
 $pagination->setCustomParameters([
-    'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination)
+    'align' => 'center', # center|right (for template: twitter_bootstrap_v4_pagination and foundation_v6_pagination)
     'size' => 'large', # small|large (for template: twitter_bootstrap_v4_pagination)
     'style' => 'bottom',
     'span_class' => 'whatever',

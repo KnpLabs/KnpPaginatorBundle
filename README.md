@@ -125,6 +125,7 @@ That could be used out of the box in `knp_paginator.template.pagination` key:
 * `@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_pagination.html.twig`
+* `@KnpPaginator/Pagination/foundation_v6_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v5_pagination.html.twig`
 * `@KnpPaginator/Pagination/bulma_pagination.html.twig`
 * `@KnpPaginator/Pagination/semantic_ui_pagination.html.twig`
