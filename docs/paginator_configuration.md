@@ -28,5 +28,6 @@ There are a few additional pagination templates, that could be used out of the b
 * `@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_v3_pagination.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_pagination.html.twig`
+* `@KnpPaginator/Pagination/foundation_v6_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v5_pagination.html.twig`
 * `@KnpPaginator/Pagination/bulma_pagination.html.twig`
