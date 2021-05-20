@@ -2,7 +2,7 @@
 
 namespace Knp\Bundle\PaginatorBundle\Tests\DependencyInjection\Compiler;
 
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAware;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler\PaginatorAwarePass;
 use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +18,7 @@ final class PaginatorAwarePassTest extends TestCase
     {
         $container = new ContainerBuilder();
         $container->register('knp.paginator');
-        $container->register('tag.one', PaginatorAware::class)
+        $container->register('tag.one', PaginatorAwareInterface::class)
             ->addTag(PaginatorAwarePass::PAGINATOR_AWARE_TAG, ['paginator' => 'knp.paginator']);
 
         (new PaginatorAwarePass())->process($container);
@@ -45,7 +45,7 @@ final class PaginatorAwarePassTest extends TestCase
     public function testExceptionNoPaginator(): void
     {
         $container = new ContainerBuilder();
-        $container->register('tag.one', PaginatorAware::class)
+        $container->register('tag.one', PaginatorAwareInterface::class)
             ->addTag(PaginatorAwarePass::PAGINATOR_AWARE_TAG, ['paginator' => 'INVALID']);
 
         $this->expectException(InvalidDefinitionException::class);
