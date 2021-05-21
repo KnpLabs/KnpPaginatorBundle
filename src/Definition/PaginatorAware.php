@@ -2,7 +2,7 @@
 
 namespace Knp\Bundle\PaginatorBundle\Definition;
 
-@\trigger_error('The '.__NAMESPACE__.'\PaginatorAware class is deprecated since knplabs/knp-paginator-bundle 5.x. Use '.AbstractPaginatorAware::class.' instead.', E_USER_DEPRECATED);
+@\trigger_error('The '.__NAMESPACE__.'\PaginatorAware class is deprecated since knplabs/knp-paginator-bundle 5.x. Use '.AbstractPaginatorAware::class.' instead.', \E_USER_DEPRECATED);
 
 /**
  * Class PaginatorAware.
