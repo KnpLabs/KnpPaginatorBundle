@@ -1,5 +1,5 @@
 # 5.5.0
-*To be released*
+*Released at 2021-05-24*
 
 ### Deprecations
 - Deprecated service tags `knp_paginator.listener` and `knp_paginator.subscriber`. Use Symfony tags instead.
