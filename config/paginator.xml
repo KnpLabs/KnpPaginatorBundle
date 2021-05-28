@@ -14,15 +14,15 @@
         <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" />
 
         <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">
-            <tag name="knp_paginator.subscriber" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="knp_paginator.subscriber.sortable" class="Knp\Component\Pager\Event\Subscriber\Sortable\SortableSubscriber">
-            <tag name="knp_paginator.subscriber" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="knp_paginator.subscriber.filtration" class="Knp\Component\Pager\Event\Subscriber\Filtration\FiltrationSubscriber">
-            <tag name="knp_paginator.subscriber" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <service id="knp_paginator.subscriber.sliding_pagination" class="Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber">
