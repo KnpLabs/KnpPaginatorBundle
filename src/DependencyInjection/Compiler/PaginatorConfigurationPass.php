@@ -18,15 +18,20 @@ final class PaginatorConfigurationPass implements CompilerPassInterface
             return;
         }
 
-        foreach ($container->findTaggedServiceIds('knp_paginator.listener') as $serviceId => $tags) {
+        $listeners = $container->findTaggedServiceIds('knp_paginator.listener');
+        $subscribers = $container->findTaggedServiceIds('knp_paginator.subscriber');
+
+        foreach ($listeners as $serviceId => $tags) {
             @\trigger_error('Using "knp_paginator.listener" tag is deprecated, use "kernel.event_listener" instead.', \E_USER_DEPRECATED);
         }
 
-        foreach ($container->findTaggedServiceIds('knp_paginator.subscriber') as $serviceId => $tags) {
+        foreach ($subscribers as $serviceId => $tags) {
             @\trigger_error('Using "knp_paginator.subscriber" tag is deprecated, use "kernel.event_subscriber" instead.', \E_USER_DEPRECATED);
         }
 
-        $pass = new RegisterListenersPass('event_dispatcher', 'knp_paginator.listener', 'knp_paginator.subscriber');
-        $pass->process($container);
+        if (\count($listeners) > 0 || \count($subscribers) > 0) {
+            $pass = new RegisterListenersPass('event_dispatcher', 'knp_paginator.listener', 'knp_paginator.subscriber');
+            $pass->process($container);
+        }
     }
 }
