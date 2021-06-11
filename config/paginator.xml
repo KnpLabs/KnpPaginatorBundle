@@ -33,7 +33,7 @@
                 <argument key="defaultPageRange">%knp_paginator.page_range%</argument>
                 <argument key="defaultPageLimit">%knp_paginator.page_limit%</argument>
             </argument>
-            <tag name="knp_paginator.subscriber" />
+            <tag name="kernel.event_subscriber" />
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
         </service>
 
