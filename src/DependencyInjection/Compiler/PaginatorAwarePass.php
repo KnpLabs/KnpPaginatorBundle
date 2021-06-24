@@ -6,6 +6,7 @@ use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 
 /**
  * Class PaginatorAwarePass.
@@ -22,13 +23,13 @@ final class PaginatorAwarePass implements CompilerPassInterface
     /**
      * @var string
      */
-    public const PAGINATOR_AWARE_INTERFACE = 'Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface';
+    public const PAGINATOR_AWARE_INTERFACE = PaginatorAwareInterface::class;
 
     /**
      * Populates all tagged services with the paginator service.
      *
      * @throws \InvalidArgumentException
-     * @throws \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException
+     * @throws InvalidDefinitionException
      */
     public function process(ContainerBuilder $container): void
     {
@@ -36,8 +37,11 @@ final class PaginatorAwarePass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds(self::PAGINATOR_AWARE_TAG) as $id => [$attributes]) {
             $definition = $container->getDefinition($id);
-
-            $refClass = new \ReflectionClass($definition->getClass());
+            if (null === $class = $definition->getClass()) {
+                throw new \InvalidArgumentException(\sprintf('Service "%s" not found.', $id));
+            }
+            /** @var class-string $class */
+            $refClass = new \ReflectionClass($class);
             if (!$refClass->implementsInterface(self::PAGINATOR_AWARE_INTERFACE)) {
                 throw new \InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $id, self::PAGINATOR_AWARE_INTERFACE));
             }

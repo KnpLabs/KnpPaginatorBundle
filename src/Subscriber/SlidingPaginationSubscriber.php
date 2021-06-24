@@ -10,10 +10,18 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class SlidingPaginationSubscriber implements EventSubscriberInterface
 {
+    /** @var string */
     private $route;
+
+    /** @var array<string, mixed> */
     private $params = [];
+
+    /** @var array<string, mixed> */
     private $options;
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct(array $options)
     {
         $this->options = $options;
@@ -78,6 +86,9 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         $event->stopPropagation();
     }
 
+    /**
+     * @return array<string, array<int, int|string>>
+     */
     public static function getSubscribedEvents(): array
     {
         return [

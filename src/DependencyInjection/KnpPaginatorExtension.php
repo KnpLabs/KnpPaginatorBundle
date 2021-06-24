@@ -12,6 +12,8 @@ final class KnpPaginatorExtension extends Extension
 {
     /**
      * Build the extension services.
+     *
+     * @param array<string, array<string, mixed>> $configs
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
