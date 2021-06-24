@@ -4,6 +4,7 @@ namespace Knp\Bundle\PaginatorBundle\Tests;
 
 use Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber;
 use Knp\Component\Pager\Event;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,7 +55,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
         $slidingPaginationSubscriber->pagination($paginationEvent);
-        $paginationParams = $paginationEvent->getPagination()->getparams();
+        $paginationParams = $this->getPagination($paginationEvent)->getParams();
 
         $this->assertEquals([
             'sort' => 'p.id',
@@ -72,7 +73,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
         $slidingPaginationSubscriber->pagination($paginationEvent);
-        $paginationParams = $paginationEvent->getPagination()->getparams();
+        $paginationParams = $this->getPagination($paginationEvent)->getParams();
 
         $this->assertEquals([], $paginationParams);
     }
@@ -84,7 +85,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
         $slidingPaginationSubscriber->pagination($paginationEvent);
-        $paginationParams = $paginationEvent->getPagination()->getparams();
+        $paginationParams = $this->getPagination($paginationEvent)->getParams();
 
         $this->assertEquals([
             'sort' => 'p.id',
@@ -101,7 +102,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
         $slidingPaginationSubscriber->pagination($paginationEvent);
-        $pagination = $paginationEvent->getPagination();
+        $pagination = $this->getPagination($paginationEvent);
 
         $pagination->setItemNumberPerPage(1);
         $pagination->setTotalItemCount(49);
@@ -140,12 +141,20 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
         $slidingPaginationSubscriber->onKernelRequest($requestEvent);
         $slidingPaginationSubscriber->pagination($paginationEvent);
-        $paginationParams = $paginationEvent->getPagination()->getParams();
+        $paginationParams = $this->getPagination($paginationEvent)->getParams();
 
         $this->assertEquals([
             '123' => 'integer key from _route_params',
             'page' => '2',
             'some_route_param' => 'something',
         ], $paginationParams);
+    }
+
+    /**
+     * @return \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination
+     */
+    private function getPagination(Event\PaginationEvent $event): PaginationInterface
+    {
+        return $event->getPagination();
     }
 }

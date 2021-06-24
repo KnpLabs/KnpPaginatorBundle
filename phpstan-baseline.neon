@@ -1,0 +1,22 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:addDefaultsIfNotSet\\(\\)\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Symfony\\\\Component\\\\Routing\\\\Generator\\\\UrlGeneratorInterface\\:\\:generate\\(\\) expects string, string\\|null given\\.$#"
+			count: 2
+			path: src/Helper/Processor.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Symfony\\\\Component\\\\Templating\\\\PhpEngine\\:\\:render\\(\\) expects string\\|Symfony\\\\Component\\\\Templating\\\\TemplateReferenceInterface, string\\|null given\\.$#"
+			count: 3
+			path: src/Templating/PaginationHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Twig\\\\Environment\\:\\:render\\(\\) expects string\\|Twig\\\\TemplateWrapper, string\\|null given\\.$#"
+			count: 3
+			path: src/Twig/Extension/PaginationExtension.php
+
