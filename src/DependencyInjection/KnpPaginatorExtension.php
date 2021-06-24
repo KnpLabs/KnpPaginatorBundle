@@ -23,7 +23,9 @@ final class KnpPaginatorExtension extends Extension
         $loader->load('paginator.xml');
 
         if ($container->hasParameter('templating.engines')) {
-            if (\in_array('php', $container->getParameter('templating.engines'), true)) {
+            /** @var array<string> $engines */
+            $engines = $container->getParameter('templating.engines');
+            if (\in_array('php', $engines, true)) {
                 $loader->load('templating_php.xml');
             }
         }

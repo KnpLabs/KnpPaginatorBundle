@@ -2,11 +2,11 @@
 
 namespace Knp\Bundle\PaginatorBundle\DependencyInjection\Compiler;
 
+use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Knp\Bundle\PaginatorBundle\Definition\PaginatorAwareInterface;
 
 /**
  * Class PaginatorAwarePass.
