@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ * Bootstrap v5 Filter control implementation.
+ *
+ * View that can be used with the filter module
+ */
+#}
+<form method="get" action="{{ action }}" enctype="application/x-www-form-urlencoded">
+    <div class="input-group mb-3">
+        {% if fields|length > 1 %}
+            <select class="form-select" name="{{ filterFieldName }}">
+                {% for field, label in fields %}
+                    <option value="{{ field }}"{% if selectedField == field %} selected="selected"{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}"/>
+        {% endif %}
+        <input class="form-control" type="search" value="{{ selectedValue }}" name="{{ filterValueName }}"
+               placeholder="{{ 'filter_searchword'|trans({}, 'KnpPaginatorBundle') }}"/>
+        <button class="btn btn-primary">{{ options.button }}</button>
+    </div>
+</form>
