@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Bootstrap v5 with Material Design Icons Sorting control implementation.
+ *
+ * Install Icon Set: https://google.github.io/material-design-icons/
+ * Overview:         https://material.io/resources/icons/?style=baseline
+ */
+#}
+<a{% for attr, value  in options %} {{ attr }}="{{ value }}"{% endfor %}>
+    <span class="float-end">
+        {% if sorted %}
+            {% if direction == 'desc' %}
+                <i class="material-icons">expand_more</i>
+            {% else %}
+                <i class="material-icons">expand_less</i>
+            {% endif %}
+        {% else %}
+            <i class="material-icons">unfold_more</i>
+        {% endif %}
+    </span>
+    {{ title }}
+</a>

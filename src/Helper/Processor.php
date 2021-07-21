@@ -61,7 +61,7 @@ final class Processor
      * alias and field. $options holds all link
      * parameters like "alt, class" and so on.
      *
-     * $key example: "article.title"
+     * $key examples: "article.title" or "['article.title', 'article.subtitle']"
      *
      * @param SlidingPaginationInterface<mixed> $pagination
      * @param string|array<string, mixed>       $title
@@ -73,10 +73,6 @@ final class Processor
      */
     public function sortable(SlidingPaginationInterface $pagination, $title, $key, array $options = [], array $params = []): array
     {
-        if (\is_array($key)) {
-            $key = \implode('+', $key);
-        }
-
         $options = \array_merge([
             'absolute' => UrlGeneratorInterface::ABSOLUTE_PATH,
             'translationParameters' => [],
@@ -119,6 +115,10 @@ final class Processor
 
         if (\is_array($title) && \array_key_exists($direction, $title)) {
             $title = $title[$direction];
+        }
+
+        if (\is_array($key)) {
+            $key = \implode('+', $key);
         }
 
         $params = \array_merge(

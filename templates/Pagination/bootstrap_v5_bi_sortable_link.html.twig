@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ * Bootstrap v5 with Bootstrap Icons Sorting control implementation.
+ *
+ * Install Icon Set: https://icons.getbootstrap.com/#install
+ * Overview:         https://icons.getbootstrap.com/
+ */
+#}
+<a{% for attr, value  in options %} {{ attr }}="{{ value }}"{% endfor %}>
+    <span class="float-end">
+        {% if sorted %}
+            {% if direction == 'desc' %}
+                <i class="bi bi-sort-down"></i>
+            {% else %}
+                <i class="bi bi-sort-up"></i>
+            {% endif %}
+        {% else %}
+            <i class="bi bi-filter-left"></i>
+        {% endif %}
+    </span>
+    {{ title }}
+</a>

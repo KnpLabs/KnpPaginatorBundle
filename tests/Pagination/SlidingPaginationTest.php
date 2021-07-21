@@ -34,6 +34,21 @@ final class SlidingPaginationTest extends TestCase
         $this->assertSame($expected, $this->pagination->getPageCount());
     }
 
+    /**
+     * @dataProvider getSortedData
+     */
+    public function testSorted(bool $expected, string $sort, string $direction, $key): void
+    {
+        $this->pagination->setPaginatorOptions([
+            'sortFieldParameterName' => 'sort',
+            'sortDirectionParameterName' => 'direction'
+        ]);
+        $this->pagination->setParam('sort', $sort);
+        $this->pagination->setParam('direction', $direction);
+
+        $this->assertSame($expected, $this->pagination->isSorted($key));
+    }
+
     public function getPageLimitData(): array
     {
         return [
@@ -42,5 +57,14 @@ final class SlidingPaginationTest extends TestCase
             'Pages limited to 3' => [3, 400, 25, 3],
             'Pages limited to 3, but limit not hit' => [2, 26, 25, 3],
         ];
+    }
+
+    public function getSortedData(): \Generator
+    {
+        yield [true, 'title', 'asc', null];
+        yield [true, 'title', 'asc', 'title'];
+        yield [true, 'title+subtitle', 'asc', 'title+subtitle'];
+        yield [true, 'title+subtitle', 'asc', ['title', 'subtitle']];
+        yield [false, 'title', 'asc', 'subtitle'];
     }
 }
