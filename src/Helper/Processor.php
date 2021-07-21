@@ -55,17 +55,13 @@ final class Processor
      * alias and field. $options holds all link
      * parameters like "alt, class" and so on.
      *
-     * $key example: "article.title"
+     * $key examples: "article.title" or "['article.title', 'article.subtitle']"
      *
      * @param string|array $title
-     * @param string|array $key
+     * @param string|string[] $key
      */
     public function sortable(SlidingPaginationInterface $pagination, $title, $key, array $options = [], array $params = []): array
     {
-        if (\is_array($key)) {
-            $key = \implode('+', $key);
-        }
-
         $options = \array_merge([
             'absolute' => UrlGeneratorInterface::ABSOLUTE_PATH,
             'translationParameters' => [],
@@ -79,7 +75,7 @@ final class Processor
 
         $params = \array_merge($pagination->getParams(), $params);
 
-        $direction = isset($options['defaultDirection']) ? $options['defaultDirection'] : 'asc';
+        $direction = $options['defaultDirection'] ?? 'asc';
         if (null !== $pagination->getPaginatorOption('sortDirectionParameterName')) {
             if (isset($params[$pagination->getPaginatorOption('sortDirectionParameterName')])) {
                 $direction = $params[$pagination->getPaginatorOption('sortDirectionParameterName')];
@@ -108,6 +104,10 @@ final class Processor
 
         if (\is_array($title) && \array_key_exists($direction, $title)) {
             $title = $title[$direction];
+        }
+
+        if (\is_array($key)) {
+            $key = \implode('+', $key);
         }
 
         $params = \array_merge(
