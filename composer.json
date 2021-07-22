@@ -28,6 +28,7 @@
         "twig/twig": "^2.0 || ^3.0"
     },
     "require-dev": {
+        "phpstan/phpstan": "^0.12.93",
         "phpunit/phpunit": "^8.5 || ^9.4",
         "symfony/expression-language": "^4.4 || ^5.0",
         "symfony/templating": "^4.4 || ^5.0"

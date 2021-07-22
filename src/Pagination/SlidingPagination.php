@@ -131,29 +131,17 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
 
     public function getPage(): ?int
     {
-        if (\array_key_exists($this->getPaginatorOption('pageParameterName'), $this->params)) {
-            return $this->params[$this->getPaginatorOption('pageParameterName')];
-        }
-
-        return null;
+        return $this->params[$this->getPaginatorOption('pageParameterName')] ?? null;
     }
 
     public function getSort(): ?string
     {
-        if (\array_key_exists($this->getPaginatorOption('sortFieldParameterName'), $this->params)) {
-            return $this->params[$this->getPaginatorOption('sortFieldParameterName')];
-        }
-
-        return null;
+        return $this->params[$this->getPaginatorOption('sortFieldParameterName')] ?? null;
     }
 
     public function getDirection(): ?string
     {
-        if (\array_key_exists($this->getPaginatorOption('sortDirectionParameterName'), $this->params)) {
-            return $this->params[$this->getPaginatorOption('sortDirectionParameterName')];
-        }
-
-        return null;
+        return $this->params[$this->getPaginatorOption('sortDirectionParameterName')] ?? null;
     }
 
     public function getPaginationData(): array
