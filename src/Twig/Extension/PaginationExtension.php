@@ -20,9 +20,6 @@ final class PaginationExtension extends AbstractExtension
         $this->processor = $processor;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFunctions(): array
     {
         return [
@@ -34,12 +31,16 @@ final class PaginationExtension extends AbstractExtension
 
     /**
      * Renders the pagination template.
+     *
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed> $pagination
+     * @param array<string, mixed>                                            $queryParams
+     * @param array<string, mixed>                                            $viewParams
      */
     public function render(Environment $env, SlidingPaginationInterface $pagination, ?string $template = null, ?array $queryParams = [], ?array $viewParams = []): string
     {
         return $env->render(
             $template ?: $pagination->getTemplate(),
-            $this->processor->render($pagination, $queryParams, $viewParams)
+            $this->processor->render($pagination, $queryParams ?? [], $viewParams ?? [])
         );
     }
 
@@ -51,7 +52,10 @@ final class PaginationExtension extends AbstractExtension
      *
      * $key example: "article.title"
      *
-     * @param string|array $key
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed> $pagination
+     * @param string|array<string, mixed>                                     $key
+     * @param array<string, mixed>                                            $options
+     * @param array<string, mixed>                                            $params
      */
     public function sortable(Environment $env, SlidingPaginationInterface $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
     {
@@ -68,12 +72,17 @@ final class PaginationExtension extends AbstractExtension
      * parameters like "alt, class" and so on.
      *
      * $key example: "article.title"
+     *
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed> $pagination
+     * @param array<string, mixed>                                            $fields
+     * @param array<string, mixed>                                            $options
+     * @param array<string, mixed>|null                                       $params
      */
     public function filter(Environment $env, SlidingPaginationInterface $pagination, array $fields, ?array $options = [], ?array $params = [], ?string $template = null): string
     {
         return $env->render(
             $template ?: $pagination->getFiltrationTemplate(),
-            $this->processor->filter($pagination, $fields, $options, $params)
+            $this->processor->filter($pagination, $fields, $options ?? [], $params ?? [])
         );
     }
 }

@@ -33,6 +33,12 @@ final class Processor
 
     /**
      * Generates pagination template data.
+     *
+     * @param SlidingPaginationInterface<mixed> $pagination
+     * @param array<string, mixed>              $queryParams
+     * @param array<string, mixed>              $viewParams
+     *
+     * @return array<string, mixed>
      */
     public function render(SlidingPaginationInterface $pagination, array $queryParams = [], array $viewParams = []): array
     {
@@ -42,8 +48,8 @@ final class Processor
         $data['query'] = \array_merge($pagination->getParams(), $queryParams);
 
         return \array_merge(
-            $pagination->getPaginatorOptions(), // options given to paginator when paginated
-            $pagination->getCustomParameters(), // all custom parameters for view
+            $pagination->getPaginatorOptions() ?? [], // options given to paginator when paginated
+            $pagination->getCustomParameters() ?? [], // all custom parameters for view
             $viewParams, // additional custom parameters for view
             $data // merging base route parameters last, to avoid broke of integrity
         );
@@ -57,8 +63,13 @@ final class Processor
      *
      * $key examples: "article.title" or "['article.title', 'article.subtitle']"
      *
-     * @param string|array $title
-     * @param string|string[] $key
+     * @param SlidingPaginationInterface<mixed> $pagination
+     * @param string|array<string, mixed>       $title
+     * @param string|array<string, mixed>       $key
+     * @param array<string, mixed>              $options
+     * @param array<string, mixed>              $params
+     *
+     * @return array<string, mixed>
      */
     public function sortable(SlidingPaginationInterface $pagination, $title, $key, array $options = [], array $params = []): array
     {
@@ -137,8 +148,8 @@ final class Processor
         unset($options['absolute'], $options['translationParameters'], $options['translationDomain'], $options['translationCount']);
 
         return \array_merge(
-            $pagination->getPaginatorOptions(),
-            $pagination->getCustomParameters(),
+            $pagination->getPaginatorOptions() ?? [],
+            $pagination->getCustomParameters() ?? [],
             \compact('options', 'title', 'direction', 'sorted', 'key')
         );
     }
@@ -150,6 +161,13 @@ final class Processor
      * parameters like "alt, class" and so on.
      *
      * $key example: "article.title"
+     *
+     * @param SlidingPaginationInterface<mixed> $pagination
+     * @param array<string, mixed>              $fields
+     * @param array<string, mixed>              $options
+     * @param array<string, mixed>              $params
+     *
+     * @return array<string, mixed>
      */
     public function filter(SlidingPaginationInterface $pagination, array $fields, array $options = [], array $params = []): array
     {
@@ -166,8 +184,8 @@ final class Processor
         $filterFieldName = $pagination->getPaginatorOption('filterFieldParameterName');
         $filterValueName = $pagination->getPaginatorOption('filterValueParameterName');
 
-        $selectedField = isset($params[$filterFieldName]) ? $params[$filterFieldName] : null;
-        $selectedValue = isset($params[$filterValueName]) ? $params[$filterValueName] : null;
+        $selectedField = $params[$filterFieldName] ?? null;
+        $selectedValue = $params[$filterValueName] ?? null;
 
         $action = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
 
@@ -179,8 +197,8 @@ final class Processor
         unset($options['absolute'], $options['translationDomain'], $options['translationParameters']);
 
         return \array_merge(
-            $pagination->getPaginatorOptions(),
-            $pagination->getCustomParameters(),
+            $pagination->getPaginatorOptions() ?? [],
+            $pagination->getCustomParameters() ?? [],
             \compact('fields', 'action', 'filterFieldName', 'filterValueName', 'selectedField', 'selectedValue', 'options')
         );
     }
