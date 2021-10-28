@@ -18,20 +18,20 @@
     "require": {
         "php": "^7.3 || ^8.0",
         "knplabs/knp-components": "^2.4 || ^3.0",
-        "symfony/config": "^4.4 || ^5.0",
-        "symfony/dependency-injection": "^4.4 || ^5.0",
-        "symfony/event-dispatcher": "^4.4 || ^5.0",
-        "symfony/http-foundation": "^4.4 || ^5.0",
-        "symfony/http-kernel": "^4.4 || ^5.0",
-        "symfony/routing": "^4.4 || ^5.0",
-        "symfony/translation": "^4.4 || ^5.0",
+        "symfony/config": "^4.4 || ^5.3 || ^6.0",
+        "symfony/dependency-injection": "^4.4 || ^5.3 || ^6.0",
+        "symfony/event-dispatcher": "^4.4 || ^5.3 || ^6.0",
+        "symfony/http-foundation": "^4.4 || ^5.3 || ^6.0",
+        "symfony/http-kernel": "^4.4 || ^5.3 || ^6.0",
+        "symfony/routing": "^4.4 || ^5.3 || ^6.0",
+        "symfony/translation": "^4.4 || ^5.3 || ^6.0",
         "twig/twig": "^2.0 || ^3.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12.93",
-        "phpunit/phpunit": "^8.5 || ^9.4",
-        "symfony/expression-language": "^4.4 || ^5.0",
-        "symfony/templating": "^4.4 || ^5.0"
+        "phpunit/phpunit": "^8.5 || ^9.5",
+        "symfony/expression-language": "^4.4 || ^5.3 || ^6.0",
+        "symfony/templating": "^4.4 || ^5.3 || ^6.0"
     },
     "autoload": {
         "psr-4": {

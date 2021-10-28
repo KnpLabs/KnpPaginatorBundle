@@ -37,12 +37,12 @@ jobs:
                     - description: 'Symfony 4.4'
                       php: '7.3'
                       composer_option: '--prefer-lowest'
-                    - description: 'Symfony 5.1'
+                    - description: 'Symfony 5.3'
                       php: '7.4'
-                      symfony: 5.1.*
-                    - description: 'Symfony 5.2'
+                      symfony: 5.3.*
+                    - description: 'Symfony 6.0'
                       php: '8.0'
-                      symfony: 5.2.*
+                      symfony: 6.0.*-dev
         name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
         steps:
             - name: Checkout
@@ -58,6 +58,9 @@ jobs:
                   php-version: ${{ matrix.php }}
             - run: |
                   sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'${{ matrix.symfony }}'"/' composer.json;
+              if: contains(matrix.symfony, '-dev')
+            - run: composer config minimum-stability dev
+            - run: composer config prefer-stable true
               if: matrix.symfony
             - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
             - run: vendor/bin/phpunit
