@@ -62,7 +62,7 @@ with standard arguments provided:
 - extra pagination template parameters
 
 Except from pagination parameters, others can be modified or adapted to some
-use cases. Usually its possible, you might need setting a route if default is not
+use cases. Usually it's possible, you might need setting a route if default is not
 matched correctly (because of rendering in sub requests). Or adding additional
 query or view parameters.
 
@@ -132,7 +132,7 @@ In template:
 
 ## Choose the sorting direction
 
-The `knp_pagination_sortable()` template switch automatically the sorting direction but sometimes you need to propose to your users to select the sorting direction of you list.
+The `knp_pagination_sortable()` template automatically switches the sorting direction but sometimes you need to propose that your users select the sorting direction.
 You can add an array at the end of `knp_pagination_sortable()` to choose the direction.
 
 ``` html
