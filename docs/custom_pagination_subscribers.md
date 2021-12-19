@@ -1,6 +1,6 @@
 # Creating custom subscriber
 
-Lets say we want to paginate a directory content, might be quite interesting.
+Let's say we want to paginate a directory content, which might be quite interesting.
 And when we have such a handy **Finder** component in symfony, it's easily achievable.
 
 ## Prepare environment
