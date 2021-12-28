@@ -1,9 +1,14 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^The Knp\\\\Bundle\\\\PaginatorBundle\\\\Definition\\\\PaginatorAware class is deprecated since knplabs/knp-paginator-bundle 5\\.x\\. Use Knp\\\\Bundle\\\\PaginatorBundle\\\\Definition\\\\AbstractPaginatorAware instead\\.$#"
+			message: "#^The Knp\\\\Bundle\\\\PaginatorBundle\\\\Definition\\\\PaginatorAware class is deprecated since knplabs/knp\\-paginator\\-bundle 5\\.x\\. Use Knp\\\\Bundle\\\\PaginatorBundle\\\\Definition\\\\AbstractPaginatorAware instead\\.$#"
 			count: 1
 			path: src/Definition/PaginatorAware.php
+
+		-
+			message: "#^Class Symfony\\\\Component\\\\EventDispatcher\\\\DependencyInjection\\\\RegisterListenersPass does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: src/DependencyInjection/Compiler/PaginatorConfigurationPass.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:addDefaultsIfNotSet\\(\\)\\.$#"
@@ -24,3 +29,4 @@ parameters:
 			message: "#^Parameter \\#1 \\$name of method Twig\\\\Environment\\:\\:render\\(\\) expects string\\|Twig\\\\TemplateWrapper, string\\|null given\\.$#"
 			count: 3
 			path: src/Twig/Extension/PaginationExtension.php
+
