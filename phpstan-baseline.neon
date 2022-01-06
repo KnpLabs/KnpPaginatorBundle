@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^The Knp\\\\Bundle\\\\PaginatorBundle\\\\Definition\\\\PaginatorAware class is deprecated since knplabs/knp\\-paginator\\-bundle 5\\.x\\. Use Knp\\\\Bundle\\\\PaginatorBundle\\\\Definition\\\\AbstractPaginatorAware instead\\.$#"
-			count: 1
-			path: src/Definition/PaginatorAware.php
-
-		-
 			message: "#^Class Symfony\\\\Component\\\\EventDispatcher\\\\DependencyInjection\\\\RegisterListenersPass does not have a constructor and must be instantiated without any parameters\\.$#"
 			count: 1
 			path: src/DependencyInjection/Compiler/PaginatorConfigurationPass.php
