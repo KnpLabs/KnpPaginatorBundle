@@ -8,7 +8,7 @@
       </trans-unit>
       <trans-unit id="1" resname="label_next">
         <source>label_next</source>
-        <target>Sigüent</target>
+        <target>Següent</target>
       </trans-unit>
       <trans-unit id="2" resname="filter_searchword">
         <source>filter_searchword</source>
