@@ -32,6 +32,7 @@
                 <argument key="defaultFiltrationTemplate">%knp_paginator.template.filtration%</argument>
                 <argument key="defaultPageRange">%knp_paginator.page_range%</argument>
                 <argument key="defaultPageLimit">%knp_paginator.page_limit%</argument>
+                <argument key="defaultCustomParameters">%knp_paginator.custom_parameters%</argument>
             </argument>
             <tag name="kernel.event_subscriber" />
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />

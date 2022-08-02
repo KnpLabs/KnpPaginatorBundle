@@ -17,6 +17,7 @@ knp_paginator:
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
         page_out_of_range: ignore      # if page number exceeds the last page. Options: 'fix'(return last page); 'throwException'
         default_limit: 10              # default number of items per page
+    custom_parameters: {}              # custom parameters that are passed to pagination template
     template:
         pagination: @KnpPaginator/Pagination/sliding.html.twig     # sliding pagination controls template
         sortable: @KnpPaginator/Pagination/sortable_link.html.twig # sort link template
@@ -31,3 +32,17 @@ There are a few additional pagination templates, that could be used out of the b
 * `@KnpPaginator/Pagination/foundation_v6_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v5_pagination.html.twig`
 * `@KnpPaginator/Pagination/bulma_pagination.html.twig`
+
+## Custom parameters
+
+The `custom_parameters` setting allows to set template variables, that are used
+in the pagination template, globally.
+
+For example some templates use the `align` variable to adjust the positioning of
+the pagination widget. You can set it globally this way:
+
+``` yaml
+knp_paginator:
+    custom_parameters:
+        align: center
+```

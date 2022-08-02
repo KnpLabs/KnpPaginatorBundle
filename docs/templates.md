@@ -99,6 +99,17 @@ $pagination->setCustomParameters([
 ]);
 ```
 
+or set global defaults in your configuration:
+
+```yaml
+# config/packages/knp_paginator.yaml
+knp_paginator:
+    custom_parameters:
+        align: 'center'
+        size: 'large'
+        span_class: 'whatever'
+```
+
 ### You can also change the page range
 
 Default page range is 5 pages in sliding pagination. Doing it in controller:
@@ -213,4 +224,14 @@ or in the view:
    'size': 'large',
    'rounded': true,
 }) }}
+```
+
+or in the config globally:
+```yaml
+# config/packages/knp_paginator.yaml
+knp_paginator:
+    custom_parameters:
+        align: 'center'
+        size: 'large'
+        rounded: true
 ```

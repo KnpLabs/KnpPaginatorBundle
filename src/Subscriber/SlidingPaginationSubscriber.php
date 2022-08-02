@@ -3,6 +3,7 @@
 namespace Knp\Bundle\PaginatorBundle\Subscriber;
 
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Knp\Component\Pager\Event\ItemsEvent;
 use Knp\Component\Pager\Event\PaginationEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -41,6 +42,18 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
             if (\strpos($key, '_') === 0) {
                 unset($this->params[$key]);
             }
+        }
+    }
+
+    /**
+     * We have to use the items event to set the custom parameters. Setting them
+     * in the pagination event is useless, because they are overwritten in
+     * Paginator::paginate.
+     */
+    public function items(ItemsEvent $event): void
+    {
+        foreach ($this->options['defaultCustomParameters'] as $key => $value) {
+            $event->setCustomPaginationParameter($key, $value);
         }
     }
 
@@ -90,6 +103,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
+            'knp_pager.items' => ['items'],
             'knp_pager.pagination' => ['pagination', 1],
         ];
     }
