@@ -37,9 +37,9 @@ jobs:
                     - description: 'Symfony 4.4'
                       php: '7.3'
                       composer_option: '--prefer-lowest'
-                    - description: 'Symfony 5.3'
+                    - description: 'Symfony 5.4'
                       php: '7.4'
-                      symfony: 5.3.*
+                      symfony: 5.4.*
                     - description: 'Symfony 6.0'
                       php: '8.0'
                       symfony: 6.0.*-dev
