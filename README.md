@@ -161,6 +161,7 @@ That could be used out of the box in `knp_paginator.template.filtration` key:
 Currently paginator can paginate:
 
 - `array`
+- `Doctrine\DBAL\Query\QueryBuilder`
 - `Doctrine\ORM\Query`
 - `Doctrine\ORM\QueryBuilder`
 - `Doctrine\ODM\MongoDB\Query\Query`
