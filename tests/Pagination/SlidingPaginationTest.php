@@ -20,6 +20,7 @@ final class SlidingPaginationTest extends TestCase
     protected function setUp(): void
     {
         $this->pagination = new SlidingPagination([]);
+        $this->pagination->setPaginatorOptions(['pageParameterName' => 'page']);
     }
 
     /**
@@ -32,6 +33,20 @@ final class SlidingPaginationTest extends TestCase
         $this->pagination->setPageLimit($pageLimit);
 
         $this->assertSame($expected, $this->pagination->getPageCount());
+    }
+
+    public function testPageParamWithInteger(): void
+    {
+        $this->pagination->setParam('page', 1);
+
+        $this->assertSame(1, $this->pagination->getPage());
+    }
+
+    public function testPageParamWithString(): void
+    {
+        $this->pagination->setParam('page', 'string');
+
+        $this->assertNull($this->pagination->getPage());
     }
 
     /**
