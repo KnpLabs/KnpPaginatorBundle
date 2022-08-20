@@ -2,9 +2,11 @@
 
 namespace Knp\Bundle\PaginatorBundle\DependencyInjection;
 
+use Knp\Bundle\PaginatorBundle\EventListener\ExceptionListener;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
@@ -50,5 +52,11 @@ final class KnpPaginatorExtension extends Extension
             'pageOutOfRange' => $config['default_options']['page_out_of_range'],
             'defaultLimit' => $config['default_options']['default_limit'],
         ]]);
+
+        if ($config['convert_exception']) {
+            $definition = new Definition(ExceptionListener::class);
+            $definition->addTag('kernel.event_listener', ['event' => 'kernel.exception']);
+            $container->setDefinition(ExceptionListener::class, $definition);
+        }
     }
 }

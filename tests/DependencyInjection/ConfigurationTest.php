@@ -55,6 +55,7 @@ final class ConfigurationTest extends TestCase
             ],
             'page_range' => 5,
             'page_limit' => null,
+            'convert_exception' => false,
         ], $config);
     }
 
@@ -80,6 +81,7 @@ final class ConfigurationTest extends TestCase
             ],
             'page_range' => 15,
             'page_limit' => 100,
+            'convert_exception' => true,
         ];
         $config = $this->processor->processConfiguration($this->configuration, ['knp_paginator' => $expected]);
 
