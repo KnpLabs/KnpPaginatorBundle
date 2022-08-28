@@ -49,6 +49,9 @@ final class Configuration implements ConfigurationInterface
                 ->integerNode('page_limit')
                 ->defaultNull()
                 ->end()
+                ->booleanNode('convert_exception')
+                ->defaultFalse()
+                ->end()
             ->end()
         ;
 
