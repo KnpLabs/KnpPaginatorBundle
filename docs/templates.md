@@ -99,6 +99,31 @@ $pagination->setCustomParameters([
 ]);
 ```
 
+If you want to use the template with the same parameters everywhere, create your own
+template and let extend it from the provided template.
+
+Here's an example of how to achieve that
+
+```yaml
+knp_paginator:
+    template:
+        pagination: 'pagination.html.twig'
+```
+
+And in your template
+
+```twig
+{% set align = 'left' %}
+{% set size = 'large' %}
+{% set style = 'bottom' %}
+
+{% extends '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig' %}
+```
+
+Alternatively, you can override the original template in your `templates/bundles/`
+by following Symfony's [overriding rules](https://symfony.com/doc/current/bundles/override.html#templates).
+
+
 ### You can also change the page range
 
 Default page range is 5 pages in sliding pagination. Doing it in controller:
