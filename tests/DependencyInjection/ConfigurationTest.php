@@ -14,15 +14,9 @@ use Symfony\Component\Config\Definition\Processor;
  */
 final class ConfigurationTest extends TestCase
 {
-    /**
-     * @var Configuration
-     */
-    private $configuration;
+    private Configuration $configuration;
 
-    /**
-     * @var Processor
-     */
-    private $processor;
+    private Processor $processor;
 
     protected function setUp(): void
     {

@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class SlidingPaginationTest extends TestCase
 {
-    /**
-     * @var SlidingPagination
-     */
-    private $pagination;
+    private SlidingPagination $pagination;
 
     protected function setUp(): void
     {
@@ -41,7 +38,7 @@ final class SlidingPaginationTest extends TestCase
     {
         $this->pagination->setPaginatorOptions([
             'sortFieldParameterName' => 'sort',
-            'sortDirectionParameterName' => 'direction'
+            'sortDirectionParameterName' => 'direction',
         ]);
         $this->pagination->setParam('sort', $sort);
         $this->pagination->setParam('direction', $direction);

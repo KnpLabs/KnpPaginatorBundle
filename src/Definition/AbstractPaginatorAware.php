@@ -9,10 +9,7 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 abstract class AbstractPaginatorAware implements PaginatorAwareInterface
 {
-    /**
-     * @var PaginatorInterface
-     */
-    private $paginator;
+    private ?PaginatorInterface $paginator = null;
 
     /**
      * Sets the KnpPaginator instance.
@@ -29,6 +26,10 @@ abstract class AbstractPaginatorAware implements PaginatorAwareInterface
      */
     public function getPaginator(): PaginatorInterface
     {
+        if (null === $this->paginator) {
+            throw new \UnexpectedValueException('Null Paginator instance.');
+        }
+
         return $this->paginator;
     }
 }

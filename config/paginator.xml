@@ -2,16 +2,22 @@
 
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
         <service id="knp_paginator" class="Knp\Component\Pager\Paginator" public="true" lazy="true">
             <argument type="service" id="event_dispatcher" />
-            <argument type="service" id="request_stack" />
+            <argument type="service" id="Knp\Component\Pager\ArgumentAccess\ArgumentAccessInterface" />
             <tag name="proxy" interface="Knp\Component\Pager\PaginatorInterface" />
         </service>
 
         <service id="Knp\Component\Pager\PaginatorInterface" alias="knp_paginator" />
+
+        <service id="Knp\Component\Pager\ArgumentAccess\RequestArgumentAccess">
+            <argument type="service" id="request_stack" />
+        </service>
+
+        <service id="Knp\Component\Pager\ArgumentAccess\ArgumentAccessInterface" alias="Knp\Component\Pager\ArgumentAccess\RequestArgumentAccess" />
 
         <service id="knp_paginator.subscriber.paginate" class="Knp\Component\Pager\Event\Subscriber\Paginate\PaginationSubscriber">
             <tag name="kernel.event_subscriber" />

@@ -1,3 +1,10 @@
+# 6.'.0
+*Unreleased*
+
+- Removed all previousle deprecated code
+- Removed support for Bootstrap <4
+- Dropped support for php 7 and Symfony 4/5
+
 # 5.5.0
 *Released at 2021-05-24*
 

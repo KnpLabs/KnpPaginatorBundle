@@ -17,7 +17,7 @@ interface SlidingPaginationInterface extends PaginationInterface
      * @param string[]|string|null $key
      * @param array<string, mixed> $params
      */
-    public function isSorted($key = null, array $params = []): bool;
+    public function isSorted(array|string|null $key = null, array $params = []): bool;
 
     /**
      * @return array<string, mixed>
@@ -25,12 +25,12 @@ interface SlidingPaginationInterface extends PaginationInterface
     public function getPaginationData(): array;
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, mixed>|null
      */
     public function getPaginatorOptions(): ?array;
 
     /**
-     * @return array<string, mixed>
+     * @return array<string, mixed>|null
      */
     public function getCustomParameters(): ?array;
 }

@@ -10,10 +10,7 @@ use Twig\TwigFunction;
 
 final class PaginationExtension extends AbstractExtension
 {
-    /**
-     * @var Processor
-     */
-    private $processor;
+    private Processor $processor;
 
     public function __construct(Processor $processor)
     {
