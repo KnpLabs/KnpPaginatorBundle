@@ -15,14 +15,8 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class PaginatorAwarePass implements CompilerPassInterface
 {
-    /**
-     * @var string
-     */
     public const PAGINATOR_AWARE_TAG = 'knp_paginator.injectable';
 
-    /**
-     * @var string
-     */
     public const PAGINATOR_AWARE_INTERFACE = PaginatorAwareInterface::class;
 
     /**

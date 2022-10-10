@@ -1,9 +1,10 @@
 parameters:
 	ignoreErrors:
+
 		-
-			message: "#^Class Symfony\\\\Component\\\\EventDispatcher\\\\DependencyInjection\\\\RegisterListenersPass does not have a constructor and must be instantiated without any parameters\\.$#"
-			count: 1
-			path: src/DependencyInjection/Compiler/PaginatorConfigurationPass.php
+			message: "#^Property Knp\\\\Bundle\\\\PaginatorBundle\\\\Subscriber\\\\SlidingPaginationSubscriber\\:\\:\\$params \\(array\\<string, mixed\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
+			count: 2
+			path: src/Subscriber/SlidingPaginationSubscriber.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:addDefaultsIfNotSet\\(\\)\\.$#"

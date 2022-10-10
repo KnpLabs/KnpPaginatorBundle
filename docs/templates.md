@@ -1,4 +1,3 @@
-
 # Templates
 
 This document will describe how pagination can be rendered, extended and used in
@@ -53,7 +52,7 @@ or by specifying path to your custom template that is located under your project
 
 ## Other useful parameters
 
-By default when render method is triggered, pagination renders the template
+By default, when render method is triggered, pagination renders the template
 with standard arguments provided:
 
 - pagination parameters, like pages in range, current page and so on..
@@ -117,7 +116,7 @@ And in your template
 {% set size = 'large' %}
 {% set style = 'bottom' %}
 
-{% extends '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig' %}
+{% extends '@KnpPaginator/Pagination/twitter_bootstrap_v5_pagination.html.twig' %}
 ```
 
 Alternatively, you can override the original template in your `templates/bundles/`

@@ -16,8 +16,8 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 final class SlidingPaginationSubscriberTest extends TestCase
 {
-    private $options;
-    private $subscriberOptions;
+    private array $options;
+    private array $subscriberOptions;
 
     protected function setUp(): void
     {
@@ -136,7 +136,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
 
         $kernel = $this->createMock(HttpKernelInterface::class);
         $request = new Request($query, [], $attributes);
-        $requestEvent = new RequestEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
+        $requestEvent = new RequestEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST);
 
         $slidingPaginationSubscriber = new SlidingPaginationSubscriber($this->subscriberOptions);
         $slidingPaginationSubscriber->onKernelRequest($requestEvent);

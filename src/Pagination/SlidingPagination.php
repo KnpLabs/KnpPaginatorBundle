@@ -6,26 +6,20 @@ use Knp\Component\Pager\Pagination\AbstractPagination;
 
 final class SlidingPagination extends AbstractPagination implements SlidingPaginationInterface
 {
-    /** @var string|null */
-    private $route;
+    private ?string $route = null;
 
     /** @var array<string, mixed> */
-    private $params;
+    private array $params;
 
-    /** @var int */
-    private $pageRange = 5;
+    private int $pageRange = 5;
 
-    /** @var int|null */
-    private $pageLimit = null;
+    private ?int $pageLimit = null;
 
-    /** @var string|null */
-    private $template;
+    private ?string $template = null;
 
-    /** @var string|null */
-    private $sortableTemplate;
+    private ?string $sortableTemplate = null;
 
-    /** @var string|null */
-    private $filtrationTemplate;
+    private ?string $filtrationTemplate = null;
 
     /**
      * @param array<string, mixed> $params
@@ -65,10 +59,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         return $this->filtrationTemplate;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setParam(string $name, $value): void
+    public function setParam(string $name, mixed $value): void
     {
         $this->params[$name] = $value;
     }

@@ -10,14 +10,13 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class SlidingPaginationSubscriber implements EventSubscriberInterface
 {
-    /** @var string */
-    private $route;
+    private ?string $route = null;
 
     /** @var array<string, mixed> */
-    private $params = [];
+    private array $params = [];
 
     /** @var array<string, mixed> */
-    private $options;
+    private array $options;
 
     /**
      * @param array<string, mixed> $options
@@ -29,7 +28,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
+        if (HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType()) {
             return;
         }
 
@@ -38,7 +37,7 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         $this->route = $request->attributes->get('_route');
         $this->params = \array_replace($request->query->all(), $request->attributes->get('_route_params', []));
         foreach ($this->params as $key => $param) {
-            if (\strpos($key, '_') === 0) {
+            if (\str_starts_with($key, '_')) {
                 unset($this->params[$key]);
             }
         }
