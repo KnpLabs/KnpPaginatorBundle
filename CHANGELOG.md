@@ -1,5 +1,5 @@
-# 6.'.0
-*Unreleased*
+# 6.0.0
+*Released at 2022-11-01*
 
 - Removed all previousle deprecated code
 - Removed support for Bootstrap <4
