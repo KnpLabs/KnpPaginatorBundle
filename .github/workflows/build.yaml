@@ -32,6 +32,7 @@ jobs:
                 php:
                     - '8.0'
                     - '8.1'
+                    - '8.2'
                 include:
                     - description: 'Symfony 6.0'
                       php: '8.0'
@@ -40,8 +41,11 @@ jobs:
                       php: '8.1'
                       symfony: 6.1.*
                     - description: 'Symfony 6.2'
-                      php: '8.1'
-                      symfony: 6.2.*-dev
+                      php: '8.2'
+                      symfony: 6.2.*
+                    - description: 'Symfony 6.3'
+                      php: '8.2'
+                      symfony: 6.3.*-dev
         name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
         steps:
             - name: Checkout
