@@ -3,6 +3,7 @@
 namespace Knp\Bundle\PaginatorBundle\EventListener;
 
 use OutOfRangeException;
+use Knp\Component\Pager\Exception\InvalidValueException;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use UnexpectedValueException;
@@ -17,6 +18,8 @@ final class ExceptionListener
     {
         $exception = $event->getThrowable();
         if ($exception instanceof OutOfRangeException) {
+            $event->setThrowable(new NotFoundHttpException('Not Found.', $exception));
+        } elseif ($exception instanceof InvalidValueException) {
             $event->setThrowable(new NotFoundHttpException('Not Found.', $exception));
         } elseif ($exception instanceof UnexpectedValueException && self::isInternalException($exception)) {
             $event->setThrowable(new NotFoundHttpException('Not Found', $exception));
