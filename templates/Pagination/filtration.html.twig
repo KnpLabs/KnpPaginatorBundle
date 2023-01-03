@@ -9,7 +9,11 @@
     {% else %}
         <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}" />
     {% endif %}
-
+    {% if params|length > 0 %}
+        {% for param, value in params %}
+            <input type="hidden" name="{{ param }}" value="{{ value }}"/>
+        {% endfor %}
+    {% endif %}
     <input type="text" value="{{ selectedValue }}" name="{{ filterValueName }}" />
 
     <button>{{ options.button }}</button>
