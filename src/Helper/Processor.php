@@ -193,7 +193,7 @@ final class Processor
         return \array_merge(
             $pagination->getPaginatorOptions() ?? [],
             $pagination->getCustomParameters() ?? [],
-            \compact('fields', 'action', 'filterFieldName', 'filterValueName', 'selectedField', 'selectedValue', 'options')
+            \compact('fields', 'action', 'filterFieldName', 'filterValueName', 'selectedField', 'selectedValue', 'options', 'params')
         );
     }
 }
