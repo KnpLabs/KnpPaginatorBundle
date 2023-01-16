@@ -28,9 +28,9 @@ final class Processor
     /**
      * Generates pagination template data.
      *
-     * @param SlidingPaginationInterface<mixed> $pagination
-     * @param array<string, mixed>              $queryParams
-     * @param array<string, mixed>              $viewParams
+     * @param SlidingPaginationInterface<mixed, mixed> $pagination
+     * @param array<string, mixed>                     $queryParams
+     * @param array<string, mixed>                     $viewParams
      *
      * @return array<string, mixed>
      */
@@ -57,11 +57,11 @@ final class Processor
      *
      * $key examples: "article.title" or "['article.title', 'article.subtitle']"
      *
-     * @param SlidingPaginationInterface<mixed> $pagination
-     * @param string|array<string, mixed>       $title
-     * @param string|array<string, mixed>       $key
-     * @param array<string, mixed>              $options
-     * @param array<string, mixed>              $params
+     * @param SlidingPaginationInterface<mixed, mixed> $pagination
+     * @param string|array<string, mixed>              $title
+     * @param string|array<string, mixed>              $key
+     * @param array<string, mixed>                     $options
+     * @param array<string, mixed>                     $params
      *
      * @return array<string, mixed>
      */
@@ -156,10 +156,10 @@ final class Processor
      *
      * $key example: "article.title"
      *
-     * @param SlidingPaginationInterface<mixed> $pagination
-     * @param array<string, mixed>              $fields
-     * @param array<string, mixed>              $options
-     * @param array<string, mixed>              $params
+     * @param SlidingPaginationInterface<mixed, mixed> $pagination
+     * @param array<string, mixed>                     $fields
+     * @param array<string, mixed>                     $options
+     * @param array<string, mixed>                     $params
      *
      * @return array<string, mixed>
      */
