@@ -29,9 +29,9 @@ final class PaginationHelper extends Helper
     /**
      * Renders the pagination template.
      *
-     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed> $pagination
-     * @param array<string, mixed>                                            $queryParams
-     * @param array<string, mixed>                                            $viewParams
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed, mixed> $pagination
+     * @param array<string, mixed>                                                   $queryParams
+     * @param array<string, mixed>                                                   $viewParams
      */
     public function render(SlidingPaginationInterface $pagination, ?string $template = null, array $queryParams = [], array $viewParams = []): string
     {
@@ -49,10 +49,10 @@ final class PaginationHelper extends Helper
      *
      * $key example: "article.title"
      *
-     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed> $pagination
-     * @param string|array<string, mixed>                                     $key
-     * @param array<string, mixed>                                            $options
-     * @param array<string, mixed>                                            $params
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed, mixed> $pagination
+     * @param string|array<string, mixed>                                            $key
+     * @param array<string, mixed>                                                   $options
+     * @param array<string, mixed>                                                   $params
      */
     public function sortable(SlidingPaginationInterface $pagination, string $title, $key, array $options = [], array $params = [], ?string $template = null): string
     {
@@ -70,10 +70,10 @@ final class PaginationHelper extends Helper
      *
      * $key example: "article.title"
      *
-     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed> $pagination
-     * @param array<string, mixed>                                            $fields
-     * @param array<string, mixed>                                            $options
-     * @param array<string, mixed>                                            $params
+     * @param \Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination<mixed, mixed> $pagination
+     * @param array<string, mixed>                                                   $fields
+     * @param array<string, mixed>                                                   $options
+     * @param array<string, mixed>                                                   $params
      */
     public function filter(SlidingPaginationInterface $pagination, array $fields, array $options = [], array $params = [], ?string $template = null): string
     {

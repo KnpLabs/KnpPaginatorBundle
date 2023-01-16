@@ -4,6 +4,14 @@ namespace Knp\Bundle\PaginatorBundle\Pagination;
 
 use Knp\Component\Pager\Pagination\AbstractPagination;
 
+/**
+ * @template TKey
+ * @template TValue
+ *
+ * @template-extends AbstractPagination<TKey, TValue>
+ *
+ * @template-implements SlidingPaginationInterface<TKey, TValue>
+ */
 final class SlidingPagination extends AbstractPagination implements SlidingPaginationInterface
 {
     private ?string $route = null;

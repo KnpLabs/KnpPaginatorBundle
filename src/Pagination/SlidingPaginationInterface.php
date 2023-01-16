@@ -4,6 +4,12 @@ namespace Knp\Bundle\PaginatorBundle\Pagination;
 
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
+/**
+ * @template TKey
+ * @template TValue
+ *
+ * @template-extends PaginationInterface<TKey, TValue>
+ */
 interface SlidingPaginationInterface extends PaginationInterface
 {
     public function getRoute(): ?string;
