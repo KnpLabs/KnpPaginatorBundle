@@ -49,8 +49,12 @@
         </service>
 
         <service id="knp_paginator.twig.extension.pagination" class="Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension">
-            <argument type="service" id="knp_paginator.helper.processor" />
             <tag name="twig.extension" />
+        </service>
+
+        <service id="Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationRuntime">
+            <argument type="service" id="knp_paginator.helper.processor" />
+            <tag name="twig.runtime" />
         </service>
     </services>
 </container>
