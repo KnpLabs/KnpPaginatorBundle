@@ -71,7 +71,9 @@ public function registerBundles()
 
 ### Configuration example
 
-You can configure default query parameter names and templates
+You can configure default query parameter names and templates.
+
+You need to create a file "config/packages/knp_paginator.yaml". The file extension must be "yaml" and not "yml".
 
 #### YAML:
 ```yaml
