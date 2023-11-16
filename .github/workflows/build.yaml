@@ -6,71 +6,82 @@ on:
 
 jobs:
     phpstan:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
         name: PHPStan
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - name: PHPStan
+            - name: Run PHPStan
               uses: docker://oskarstark/phpstan-ga
               env:
                   REQUIRE_DEV: true
               with:
                   args: analyse
     cs-fixer:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
         name: PHP-CS-Fixer
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - name: Fix CS
+            - name: Run PHP-CS-Fixer
               uses: docker://oskarstark/php-cs-fixer-ga
     tests:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-latest
         strategy:
             matrix:
                 php:
-                    - '8.0'
-                    - '8.1'
-                    - '8.2'
+                  - '8.1'
+                  - '8.2'
+                  - '8.3'
+                dependency:
+                  - ''
+                symfony:
+                  - '6.3.*'
+                  - '6.4.*'
+                  - '7.0.*'
                 include:
-                    - description: 'Symfony 6.0'
-                      php: '8.0'
-                      composer_option: '--prefer-lowest'
-                    - description: 'Symfony 6.1'
-                      php: '8.1'
-                      symfony: 6.1.*
-                    - description: 'Symfony 6.2'
-                      php: '8.2'
-                      symfony: 6.2.*
-                    - description: 'Symfony 6.3'
-                      php: '8.2'
-                      symfony: 6.3.*
-                    - description: 'Symfony 6.4'
-                      php: '8.2'
-                      symfony: 6.4.*-dev
-                    - description: 'Symfony 7.0'
-                      php: '8.2'
-                      symfony: 7.0.*-dev
-        name: PHP ${{ matrix.php }} tests (${{ matrix.description }})
+                  - php: '8.1'
+                    symfony: '6.3.*'
+                    dependency: 'lowest'
+                exclude:
+                  - php: '8.1'
+                    symfony: '7.0.*'
+        name: PHPUnit PHP ${{ matrix.php }} ${{ matrix.dependency }} (Symfony ${{ matrix.symfony }})
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - name: Cache
-              uses: actions/cache@v3
-              with: 
-                  path: ~/.composer/cache/files
-                  key: ${{ matrix.php }}-${{ matrix.symfony }}-${{ matrix.composer_option }} 
+
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: ${{ matrix.php }}
-            - run: |
-                  sed -ri 's/"symfony\/(.+)": "(.+)"/"symfony\/\1": "'${{ matrix.symfony }}'"/' composer.json;
-              if: contains(matrix.symfony, '-dev')
-            - run: composer config minimum-stability dev
-            - run: composer config prefer-stable true
-              if: matrix.symfony
-            - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
-            - run: vendor/bin/phpunit
+                php-version: ${{ matrix.php }}
+
+            - name: Get Composer cache directory
+              id: composer-cache
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            - name: Cache dependencies
+              uses: actions/cache@v3
+              with:
+                path: ${{ steps.composer-cache.outputs.dir }}
+                key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
+                restore-keys: ${{ matrix.php }}-composer-
+
+            - name: Update project dependencies
+              if: matrix.dependency == ''
+              run: composer update --no-progress --ansi --prefer-stable
+              env:
+                SYMFONY_REQUIRE: ${{ matrix.symfony }}
+
+            - name: Update project dependencies lowest
+              if: matrix.dependency == 'lowest'
+              run: composer update --no-progress --ansi --prefer-stable --prefer-lowest
+              env:
+                SYMFONY_REQUIRE: ${{ matrix.symfony }}
+
+            - name: Validate composer
+              run: composer validate --strict --no-check-lock
+
+            - name: Run tests
+              run: vendor/bin/phpunit
 
