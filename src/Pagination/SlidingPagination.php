@@ -25,6 +25,8 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
 
     private ?string $template = null;
 
+    private ?string $relLinksTemplate = null;
+
     private ?string $sortableTemplate = null;
 
     private ?string $filtrationTemplate = null;
@@ -85,6 +87,16 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
     public function getTemplate(): ?string
     {
         return $this->template;
+    }
+
+    public function setRelLinksTemplate(string $relLinksTemplate): void
+    {
+        $this->relLinksTemplate = $relLinksTemplate;
+    }
+
+    public function getRelLinksTemplate(): ?string
+    {
+        return $this->relLinksTemplate;
     }
 
     public function setPageRange(int $range): void
