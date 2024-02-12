@@ -200,6 +200,15 @@ public function listAction(EntityManagerInterface $em, PaginatorInterface $pagin
 
 ### View
 
+#### In `<head>`:
+
+```twig
+{# rel links for pagination #}
+{{ knp_pagination_rel_links(pagination) }}
+```
+
+#### In `<body>`:
+
 ```twig
 {# total items count #}
 <div class="count">
@@ -328,6 +337,8 @@ framework:
 label_next: Next
 label_previous: Previous
 ```
+
+- Note that `<rel>` links are only meaningful when using pagination, they are not relevant to sorting or filtering.
 
 ## Maintainers
 
