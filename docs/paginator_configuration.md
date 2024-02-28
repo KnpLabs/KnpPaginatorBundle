@@ -26,7 +26,7 @@ knp_paginator:
 There are a few additional pagination templates, that could be used out of the box in `knp_paginator.template.pagination` key:
 
 * `@KnpPaginator/Pagination/sliding.html.twig` (by default)
-* `@KnpPaginator/Pagination/twitter_bootstrap_v5_pagination.html.twig`
+* `@KnpPaginator/Pagination/bootstrap_v5_pagination.html.twig`
 * `@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v6_pagination.html.twig`
 * `@KnpPaginator/Pagination/foundation_v5_pagination.html.twig`
