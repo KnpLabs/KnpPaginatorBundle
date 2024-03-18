@@ -29,6 +29,7 @@ Same for sorting link template:
 $paginator = $this->get('knp_paginator');
 $pagination = $paginator->paginate($target, $page);
 $pagination->setTemplate('my_pagination.html.twig');
+$pagination->setRelLinksTemplate('my_rel_links.html.twig');
 $pagination->setSortableTemplate('my_sortable.html.twig');
 ```
 

@@ -86,6 +86,7 @@ knp_paginator:
         filter_value_name: filterValue  # filter value query parameter name
     template:
         pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template
+        rel_links: '@KnpPaginator/Pagination/rel_links.html.twig'     # <link rel=...> tags template
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
 ```
@@ -111,6 +112,7 @@ return static function (ContainerConfigurator $configurator): void
         ],
         'template' => [
             'pagination' => '@KnpPaginator/Pagination/sliding.html.twig',     // sliding pagination controls template
+            'pagination' => '@KnpPaginator/Pagination/rel_links.html.twig',     // <link rel=...> tags template
             'sortable' => '@KnpPaginator/Pagination/sortable_link.html.twig', // sort link template
             'filtration' => '@KnpPaginator/Pagination/filtration.html.twig'   // filters template
         ]
@@ -133,6 +135,11 @@ That could be used out of the box in `knp_paginator.template.pagination` key:
 * `@KnpPaginator/Pagination/materialize_pagination.html.twig`
 * `@KnpPaginator/Pagination/tailwindcss_pagination.html.twig`
 * `@KnpPaginator/Pagination/uikit_v3_pagination.html.twig`
+
+#### Sample rel link tag template
+That could be used out of the box in `knp_paginator.template.rel_links` key:
+
+* `@KnpPaginator/Pagination/rel_links.html.twig` (by default)
 
 #### Additional sortable templates
 That could be used out of the box in `knp_paginator.template.sortable` key:
@@ -192,6 +199,15 @@ public function listAction(EntityManagerInterface $em, PaginatorInterface $pagin
 ```
 
 ### View
+
+#### In `<head>`:
+
+```twig
+{# rel links for pagination #}
+{{ knp_pagination_rel_links(pagination) }}
+```
+
+#### In `<body>`:
 
 ```twig
 {# total items count #}
@@ -321,6 +337,8 @@ framework:
 label_next: Next
 label_previous: Previous
 ```
+
+- Note that `<rel>` links are only meaningful when using pagination, they are not relevant to sorting or filtering.
 
 ## Maintainers
 

@@ -13,6 +13,7 @@ final class PaginationExtension extends AbstractExtension
 
         return [
             new TwigFunction('knp_pagination_render', [PaginationRuntime::class, 'render'], $options),
+            new TwigFunction('knp_pagination_rel_links', [PaginationRuntime::class, 'rel_links'], $options),
             new TwigFunction('knp_pagination_sortable', [PaginationRuntime::class, 'sortable'], $options),
             new TwigFunction('knp_pagination_filter', [PaginationRuntime::class, 'filter'], $options),
         ];

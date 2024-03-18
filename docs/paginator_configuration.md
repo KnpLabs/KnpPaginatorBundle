@@ -20,6 +20,7 @@ knp_paginator:
         default_limit: 10              # default number of items per page
     template:
         pagination: @KnpPaginator/Pagination/sliding.html.twig     # sliding pagination controls template
+        rel_links: @KnpPaginator/Pagination/rel_links.html.twig     # <link rel=...> tags template
         sortable: @KnpPaginator/Pagination/sortable_link.html.twig # sort link template
 ```
 

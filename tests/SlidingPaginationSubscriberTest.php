@@ -37,6 +37,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $options = \array_merge($defaultOptions, $options);
         $subscriberOptions = [
             'defaultPaginationTemplate' => '@KnpPaginator/Pagination/foo.html.twig',
+            'defaultRelLinksTemplate' => '@KnpPaginator/Pagination/qux.html.twig',
             'defaultSortableTemplate' => '@KnpPaginator/Pagination/baz.html.twig',
             'defaultFiltrationTemplate' => '@KnpPaginator/Pagination/bar.html.twig',
             'defaultPageRange' => 5,

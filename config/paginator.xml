@@ -34,6 +34,7 @@
         <service id="knp_paginator.subscriber.sliding_pagination" class="Knp\Bundle\PaginatorBundle\Subscriber\SlidingPaginationSubscriber">
             <argument type="collection">
                 <argument key="defaultPaginationTemplate">%knp_paginator.template.pagination%</argument>
+                <argument key="defaultRelLinksTemplate">%knp_paginator.template.rel_links%</argument>
                 <argument key="defaultSortableTemplate">%knp_paginator.template.sortable%</argument>
                 <argument key="defaultFiltrationTemplate">%knp_paginator.template.filtration%</argument>
                 <argument key="defaultPageRange">%knp_paginator.page_range%</argument>
