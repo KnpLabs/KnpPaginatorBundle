@@ -23,8 +23,8 @@ chapter of the documentation.
 ## Requirements:
 
 - Knp Pager component `>=2.0`.
-- KnpPaginatorBundle's master is compatible with Symfony `>=4.4` versions.
-- Twig `>=2.0` version is required if you use the Twig templating engine.
+- KnpPaginatorBundle's master is compatible with Symfony `>=6.4` versions.
+- Twig `>=3.0` version is required if you use the Twig templating engine.
 
 ## Features:
 
