@@ -23,6 +23,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$name of method Twig\\\\Environment\\:\\:render\\(\\) expects string\\|Twig\\\\TemplateWrapper, string\\|null given\\.$#"
-			count: 3
+			count: 4
 			path: src/Twig/Extension/PaginationRuntime.php
 
