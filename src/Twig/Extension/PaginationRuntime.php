@@ -50,8 +50,6 @@ final class PaginationRuntime implements RuntimeExtensionInterface
         ?array $queryParams = [],
         ?array $viewParams = [],
     ): string {
-        dump($template ?: $pagination->getRelLinksTemplate());
-        dump($this->processor->render($pagination, $queryParams ?? [], $viewParams ?? []));
         return $env->render(
             $template ?: $pagination->getRelLinksTemplate(),
             $this->processor->render($pagination, $queryParams ?? [], $viewParams ?? [])
@@ -99,7 +97,8 @@ final class PaginationRuntime implements RuntimeExtensionInterface
     public function filter(
         Environment $env,
         SlidingPaginationInterface $pagination,
-        array $fields, ?array $options = [],
+        array $fields,
+        ?array $options = [],
         ?array $params = [],
         ?string $template = null,
     ): string {

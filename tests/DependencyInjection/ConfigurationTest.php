@@ -73,6 +73,7 @@ final class ConfigurationTest extends TestCase
                 'pagination' => '@KnpPaginator/Pagination/foo.html.twig',
                 'filtration' => '@KnpPaginator/Pagination/bar.html.twig',
                 'sortable' => '@KnpPaginator/Pagination/baz.html.twig',
+                'rel_links' => '@KnpPaginator/Pagination/rel_links.html.twig',
             ],
             'page_range' => 15,
             'page_limit' => 100,
