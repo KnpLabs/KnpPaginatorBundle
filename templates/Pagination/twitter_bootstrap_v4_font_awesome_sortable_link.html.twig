@@ -6,7 +6,7 @@
  * @author Rodrigo Régis Palmeira <regisbsb@gmail.com>
  */
 #}
-<a{% for attr, value  in options %} {{ attr }}="{{ value }}"{% endfor %}>
+<a{% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>
     <span class="float-right">
         {% if sorted %}
             {% if direction == 'desc' %}

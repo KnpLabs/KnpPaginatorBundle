@@ -25,8 +25,22 @@ jobs:
               uses: actions/checkout@v4
             - name: Run PHP-CS-Fixer
               uses: docker://oskarstark/php-cs-fixer-ga
+
+    twig-cs-fixer:
+        runs-on: ubuntu-22.04
+        name: Twig-CS-Fixer
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Require the vendor
+              run: composer require --dev --no-update vincentlanglet/twig-cs-fixer ^2.11
+            - name: Update
+              run: composer update --no-interaction --no-progress
+            - name: Run
+              run: vendor/bin/twig-cs-fixer lint templates
+
     tests:
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-22.04
         strategy:
             matrix:
                 php:
@@ -38,6 +52,7 @@ jobs:
                 symfony:
                   - '6.4.*'
                   - '7.0.*'
+                  - '7.1.*'
                 include:
                   - php: '8.1'
                     symfony: '6.4.*'

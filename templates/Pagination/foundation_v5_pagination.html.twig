@@ -3,7 +3,7 @@
  * @file
  * Foundation 5 Sliding pagination control implementation.
  *
- * View that can be used with the pagination module 
+ * View that can be used with the pagination module
  * from the Foundation 5 CSS Toolkit
  * https://get.foundation/sites/docs-v5/components/pagination.html
  *
@@ -70,7 +70,7 @@
                 {% else %}
                     <li>
                         <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">
-                            {{ pageCount -1 }}
+                            {{ pageCount - 1 }}
                         </a>
                     </li>
                 {% endif %}
