@@ -8,6 +8,7 @@
         <service id="knp_paginator" class="Knp\Component\Pager\Paginator" public="true" lazy="true">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="Knp\Component\Pager\ArgumentAccess\ArgumentAccessInterface" />
+            <argument type="service" id="database_connection" on-invalid="null" />
             <tag name="proxy" interface="Knp\Component\Pager\PaginatorInterface" />
         </service>
 
