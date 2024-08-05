@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Knp\Bundle\PaginatorBundle\Tests\Pagination;
 
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,9 +20,7 @@ final class SlidingPaginationTest extends TestCase
         $this->pagination = new SlidingPagination([]);
     }
 
-    /**
-     * @dataProvider getPageLimitData
-     */
+    #[DataProvider('getPageLimitData')]
     public function testGetPageCount(int $expected, int $totalItemCount, int $itemsPerPage, ?int $pageLimit): void
     {
         $this->pagination->setTotalItemCount($totalItemCount);
@@ -31,9 +30,7 @@ final class SlidingPaginationTest extends TestCase
         $this->assertSame($expected, $this->pagination->getPageCount());
     }
 
-    /**
-     * @dataProvider getSortedData
-     */
+    #[DataProvider('getSortedData')]
     public function testSorted(bool $expected, string $sort, string $direction, $key): void
     {
         $this->pagination->setPaginatorOptions([
@@ -46,7 +43,7 @@ final class SlidingPaginationTest extends TestCase
         $this->assertSame($expected, $this->pagination->isSorted($key));
     }
 
-    public function getPageLimitData(): array
+    public static function getPageLimitData(): array
     {
         return [
             'Normal' => [5, 120, 25, null],
@@ -56,7 +53,7 @@ final class SlidingPaginationTest extends TestCase
         ];
     }
 
-    public function getSortedData(): \Generator
+    public static function getSortedData(): \Generator
     {
         yield [true, 'title', 'asc', null];
         yield [true, 'title', 'asc', 'title'];
