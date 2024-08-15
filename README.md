@@ -112,7 +112,7 @@ return static function (ContainerConfigurator $configurator): void
         ],
         'template' => [
             'pagination' => '@KnpPaginator/Pagination/sliding.html.twig',     // sliding pagination controls template
-            'pagination' => '@KnpPaginator/Pagination/rel_links.html.twig',     // <link rel=...> tags template
+            'rel_links' => '@KnpPaginator/Pagination/rel_links.html.twig',     // <link rel=...> tags template
             'sortable' => '@KnpPaginator/Pagination/sortable_link.html.twig', // sort link template
             'filtration' => '@KnpPaginator/Pagination/filtration.html.twig'   // filters template
         ]
