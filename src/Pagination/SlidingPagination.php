@@ -16,9 +16,6 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
 {
     private ?string $route = null;
 
-    /** @var array<string, mixed> */
-    private array $params;
-
     private int $pageRange = 5;
 
     private ?int $pageLimit = null;
@@ -34,9 +31,8 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
     /**
      * @param array<string, mixed> $params
      */
-    public function __construct(array $params)
+    public function __construct(private array $params)
     {
-        $this->params = $params;
     }
 
     public function setUsedRoute(?string $route): void

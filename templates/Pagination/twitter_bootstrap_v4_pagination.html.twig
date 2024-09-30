@@ -17,7 +17,7 @@
 
             {% if previous is defined %}
                 <li class="page-item">
-                    <a class="page-link" rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
+                    <a class="page-link" rel="prev" href="{{ path(route, knp_pagination_query(query, previous)) }}">&laquo;&nbsp;{{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
                 </li>
             {% else %}
                 <li class="page-item disabled">
@@ -27,11 +27,11 @@
 
             {% if startPage > 1 %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+                    <a class="page-link" href="{{ path(route, knp_pagination_query(query, 1)) }}">1</a>
                 </li>
                 {% if startPage == 3 %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+                        <a class="page-link" href="{{ path(route, knp_pagination_query(query, 2)) }}">2</a>
                     </li>
                 {% elseif startPage != 2 %}
                     <li class="page-item disabled">
@@ -43,7 +43,7 @@
             {% for page in pagesInRange %}
                 {% if page != current %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                        <a class="page-link" href="{{ path(route, knp_pagination_query(query, page)) }}">{{ page }}</a>
                     </li>
                 {% else %}
                     <li class="page-item active">
@@ -61,18 +61,18 @@
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount - 1 }}</a>
+                            <a class="page-link" href="{{ path(route, knp_pagination_query(query, pageCount - 1)) }}">{{ pageCount - 1 }}</a>
                         </li>
                     {% endif %}
                 {% endif %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+                    <a class="page-link" href="{{ path(route, knp_pagination_query(query, pageCount)) }}">{{ pageCount }}</a>
                 </li>
             {% endif %}
 
             {% if next is defined %}
                 <li class="page-item">
-                    <a class="page-link" rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}&nbsp;&raquo;</a>
+                    <a class="page-link" rel="next" href="{{ path(route, knp_pagination_query(query, next)) }}">{{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}&nbsp;&raquo;</a>
                 </li>
             {% else %}
                 <li  class="page-item disabled">

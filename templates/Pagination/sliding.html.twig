@@ -3,20 +3,20 @@
     <div class="pagination">
         {% if first is defined and current != first %}
             <span class="first">
-                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
+                <a href="{{ path(route, knp_pagination_query(query, first)) }}">&lt;&lt;</a>
             </span>
         {% endif %}
 
         {% if previous is defined %}
             <span class="previous">
-                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+                <a rel="prev" href="{{ path(route, knp_pagination_query(query, previous)) }}">&lt;</a>
             </span>
         {% endif %}
 
         {% for page in pagesInRange %}
             {% if page != current %}
                 <span class="page">
-                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                    <a href="{{ path(route, knp_pagination_query(query, page)) }}">{{ page }}</a>
                 </span>
             {% else %}
                 <span class="current">{{ page }}</span>
@@ -25,13 +25,13 @@
 
         {% if next is defined %}
             <span class="next">
-                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+                <a rel="next" href="{{ path(route, knp_pagination_query(query, next)) }}">&gt;</a>
             </span>
         {% endif %}
 
         {% if last is defined and current != last %}
             <span class="last">
-                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+                <a href="{{ path(route, knp_pagination_query(query, last)) }}">&gt;&gt;</a>
             </span>
         {% endif %}
     </div>
