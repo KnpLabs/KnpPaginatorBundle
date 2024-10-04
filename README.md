@@ -38,7 +38,6 @@ conflicting parameters.
 ## More detailed documentation:
 
 - Creating [custom pagination subscribers][doc_custom_pagination_subscriber]
-- [Extending pagination](#) class (todo, may require some refactoring)
 - [Customizing view][doc_templates] templates and arguments
 
 ## Installation and configuration:
