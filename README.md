@@ -8,8 +8,6 @@ Generally this bundle is based on [Knp Pager component][knp_component_pager]. Th
 component introduces a different way of pagination handling. You can read more about the
 internal logic on the given documentation link.
 
-[![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
-
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use
 older version of KnpPaginatorBundle - use **v3.0** or **v4.X** tags in the repository which is
 suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
