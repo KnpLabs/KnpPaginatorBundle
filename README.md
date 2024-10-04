@@ -16,9 +16,7 @@ suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
 
 ## Latest updates
 
-For notes about the latest changes please read [`CHANGELOG`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CHANGELOG.md),
-for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/docs/upgrade.md)
-chapter of the documentation.
+For details regarding changes please read about the [releases](https://github.com/KnpLabs/KnpPaginatorBundle/releases).
 
 ## Requirements:
 
