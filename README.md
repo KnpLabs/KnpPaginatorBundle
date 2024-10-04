@@ -83,7 +83,7 @@ knp_paginator:
         filter_value_name: filterValue  # filter value query parameter name
     template:
         pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template
-        rel_links: '@KnpPaginator/Pagination/rel_links.html.twig'     # <link rel=...> tags template
+        rel_links: '@KnpPaginator/Pagination/rel_links.html.twig'    # <link rel=...> tags template
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
 ```
@@ -105,13 +105,13 @@ return static function (ContainerConfigurator $configurator): void
             'sort_direction_name' => 'direction', // sort direction query parameter name
             'distinct' => true,                   // ensure distinct results, useful when ORM queries are using GROUP BY statements
             'filter_field_name' => 'filterField', // filter field query parameter name
-            'filter_value_name' => 'filterValue'  // filter value query parameter name
+            'filter_value_name' => 'filterValue', // filter value query parameter name
         ],
         'template' => [
             'pagination' => '@KnpPaginator/Pagination/sliding.html.twig',     // sliding pagination controls template
-            'rel_links' => '@KnpPaginator/Pagination/rel_links.html.twig',     // <link rel=...> tags template
+            'rel_links' => '@KnpPaginator/Pagination/rel_links.html.twig',    // <link rel=...> tags template
             'sortable' => '@KnpPaginator/Pagination/sortable_link.html.twig', // sort link template
-            'filtration' => '@KnpPaginator/Pagination/filtration.html.twig'   // filters template
+            'filtration' => '@KnpPaginator/Pagination/filtration.html.twig',  // filters template
         ]
     ]);
 };
@@ -186,8 +186,8 @@ public function listAction(EntityManagerInterface $em, PaginatorInterface $pagin
 
     $pagination = $paginator->paginate(
         $query, /* query NOT result */
-        $request->query->getInt('page', 1), /*page number*/
-        10 /*limit per page*/
+        $request->query->getInt('page', 1), /* page number */
+        10 /* limit per page */
     );
 
     // parameters to template
