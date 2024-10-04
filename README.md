@@ -42,7 +42,7 @@ conflicting parameters.
 
 ## Installation and configuration:
 
-### Pretty simple with [Composer](http://packagist.org), run
+### Pretty simple with [Composer](https://packagist.org), run
 
 ```sh
 composer require knplabs/knp-paginator-bundle
