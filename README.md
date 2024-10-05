@@ -8,17 +8,13 @@ Generally this bundle is based on [Knp Pager component][knp_component_pager]. Th
 component introduces a different way of pagination handling. You can read more about the
 internal logic on the given documentation link.
 
-[![knpbundles.com](http://knpbundles.com/KnpLabs/KnpPaginatorBundle/badge-short)](http://knpbundles.com/KnpLabs/KnpPaginatorBundle)
-
 **Note:** Keep **knp-components** in sync with this bundle. If you want to use
 older version of KnpPaginatorBundle - use **v3.0** or **v4.X** tags in the repository which is
 suitable to paginate **ODM MongoDB** and **ORM 2.0** queries
 
 ## Latest updates
 
-For notes about the latest changes please read [`CHANGELOG`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/CHANGELOG.md),
-for required changes in your code please read [`UPGRADE`](https://github.com/KnpLabs/KnpPaginatorBundle/blob/master/docs/upgrade.md)
-chapter of the documentation.
+For details regarding changes please read about the [releases](https://github.com/KnpLabs/KnpPaginatorBundle/releases).
 
 ## Requirements:
 
@@ -40,12 +36,11 @@ conflicting parameters.
 ## More detailed documentation:
 
 - Creating [custom pagination subscribers][doc_custom_pagination_subscriber]
-- [Extending pagination](#) class (todo, may require some refactoring)
 - [Customizing view][doc_templates] templates and arguments
 
 ## Installation and configuration:
 
-### Pretty simple with [Composer](http://packagist.org), run
+### Pretty simple with [Composer](https://packagist.org), run
 
 ```sh
 composer require knplabs/knp-paginator-bundle
@@ -86,7 +81,7 @@ knp_paginator:
         filter_value_name: filterValue  # filter value query parameter name
     template:
         pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template
-        rel_links: '@KnpPaginator/Pagination/rel_links.html.twig'     # <link rel=...> tags template
+        rel_links: '@KnpPaginator/Pagination/rel_links.html.twig'    # <link rel=...> tags template
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
 ```
@@ -112,7 +107,7 @@ return static function (ContainerConfigurator $configurator): void
         ],
         'template' => [
             'pagination' => '@KnpPaginator/Pagination/sliding.html.twig',     // sliding pagination controls template
-            'rel_links' => '@KnpPaginator/Pagination/rel_links.html.twig',     // <link rel=...> tags template
+            'rel_links' => '@KnpPaginator/Pagination/rel_links.html.twig',    // <link rel=...> tags template
             'sortable' => '@KnpPaginator/Pagination/sortable_link.html.twig', // sort link template
             'filtration' => '@KnpPaginator/Pagination/filtration.html.twig'   // filters template
         ]
@@ -189,8 +184,8 @@ public function listAction(EntityManagerInterface $em, PaginatorInterface $pagin
 
     $pagination = $paginator->paginate(
         $query, /* query NOT result */
-        $request->query->getInt('page', 1), /*page number*/
-        10 /*limit per page*/
+        $request->query->getInt('page', 1), /* page number */
+        10 /* limit per page */
     );
 
     // parameters to template
