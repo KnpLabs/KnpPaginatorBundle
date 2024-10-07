@@ -14,7 +14,7 @@
     <ul class="pagination">
         {% if first is defined and current != first %}
             <li class="waves-effect">
-                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">
+                <a href="{{ path(route, knp_pagination_query(query, first)) }}">
                     <i class="material-icons">first_page</i>
                 </a>
             </li>
@@ -28,7 +28,7 @@
 
         {% if previous is defined %}
             <li class="waves-effect">
-                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
+                <a rel="prev" href="{{ path(route, knp_pagination_query(query, previous)) }}">
                     <i class="material-icons">chevron_left</i>
                 </a>
             </li>
@@ -43,7 +43,7 @@
         {% for page in pagesInRange %}
             {% if page != current %}
                 <li class="waves-effect">
-                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                    <a href="{{ path(route, knp_pagination_query(query, page)) }}">{{ page }}</a>
                 </li>
             {% else %}
                 <li class="active">
@@ -54,7 +54,7 @@
 
         {% if next is defined %}
             <li class="waves-effect">
-                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+                <a rel="next" href="{{ path(route, knp_pagination_query(query, next)) }}">
                     <i class="material-icons">chevron_right</i>
                 </a>
             </li>
@@ -68,7 +68,7 @@
 
         {% if last is defined and current != last %}
             <li class="waves-effect">
-                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">
+                <a href="{{ path(route, knp_pagination_query(query, last)) }}">
                     <i class="material-icons">last_page</i>
                 </a>
             </li>

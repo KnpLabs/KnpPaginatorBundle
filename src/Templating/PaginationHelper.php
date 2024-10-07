@@ -16,14 +16,10 @@ use Symfony\Component\Templating\PhpEngine;
  */
 final class PaginationHelper extends Helper
 {
-    protected PhpEngine $templating;
-
-    protected Processor $processor;
-
-    public function __construct(Processor $processor, PhpEngine $templating)
-    {
-        $this->processor = $processor;
-        $this->templating = $templating;
+    public function __construct(
+        private readonly Processor $processor,
+        private readonly PhpEngine $templating
+    ) {
     }
 
     /**

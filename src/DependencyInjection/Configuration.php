@@ -55,6 +55,9 @@ final class Configuration implements ConfigurationInterface
                 ->booleanNode('convert_exception')
                 ->defaultFalse()
                 ->end()
+                ->booleanNode('remove_first_page_param')
+                ->defaultFalse()
+                ->end()
             ->end()
         ;
 

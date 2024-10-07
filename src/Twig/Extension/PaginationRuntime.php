@@ -9,11 +9,11 @@ use Twig\Extension\RuntimeExtensionInterface;
 
 final class PaginationRuntime implements RuntimeExtensionInterface
 {
-    private Processor $processor;
-
-    public function __construct(Processor $processor)
-    {
-        $this->processor = $processor;
+    public function __construct(
+        private readonly Processor $processor,
+        private readonly string $pageName = 'page',
+        private readonly bool $skipFirstPageLink = false,
+    ) {
     }
 
     /**
@@ -106,5 +106,23 @@ final class PaginationRuntime implements RuntimeExtensionInterface
             $template ?: $pagination->getFiltrationTemplate(),
             $this->processor->filter($pagination, $fields, $options ?? [], $params ?? [])
         );
+    }
+
+    /**
+     * @param array<string, mixed> $query
+     * @param int $page
+     * @return array<string, mixed>
+     */
+    public function getQueryParams(array $query, int $page): array
+    {
+        if ($page === 1 && $this->skipFirstPageLink) {
+            if (isset($query[$this->pageName])) {
+                unset($query[$this->pageName]);
+            }
+
+            return $query;
+        }
+
+        return array_merge($query, [$this->pageName => $page]);
     }
 }

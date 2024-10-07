@@ -3,6 +3,7 @@
 namespace Knp\Bundle\PaginatorBundle\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 final class PaginationExtension extends AbstractExtension
@@ -16,6 +17,7 @@ final class PaginationExtension extends AbstractExtension
             new TwigFunction('knp_pagination_rel_links', [PaginationRuntime::class, 'rel_links'], $options),
             new TwigFunction('knp_pagination_sortable', [PaginationRuntime::class, 'sortable'], $options),
             new TwigFunction('knp_pagination_filter', [PaginationRuntime::class, 'filter'], $options),
+            new TwigFunction('knp_pagination_query', [PaginationRuntime::class, 'getQueryParams']),
         ];
     }
 }

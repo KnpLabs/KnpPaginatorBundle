@@ -18,7 +18,7 @@ For details regarding changes please read about the [releases](https://github.co
 
 ## Requirements:
 
-- Knp Pager component `>=2.0`.
+- Knp Pager component `>=4.4`.
 - KnpPaginatorBundle's master is compatible with Symfony `>=6.4` versions.
 - Twig `>=3.0` version is required if you use the Twig templating engine.
 
@@ -66,12 +66,14 @@ public function registerBundles()
 
 ### Configuration example
 
-You can configure default query parameter names and templates
+You can configure default query parameter names and templates, and a few other options:
 
 #### YAML:
 ```yaml
 knp_paginator:
+    convert_exception: false            # throw a 404 exception when an invalid page is requested
     page_range: 5                       # number of links shown in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
+    remove_first_page_param: false      # remove the page query parameter from the first page link
     default_options:
         page_name: page                 # page query parameter name
         sort_field_name: sort           # sort field query parameter name
@@ -79,6 +81,8 @@ knp_paginator:
         distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
         filter_field_name: filterField  # filter field query parameter name
         filter_value_name: filterValue  # filter value query parameter name
+        page_out_of_range: ignore       # ignore, fix, or throwException when the page is out of range
+        default_limit: 10               # default number of items per page
     template:
         pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template
         rel_links: '@KnpPaginator/Pagination/rel_links.html.twig'    # <link rel=...> tags template
@@ -96,7 +100,9 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $configurator): void
 {
     $configurator->extension('knp_paginator', [
+        'convert_exception' => false,             // throw a 404 exception when an invalid page is requested
         'page_range' => 5,                        // number of links shown in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links
+        'remove_first_page_param' => false,       // remove the page query parameter from the first page link
         'default_options' => [
             'page_name' => 'page',                // page query parameter name
             'sort_field_name' => 'sort',          // sort field query parameter name
@@ -104,6 +110,8 @@ return static function (ContainerConfigurator $configurator): void
             'distinct' => true,                   // ensure distinct results, useful when ORM queries are using GROUP BY statements
             'filter_field_name' => 'filterField', // filter field query parameter name
             'filter_value_name' => 'filterValue'  // filter value query parameter name
+            'page_out_of_range' => 'ignore',      // ignore, fix, or throwException when the page is out of range
+            'default_limit' => 10                 // default number of items per page
         ],
         'template' => [
             'pagination' => '@KnpPaginator/Pagination/sliding.html.twig',     // sliding pagination controls template

@@ -15,14 +15,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 final class Processor
 {
-    private UrlGeneratorInterface $router;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(UrlGeneratorInterface $router, TranslatorInterface $translator)
-    {
-        $this->router = $router;
-        $this->translator = $translator;
+    public function __construct(
+        private readonly UrlGeneratorInterface $router,
+        private readonly TranslatorInterface $translator
+    ) {
     }
 
     /**

@@ -15,15 +15,11 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
     /** @var array<string, mixed> */
     private array $params = [];
 
-    /** @var array<string, mixed> */
-    private array $options;
-
     /**
      * @param array<string, mixed> $options
      */
-    public function __construct(array $options)
+    public function __construct(private readonly array $options)
     {
-        $this->options = $options;
     }
 
     public function onKernelRequest(RequestEvent $event): void

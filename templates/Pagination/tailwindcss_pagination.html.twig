@@ -4,20 +4,20 @@
         <div class="flex items-baseline flex-row border border-gray-400 rounded-sm w-auto">
         {% if first is defined and current != first %}
             <span class="bg-white text-blue-600 px-3 py-2 text-lg border-r border-gray-400 font-bold">
-                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
+                <a href="{{ path(route, knp_pagination_query(query, first)) }}">&lt;&lt;</a>
             </span>
         {% endif %}
 
         {% if previous is defined %}
             <span class="bg-white text-blue-600 px-3 text-lg py-2 border-r border-gray-400">
-                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&lt;</a>
+                <a rel="prev" href="{{ path(route, knp_pagination_query(query, previous)) }}">&lt;</a>
             </span>
         {% endif %}
 
         {% for page in pagesInRange %}
             {% if page != current %}
                 <span class="bg-white text-blue-600 px-3 py-2 text-lg border-r  border-gray-400">
-                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                    <a href="{{ path(route, knp_pagination_query(query, page)) }}">{{ page }}</a>
                 </span>
             {% else %}
                 <span class="bg-blue-600 text-white px-3 py-2 text-lg font-bold">{{ page }}</span>
@@ -26,13 +26,13 @@
 
         {% if next is defined %}
             <span class="bg-white text-blue-600 px-3 py-2 text-lg border-r border-gray-400">
-                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&gt;</a>
+                <a rel="next" href="{{ path(route, knp_pagination_query(query, next)) }}">&gt;</a>
             </span>
         {% endif %}
 
         {% if last is defined and current != last %}
             <span class="bg-white text-blue-600 px-3 py-2 text-lg border-gray-400 font-bold">
-                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+                <a href="{{ path(route, knp_pagination_query(query, last)) }}">&gt;&gt;</a>
             </span>
         {% endif %}
         </div>
