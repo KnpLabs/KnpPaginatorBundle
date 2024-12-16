@@ -6,19 +6,19 @@ on:
 
 jobs:
     phpstan:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         name: PHPStan
         steps:
             - name: Checkout
               uses: actions/checkout@v4
             - name: Run PHPStan
-              uses: docker://oskarstark/phpstan-ga
+              uses: docker://oskarstark/phpstan-ga:1.8.0
               env:
                   REQUIRE_DEV: true
               with:
                   args: analyse
     cs-fixer:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         name: PHP-CS-Fixer
         steps:
             - name: Checkout
@@ -27,32 +27,33 @@ jobs:
               uses: docker://oskarstark/php-cs-fixer-ga
 
     twig-cs-fixer:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         name: Twig-CS-Fixer
         steps:
             - name: Checkout
               uses: actions/checkout@v4
             - name: Require the vendor
-              run: composer require --dev --no-update vincentlanglet/twig-cs-fixer ^2.11
+              run: composer require --dev --no-update vincentlanglet/twig-cs-fixer ^3.4
             - name: Update
               run: composer update --no-interaction --no-progress
             - name: Run
               run: vendor/bin/twig-cs-fixer lint templates
 
     tests:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         strategy:
             matrix:
                 php:
                   - '8.1'
                   - '8.2'
                   - '8.3'
+                  - '8.4'
                 dependency:
                   - ''
                 symfony:
                   - '6.4.*'
-                  - '7.0.*'
                   - '7.1.*'
+                  - '7.2.*'
                 include:
                   - php: '8.1'
                     symfony: '6.4.*'
@@ -62,7 +63,7 @@ jobs:
                     dependency: 'lowest'
                 exclude:
                   - php: '8.1'
-                    symfony: '7.0.*'
+                    symfony: '7.1.*'
         name: PHPUnit PHP ${{ matrix.php }} ${{ matrix.dependency }} (Symfony ${{ matrix.symfony }})
         steps:
             - name: Checkout
