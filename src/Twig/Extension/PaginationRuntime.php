@@ -115,7 +115,7 @@ final class PaginationRuntime implements RuntimeExtensionInterface
      */
     public function getQueryParams(array $query, int $page, ?SlidingPaginationInterface $pagination = null): array
     {
-        $pageName = $pagination?->getPaginatorOption('page_name') ?? $this->pageName;
+        $pageName = $pagination?->getPaginatorOption('pageParameterName') ?? $this->pageName;
         if ($page === 1 && $this->skipFirstPageLink) {
             if (isset($query[$pageName])) {
                 unset($query[$pageName]);
