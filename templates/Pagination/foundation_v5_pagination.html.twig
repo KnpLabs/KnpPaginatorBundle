@@ -21,7 +21,7 @@
     <ul class="pagination">
         {% if previous is defined %}
                  <li class="arrow">
-                     <a rel="prev" href="{{ path(route, knp_pagination_query(query, previous, pagination)) }}">&laquo; {{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
+                     <a rel="prev" href="{{ path(route, knp_pagination_query(query, previous, paginatorOptions)) }}">&laquo; {{ 'label_previous'|trans({}, 'KnpPaginatorBundle') }}</a>
                  </li>
         {% else %}
             <li class="arrow unavailable">
@@ -33,11 +33,11 @@
 
         {% if startPage > 1 %}
             <li>
-                <a href="{{ path(route, knp_pagination_query(query, 1, pagination)) }}">1</a>
+                <a href="{{ path(route, knp_pagination_query(query, 1, paginatorOptions)) }}">1</a>
             </li>
             {% if startPage == 3 %}
                 <li>
-                    <a href="{{ path(route, knp_pagination_query(query, 2, pagination)) }}">2</a>
+                    <a href="{{ path(route, knp_pagination_query(query, 2, paginatorOptions)) }}">2</a>
                 </li>
             {% elseif startPage != 2 %}
                 <li class="unavailable">
@@ -49,7 +49,7 @@
         {% for page in pagesInRange %}
             {% if page != current %}
                 <li>
-                    <a href="{{ path(route, knp_pagination_query(query, page, pagination)) }}">
+                    <a href="{{ path(route, knp_pagination_query(query, page, paginatorOptions)) }}">
                         {{ page }}
                     </a>
                 </li>
@@ -69,20 +69,20 @@
                     </li>
                 {% else %}
                     <li>
-                        <a href="{{ path(route, knp_pagination_query(query, (pageCount - 1), pagination)) }}">
+                        <a href="{{ path(route, knp_pagination_query(query, (pageCount - 1), paginatorOptions)) }}">
                             {{ pageCount - 1 }}
                         </a>
                     </li>
                 {% endif %}
             {% endif %}
             <li>
-                <a href="{{ path(route, knp_pagination_query(query, pageCount, pagination)) }}">{{ pageCount }}</a>
+                <a href="{{ path(route, knp_pagination_query(query, pageCount, paginatorOptions)) }}">{{ pageCount }}</a>
             </li>
         {% endif %}
 
         {% if next is defined %}
             <li class="arrow">
-                <a rel="next" href="{{ path(route, knp_pagination_query(query, next, pagination)) }}">
+                <a rel="next" href="{{ path(route, knp_pagination_query(query, next, paginatorOptions)) }}">
                     {{ 'label_next'|trans({}, 'KnpPaginatorBundle') }} &nbsp;&raquo;
                 </a>
             </li>

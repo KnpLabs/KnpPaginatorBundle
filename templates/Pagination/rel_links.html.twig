@@ -1,9 +1,9 @@
 {% if pageCount > 1 %}
     {% if previous is defined %}
-        <link rel="prev" href="{{ path(route, knp_pagination_query(query, previous, pagination)) }}" />
+        <link rel="prev" href="{{ path(route, knp_pagination_query(query, previous, paginatorOptions)) }}" />
     {% endif %}
 
     {% if next is defined %}
-        <link rel="next" href="{{ path(route, knp_pagination_query(query, next, pagination)) }}" />
+        <link rel="next" href="{{ path(route, knp_pagination_query(query, next, paginatorOptions)) }}" />
     {% endif %}
 {% endif %}
