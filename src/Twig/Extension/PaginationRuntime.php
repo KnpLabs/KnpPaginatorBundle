@@ -116,7 +116,11 @@ final class PaginationRuntime implements RuntimeExtensionInterface
      */
     public function getQueryParams(array $query, int $page, array $options): array
     {
-        $pageName = $options['pageParameterName'] ?? $this->pageName;
+        $pageName = $this->pageName;
+        if (isset($options['pageParameterName']) && is_string($options['pageParameterName'])) {
+            $pageName = $options['pageParameterName'];
+        }
+
         if ($page === 1 && $this->skipFirstPageLink) {
             if (isset($query[$pageName])) {
                 unset($query[$pageName]);
