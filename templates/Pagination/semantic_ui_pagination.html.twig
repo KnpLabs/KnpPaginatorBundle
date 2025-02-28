@@ -12,20 +12,20 @@
 #}
 <div class="ui pagination menu">
     {% if first is defined and current != first %}
-        <a class="icon item" href="{{ path(route, knp_pagination_query(query, first)) }}">
+        <a class="icon item" href="{{ path(route, knp_pagination_query(query, first, options)) }}">
             <i class="angle double left icon"></i>
         </a>
     {% endif %}
 
     {% if previous is defined %}
-        <a rel="prev" class="item icon" href="{{ path(route, knp_pagination_query(query, previous)) }}">
+        <a rel="prev" class="item icon" href="{{ path(route, knp_pagination_query(query, previous, options)) }}">
             <i class="angle left icon"></i>
         </a>
     {% endif %}
 
     {% for page in pagesInRange %}
         {% if page != current %}
-            <a class="item" href="{{ path(route, knp_pagination_query(query, page)) }}">{{ page }}</a>
+            <a class="item" href="{{ path(route, knp_pagination_query(query, page, options)) }}">{{ page }}</a>
         {% else %}
             <span class="active item">{{ page }}</span>
         {% endif %}
@@ -33,13 +33,13 @@
     {% endfor %}
 
     {% if next is defined %}
-        <a rel="next" class="icon item" href="{{ path(route, knp_pagination_query(query, next)) }}">
+        <a rel="next" class="icon item" href="{{ path(route, knp_pagination_query(query, next, options)) }}">
             <i class="angle right icon"></i>
         </a>
     {% endif %}
 
     {% if last is defined and current != last %}
-        <a class="icon item" href="{{ path(route, knp_pagination_query(query, last)) }}">
+        <a class="icon item" href="{{ path(route, knp_pagination_query(query, last, options)) }}">
             <i class="angle right double icon"></i>
         </a>
     {% endif %}

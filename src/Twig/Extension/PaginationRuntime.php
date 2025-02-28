@@ -109,20 +109,26 @@ final class PaginationRuntime implements RuntimeExtensionInterface
     }
 
     /**
-     * @param array<string, mixed> $query
-     * @param int $page
+     * @param array<string, mixed>      $query
+     * @param int                       $page
+     * @param array<string, mixed>      $options
      * @return array<string, mixed>
      */
-    public function getQueryParams(array $query, int $page): array
+    public function getQueryParams(array $query, int $page, array $options): array
     {
+        $pageName = $this->pageName;
+        if (isset($options['pageParameterName']) && is_string($options['pageParameterName'])) {
+            $pageName = $options['pageParameterName'];
+        }
+
         if ($page === 1 && $this->skipFirstPageLink) {
-            if (isset($query[$this->pageName])) {
-                unset($query[$this->pageName]);
+            if (isset($query[$pageName])) {
+                unset($query[$pageName]);
             }
 
             return $query;
         }
 
-        return array_merge($query, [$this->pageName => $page]);
+        return array_merge($query, [$pageName => $page]);
     }
 }

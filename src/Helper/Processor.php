@@ -36,6 +36,7 @@ final class Processor
 
         $data['route'] = $pagination->getRoute();
         $data['query'] = \array_merge($pagination->getParams(), $queryParams);
+        $data['options'] = $pagination->getPaginatorOptions();
 
         return \array_merge(
             $pagination->getPaginatorOptions() ?? [], // options given to paginator when paginated
