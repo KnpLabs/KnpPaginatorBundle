@@ -2,6 +2,7 @@
     <nav aria-label="Pagination">
         {% set classAlign = (align is defined) ? " text-#{align}" : '' %}
         <ul class="pagination{{ classAlign }}">
+
             {% if previous is defined %}
                 <li class="pagination-previous">
                     <a rel="prev" href="{{ path(route, knp_pagination_query(query, previous, options)) }}">
@@ -67,6 +68,7 @@
                     {{ 'label_next'|trans({}, 'KnpPaginatorBundle') }}
                 </li>
             {% endif %}
+
         </ul>
     </nav>
 {% endif %}
