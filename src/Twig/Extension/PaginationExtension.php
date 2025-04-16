@@ -3,7 +3,6 @@
 namespace Knp\Bundle\PaginatorBundle\Twig\Extension;
 
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 final class PaginationExtension extends AbstractExtension

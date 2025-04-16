@@ -109,19 +109,19 @@ final class PaginationRuntime implements RuntimeExtensionInterface
     }
 
     /**
-     * @param array<string, mixed>      $query
-     * @param int                       $page
-     * @param array<string, mixed>      $options
+     * @param array<string, mixed> $query
+     * @param array<string, mixed> $options
+     *
      * @return array<string, mixed>
      */
     public function getQueryParams(array $query, int $page, array $options = []): array
     {
         $pageName = $this->pageName;
-        if (isset($options['pageParameterName']) && is_string($options['pageParameterName'])) {
+        if (isset($options['pageParameterName']) && \is_string($options['pageParameterName'])) {
             $pageName = $options['pageParameterName'];
         }
 
-        if ($page === 1 && $this->skipFirstPageLink) {
+        if (1 === $page && $this->skipFirstPageLink) {
             if (isset($query[$pageName])) {
                 unset($query[$pageName]);
             }
@@ -129,6 +129,6 @@ final class PaginationRuntime implements RuntimeExtensionInterface
             return $query;
         }
 
-        return array_merge($query, [$pageName => $page]);
+        return \array_merge($query, [$pageName => $page]);
     }
 }
