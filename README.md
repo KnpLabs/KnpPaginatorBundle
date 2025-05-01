@@ -109,7 +109,7 @@ return static function (ContainerConfigurator $configurator): void
             'sort_direction_name' => 'direction', // sort direction query parameter name
             'distinct' => true,                   // ensure distinct results, useful when ORM queries are using GROUP BY statements
             'filter_field_name' => 'filterField', // filter field query parameter name
-            'filter_value_name' => 'filterValue'  // filter value query parameter name
+            'filter_value_name' => 'filterValue',  // filter value query parameter name
             'page_out_of_range' => 'ignore',      // ignore, fix, or throwException when the page is out of range
             'default_limit' => 10                 // default number of items per page
         ],
