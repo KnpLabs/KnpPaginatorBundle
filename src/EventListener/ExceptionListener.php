@@ -14,6 +14,11 @@ final class ExceptionListener
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
+
+        while ($exception instanceof \Exception && $exception->getPrevious()) {
+            $exception = $exception->getPrevious();
+        }
+
         if ($exception instanceof \OutOfRangeException || $exception instanceof InvalidValueException) {
             $event->setThrowable(new NotFoundHttpException('Not Found.', $exception));
         }
