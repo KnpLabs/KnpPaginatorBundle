@@ -47,7 +47,7 @@
 
         <service id="knp_paginator.helper.processor" class="Knp\Bundle\PaginatorBundle\Helper\Processor">
             <argument type="service" id="router" />
-            <argument type="service" id="translator" />
+            <argument type="service" id="translator" on-invalid="null" />
         </service>
 
         <service id="knp_paginator.twig.extension.pagination" class="Knp\Bundle\PaginatorBundle\Twig\Extension\PaginationExtension">
