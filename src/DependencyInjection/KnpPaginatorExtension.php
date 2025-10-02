@@ -43,12 +43,14 @@ final class KnpPaginatorExtension extends Extension
         $container->setParameter('knp_paginator.page_limit', $config['page_limit']);
         $container->setParameter('knp_paginator.page_name', $config['default_options']['page_name']);
         $container->setParameter('knp_paginator.remove_first_page_param', $config['remove_first_page_param']);
+        $container->setParameter('knp_paginator.default.sort_field_name', $config['default_options']['sort_field_name']);
+        $container->setParameter('knp_paginator.default.sort_direction_name', $config['default_options']['sort_direction_name']);
 
         $paginatorDef = $container->getDefinition('knp_paginator');
         $paginatorDef->addMethodCall('setDefaultPaginatorOptions', [[
             'pageParameterName' => $config['default_options']['page_name'],
-            'sortFieldParameterName' => $config['default_options']['sort_field_name'],
-            'sortDirectionParameterName' => $config['default_options']['sort_direction_name'],
+            'sortFieldParameterName' => '%knp_paginator.default.sort_field_name%',
+            'sortDirectionParameterName' => '%knp_paginator.default.sort_direction_name%',
             'filterFieldParameterName' => $config['default_options']['filter_field_name'],
             'filterValueParameterName' => $config['default_options']['filter_value_name'],
             'distinct' => $config['default_options']['distinct'],
