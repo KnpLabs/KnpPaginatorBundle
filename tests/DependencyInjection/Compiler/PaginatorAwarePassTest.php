@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class PaginatorAwarePassTest extends TestCase
@@ -57,8 +57,8 @@ final class PaginatorAwarePassTest extends TestCase
     public function testProxyAndLazy(): void
     {
         $container = new ContainerBuilder();
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../../config'));
-        $loader->load('paginator.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../../config'));
+        $loader->load('paginator.php');
         $container->register('knp.paginator');
 
         $definition = $container->getDefinition('knp_paginator');

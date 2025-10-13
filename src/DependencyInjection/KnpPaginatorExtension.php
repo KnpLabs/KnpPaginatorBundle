@@ -8,27 +8,22 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class KnpPaginatorExtension extends Extension
 {
-    /**
-     * Build the extension services.
-     *
-     * @param array<string, array<string, mixed>> $configs
-     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $processor = new Processor();
 
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-        $loader->load('paginator.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader->load('paginator.php');
 
         if ($container->hasParameter('templating.engines')) {
             /** @var array<string> $engines */
             $engines = $container->getParameter('templating.engines');
             if (\in_array('php', $engines, true)) {
-                $loader->load('templating_php.xml');
+                $loader->load('templating_php.php');
             }
         }
 
