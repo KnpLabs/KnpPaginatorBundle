@@ -15,10 +15,10 @@
                 {% endfor %}
             </select>
         {% else %}
-            <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}"/>
+            <input type="hidden" name="{{ filterFieldName }}" value="{{ fields|keys|first }}">
         {% endif %}
         <input class="form-control" type="search" value="{{ selectedValue }}" name="{{ filterValueName }}"
-               placeholder="{{ 'filter_searchword'|trans({}, 'KnpPaginatorBundle') }}"/>
+               placeholder="{{ 'filter_searchword'|trans({}, 'KnpPaginatorBundle') }}">
         <button class="btn btn-primary">{{ options.button }}</button>
     </div>
 </form>
