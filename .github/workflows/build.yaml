@@ -1,16 +1,18 @@
 name: Build
 
 on:
+    push:
+        branches:
+            - master
     pull_request: ~
-    push: ~
 
 jobs:
     phpstan:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
         name: PHPStan
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
             - name: Run PHPStan
               uses: docker://oskarstark/phpstan-ga:1.8.0
               env:
@@ -18,31 +20,31 @@ jobs:
               with:
                   args: analyse
     cs-fixer:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
         name: PHP-CS-Fixer
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
             - name: Run PHP-CS-Fixer
               uses: docker://oskarstark/php-cs-fixer-ga
               with:
                 args: --diff --dry-run
 
     twig-cs-fixer:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
         name: Twig-CS-Fixer
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
             - name: Require the vendor
-              run: composer require --dev --no-update vincentlanglet/twig-cs-fixer ^3.4
+              run: composer require --dev --no-update vincentlanglet/twig-cs-fixer ^4.0
             - name: Update
               run: composer update --no-interaction --no-progress
             - name: Run
               run: vendor/bin/twig-cs-fixer lint templates
 
     tests:
-        runs-on: ubuntu-24.04
+        runs-on: ubuntu-26.04
         strategy:
             matrix:
                 php:
@@ -50,37 +52,37 @@ jobs:
                   - '8.2'
                   - '8.3'
                   - '8.4'
+                  - '8.5'
                 dependency:
                   - ''
                 symfony:
                   - '6.4.*'
-                  - '7.3.*'
-                  - '7.4.*@dev'
-                  - '8.0.*@dev'
+                  - '7.4.*'
+                  - '8.1.*'
                 include:
                   - php: '8.1'
                     symfony: '6.4.*'
                     dependency: 'lowest'
                   - php: '8.2'
-                    symfony: '7.3.*'
+                    symfony: '7.4.*'
                     dependency: 'lowest'
                 exclude:
                   - php: '8.1'
-                    symfony: '7.3.*'
+                    symfony: '7.4.*'
                   - php: '8.1'
-                    symfony: '7.3.*'
+                    symfony: '8.0.*'
                   - php: '8.1'
-                    symfony: '8.0.*@dev'
-                  - php: '8.1'
-                    symfony: '7.4.*@dev'
+                    symfony: '8.1.*'
                   - php: '8.2'
-                    symfony: '8.0.*@dev'
+                    symfony: '8.0.*'
+                  - php: '8.2'
+                    symfony: '8.1.*'
                   - php: '8.3'
-                    symfony: '8.0.*@dev'
+                    symfony: '8.1.*'
         name: PHPUnit PHP ${{ matrix.php }} ${{ matrix.dependency }} (Symfony ${{ matrix.symfony }})
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -88,38 +90,22 @@ jobs:
                 php-version: ${{ matrix.php }}
                 tools: flex
 
-            - name: Get Composer cache directory
-              id: composer-cache
-              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-
-            - name: Cache dependencies
-              uses: actions/cache@v4
-              with:
-                path: ${{ steps.composer-cache.outputs.dir }}
-                key: ${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
-                restore-keys: ${{ matrix.php }}-composer-
-
             - name: use possible dev deps
               if: contains(matrix.symfony, '@dev')
               run: |
                   composer config minimum-stability dev
                   composer config prefer-stable true
 
-            - name: Update project dependencies
-              if: matrix.dependency == ''
-              run: composer update --no-progress --ansi --prefer-stable
+            - name: Install dependencies
+              uses: ramsey/composer-install@v4
+              with:
+                  dependency-versions: ${{ matrix.dependency }}
               env:
-                SYMFONY_REQUIRE: ${{ matrix.symfony }}
-
-            - name: Update project dependencies lowest
-              if: matrix.dependency == 'lowest'
-              run: composer update --no-progress --ansi --prefer-stable --prefer-lowest
-              env:
-                SYMFONY_REQUIRE: ${{ matrix.symfony }}
+                  SYMFONY_REQUIRE: ${{ matrix.symfony }}
 
             - name: Validate composer
               run: composer validate --strict --no-check-lock
 
             - name: Run tests
-              run: vendor/bin/phpunit
+              run: vendor/bin/phpunit --colors=always
 
