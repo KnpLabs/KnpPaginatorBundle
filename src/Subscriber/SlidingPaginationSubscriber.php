@@ -80,9 +80,6 @@ final class SlidingPaginationSubscriber implements EventSubscriberInterface
         $event->stopPropagation();
     }
 
-    /**
-     * @return array<string, array<int, int|string>>
-     */
     public static function getSubscribedEvents(): array
     {
         return [

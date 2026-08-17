@@ -2,27 +2,26 @@ parameters:
 	ignoreErrors:
 
 		-
-			message: "#^Property Knp\\\\Bundle\\\\PaginatorBundle\\\\Subscriber\\\\SlidingPaginationSubscriber\\:\\:\\$params \\(array\\<string, mixed\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
-			count: 2
-			path: src/Subscriber/SlidingPaginationSubscriber.php
-
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:addDefaultsIfNotSet\\(\\)\\.$#"
-			count: 1
-			path: src/DependencyInjection/Configuration.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Symfony\\\\Component\\\\Routing\\\\Generator\\\\UrlGeneratorInterface\\:\\:generate\\(\\) expects string, string\\|null given\\.$#"
+			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Routing\\Generator\\UrlGeneratorInterface\:\:generate\(\) expects string, string\|null given\.$#'
+			identifier: argument.type
 			count: 2
 			path: src/Helper/Processor.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Symfony\\\\Component\\\\Templating\\\\PhpEngine\\:\\:render\\(\\) expects string\\|Symfony\\\\Component\\\\Templating\\\\TemplateReferenceInterface, string\\|null given\\.$#"
+			message: '#^Strict comparison using \!\=\= between null and iterable\<TKey, TValue\> will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: src/Pagination/SlidingPagination.php
+
+		-
+			message: '#^Parameter \#1 \$name of method Symfony\\Component\\Templating\\PhpEngine\:\:render\(\) expects string\|Symfony\\Component\\Templating\\TemplateReferenceInterface, string\|null given\.$#'
+			identifier: argument.type
 			count: 3
 			path: src/Templating/PaginationHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Twig\\\\Environment\\:\\:render\\(\\) expects string\\|Twig\\\\TemplateWrapper, string\\|null given\\.$#"
+			message: '#^Parameter \#1 \$name of method Twig\\Environment\:\:render\(\) expects string\|Twig\\TemplateWrapper, string\|null given\.$#'
+			identifier: argument.type
 			count: 4
 			path: src/Twig/Extension/PaginationRuntime.php
 

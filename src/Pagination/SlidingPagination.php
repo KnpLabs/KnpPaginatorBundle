@@ -154,7 +154,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
     public function getPaginationData(): array
     {
         $pageCount = $this->getPageCount();
-        $current = $this->currentPageNumber;
+        $current = (int) $this->currentPageNumber;
 
         if ($pageCount < $current) {
             $this->currentPageNumber = $current = $pageCount;
@@ -221,7 +221,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
             $viewData['firstItemNumber'] = 0;
             $viewData['lastItemNumber'] = 0;
             if ($viewData['totalCount'] > 0) {
-                $viewData['firstItemNumber'] = (($current - 1) * $this->numItemsPerPage) + 1;
+                $viewData['firstItemNumber'] = (($current - 1) * (int) $this->numItemsPerPage) + 1;
                 $viewData['lastItemNumber'] = $viewData['firstItemNumber'] + $viewData['currentItemCount'] - 1;
             }
         }
@@ -231,7 +231,7 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
 
     public function getPageCount(): int
     {
-        $count = (int) \ceil($this->totalCount / $this->numItemsPerPage);
+        $count = (int) \ceil((int) $this->totalCount / (int) $this->numItemsPerPage);
 
         if (null !== $this->pageLimit) {
             return \min($count, $this->pageLimit);
