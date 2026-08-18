@@ -13,8 +13,10 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v7
+            - run: |
+                  sed -e :a -e '$d;N;1,1ba' -e 'P;D' -i phpstan.neon
             - name: Run PHPStan
-              uses: docker://oskarstark/phpstan-ga:1.8.0
+              uses: docker://oskarstark/phpstan-ga
               env:
                   REQUIRE_DEV: true
               with:

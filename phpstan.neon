@@ -2,5 +2,9 @@ parameters:
     level: 8
     paths:
         - src
+    strictRules:
+        disallowedShortTernary: false
+ 
 includes:
     - phpstan-baseline.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
