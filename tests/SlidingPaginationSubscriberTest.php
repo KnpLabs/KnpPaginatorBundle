@@ -135,7 +135,7 @@ final class SlidingPaginationSubscriberTest extends TestCase
         $paginationEvent = new Event\PaginationEvent();
         $paginationEvent->options = &$this->options;
 
-        $kernel = $this->createMock(HttpKernelInterface::class);
+        $kernel = $this->createStub(HttpKernelInterface::class);
         $request = new Request($query, [], $attributes);
         $requestEvent = new RequestEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST);
 
