@@ -7,12 +7,12 @@ use Knp\Bundle\PaginatorBundle\Pagination\SlidingPaginationInterface;
 use Twig\Environment;
 use Twig\Extension\RuntimeExtensionInterface;
 
-final class PaginationRuntime implements RuntimeExtensionInterface
+final readonly class PaginationRuntime implements RuntimeExtensionInterface
 {
     public function __construct(
-        private readonly Processor $processor,
-        private readonly string $pageName = 'page',
-        private readonly bool $skipFirstPageLink = false,
+        private Processor $processor,
+        private string $pageName = 'page',
+        private bool $skipFirstPageLink = false,
     ) {
     }
 

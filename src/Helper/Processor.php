@@ -13,11 +13,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  *
  * @author Rafał Wrzeszcz <rafal.wrzeszcz@wrzasq.pl>
  */
-final class Processor
+final readonly class Processor
 {
     public function __construct(
-        private readonly UrlGeneratorInterface $router,
-        private readonly TranslatorInterface $translator
+        private UrlGeneratorInterface $router,
+        private TranslatorInterface $translator,
     ) {
     }
 
