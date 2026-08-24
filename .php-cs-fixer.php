@@ -10,8 +10,7 @@ return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
-        '@PHP8x0Migration:risky' => true,
-        '@PHP8x1Migration' => true,
+        '@PHP8x2Migration' => true,
         '@PHPUnit10x0Migration:risky' => true,
         'ordered_imports' => true,
         'declare_strict_types' => false,
