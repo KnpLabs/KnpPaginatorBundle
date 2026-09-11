@@ -16,6 +16,7 @@ knp_paginator:
         sort_field_name: sort          # sort field query parameter name; to disable sorting set this field to ~ (null)
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        wrap_queries: false            # enable Doctrine ORM output walkers; set true for complex queries selecting a non-root entity so the LIMIT subquery selects the right identifier
         page_out_of_range: ignore      # if page number exceeds the last page. Options: 'fix'(return last page); 'throwException'
         default_limit: 10              # default number of items per page
     template:

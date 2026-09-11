@@ -25,6 +25,7 @@ final class Configuration implements ConfigurationInterface
                         ->scalarNode('filter_value_name')->defaultValue('filterValue')->end()
                         ->scalarNode('page_name')->defaultValue('page')->end()
                         ->booleanNode('distinct')->defaultTrue()->end()
+                        ->booleanNode('wrap_queries')->defaultFalse()->end()
                         ->scalarNode('page_out_of_range')->defaultValue(PaginatorInterface::PAGE_OUT_OF_RANGE_IGNORE)->end()
                         ->scalarNode('default_limit')->defaultValue(PaginatorInterface::DEFAULT_LIMIT_VALUE)->end()
                     ->end()
