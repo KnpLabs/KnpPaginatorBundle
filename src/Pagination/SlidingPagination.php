@@ -213,8 +213,10 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
         }
 
         $viewData['pagesInRange'] = $pages;
-        $viewData['firstPageInRange'] = \min($pages);
-        $viewData['lastPageInRange'] = \max($pages);
+        $firstPage = $pages[0];
+        $lastPage = $pages[\count($pages) - 1];
+        $viewData['firstPageInRange'] = \min($firstPage, $lastPage);
+        $viewData['lastPageInRange'] = \max($firstPage, $lastPage);
 
         if (null !== $this->getItems()) {
             $viewData['currentItemCount'] = $this->count();
