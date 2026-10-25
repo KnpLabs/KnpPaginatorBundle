@@ -67,10 +67,12 @@ final class SlidingPaginationTest extends TestCase
         yield 'empty parameter name' => [['' => 'title'], [], '', 'title', true];
         yield 'numeric-looking string name' => [['01' => 'title'], [], '01', 'title', true];
         yield 'decimal string name' => [['1.2' => 'title'], [], '1.2', 'title', true];
-        yield 'integer name is reindexed' => [[7 => 'title'], [], 0, 'title', true];
-        yield 'integer override is appended' => [[7 => 'title'], [9 => 'other'], 1, 'other', true];
-        yield 'numeric string name is reindexed' => [[7 => 'title'], [], '0', 'title', true];
-        yield 'original numeric index disappears' => [[7 => 'title'], [], 7, 'title', false];
+        yield 'integer name retains its index' => [[7 => 'title'], [], 7, 'title', true];
+        yield 'integer override wins' => [[7 => 'title'], [7 => 'other'], 7, 'other', true];
+        yield 'integer null override clears sort' => [[7 => 'title'], [7 => null], 7, null, false];
+        yield 'numeric string name retains its index' => [[7 => 'title'], [], '7', 'title', true];
+        yield 'unrelated numeric override' => [[7 => 'title'], [9 => 'other'], 7, 'title', true];
+        yield 'numeric index is not reindexed' => [[7 => 'title'], [], 0, 'title', false];
         yield 'numeric values do not override string sort' => [['sort' => 'title', 7 => 'other'], [9 => 'different'], 'sort', 'title', true];
     }
 
