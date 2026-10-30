@@ -43,6 +43,39 @@ final class SlidingPaginationTest extends TestCase
         $this->assertSame($expected, $this->pagination->isSorted($key));
     }
 
+    #[DataProvider('getSortOverrideData')]
+    public function testSortParameterOverrides(array $base, array $overrides, mixed $parameterName, array|string|null $key, bool $expected): void
+    {
+        $pagination = new SlidingPagination($base);
+        $pagination->setPaginatorOptions(['sortFieldParameterName' => $parameterName]);
+
+        self::assertSame($expected, $pagination->isSorted($key, $overrides));
+    }
+
+    public static function getSortOverrideData(): \Generator
+    {
+        yield 'override wins' => [['sort' => 'title'], ['sort' => 'other'], 'sort', 'other', true];
+        yield 'null override clears sort' => [['sort' => 'title'], ['sort' => null], 'sort', null, false];
+        yield 'null override does not match' => [['sort' => 'title'], ['sort' => null], 'sort', 'title', false];
+        yield 'base used without override' => [['sort' => 'title'], ['filter' => 'value'], 'sort', 'title', true];
+        yield 'missing sort' => [[], ['filter' => 'value'], 'sort', null, false];
+        yield 'null base' => [['sort' => null], [], 'sort', null, false];
+        yield 'empty sort exists' => [['sort' => ''], [], 'sort', null, true];
+        yield 'strict comparison' => [['sort' => 1], [], 'sort', '1', false];
+        yield 'compound sort' => [['sort' => 'title+subtitle'], [], 'sort', ['title', 'subtitle'], true];
+        yield 'empty compound sort' => [['sort' => ''], [], 'sort', [], true];
+        yield 'empty parameter name' => [['' => 'title'], [], '', 'title', true];
+        yield 'numeric-looking string name' => [['01' => 'title'], [], '01', 'title', true];
+        yield 'decimal string name' => [['1.2' => 'title'], [], '1.2', 'title', true];
+        yield 'integer name retains its index' => [[7 => 'title'], [], 7, 'title', true];
+        yield 'integer override wins' => [[7 => 'title'], [7 => 'other'], 7, 'other', true];
+        yield 'integer null override clears sort' => [[7 => 'title'], [7 => null], 7, null, false];
+        yield 'numeric string name retains its index' => [[7 => 'title'], [], '7', 'title', true];
+        yield 'unrelated numeric override' => [[7 => 'title'], [9 => 'other'], 7, 'title', true];
+        yield 'numeric index is not reindexed' => [[7 => 'title'], [], 0, 'title', false];
+        yield 'numeric values do not override string sort' => [['sort' => 'title', 7 => 'other'], [9 => 'different'], 'sort', 'title', true];
+    }
+
     #[DataProvider('getRangeBoundaryData')]
     public function testRangeBoundaries(int $total, int $range, int $current, array $expectedPages, int|float $expectedFirst, int|float $expectedLast): void
     {

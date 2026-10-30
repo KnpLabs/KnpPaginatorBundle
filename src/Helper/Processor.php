@@ -112,14 +112,9 @@ final readonly class Processor
             $key = \implode('+', $key);
         }
 
-        $params = \array_merge(
-            $params,
-            [
-                $pagination->getPaginatorOption('sortFieldParameterName') => $key,
-                $pagination->getPaginatorOption('sortDirectionParameterName') => $direction,
-                $pagination->getPaginatorOption('pageParameterName') => 1, // reset to 1 on sort
-            ]
-        );
+        $params[$pagination->getPaginatorOption('sortFieldParameterName')] = $key;
+        $params[$pagination->getPaginatorOption('sortDirectionParameterName')] = $direction;
+        $params[$pagination->getPaginatorOption('pageParameterName')] = 1; // reset to 1 on sort
 
         $options['href'] = $this->router->generate($pagination->getRoute(), $params, $options['absolute']);
 

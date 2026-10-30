@@ -123,17 +123,18 @@ final class SlidingPagination extends AbstractPagination implements SlidingPagin
      */
     public function isSorted($key = null, array $params = []): bool
     {
-        $params = \array_merge($this->params, $params);
+        $name = $this->getPaginatorOption('sortFieldParameterName');
+        $value = \array_key_exists($name, $params) ? $params[$name] : ($this->params[$name] ?? null);
 
         if (null === $key) {
-            return isset($params[$this->getPaginatorOption('sortFieldParameterName')]);
+            return null !== $value;
         }
 
         if (\is_array($key)) {
             $key = \implode('+', $key);
         }
 
-        return isset($params[$this->getPaginatorOption('sortFieldParameterName')]) && $params[$this->getPaginatorOption('sortFieldParameterName')] === $key;
+        return null !== $value && $value === $key;
     }
 
     public function getPage(): ?int
